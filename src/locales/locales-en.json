@@ -1,0 +1,15 @@
+{
+    "navbar": {
+      "home": "Home",
+      "about": "About",
+      "menu": "Menu",
+      "contact": "Contact",
+      "hello": "Hello :",
+      "history": "History",
+      "comment": "Comment",
+      "setting": "Setting",
+      "logout": "Logout",
+      "signup": "Sign Up",
+      "login": "Login"
+    }
+}
