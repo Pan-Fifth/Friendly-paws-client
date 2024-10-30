@@ -1,6 +1,6 @@
 
 import { create } from "zustand";
-import { register, login } from "../apis/AuthApi";
+import { register, login, loginGoogle } from "../apis/AuthApi";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { toast } from 'react-toastify';
 
@@ -49,7 +49,28 @@ const useAuthStore = create(persist((set, get) => ({
             user: null,
             token: null
         })
-    }
+    },
+
+    actionLoginGoogle: async (token) => {
+        try {
+            const result = await loginGoogle(token);
+            if (result.data && result.data.token) {
+                set({
+                    user: result.data.user,
+                    token: result.data.token
+                });
+                console.log("User after login:", result.data.user);
+                console.log("Token after login:", result.data.token);
+                return result.data;
+            } else {
+                throw new Error("Login failed or token not received.");
+            }
+        } catch (err) {
+            console.error("Error during Google login:", err);
+            toast.error("Login failed");
+        }
+    },
+
 }), {
 
     name: "auth-store",

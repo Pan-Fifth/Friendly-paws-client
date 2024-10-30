@@ -9,7 +9,8 @@ export default function Navbar() {
 
 
 
-    console.log(user)
+    console.log("Current user data:", user);
+
     const hdlClickLogout = () => {
         actionLogout();
     };
@@ -37,7 +38,7 @@ export default function Navbar() {
                             {/* วงกลมที่แสดงตัวอักษร */}
                             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
                                 <span className="text-white">
-                                    {(user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())}
+                                    {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())) || ((user?.firstname?.charAt(0).toUpperCase() || user?.role?.charAt(0).toUpperCase()))}
                                 </span>
 
                             </div>
