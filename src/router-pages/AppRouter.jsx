@@ -17,6 +17,7 @@ import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import PaymentDonate from '../components/user-components/PaymentDonate';
 import Completion from '../components/user-components/Completion';
+import EditProfile from '../components/user-components/EditProfile';
 
 
 
@@ -54,15 +55,16 @@ const pageRouter = createBrowserRouter([
         ),
         children: [
             { path: '', element: <Test /> },
+            { path: 'register', element: <Register /> },
+            { path: 'login', element: <Login /> },
             { path: 'forget-password', element: <ForgetPassword /> },
             { path: 'reset-password/:token', element: <ResetPassword /> },
+            { path: 'profile', element: <EditProfile /> },
             { path: 'about', element: <Test /> },
             { path: 'adopt', element: <Test /> },
             { path: 'donate', element: <Test /> },
             { path: 'event', element: <Test /> },
             { path: 'contact', element: <Test /> },
-            { path: 'register', element: <Register /> },
-            { path: 'login', element: <Login /> },
 
 
             { path: 'privacy-policy', element: <PrivacyPolicy /> },

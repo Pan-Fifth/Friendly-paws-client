@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import { IoMdArrowDropdown } from "react-icons/io";
+
 import useAuthStore from './../../stores/AuthStore';
 
 export default function Navbar() {
 
     const user = useAuthStore((state) => state.user)
     const actionLogout = useAuthStore((state) => state.actionLogout);
+    const [isDropdownUserOpen, setDropdownUserOpen] = useState(false);
+
 
 
 
@@ -14,6 +18,12 @@ export default function Navbar() {
     const hdlClickLogout = () => {
         actionLogout();
     };
+
+    const toggleDropdownUser = () => {
+        setDropdownUserOpen(!isDropdownUserOpen);
+    };
+
+
 
     return (
         <div>
@@ -36,11 +46,26 @@ export default function Navbar() {
                     {user ? (
                         <div className="flex items-center space-x-4">
                             {/* วงกลมที่แสดงตัวอักษร */}
-                            <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
-                                <span className="text-white">
-                                    {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())) || ((user?.firstname?.charAt(0).toUpperCase() || user?.role?.charAt(0).toUpperCase()))}
-                                </span>
+                            <div className='flex items-center relative'>
+                                <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
+                                    <span className="text-white">
+                                        {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())) || ((user?.firstname?.charAt(0).toUpperCase() || user?.role?.charAt(0).toUpperCase()))}
+                                    </span>
 
+                                </div>
+                                <IoMdArrowDropdown className="cursor-pointer" onClick={toggleDropdownUser} />
+                                {isDropdownUserOpen && (
+                                    <div className="absolute mt-5 w-32 top-6 right-0 bg-white rounded-md shadow-lg">
+                                        <ul className="py-2">
+                                            <li>
+                                                <Link to="/profile" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                                    EditProfile
+                                                </Link>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                )}
                             </div>
 
                             <Link onClick={hdlClickLogout} to="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
