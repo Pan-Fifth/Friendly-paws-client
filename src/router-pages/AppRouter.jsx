@@ -15,6 +15,8 @@ import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
+import PaymentDonate from '../components/user-components/PaymentDonate';
+import Completion from '../components/user-components/Completion';
 
 
 
@@ -61,12 +63,12 @@ const pageRouter = createBrowserRouter([
             { path: 'contact', element: <Test /> },
             { path: 'register', element: <Register /> },
             { path: 'login', element: <Login /> },
+
+
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
             { path: 'terms', element: <TermsOfService /> },
-
-
-            // { path: 'payment', element: <PaymentCredit /> },
-            // { path: 'completion', element: <Completion /> },
+            { path: 'payment', element: <PaymentDonate /> },
+            { path: 'completion', element: <Completion /> },
 
         ]
     },

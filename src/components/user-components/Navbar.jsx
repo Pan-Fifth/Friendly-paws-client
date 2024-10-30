@@ -25,12 +25,12 @@ export default function Navbar() {
 
 
                 <div className="hidden md:flex gap-8 text-white">
-                    <Link to="/" className="font-head">home</Link>
-                    <Link to="/about" className="font-head">about</Link>
-                    <Link to="/adopt" className="font-head">adopt</Link>
-                    <Link to="/donate" className="font-head">donate</Link>
-                    <Link to="/event" className="font-head">event</Link>
-                    <Link to="/contact" className="font-head">contact</Link>
+                    <Link to="/" className="font-head">Home</Link>
+                    <Link to="/about" className="font-head">About</Link>
+                    <Link to="/adopt" className="font-head">Adopt</Link>
+                    <Link to="/donate" className="font-head">Donate</Link>
+                    <Link to="/event" className="font-head">Event</Link>
+                    <Link to="/contact" className="font-head">Contact</Link>
                 </div>
                 <div className="hidden md:flex gap-8 text-white">
                     {user ? (
@@ -50,8 +50,8 @@ export default function Navbar() {
                     )
                         : (
                             <div className='flex gap-10'>
-                                <Link to="/register" className="font-head">register</Link>
-                                <Link to="/login" className="font-head">login</Link>
+                                <Link to="/register" className="font-head">Register</Link>
+                                <Link to="/login" className="font-head">Login</Link>
                             </div>
                         )}
 
