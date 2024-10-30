@@ -13,6 +13,7 @@ import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
+import Adopt from '../pages/Adopt';
 
 
 
@@ -53,7 +54,7 @@ const pageRouter = createBrowserRouter([
             { path: 'forget-password', element: <ForgetPassword /> },
             { path: 'reset-password/:token', element: <ResetPassword /> },
             { path: 'about', element: <Test /> },
-            { path: 'adopt', element: <Test /> },
+            { path: 'adopt', element: <Adopt /> },
             { path: 'donate', element: <Test /> },
             { path: 'event', element: <Test /> },
             { path: 'contact', element: <Test /> },
