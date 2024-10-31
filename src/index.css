@@ -174,8 +174,8 @@
     @apply bg-background text-foreground;
     }
 }
-
-@property --n {
+/* under this  */
+/* @property --n {
     syntax: "<number>";
     inherits: true;
     initial-value: 0;
@@ -189,11 +189,11 @@
     height: fit;
     display: flex;
     margin: auto;
-    /* border-radius: 1px;
-    box-sizing: border-box; */
+    border-radius: 1px;
+    box-sizing: border-box;
     padding: 20px;
-    /* box-shadow: 0 0 4px rgb(206,209,212); */
-    /* background: linear-gradient(45deg, rgb(182, 29, 29), rgb(222,235,252)); */
+    box-shadow: 0 0 4px rgb(206,209,212);
+    background: linear-gradient(45deg, rgb(182, 29, 29), rgb(222,235,252));
     animation-timeline: view(block 98% 2%);
     animation-name: slide;
     animation-fill-mode: both;
@@ -238,10 +238,10 @@
       width: 4px;
       height: inherit;
       background: rgb(55,126,245);
-      transform: scaleY(var(--n)); /* where the animation takes place */
+      transform: scaleY(var(--n)); 
       transform-origin: top;
     }
-  }
+  } */
   
   /* body {
     display: grid;
@@ -292,7 +292,7 @@
   /* } */
   
   
-  .container {
+  /* .container {
     position: relative;
     width: 100%;
     height: 800px;
@@ -528,7 +528,7 @@
   }
   .wgh-slider-target:nth-of-type(8):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(8) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(7):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(7) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(6):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(6) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(5):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(5) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(4):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(4) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(3):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(3) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(2):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(2) ~ .wgh-slider-item, .wgh-slider-target:nth-of-type(1):checked ~ .wgh-slider__viewport .wgh-slider-item:nth-child(1) ~ .wgh-slider-item {
     transform: translate3d(0, 0, 0) rotateY(-45deg) !important;
-  }
+  } */
 
   /* .bgMain {
     animation:slide2 4s ease-in-out infinite alternate;
