@@ -11,7 +11,13 @@ export const login = (form) => {
     return axios.post("http://localhost:3000/auth/login", form)
 
 }
-
+export const loginGoogle = (token) => {
+    return axios.post("http://localhost:3000/auth/login-google", { token }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+};
 
 export const forgetPassword = (email) => {
 
