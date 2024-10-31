@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { IoMdArrowDropdown } from "react-icons/io";
 
-import useAuthStore from './../../stores/AuthStore';
+import useAuthStore from '../../stores/AuthStore';
 
-export default function Navbar() {
+export default function AdminNavbar() {
 
     const user = useAuthStore((state) => state.user)
     const actionLogout = useAuthStore((state) => state.actionLogout);
@@ -35,12 +35,11 @@ export default function Navbar() {
 
 
                 <div className="hidden md:flex gap-8 text-white">
-                    <Link to="/" className="font-head">Home</Link>
-                    <Link to="/about" className="font-head">About</Link>
-                    <Link to="/adopt" className="font-head">Adopt</Link>
-                    <Link to="/donate" className="font-head">Donate</Link>
-                    <Link to="/event" className="font-head">Event</Link>
-                    <Link to="/contact" className="font-head">Contact</Link>
+                    <Link to="/admin" className="font-head">Home</Link>
+                    <Link className="font-head">Manage</Link>
+                    <Link className="font-head">Report</Link>
+                    <Link className="font-head">Donate</Link>
+
                 </div>
                 <div className="hidden md:flex gap-8 text-white">
                     {user ? (
