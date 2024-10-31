@@ -13,6 +13,7 @@ import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
+import Homepage from '../components/user-components/Homepage';
 import Adopt from '../pages/Adopt';
 import AdoptDetail from '../pages/AdoptDetail';
 
@@ -72,8 +73,9 @@ const pageRouter = createBrowserRouter([
 
             </div>
         ),
+
         children: [
-            { path: '', element: <Test /> },
+            { path: '', element: <Homepage /> },
             { path: 'register', element: <Register /> },
             { path: 'login', element: <Login /> },
             { path: 'forget-password', element: <ForgetPassword /> },

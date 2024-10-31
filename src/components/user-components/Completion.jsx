@@ -16,8 +16,11 @@ export default function Completion() {
         async function clearCart() {
             try {
                 // เรียก API เพื่อยืนยันการชำระเงินในเบื้องต้น
-                const response = await confirmPayment(userId);
-
+                const response = await confirmPayment({
+                    userId: userId,
+                    amount: 1000, // Get this from your payment state/context
+                    paymentMethod: 'CREDIT' // Specify the payment method being used
+                });
                 // แสดงข้อความยืนยันว่าการชำระเงินสำเร็จ
                 Swal.fire({
                     title: 'Payment Confirmed!',
