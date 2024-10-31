@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { getDonateData, getAllDonateData } from '@/src/apis/AdminReportApi';
+import { getExportDonatationExcel } from '@/src/apis/AdminExportExcel';
+import Swal from 'sweetalert2';
 
 export default function ReportDonation() {
     const [startDate, setStartDate] = useState('')
@@ -25,6 +27,33 @@ export default function ReportDonation() {
         }
     };
     console.log(donates, "donates")
+
+    const handleExportExcel = async () => {
+        if (donates.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'กรุณาเลือกข้อมูล',
+                text: 'โปรดเลือกข้อมูลก่อนทำการบันทึก',
+                confirmButtonText: 'ตกลง'
+            });
+            return;
+        }
+
+        try {
+            const response = await getExportDonatationExcel(donates)
+
+            // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'donations-report.xlsx');
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Error exporting to Excel:', error);
+        }
+    };
+
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -52,6 +81,12 @@ export default function ReportDonation() {
                     className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
                 >
                     ข้อมูลระดมทุนทั้งหมดของปีนี้
+                </button>
+                <button
+                    onClick={handleExportExcel}
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                >
+                    บันทึกข้อมูล
                 </button>
             </div>
 
