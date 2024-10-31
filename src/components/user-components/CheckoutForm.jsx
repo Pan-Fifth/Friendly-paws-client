@@ -8,7 +8,7 @@ export default function CheckoutFormCredit() {
 
     const user = useAuthStore((state) => state.user);
     const elements = useElements();
-
+    console.log("user",user)
 
     const stripe = useStripe();
 

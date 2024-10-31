@@ -20,14 +20,18 @@ import useAuthStore from "@/src/stores/AuthStore";
 import DonationDashboard from "./DonationDashboard";
 import LiveChat from "./LiveChat";
 import ChatPortal from "./ChatPortal";
+import PaymentDonate from "./PaymentDonate";
 
 const Donation = () => {
-  const { user, token } = useAuthStore();
+  // const { user, token } = useAuthStore();
   const [amount, setAmount] = useState("");
   const [customAmount, setCustomAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("CREDIT");
+  // const [paymentMethod, setPaymentMethod] = useState("CREDIT");
   const [isRecurring, setIsRecurring] = useState(false);
   const [totalDonationAmount, setTotalDonationAmount] = useState(0);
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
   const { toast } = useToast();
 
   const donationOptions = [
@@ -49,10 +53,10 @@ const Donation = () => {
   ];
 
   const getTotalDonationAmount = async () => {
+    setIsLoading(true);
     try {
       const response = await axios.get(`http://localhost:3000/user/donate`);
       if (response.data.success) {
-        // console.log(response.data.data);
         setTotalDonationAmount(response.data.data.totalAmount);
       }
     } catch (error) {
@@ -62,6 +66,8 @@ const Donation = () => {
         title: "Error",
         description: error.response?.data?.message || "Something went wrong. Please try again.",
       });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -69,52 +75,30 @@ const Donation = () => {
     getTotalDonationAmount();
   }, []);
 
+  useEffect(() => {
+    return () => {
+      setShowPaymentDialog(false);
+      setAmount("");
+      setCustomAmount("");
+    };
+  }, []);
+  
+
   const handleAmountSelect = (selectedAmount) => {
     setAmount(selectedAmount);
     setCustomAmount("");
   };
 
   const handleCustomAmountChange = (e) => {
-    setCustomAmount(e.target.value);
-    setAmount(e.target.value);
-  };
-
-  const handleDonation = async () => {
-    try {
-      const response = await axios.post(
-        `http://localhost:3000/user/donate`,
-        {
-          userId: user?.user?.id,
-          total: parseFloat(amount),
-          payment_method: paymentMethod,
-          transaction_id: `TR${Date.now()}`,
-          is_recurring: isRecurring,
-          receipt_url: "placeholder_url",
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      if (response.data.success) {
-        toast({
-          title: "Success!",
-          description: "Thank you for your donation!",
-        });
-        setAmount("");
-        setCustomAmount("");
-      }
-    } catch (error) {
-      console.error("Error making donation:", error);
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: error.response?.data?.message || "Something went wrong. Please try again.",
-      });
+    const value = e.target.value;
+    if (value >= 0) {
+      setCustomAmount(value);
+      setAmount(value);
     }
   };
+  
+
+  
 
   return (
     <div className="container mx-auto p-6 min-h-screen bg-gradient-to-b from-background/50 to-muted/50">
@@ -211,23 +195,7 @@ const Donation = () => {
                 </motion.div>
               )}
   
-              <div className="space-y-2">
-                <Label>Payment Method</Label>
-                <RadioGroup
-                  value={paymentMethod}
-                  onValueChange={setPaymentMethod}
-                  className="flex flex-col space-y-2"
-                >
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="CREDIT" id="CREDIT" />
-                    <Label htmlFor="CREDIT">Credit Card</Label>
-                  </div>
-                  <div className="flex items-center space-x-2">
-                    <RadioGroupItem value="PROMPTPAY" id="PROMPTPAY" />
-                    <Label htmlFor="PROMPTPAY">Bank Transfer</Label>
-                  </div>
-                </RadioGroup>
-              </div>
+
   
               <div className="flex items-center space-x-2">
                 <Switch 
@@ -243,7 +211,7 @@ const Donation = () => {
             <CardFooter>
               <Button 
                 className="w-full bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 transition-all"
-                onClick={handleDonation} 
+                onClick={()=>setShowPaymentDialog(true)} 
                 disabled={!amount || amount <= 0}
               >
                 Donate ฿{amount || 0}
@@ -262,6 +230,19 @@ const Donation = () => {
       >
         <DonationDashboard totalDonationAmount={totalDonationAmount} />
       </motion.div>
+      {showPaymentDialog && (
+  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div className="bg-background p-6 rounded-lg max-w-md w-full">
+      <PaymentDonate amount={amount} />
+      <Button 
+        className="mt-4 w-full"
+        onClick={() => setShowPaymentDialog(false)}
+      >
+        Close
+      </Button>
+    </div>
+  </div>
+)}
     </div>
   );
   
