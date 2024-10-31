@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import useAuthStore from '../../stores/AuthStore'
 import validateLogin from './../../utils/LoginValidate';
 import ForgetPassword from './ForgetPassword';
+import LoginGoogle from './LoginGoogle';
 
 export default function Login() {
 
@@ -22,9 +23,6 @@ export default function Login() {
     const setIsOpen = useAuthStore((state) => state.setIsOpen);
     const actionLogin = useAuthStore((state) => state.actionLogin)
     const navigate = useNavigate()
-
-    console.log('token :>> ', token);
-    console.log('user :>> ', user);
 
     const handleChange = (e) => {
 
@@ -80,6 +78,9 @@ export default function Login() {
                     {formatError && <p className='text-gray-300 text-xs'>{formatError.password}</p>}
                 </div>
                 <button className=' text-white py-4 px-6 rounded-xl'>Login </button>
+                <div>
+                    <LoginGoogle />
+                </div>
             </form>
             <p onClick={() => setIsOpen(!isOpen)} className='text-white cursor-pointer underline hover:text-yellow'>Forget Password ?</p>
             {isOpen && <ForgetPassword />}
