@@ -26,10 +26,12 @@ import ProtectRoute from './ProtectRoute';
 import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
 import DashBoard from '../components/admin-components/DashBoard';
 import ManagePets from '../components/admin-components/ManagePets';
+import Donation from '../components/user-components/Donation';
 
 
 
 
+[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -72,7 +74,7 @@ const pageRouter = createBrowserRouter([
             { path: 'profile', element: <EditProfile /> },
             { path: 'about', element: <Test /> },
             { path: 'adopt', element: <Test /> },
-            { path: 'donate', element: <Test /> },
+            { path: 'donate', element: <Donation /> },
             { path: 'event', element: <Test /> },
             { path: 'contact', element: <Test /> },
 
