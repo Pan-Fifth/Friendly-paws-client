@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function ManagePets() {
+export default function ReportAdopt() {
     return (
         <div>
-            <h1>manage pets</h1>
+            <h1>report adopt</h1>
         </div>
     )
 }
