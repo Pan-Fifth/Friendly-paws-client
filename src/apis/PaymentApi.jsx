@@ -1,7 +1,8 @@
 import axios from "axios";
 
-export const confirmPayment = (userId) => {
-    return axios.post('http://localhost:3000/payment/confirm-payment', { userId });
+export const confirmPayment = async (paymentData) => {
+    const response = await axios.post('/api/payment/confirm-payment', paymentData);
+    return response.data;
 };
 
 export const sendPublishKey = () => {
