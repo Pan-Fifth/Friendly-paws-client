@@ -11,7 +11,6 @@ import CheckoutForm from "../../components/user-components/CheckoutForm";
 
 function PaymentDonate({ amount }) {
 
-
     const [stripePromise, setStripePromise] = useState(null);
     const [clientSecret, setClientSecret] = useState("");
 

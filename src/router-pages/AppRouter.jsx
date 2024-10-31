@@ -24,6 +24,7 @@ import ScrollToTop from '../utils/ScrollToTop';
 import ProtectRoute from './ProtectRoute';
 
 import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
+import Donation from '../components/user-components/Donation';
 
 
 
@@ -65,7 +66,7 @@ const pageRouter = createBrowserRouter([
             { path: 'profile', element: <EditProfile /> },
             { path: 'about', element: <Test /> },
             { path: 'adopt', element: <Test /> },
-            { path: 'donate', element: <Test /> },
+            { path: 'donate', element: <Donation /> },
             { path: 'event', element: <Test /> },
             { path: 'contact', element: <Test /> },
 
