@@ -7,7 +7,7 @@ import EditProfileValidate from '../../utils/EditProfileValidate';
 import { getProfile, editProfile } from '../../apis/UserApi';
 import useAuthStore from '@/src/stores/AuthStore';
 
-export default function EditProfileCustomer() {
+export default function EditProfile() {
 
 
     const [user, setUser] = useState({});
@@ -21,12 +21,14 @@ export default function EditProfileCustomer() {
         }
         fetchProfile();
     }, [token]);
-
+    console.log(token, "tokennnn")
     const fetchProfile = async () => {
         try {
 
             const resp = await getProfile(token);
+            console.log(resp, "edit udssererr")
             setUser(resp.data);
+
         } catch (err) {
             toast.error('Error fetching profile');
         }

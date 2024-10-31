@@ -24,12 +24,14 @@ import ScrollToTop from '../utils/ScrollToTop';
 import ProtectRoute from './ProtectRoute';
 
 import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
+import DashBoard from '../components/admin-components/DashBoard';
+import ManagePets from '../components/admin-components/ManagePets';
 import Donation from '../components/user-components/Donation';
 
 
 
 
-
+[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -39,7 +41,13 @@ const pageRouter = createBrowserRouter([
             element={<HomePageAdmin />}
             allow={["ADMIN"]} />,
         children: [
-            { index: true, element: <Test /> },
+            { index: true, element: <DashBoard /> },
+            { path: 'profile', element: <EditProfile /> },
+            { path: 'manage-pets', element: <ManagePets /> },
+            { path: 'manage-pets', element: <ManagePets /> },
+            { path: 'manage-pets', element: <ManagePets /> },
+            { path: 'manage-pets', element: <ManagePets /> },
+
             // { path: 'report/comments', element: <ShowAllComment /> },
             // { path: 'report/total-unit-sold', element: <ShowAllMenuCount /> },
             // { path: 'report/total-sales', element: <ShowAllSaleReport /> },
