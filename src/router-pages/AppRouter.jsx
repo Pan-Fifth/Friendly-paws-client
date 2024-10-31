@@ -14,6 +14,7 @@ import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
 import Adopt from '../pages/Adopt';
+import AdoptDetail from '../pages/AdoptDetail';
 
 
 
@@ -55,6 +56,7 @@ const pageRouter = createBrowserRouter([
             { path: 'reset-password/:token', element: <ResetPassword /> },
             { path: 'about', element: <Test /> },
             { path: 'adopt', element: <Adopt /> },
+            { path: 'adopt/detail/:id', element: <AdoptDetail /> },
             { path: 'donate', element: <Test /> },
             { path: 'event', element: <Test /> },
             { path: 'contact', element: <Test /> },

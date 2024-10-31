@@ -22,7 +22,7 @@ export function DropdownWithArrow({name,array,className}) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className={className||"w-[200px]"}>
-        {array.map((el)=>(<DropdownMenuItem>{el}</DropdownMenuItem>))}
+        {array.map((el)=>(<DropdownMenuItem key={el}>{el}</DropdownMenuItem>))}
       </DropdownMenuContent>
     </DropdownMenu>)
   );

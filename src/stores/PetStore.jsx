@@ -1,11 +1,12 @@
 import { create } from "zustand";
-import { getAvialablePet } from "../apis/PetApi";
+import { getAvialablePet ,getCurrentPet } from "../apis/PetApi";
 import { persist,createJSONStorage } from "zustand/middleware";
 import { toast } from "react-toastify";
 
 
 const usePetStore = create(persist((set,get)=>({
     avaiPets:null ,
+    currentPet:null,
    actionGetAvaiPet : async()=>{
     try {
         const resp = await getAvialablePet();
@@ -13,7 +14,18 @@ const usePetStore = create(persist((set,get)=>({
         set({avaiPets:resp.data})
         return resp.data;
     } catch (err) {
-        toast.error("err")
+        toast.error(err)
+        throw err;
+    }
+   },
+   actionGetCurrentPet: async(id)=>{
+    try {
+        const resp = await getCurrentPet(id);
+        toast.success(resp)
+        set({currentPet:resp.data})
+        return resp.data
+    } catch (err) {
+        toast.error(err)
         throw err;
     }
    }

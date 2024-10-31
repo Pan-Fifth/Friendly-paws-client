@@ -3,6 +3,7 @@ import { DropdownWithArrow } from '@/components/ui/dropdown-with-arrow'
 import { Button } from "@/components/ui/button"
 import AdoptPetCard from '../components/adopt/AdoptPetCard'
 import usePetStore from '../stores/PetStore'
+import { PaginationDemo } from '../components/adopt/PageSelect'
 
 const Adopt = () => {
     useEffect(()=>{
@@ -12,7 +13,7 @@ const Adopt = () => {
     const avaiPets = usePetStore(state=>state.avaiPets)
     console.log(avaiPets)
     return (
-        <div className=' '>
+        <div>
             <div className='w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto'>
                 <p>Our friends who are looking for a house</p>
             </div>
@@ -31,23 +32,26 @@ const Adopt = () => {
             </div>
                 <div className='h-[400px] flex gap-2 justify-center items-center'>
                     <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Small"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Medium"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Large"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Small"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Medium"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Large"}</Button>
                     </div>
                     <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Kid"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Junior"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Senior"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Adult"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Kid"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Junior"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Senior"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Adult"}</Button>
                     </div>
                     <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Male"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800">{"Female"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Male"}</Button>
+                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Female"}</Button>
                     </div>
                 </div>
                 <div className='flex gap-3 flex-wrap justify-center items-center'>
-                    {avaiPets.map((el)=>(<AdoptPetCard name ={el.name_en} image={el.image[0].url}/>))}
+                    {avaiPets.map((el)=>(<AdoptPetCard key={el.id} id={el.id} name ={el.name_en} image={el.image[0].url}/>))}
+                </div>
+                <div className='mt-10'>
+                <PaginationDemo className={"rounded-full bg-green-300"}/>
                 </div>
 
 
