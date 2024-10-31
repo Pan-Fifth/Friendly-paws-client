@@ -4,7 +4,7 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 import useAuthStore from '../../stores/AuthStore';
 
-export default function CheckoutFormCredit() {
+export default function CheckoutFormCredit({ onPaymentSuccess }) {
 
     const user = useAuthStore((state) => state.user);
     const elements = useElements();
@@ -44,9 +44,11 @@ export default function CheckoutFormCredit() {
             }
 
             setIsProcessing(false);
+            if (paymentIntent.status === "succeeded") {
+                onPaymentSuccess();}
         } catch (error) {
             console.error('Error confirming payment:', error);
-            setMessage(t('checkoutForm.paymentFailed'));
+            setMessage(('checkoutForm.paymentFailed'));
         }
     };
 
