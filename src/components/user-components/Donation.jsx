@@ -18,6 +18,8 @@ import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
 import useAuthStore from "@/src/stores/AuthStore";
 import DonationDashboard from "./DonationDashboard";
+import LiveChat from "./LiveChat";
+import ChatPortal from "./ChatPortal";
 
 const Donation = () => {
   const { user, token } = useAuthStore();
@@ -116,6 +118,9 @@ const Donation = () => {
 
   return (
     <div className="container mx-auto p-6 min-h-screen bg-gradient-to-b from-background/50 to-muted/50">
+      <ChatPortal>
+      <LiveChat className="fixed top-0 right-0" />
+      </ChatPortal>
       {/* Main Content Grid */}
       <div className="grid md:grid-cols-2 gap-8 mb-16">
         {/* Hero Section - Left */}
@@ -124,18 +129,20 @@ const Donation = () => {
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col justify-center space-y-6"
         >
-          <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80">
+          <h1 className="text-5xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary to-primary/80 py-4">
             Make a Difference Today
           </h1>
           <TypeAnimation
             sequence={[
               'Your compassion could be a game changer.',
-              2000,
+              1500,
               'Every donation makes a difference.',
-              2000,
+              1500,
               'Help us give them a better life.',
-              2000,
+              1500,
             ]}
+            speed={50}
+            omitDeletionAnimation={true}
             repeat={Infinity}
             className="text-2xl text-muted-foreground"
           />
