@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 
 
@@ -13,6 +14,15 @@ import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
+import Homepage from '../components/user-components/Homepage';
+import Adopt from '../pages/Adopt';
+import AdoptDetail from '../pages/AdoptDetail';
+
+
+
+
+
+
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import PaymentDonate from '../components/user-components/PaymentDonate';
@@ -27,6 +37,7 @@ import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
 import DashBoard from '../components/admin-components/DashBoard';
 import ManagePets from '../components/admin-components/ManagePets';
 import Donation from '../components/user-components/Donation';
+import Event from '../pages/Event';
 
 
 
@@ -65,20 +76,20 @@ const pageRouter = createBrowserRouter([
 
             </div>
         ),
+
         children: [
-            { path: '', element: <Test /> },
+            { path: '', element: <Homepage /> },
             { path: 'register', element: <Register /> },
             { path: 'login', element: <Login /> },
             { path: 'forget-password', element: <ForgetPassword /> },
             { path: 'reset-password/:token', element: <ResetPassword /> },
             { path: 'profile', element: <EditProfile /> },
             { path: 'about', element: <Test /> },
-            { path: 'adopt', element: <Test /> },
+            { path: 'adopt', element: <Adopt /> },
+            { path: 'adopt/detail/:id', element: <AdoptDetail /> },
             { path: 'donate', element: <Donation /> },
-            { path: 'event', element: <Test /> },
+            { path: 'event', element: <Event /> },
             { path: 'contact', element: <Test /> },
-
-
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
             { path: 'terms', element: <TermsOfService /> },
             { path: 'payment', element: <PaymentDonate /> },
