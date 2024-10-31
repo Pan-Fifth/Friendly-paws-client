@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 
 
@@ -21,6 +22,7 @@ import AdoptDetail from '../pages/AdoptDetail';
 
 
 
+
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import PaymentDonate from '../components/user-components/PaymentDonate';
@@ -35,6 +37,7 @@ import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
 import DashBoard from '../components/admin-components/DashBoard';
 import ManagePets from '../components/admin-components/ManagePets';
 import Donation from '../components/user-components/Donation';
+import Event from '../pages/Event';
 
 
 
@@ -85,10 +88,8 @@ const pageRouter = createBrowserRouter([
             { path: 'adopt', element: <Adopt /> },
             { path: 'adopt/detail/:id', element: <AdoptDetail /> },
             { path: 'donate', element: <Donation /> },
-            { path: 'event', element: <Test /> },
+            { path: 'event', element: <Event /> },
             { path: 'contact', element: <Test /> },
-
-
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
             { path: 'terms', element: <TermsOfService /> },
             { path: 'payment', element: <PaymentDonate /> },
