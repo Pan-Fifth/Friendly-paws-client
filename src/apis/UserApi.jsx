@@ -15,3 +15,23 @@ export const sendEmailApi = async (recipient, subject, message, token) => {
         throw error;  // เพิ่มการโยนข้อผิดพลาดออกไปเพื่อให้แสดงข้อผิดพลาดใน console
     }
 };
+
+export const getProfile = (token) => {
+
+    return axios.get("http://localhost:3000/user/profile/",
+        {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }
+    )
+}
+
+
+export const editProfile = (id, token, user) => {
+    return axios.patch(`http://localhost:3000/user/edit-profile/${id}`, user, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+};

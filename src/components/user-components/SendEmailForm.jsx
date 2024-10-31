@@ -50,7 +50,7 @@ export default function SendEmailForm() {
                         onChange={(e) => setRecipient(e.target.value)}
                         placeholder="Enter recipient's email"
                         required
-                        className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="text-black w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 

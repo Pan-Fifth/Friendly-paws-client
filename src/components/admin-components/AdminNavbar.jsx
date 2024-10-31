@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { IoMdArrowDropdown } from "react-icons/io";
 
-import useAuthStore from './../../stores/AuthStore';
+import useAuthStore from '../../stores/AuthStore';
 
-export default function Navbar() {
+export default function AdminNavbar() {
 
     const user = useAuthStore((state) => state.user)
     const actionLogout = useAuthStore((state) => state.actionLogout);
@@ -35,12 +35,35 @@ export default function Navbar() {
 
 
                 <div className="hidden md:flex gap-8 text-white">
-                    <Link to="/" className="font-head">Home</Link>
-                    <Link to="/about" className="font-head">About</Link>
-                    <Link to="/adopt" className="font-head">Adopt</Link>
-                    <Link to="/donate" className="font-head">Donate</Link>
-                    <Link to="/event" className="font-head">Event</Link>
-                    <Link to="/contact" className="font-head">Contact</Link>
+                    <Link to="/admin" className="font-head">Home</Link>
+                    <div className="relative flex items-center">
+                        <Link className="font-head">Manage</Link>
+                        <IoMdArrowDropdown className="cursor-pointer" onClick={toggleDropdownUser} />
+                        {isDropdownUserOpen && (
+                            <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
+                                <ul className="py-2">
+                                    <li>
+                                        <Link to="/admin/manage-pet" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Pet
+                                        </Link>
+                                        <Link to="/admin/manage-event" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Event
+                                        </Link>
+                                        <Link to="/admin/manage-donation" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Donation
+                                        </Link>
+                                        <Link to="/admin/manage-adopt" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            Adopt
+                                        </Link>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                    <Link className="font-head">Report</Link>
+                    <Link className="font-head">Donate</Link>
+
                 </div>
                 <div className="hidden md:flex gap-8 text-white">
                     {user ? (
@@ -58,7 +81,7 @@ export default function Navbar() {
                                     <div className="absolute mt-5 w-32 top-6 right-0 bg-white rounded-md shadow-lg">
                                         <ul className="py-2">
                                             <li>
-                                                <Link to="/profile" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                                <Link to="/admin/profile" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                                     EditProfile
                                                 </Link>
                                             </li>
@@ -68,7 +91,7 @@ export default function Navbar() {
                                 )}
                             </div>
 
-                            <Link onClick={hdlClickLogout} to="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                            <Link onClick={hdlClickLogout} to="/admin" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                 Logout
                             </Link>
                         </div>
