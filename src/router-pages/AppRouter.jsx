@@ -14,6 +14,13 @@ import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
 import Homepage from '../components/user-components/Homepage';
+import Adopt from '../pages/Adopt';
+import AdoptDetail from '../pages/AdoptDetail';
+
+
+
+
+
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import PaymentDonate from '../components/user-components/PaymentDonate';
@@ -75,7 +82,8 @@ const pageRouter = createBrowserRouter([
             { path: 'reset-password/:token', element: <ResetPassword /> },
             { path: 'profile', element: <EditProfile /> },
             { path: 'about', element: <Test /> },
-            { path: 'adopt', element: <Test /> },
+            { path: 'adopt', element: <Adopt /> },
+            { path: 'adopt/detail/:id', element: <AdoptDetail /> },
             { path: 'donate', element: <Donation /> },
             { path: 'event', element: <Test /> },
             { path: 'contact', element: <Test /> },
