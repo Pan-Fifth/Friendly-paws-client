@@ -20,6 +20,7 @@ const usePetStore = create(persist((set,get)=>({
    },
    actionGetCurrentPet: async(id)=>{
     try {
+        console.log("get pet by id")
         const resp = await getCurrentPet(id);
         toast.success(resp)
         set({currentPet:resp.data})

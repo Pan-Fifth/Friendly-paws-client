@@ -9,9 +9,13 @@ const AdoptDetail = () => {
     const actionGetCurrentPet = usePetStore(state=>state.actionGetCurrentPet)
     const currentPet = usePetStore(state=>state.currentPet)
     useEffect(()=>{
+      console.log("id",id)
         actionGetCurrentPet(id)
     },[])
-    console.log(currentPet)
+    if (!currentPet || !currentPet.image) {
+      return <div className="flex items-center justify-center h-screen">Loading...</div>
+  }
+    console.log("adop detail",currentPet)
   return (
     <div className=' flex w-full p-10 gap-9'>
         <div className='flex-1'>

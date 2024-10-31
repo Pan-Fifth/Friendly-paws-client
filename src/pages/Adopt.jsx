@@ -48,7 +48,7 @@ const Adopt = () => {
                     </div>
                 </div>
                 <div className='flex gap-3 flex-wrap justify-center items-center'>
-                    {avaiPets.map((el)=>(<AdoptPetCard key={el.id} id={el.id} name ={el.name_en} image={el.image[0].url}/>))}
+                    {avaiPets?.map((el)=>(<AdoptPetCard key={el.id} id={el.id} name ={el.name_en} image={el.image[0].url}/>))}
                 </div>
                 <div className='mt-10'>
                 <PaginationDemo className={"rounded-full bg-green-300"}/>
