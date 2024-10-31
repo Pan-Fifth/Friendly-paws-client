@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 
 
@@ -13,6 +14,7 @@ import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
 import ResetPassword from '../components/user-components/ResetPassword';
+import Event from '../pages/Event';
 
 
 
@@ -55,7 +57,7 @@ const pageRouter = createBrowserRouter([
             { path: 'about', element: <Test /> },
             { path: 'adopt', element: <Test /> },
             { path: 'donate', element: <Test /> },
-            { path: 'event', element: <Test /> },
+            { path: 'event', element: <Event /> },
             { path: 'contact', element: <Test /> },
             { path: 'register', element: <Register /> },
             { path: 'login', element: <Login /> },
