@@ -22,6 +22,7 @@ import AdoptDetail from '../pages/AdoptDetail';
 
 
 
+
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import PaymentDonate from '../components/user-components/PaymentDonate';
@@ -36,17 +37,12 @@ import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
 import DashBoard from '../components/admin-components/DashBoard';
 import ManagePets from '../components/admin-components/ManagePets';
 import Donation from '../components/user-components/Donation';
-
-
-
-
-[']']
 import Event from '../pages/Event';
 
 
 
 
-
+[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -94,8 +90,6 @@ const pageRouter = createBrowserRouter([
             { path: 'donate', element: <Donation /> },
             { path: 'event', element: <Event /> },
             { path: 'contact', element: <Test /> },
-
-
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
             { path: 'terms', element: <TermsOfService /> },
             { path: 'payment', element: <PaymentDonate /> },
