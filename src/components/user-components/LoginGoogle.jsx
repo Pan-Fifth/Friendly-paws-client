@@ -15,21 +15,22 @@ const LoginGoogle = () => {
 
         try {
             const response = await actionLoginGoogle(token);
+            console.log(response, "respon googlelogin")
 
-            if (response && response.token) {
-                const userRole = response.user.role;
 
-                if (userRole === 'USER' || userRole === 'VOLUNTEER') {
-                    navigate('/');
-                } else if (userRole === 'ADMIN') {
-                    navigate('/admin/home');
-                } else {
-                    console.log("Unknown role, redirecting to default page");
-                    navigate('/notfound');
-                }
-            } else {
-                console.log("Login failed or no token received");
+
+
+
+            if (response === 'USER' || response === 'VOLUNTEER') {
+                navigate('/');
+                console.log(response, "user vourentier")
+
             }
+            else if (response === 'ADMIN') {
+
+                navigate('/admin');
+            }
+
         } catch (error) {
             console.error("Error during login:", error);
         }

@@ -61,7 +61,7 @@ const useAuthStore = create(persist((set, get) => ({
                 });
                 console.log("User after login:", result.data.user);
                 console.log("Token after login:", result.data.token);
-                return result.data;
+                return result.data.user.user.role;
             } else {
                 throw new Error("Login failed or token not received.");
             }

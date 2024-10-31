@@ -4,10 +4,10 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 
 
 
-import NotFoundPage from '../pages/NotFoundPage';
+
 import Navbar from '../components/user-components/Navbar';
 import Footer from '../components/user-components/Footer';
-import ScrollToTop from '../utils/ScrollToTop';
+
 import Test from '../components/user-components/Test';
 import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
@@ -19,6 +19,12 @@ import PaymentDonate from '../components/user-components/PaymentDonate';
 import Completion from '../components/user-components/Completion';
 import EditProfile from '../components/user-components/EditProfile';
 
+import NotFoundPage from '../pages/NotFoundPage';
+import ScrollToTop from '../utils/ScrollToTop';
+import ProtectRoute from './ProtectRoute';
+
+import HomePageAdmin from '../pages/admin-pages/HomePageAdmin';
+
 
 
 
@@ -26,22 +32,19 @@ import EditProfile from '../components/user-components/EditProfile';
 
 const pageRouter = createBrowserRouter([
 
-    // {
-    //     path: '/admin',
-    //     element: <ProtectRoute
-    //         element={<HomePageAdmin />}
-    //         allow={["ADMIN"]} />,
-    //     children: [
-    //         { index: true, element: <Dashboard /> },
-    //         { path: 'manage/menu', element: <MenuAdminPage /> },
-    //         { path: 'manage/create-menu', element: <CreateMenu /> },
-    //         { path: 'manage/edit-orders', element: <EditOrderTable /> },
-    //         { path: 'report/comments', element: <ShowAllComment /> },
-    //         { path: 'report/total-unit-sold', element: <ShowAllMenuCount /> },
-    //         { path: 'report/total-sales', element: <ShowAllSaleReport /> },
-    //         { path: 'setting/edit-users', element: <EditUser /> },
-    //     ]
-    // },
+    {
+        path: '/admin',
+        element: <ProtectRoute
+            element={<HomePageAdmin />}
+            allow={["ADMIN"]} />,
+        children: [
+            { index: true, element: <Test /> },
+            // { path: 'report/comments', element: <ShowAllComment /> },
+            // { path: 'report/total-unit-sold', element: <ShowAllMenuCount /> },
+            // { path: 'report/total-sales', element: <ShowAllSaleReport /> },
+            // { path: 'setting/edit-users', element: <EditUser /> },
+        ]
+    },
     {
         path: '/',
         element: (

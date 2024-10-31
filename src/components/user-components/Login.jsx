@@ -24,9 +24,6 @@ export default function Login() {
     const actionLogin = useAuthStore((state) => state.actionLogin)
     const navigate = useNavigate()
 
-    console.log('token :>> ', token);
-    console.log('user :>> ', user);
-
     const handleChange = (e) => {
 
         setForm({

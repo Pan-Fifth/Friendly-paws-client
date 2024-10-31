@@ -21,7 +21,7 @@ const ProtectRoute = ({ element, allow }) => {
 
         try {
 
-            const role = user.user.role
+            const role = user.user.role || user.role
 
             if (allow.includes(role)) {
 
