@@ -10,8 +10,9 @@ import { confirmPayment } from '../../apis/PaymentApi';
 export default function Completion() {
 
     const user = useAuthStore((state) => state.user);
-    const userId = user.id
-    console.log(user, "userrr")
+    const userId = user.user.id
+    console.log(user, "userrr ")
+    console.log(userId, "userrr userId")
     useEffect(() => {
         async function clearCart() {
             try {
@@ -40,7 +41,7 @@ export default function Completion() {
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
 
-            <h2 className="text-4xl font-semibold text-gray-800 mt-4">Thank You! {user.firstname}</h2>
+            <h2 className="text-4xl font-semibold text-gray-800 mt-4">Thank You! {user.user.firstname || " "}</h2>
             <p className="text-gray-600 mt-2 text-center">
                 Your payment has been successfully processed.
             </p>
