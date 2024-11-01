@@ -3,20 +3,20 @@ import axios from 'axios'
 import { format } from "date-fns"
 import { Input } from "@/components/ui/input"
 import {
-    Table,
-    TableBody,
-    TableCaption,
-    TableCell,
-    TableHead,
-    TableHeader,
-    TableRow,
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
 } from '@/components/ui/table'
 import {
-    Select,
-    SelectContent,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
@@ -112,8 +112,8 @@ export default function ManageDonate() {
 
     const PaginationControls = () => (
         <div className="flex items-center justify-center gap-2 mt-4">
-            <Button
-                variant="outline"
+            <Button 
+                variant="outline" 
                 onClick={() => handlePageChange(pagination.currentPage - 1)}
                 disabled={pagination.currentPage === 1}
             >
@@ -122,8 +122,8 @@ export default function ManageDonate() {
             <span className="text-sm">
                 หน้า {pagination.currentPage} จาก {pagination.pages}
             </span>
-            <Button
-                variant="outline"
+            <Button 
+                variant="outline" 
                 onClick={() => handlePageChange(pagination.currentPage + 1)}
                 disabled={pagination.currentPage === pagination.pages}
             >
@@ -135,7 +135,7 @@ export default function ManageDonate() {
     return (
         <div className="container mx-auto p-6">
             <h1 className="text-3xl font-bold mb-6">จัดการ การบริจาค</h1>
-
+            
             <div className="flex gap-4 mb-6">
                 <div>
                     <label className="block text-sm mb-1">วันที่เริ่มต้น</label>
