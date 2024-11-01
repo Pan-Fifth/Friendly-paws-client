@@ -53,7 +53,6 @@ import ManageUser from '../components/admin-components/ManageUser';
 
 
 
-[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -63,7 +62,7 @@ const pageRouter = createBrowserRouter([
             element={<HomePageAdmin />}
             allow={["ADMIN"]} />,
         children: [
-            { index: true, element: <ManageUser /> },
+            { index: true, element: <DashBoard /> },
             { path: 'profile', element: <EditProfile /> },
             { path: 'manage-pet', element: <ManagePet /> },
             { path: 'manage-event', element: <ManageEvent /> },
