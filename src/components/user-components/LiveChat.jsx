@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, forwardRef } from 'react';
 import { MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,7 +10,7 @@ import Draggable from 'react-draggable';
 
 const genAI = new GoogleGenerativeAI("AIzaSyDFQP49YT2evf8SvHVHcWDfPazJxH3egYM");
 
-const LiveChat = () => {
+const LiveChat = forwardRef((props, ref) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState('');
@@ -18,6 +18,7 @@ const LiveChat = () => {
     const [position, setPosition] = useState({ x: 0, y: 0 });
     const chatHistoryRef = useRef([]);
     const scrollAreaRef = useRef(null);
+    const nodeRef = useRef(null);
     const navigate = useNavigate();
   
     useEffect(() => {
@@ -165,11 +166,12 @@ const LiveChat = () => {
     <div className="fixed inset-0 pointer-events-none">
       <div className="relative w-full h-full">
         <Draggable
+          nodeRef={nodeRef}
           position={position}
           onDrag={handleDrag}
           bounds="parent"
         >
-          <div className="absolute pointer-events-auto" style={{ right: '1rem', bottom: '1rem' }}>
+          <div ref={nodeRef} className="absolute pointer-events-auto" style={{ right: '1rem', bottom: '1rem' }}>
             {isOpen && (
               <Card className="absolute bottom-16 right-0 w-[350px] h-[500px] flex flex-col">
                 <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2 shrink-0">
@@ -184,7 +186,7 @@ const LiveChat = () => {
                 </CardHeader>
                 
                 <CardContent className="flex-1 p-4 overflow-hidden">
-                  <ScrollArea className="h-full pr-4">
+                  <ScrollArea className="h-full pr-4" ref={scrollAreaRef}>
                     <div className="flex flex-col gap-4 pb-2">
                       {messages.map((msg, index) => (
                         <div key={index} className={`flex ${msg.sender === 'user' ? 'justify-end' : 'justify-start'} w-full`}>
@@ -231,9 +233,8 @@ const LiveChat = () => {
       </div>
     </div>
   );
-};
+});
+
+LiveChat.displayName = 'LiveChat';
 
 export default LiveChat;
-
-
-

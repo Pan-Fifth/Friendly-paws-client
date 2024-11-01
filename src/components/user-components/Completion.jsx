@@ -18,7 +18,6 @@ export default function Completion() {
             try {
                 // เรียก API เพื่อยืนยันการชำระเงินในเบื้องต้น
                 const response = await confirmPayment(userId);
-                console.log(response, "responfff")
 
                 // แสดงข้อความยืนยันว่าการชำระเงินสำเร็จ
                 Swal.fire({
