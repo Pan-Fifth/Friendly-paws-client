@@ -99,7 +99,7 @@ const Event = () => {
                         <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
                             {event.title_th}
                         </h2>
-                        <h2>{event.date_start}</h2>
+                        <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
                             className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
                             onClick={() => openModal(event)}>
@@ -131,11 +131,21 @@ const Event = () => {
                     </div>
                 </div>
             )}
+
+
+
+
+
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
                 <h1>กิจกรรมที่ผ่านมาแล้ว</h1>
             </div>
+
+
+
+
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8" >
                 {events?.pastEvent?.map((event) => (
                     <div
                         key={event.id}
@@ -149,7 +159,7 @@ const Event = () => {
                         <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
                             {event.title_th}
                         </h2>
-                        <h2>{event.date_start}</h2>
+                        <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
                             className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
                             onClick={() => openModal(event)}>
