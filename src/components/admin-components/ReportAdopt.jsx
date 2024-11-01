@@ -1,5 +1,8 @@
 import React, { useState } from 'react'
 import { getAdoptData, getAllAdoptData } from '../../apis/AdminReportApi';
+import { getExportAdoptExcel } from '../../apis/AdminExportExcelApi';
+import Swal from 'sweetalert2';
+
 
 export default function ReportAdopt() {
     const [startDate, setStartDate] = useState('')
@@ -25,6 +28,32 @@ export default function ReportAdopt() {
         }
     };
     console.log(adopts, "adopttt")
+    const handleExportExcel = async () => {
+        if (adopts.length === 0) {
+            Swal.fire({
+                icon: 'warning',
+                title: 'กรุณาเลือกข้อมูล',
+                text: 'โปรดเลือกข้อมูลก่อนทำการบันทึก',
+                confirmButtonText: 'ตกลง'
+            });
+            return;
+        }
+
+        try {
+            const response = await getExportAdoptExcel(adopts)
+
+            // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'adopts-report.xlsx');
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Error exporting to Excel:', error);
+        }
+    };
+
 
     return (
         <div className="container mx-auto px-4 py-8">
@@ -53,6 +82,12 @@ export default function ReportAdopt() {
                 >
                     ข้อมูลรับเลี้ยงสัตว์ทั้งหมดของปีนี้
                 </button>
+                <button
+                    onClick={handleExportExcel}
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                >
+                    บันทึกข้อมูล
+                </button>
             </div>
 
             {adopts && adopts.length > 0 ? (
@@ -64,6 +99,7 @@ export default function ReportAdopt() {
                                 <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ชื่อผู้รับเลี้ยง</th>
                                 <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ชื่อสัตว์เลี้ยง</th>
                                 <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">สถานะ</th>
+                                <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">เบอร์โทร</th>
                                 <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ข้อมูลติดต่อ</th>
                                 <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">อนุมัติวันที่</th>
                                 <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">อนุมัติโดย</th>
@@ -75,8 +111,8 @@ export default function ReportAdopt() {
                             {adopts.map(adopt => (
                                 <tr key={adopt.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap">{adopt.id}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{adopt.user.firstname}</td>
-                                    <td className="px-6 py-4 whitespace-nowrap">{adopt.pet.name_th}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{adopt.user?.firstname}</td>
+                                    <td className="px-6 py-4 whitespace-nowrap">{adopt.pet?.name_th}</td>
                                     <td className={`px-6 py-4 ${adopt.status === 'PENDING'
                                         ? 'text-yellow-500'
                                         : adopt.status === 'FOSTERED'
@@ -87,6 +123,7 @@ export default function ReportAdopt() {
                                                     ? 'text-blue-500'
                                                     : ''
                                         }`}>{adopt.status}</td>
+                                    <td className="px-6 py-4">{adopt.user?.phone}</td>
                                     <td className="px-6 py-4">{adopt.socialContact}</td>
                                     <td className="px-6 py-4">{adopt?.approved_at}</td>
                                     <td className="px-6 py-4">{adopt?.approvedByAdmin?.firstname}</td>
