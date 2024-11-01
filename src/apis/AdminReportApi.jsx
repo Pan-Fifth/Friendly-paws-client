@@ -19,3 +19,6 @@ export const getDonateData = (startDate, endDate) => {
 export const getAllDonateData = () => {
     return axios.get(`http://localhost:3000/admin/report-donation-all`);
 };
+export const getAllPetData = () => {
+    return axios.get(`http://localhost:3000/admin/report-pet-all`);
+};
