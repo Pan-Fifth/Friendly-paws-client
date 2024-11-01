@@ -9,7 +9,6 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Navbar from '../components/user-components/Navbar';
 import Footer from '../components/user-components/Footer';
 
-import Test from '../components/user-components/Test';
 import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
@@ -46,11 +45,9 @@ import ReportDonation from '../components/admin-components/ReportDonation';
 import ReportAdopt from '../components/admin-components/ReportAdopt';
 import ReportEvent from '../components/admin-components/ReportEvent';
 import ManageUser from '../components/admin-components/ManageUser';
+import About from '../components/user-components/About';
+import Contact from '../components/user-components/Contact';
 
-
-
-
-[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -93,12 +90,12 @@ const pageRouter = createBrowserRouter([
             { path: 'forget-password', element: <ForgetPassword /> },
             { path: 'reset-password/:token', element: <ResetPassword /> },
             { path: 'profile', element: <EditProfile /> },
-            { path: 'about', element: <Test /> },
+            { path: 'about', element: <About /> },
             { path: 'adopt', element: <Adopt /> },
             { path: 'adopt/detail/:id', element: <AdoptDetail /> },
             { path: 'donate', element: <Donation /> },
             { path: 'event', element: <Event /> },
-            { path: 'contact', element: <Test /> },
+            { path: 'contact', element: <Contact /> },
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
             { path: 'terms', element: <TermsOfService /> },
             { path: 'payment', element: <PaymentDonate /> },
