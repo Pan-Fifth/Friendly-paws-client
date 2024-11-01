@@ -53,7 +53,6 @@ import ManageUser from '../components/admin-components/ManageUser';
 
 
 
-[']']
 
 const pageRouter = createBrowserRouter([
 
