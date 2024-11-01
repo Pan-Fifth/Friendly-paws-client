@@ -9,6 +9,7 @@ import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom'
 import Navbar from '../components/user-components/Navbar';
 import Footer from '../components/user-components/Footer';
 
+import Test from '../components/user-components/Test';
 import Login from '../components/user-components/Login';
 import Register from '../components/user-components/Register';
 import ForgetPassword from '../components/user-components/ForgetPassword';
@@ -16,6 +17,7 @@ import ResetPassword from '../components/user-components/ResetPassword';
 import Homepage from '../components/user-components/Homepage';
 import Adopt from '../pages/Adopt';
 import AdoptDetail from '../pages/AdoptDetail';
+
 
 
 
@@ -44,10 +46,14 @@ import ReportPet from '../components/admin-components/ReportPet';
 import ReportDonation from '../components/admin-components/ReportDonation';
 import ReportAdopt from '../components/admin-components/ReportAdopt';
 import ReportEvent from '../components/admin-components/ReportEvent';
-import ManageUser from '../components/admin-components/ManageUser';
 import About from '../components/user-components/About';
 import Contact from '../components/user-components/Contact';
+import ManageUser from '../components/admin-components/ManageUser';
 
+
+
+
+[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -57,7 +63,7 @@ const pageRouter = createBrowserRouter([
             element={<HomePageAdmin />}
             allow={["ADMIN"]} />,
         children: [
-            { index: true, element: <DashBoard /> },
+            { index: true, element: <ManageUser /> },
             { path: 'profile', element: <EditProfile /> },
             { path: 'manage-pet', element: <ManagePet /> },
             { path: 'manage-event', element: <ManageEvent /> },
@@ -69,6 +75,10 @@ const pageRouter = createBrowserRouter([
             { path: 'report-adopt', element: <ReportAdopt /> },
             { path: 'report-event', element: <ReportEvent /> },
 
+
+            // { path: 'report/total-unit-sold', element: <ShowAllMenuCount /> },
+            // { path: 'report/total-sales', element: <ShowAllSaleReport /> },
+            // { path: 'setting/edit-users', element: <EditUser /> },
         ]
     },
     {
