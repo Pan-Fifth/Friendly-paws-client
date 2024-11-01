@@ -1,5 +1,5 @@
 import { create } from "zustand";
-import { getAvialablePet ,getCurrentPet } from "../apis/PetApi";
+import { getAvialablePet ,getCurrentPet,createAdoptRequest } from "../apis/PetApi";
 import { persist,createJSONStorage } from "zustand/middleware";
 import { toast } from "react-toastify";
 
@@ -24,6 +24,16 @@ const usePetStore = create(persist((set,get)=>({
         const resp = await getCurrentPet(id);
         toast.success(resp)
         set({currentPet:resp.data})
+        return resp.data
+    } catch (err) {
+        toast.error(err)
+        throw err;
+    }
+   },
+   actionCreateAdoptRequest: async(data)=>{
+    try {
+        const resp = await createAdoptRequest(data);
+        toast.success(resp)
         return resp.data
     } catch (err) {
         toast.error(err)

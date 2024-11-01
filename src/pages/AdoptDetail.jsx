@@ -21,7 +21,7 @@ const AdoptDetail = () => {
         <div className='flex-1'>
               <div className=' flex flex-col gap-3 items-center'>
                 <img src={currentPet.image[0].url} className='h-[800px] object-cover'/>
-                <DialogAdopt/>
+                <DialogAdopt petId={id}/>
                 <Button  variant="secondary" className="w-[100px] h-[50px] text-slate-800">{"Chat?"}</Button>
               </div>
         </div>

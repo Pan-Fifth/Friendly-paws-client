@@ -12,6 +12,9 @@ const Adopt = () => {
     const actionGetAvaiPet = usePetStore(state=>state.actionGetAvaiPet)
     const avaiPets = usePetStore(state=>state.avaiPets)
     console.log(avaiPets)
+    if (!avaiPets) {
+        return <div className="flex items-center justify-center h-screen">Loading...</div>
+    }
     return (
         <div>
             <div className='w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto'>
@@ -48,7 +51,7 @@ const Adopt = () => {
                     </div>
                 </div>
                 <div className='flex gap-3 flex-wrap justify-center items-center'>
-                    {avaiPets?.map((el)=>(<AdoptPetCard key={el.id} id={el.id} name ={el.name_en} image={el.image[0].url}/>))}
+                    {avaiPets?.map((el)=>(<AdoptPetCard key={el?.id} id={el?.id} name ={el?.name_en} image={el.image[0]?.url}/>))}
                 </div>
                 <div className='mt-10'>
                 <PaginationDemo className={"rounded-full bg-green-300"}/>
