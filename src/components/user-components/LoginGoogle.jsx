@@ -18,9 +18,6 @@ const LoginGoogle = () => {
             console.log(response, "respon googlelogin")
 
 
-
-
-
             if (response === 'USER' || response === 'VOLUNTEER') {
                 navigate('/');
                 console.log(response, "user vourentier")

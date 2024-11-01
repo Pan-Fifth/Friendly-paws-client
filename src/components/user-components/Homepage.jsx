@@ -56,8 +56,6 @@ const Homepage = () => {
   return (
     <div>
       <section id="section 1" ref={el => (sectionsRef.current[0] = el)}>
-        
-
         <div className={`fade-in-image ${visibleSections[0] ? 'inview' : ''} h-[800px] w-full flex m-auto`}>
           <div className='w-full '>
           <img
@@ -73,18 +71,18 @@ const Homepage = () => {
           
           </div>
         </div>
-
-
         <span>First</span>
       </section>
 
-      <section id="section 2" ref={el => (sectionsRef.current[1] = el)}>
-        <div className={`flex gap-10 h-[800px] fade-in-image ${visibleSections[1] ? 'inview' : ''}`}>
-          <div className='flex flex-1'>
-            <img src="https://jaidogrescue.org/wp-content/uploads/2024/05/support-2.jpg" alt="" />
+      <section id="section 2" ref={el => (sectionsRef.current[1] = el)} className='relative bg-yellow-200 w-full'>
+        <div className={` flex gap-10 h-[700px] fade-in-image ${visibleSections[1] ? 'inview' : ''}`}>
+          <div className='flex items-center '>
+            <img src="/src/assets/cat2.png" alt="" className='w-full h-2/3 mx-20' />
+            <img src="/src/assets/circlepurple.png" alt="" className='w-2/3 absolute bottom-[400px] right-[-600px] ' />
+            <img src="/src/assets/circlepurple.png" alt="" className=' absolute bottom-[-100px] left-[-250px] ' />
           </div>
           
-          <div className='flex flex-1 text-sm flex-col gap-10 items-center justify-center'>
+          <div className='flex w-2/3  mx-20 text-sm flex-col gap-10 items-center justify-center'>
             <p className='text-[50px]'>About the Friendly Pow</p>
             <p className='text-[25px] tracking-wide'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorem. Quaerat earum minus illum, iste fugiat voluptatibus! Eos, minus quae natus unde commodi consequatur excepturi quas, voluptatum explicabo cumque atque!</p>
             <p className='text-[25px] tracking-wide'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic voluptates veniam explicabo rem tempora cumque eum necessitatibus enim ea optio iste autem ab impedit aspernatur doloremque corrupti eos iure, molestiae facilis quisquam qui. Cupiditate aut a sapiente ipsum nobis. Dolores nam aliquam ex natus ipsa porro veniam pariatur, minus quam.</p>
@@ -184,11 +182,12 @@ const Homepage = () => {
         <span>Third</span>
       </section>
 
-      <section id="section 4" ref={el => (sectionsRef.current[3] = el)}>
-        <div className={`h-[500px] fade-in-image ${visibleSections[3] ? 'inview' : ''}`}>
-          <div className='flex flex-col gap-10 justify-center items-center text-center'>
-          <p className='text-[50px]'>Help Us Create Sustainable Change</p>
-            <p className='text-3xl w-2/3  p-14 border-4'>Sustainable change is not just about sterilizing as many animals as we can. Educating local communities about animal welfare and the importance of sterilization is just as critical to fundamentally change the attitudes and behavior that affects stray lives. This is the root of the problem and our unique approach to solving it, which is made possible with your support.</p>
+      <section id="section 4" ref={el => (sectionsRef.current[3] = el)} className='w-full bg-yellow-200'>
+        <div className={`h-[700px] flex  fade-in-image ${visibleSections[3] ? 'inview' : ''}`}>
+          <div className='flex  gap-10 justify-center items-center text-center'>
+            <p className='text-2xl  mx-20'>Sustainable change is not just about sterilizing as many animals as we can. Educating local communities about animal welfare and the importance of sterilization is just as critical to fundamentally change the attitudes and behavior that affects stray lives. This is the root of the problem and our unique approach to solving it, which is made possible with your support.</p>
+            <img src="/src/assets/friendly.png" className='h-[700px] '  alt="" />
+            <p className='text-2xl mx-20'>Sustainable change is not just about sterilizing as many animals as we can. Educating local communities about animal welfare and the importance of sterilization is just as critical to fundamentally change the attitudes and behavior that affects stray lives. This is the root of the problem and our unique approach to solving it, which is made possible with your support.</p>
 
         </div>
         </div>
@@ -197,8 +196,8 @@ const Homepage = () => {
 
         <section id="section 5" className=' w-full' ref={el => (sectionsRef.current[4] = el)}>
         <div className={`h-[600px] relative flex flex-col mx-auto fade-in-image ${visibleSections[3] ? 'inview' : ''}`}>
-        {/* <img src="/src/assets/dogHome.jpg" className='h-full' alt="" />
-        <Button className='absolute variant="link" bottom-10 bg-white z-20 text-black w-fit h-[60px] left-[220px] text-3xl '>ADOPT NOW</Button> */}
+        <img src="/src/assets/holding.png" className='h-full' alt="" />
+        {/* <Button className='absolute variant="link" bottom-10 bg-white z-20 text-black w-fit h-[60px] left-[220px] text-3xl '>ADOPT NOW</Button> */}
         {/* <Carousel className="w-full h-full">
         <CarouselContent className="-ml-1">
           {Array.from({ length: 5 }).map((_, index) => (

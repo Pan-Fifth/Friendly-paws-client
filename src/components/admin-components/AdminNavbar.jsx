@@ -71,9 +71,9 @@ export default function AdminNavbar() {
                             {/* วงกลมที่แสดงตัวอักษร */}
                             <div className='flex items-center relative'>
                                 <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
-                                    <span className="text-white">
+                                    <div className="text-white">
                                         {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())) || ((user?.firstname?.charAt(0).toUpperCase() || user?.role?.charAt(0).toUpperCase()))}
-                                    </span>
+                                    </div>
 
                                 </div>
                                 <IoMdArrowDropdown className="cursor-pointer" onClick={toggleDropdownUser} />
