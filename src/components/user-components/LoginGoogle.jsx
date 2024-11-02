@@ -1,6 +1,5 @@
 import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
-import { jwtDecode } from 'jwt-decode';
 import useAuthStore from '../../stores/AuthStore';
 import { useNavigate } from 'react-router-dom';
 
