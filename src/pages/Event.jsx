@@ -34,7 +34,7 @@ const Event = () => {
     const pastEvent = useEventStore((state) => state.pastEvent);
     const events = useEventStore((state) => state.events);
     const getEvents = useEventStore((state) => state.getEvents);
-    // console.log("ไหนขอดู events", events)
+    console.log("ไหนขอดู events", events)
     useEffect(() => {
         getEvents()
     }, []);
@@ -42,9 +42,9 @@ const Event = () => {
         return <div>Loading...</div>;
     }
 
-    //-------------------------------------
+    // -------------------------------------
 
-    //เรียกใช้งาน register event จาก store
+    // เรียกใช้งาน register event จาก store
 
     const regisEventForm = {
         eventId: '',
@@ -60,7 +60,7 @@ const Event = () => {
         registerEvent(token, { eventId });
     };
 
-    //-------------------------------------
+    // -------------------------------------
 
     return (
         <div className="min-h-screen bg-white">
