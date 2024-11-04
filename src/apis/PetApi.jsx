@@ -7,13 +7,12 @@ export const getAvialablePet = () => {
 
 export const getCurrentPet = (id) => {
 
-<<<<<<< HEAD
-    return axios.get(`http://localhost:3000/pet/${id}`)
+    return axiosInstance.get(`/pet/${id}`)
 }
 
 export const getAllPet = (token) => {
 
-    return axios.get(`http://localhost:3000/pet`, {
+    return axiosInstance.get(`/pet`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -21,7 +20,7 @@ export const getAllPet = (token) => {
 }
 export const createPet = (token, body) => {
 
-    return axios.post(`http://localhost:3000/pet`, body, {
+    return axiosInstance.post(`/pet`, body, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -29,7 +28,7 @@ export const createPet = (token, body) => {
 }
 export const editPet = (token,id, body) => {
 
-    return axios.patch(`http://localhost:3000/pet/${id}`, body, {
+    return axiosInstance.patch(`/pet/${id}`, body, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -37,14 +36,9 @@ export const editPet = (token,id, body) => {
 }
 export const deletePet = (token,id) => {
 
-    return axios.delete(`http://localhost:3000/pet/${id}`,{
+    return axiosInstance.delete(`/pet/${id}`,{
         headers: {
             Authorization: `Bearer ${token}`,
         },
     })
 }
-
-=======
-    return axiosInstance.get(`/pet/${id}`)
-}
->>>>>>> dev

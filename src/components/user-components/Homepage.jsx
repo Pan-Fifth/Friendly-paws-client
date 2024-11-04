@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
+import { Button } from "@/components/ui/button"
 
 
 
@@ -206,10 +207,22 @@ export default function Homepage() {
                   </div>
                 )}
                 {index === 3 && (
-                  <div className="text-center">
-                    <h2 className="text-4xl font-bold text-pink-600 mb-4">Success Stories</h2>
-                    <p className="text-xl text-orange-900">Read heartwarming tales of pets finding their forever homes.</p>
-                  </div>
+                      <section className="w-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
+                      <div className="container px-4 md:px-6">
+                        <div className="flex flex-col items-center space-y-4 text-center">
+                          <div className="space-y-2">
+                            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Make a Difference Today</h2>
+                            <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                              Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution,
+                              no matter how small, can change a life.
+                            </p>
+                          </div>
+                          <Button className="bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
+                            Donate Now
+                          </Button>
+                        </div>
+                      </div>
+                    </section>
                 )}
               </motion.div>
             </AnimatePresence>

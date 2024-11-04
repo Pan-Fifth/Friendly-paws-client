@@ -34,14 +34,13 @@ function DesignCard({name,image,id,onClickHandler}) {
     <Card className="w-full max-w-sm mx-auto overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105">
      <div className="relative h-60">
         {/* Full-width picture */}
+        
         <img
           src={image}
           alt={name}
           className="object-cover w-full h-full"
         />
         
-        {/* Gradient overlay */}
-     
         
         {/* Geometric shapes */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-white/10 transform skew-y-6" />
@@ -54,6 +53,7 @@ function DesignCard({name,image,id,onClickHandler}) {
           viewBox="0 0 1440 320"
           preserveAspectRatio="none"
         >
+            
           <path
             fill="currentColor"
             fillOpacity="1"
@@ -63,12 +63,12 @@ function DesignCard({name,image,id,onClickHandler}) {
       </div>
       
       
-      <CardFooter className="bg-white p-4 pt-0">
+      <CardFooter className="bg-white p-4 pt-0 flex flex-col">
+        {/* <div>{name}</div> */}
         <Button 
          onClick={onClickHandler}
           className="w-full"
         >
-          {showDetails ? 'Hide Details' : 'More Details'}
         </Button >
       </CardFooter>
     </Card>
