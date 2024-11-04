@@ -11,10 +11,10 @@ const Adopt = () => {
     },[])
     const actionGetAvaiPet = usePetStore(state=>state.actionGetAvaiPet)
     const avaiPets = usePetStore(state=>state.avaiPets)
-    console.log(avaiPets)
     if (!avaiPets) {
         return <div className="flex items-center justify-center h-screen">Loading...</div>
     }
+    console.log("available pet",avaiPets)
     return (
         <div>
             <div className='w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto'>

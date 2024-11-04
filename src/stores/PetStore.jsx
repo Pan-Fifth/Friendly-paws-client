@@ -1,10 +1,15 @@
 import { create } from "zustand";
-import { getAvialablePet ,getCurrentPet,createAdoptRequest } from "../apis/PetApi";
+import { getAvialablePet ,getCurrentPet,getAllPet,createPet,editPet,deletePet,createAdoptRequest } from "../apis/PetApi";
 import { persist,createJSONStorage } from "zustand/middleware";
 import { toast } from "react-toastify";
+import { act } from "react";
+
+
+
 
 
 const usePetStore = create(persist((set,get)=>({
+    allPets : [],
     avaiPets:null ,
     currentPet:null,
    actionGetAvaiPet : async()=>{
@@ -39,7 +44,47 @@ const usePetStore = create(persist((set,get)=>({
         toast.error(err)
         throw err;
     }
+   },
+   actionGetAllPets : async(token) => {
+    try {
+        const result = await getAllPet(token)
+        // console.log(result.data)
+        set({allPets:result.data})
+        return result.data
+
+    } catch (err) {
+        throw err;
+    }
+   },
+   actionCreatePet : async(token,formData)=>{
+    try {
+        const result = await createPet(token,formData)
+        // console.log(result)
+        return result.data
+    } catch (err) {
+        throw err;
+    }
+   },
+   actionEditPet : async(token,id,formData)=>{
+    try {
+        const result = await editPet(token,id,formData)
+        console.log(result)
+        return result.data
+    } catch (err) {
+        throw err;
+    }
+   },
+   actionDeletePet : async(token,id)=>{
+    try {
+        const result = await deletePet(token,id)
+        console.log(result)
+        return result.data
+    } catch (err) {
+        throw err;
+    }
    }
+
+
 }),{
     name:"pet-store",
     storage: createJSONStorage(()=>localStorage)

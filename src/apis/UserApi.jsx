@@ -1,9 +1,9 @@
-import axios from 'axios';
+import axiosInstance from "../utils/axiosInstance";
 
 export const sendEmailApi = async (recipient, subject, message, token) => {
     try {
-        const response = await axios.post(
-            'http://localhost:3000/user/send-email',
+        const response = await axiosInstance.post(
+            '/user/send-email',
             { recipient, subject, message },
             {
                 headers: { Authorization: `Bearer ${token}` },
@@ -18,7 +18,7 @@ export const sendEmailApi = async (recipient, subject, message, token) => {
 
 export const getProfile = (token) => {
 
-    return axios.get("http://localhost:3000/user/profile/",
+    return axiosInstance.get("/user/profile/",
         {
             headers: {
                 Authorization: `Bearer ${token}`

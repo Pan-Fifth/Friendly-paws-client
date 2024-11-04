@@ -6,21 +6,26 @@ import Swal from 'sweetalert2';
 
 import useAuthStore from '../../stores/AuthStore';
 import { confirmPayment } from '../../apis/PaymentApi';
+import useDonationStore from '@/src/stores/DonationStore';
 
 export default function Completion() {
-
+    const {donation} = useDonationStore()
     const user = useAuthStore((state) => state.user);
-    const userId = user.id
+    const userId = user.id || 1
     console.log(user, "userrr")
+    console.log(donation, "this is donation")
     useEffect(() => {
+        
+        const paymentData = {
+            userId,
+            amount: Number(donation.total),
+            paymentMethod: donation.payment_method
+        };
         async function clearCart() {
             try {
                 // เรียก API เพื่อยืนยันการชำระเงินในเบื้องต้น
-                const response = await confirmPayment({
-                    userId: userId,
-                    amount: 1000, // Get this from your payment state/context
-                    paymentMethod: 'CREDIT' // Specify the payment method being used
-                });
+                const response = await confirmPayment(paymentData);
+
                 // แสดงข้อความยืนยันว่าการชำระเงินสำเร็จ
                 Swal.fire({
                     title: 'Payment Confirmed!',
