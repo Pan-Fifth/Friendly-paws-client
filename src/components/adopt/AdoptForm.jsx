@@ -3,9 +3,11 @@ import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, D
 import useAuthStore from "@/src/stores/AuthStore"
 import usePetStore from "@/src/stores/PetStore"
 import { useNavigate } from "react-router-dom"
-import { useState } from "react"
+import { useState, useRef } from "react"
 import { toast } from "react-toastify"
-export function DialogAdopt({petId}) {
+export function DialogAdopt({ petId }) {
+  const fileInput = useRef(null)
+  const [files, setFiles] = useState([]);
   const [houseCheck, setHouseCheck] = useState({
     hasGarden: false,
     hasFence: false,
@@ -15,7 +17,7 @@ export function DialogAdopt({petId}) {
   const [input, setInput] = useState({})
   const navigate = useNavigate()
   const user = useAuthStore(state => state.user.user)
-  const  actionCreateAdoptRequest = usePetStore(state => state.actionCreateAdoptRequest)
+  const actionCreateAdoptRequest = usePetStore(state => state.actionCreateAdoptRequest)
   const hdlChange = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
   }
@@ -25,34 +27,70 @@ export function DialogAdopt({petId}) {
       navigate("/login")
     }
   }
-
-  const hdlSubmit = async(e) => {
+  const hdlAddClick = (e) => {
     e.preventDefault()
-    const fromData = new FormData()
-    for (const key in input) {
-      fromData.append(key, input[key])
+    e.stopPropagation()
+    if (fileInput.current) {
+      fileInput.current.click(); // Programmatically click the hidden input
     }
-    for (const key in houseCheck) {
-      fromData.append(key, houseCheck[key])
-    }
-    fromData.append("userId", user.id)
-    fromData.append("petId", petId)
-    fromData.forEach((value, key) => {
-      console.log(key, value)
-    })
-    await actionCreateAdoptRequest(fromData)
-
-    // try {
-    //   toast.success("Adoption request submitted successfully")
-    //   setOpen(false)
-    // } catch (error) {
-    //   toast.error(error)
-    // }
-   
   }
 
+  const hdlFileChange = (e) => {
+    console.log("e files", e.target.files)
+    const selectedFiles = Array.from(e.target.files)
+    setFiles([...files, ...selectedFiles])
+
+  }
+
+  //Delete file
+  const hdlDeleteFile = (indexToDelete, e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const newFiles = files.filter((_, index) => index !== indexToDelete)
+    setFiles(newFiles)
+  }
+
+  const hdlSubmit = async (e) => {
+    try {
+      e.preventDefault()
+    if (files.length > 5) {
+      toast.error("You can only upload 5 files")
+      return
+    }
+    if (files.length < 3) {
+      toast.error("You must upload at least 3 files")
+      return
+    }
+    const formData = new FormData()
+    for (const key in input) {
+      formData.append(key, input[key])
+    }
+    for (const key in houseCheck) {
+      formData.append(key, houseCheck[key])
+    }
+    formData.append("userId", user.id)
+    formData.append("petId", petId)
+    formData.append("files", files)
+    files.forEach((file) => {
+      formData.append('files', file);
+    });
+    formData.forEach((value, key) => {
+      console.log(key, value)
+    })
+    await actionCreateAdoptRequest(formData)
+    toast.success("Adoption request submitted successfully")
+    setOpen(false)
+    
+    } catch (err) {
+      setOpen(true)
+      toast.error(err.response.data.message)
+    }
+
+  }
+  console.log("user",user.id)
   console.log(input)
   console.log(houseCheck)
+  console.log(files)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -79,11 +117,11 @@ export function DialogAdopt({petId}) {
               <div className="flex gap-4">
                 <div>
                   <label className="mb-1 flex-1">First Name*</label>
-                  <input type="text" placeholder={user.firstname || "First Name*"} className="border p-2 rounded w-full" name="firstname" onChange={hdlChange}/>
+                  <input type="text" placeholder={user.firstname || "First Name*"} className="border p-2 rounded w-full" name="firstname" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className=" mb-1 flex-1">Last Name*</label>
-                  <input type="text"placeholder={user.lastname || "Last Name*"} className="border p-2 rounded w-full" name="lastname" onChange={hdlChange}/>
+                  <input type="text" placeholder={user.lastname || "Last Name*"} className="border p-2 rounded w-full" name="lastname" onChange={hdlChange} />
                 </div>
               </div>
             </div>
@@ -94,19 +132,19 @@ export function DialogAdopt({petId}) {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
                   <label className="block mb-1">Date of Birth*</label>
-                  <input type="date" className="border p-2 rounded w-full" name="dateOfBirth" onChange={hdlChange}/>
+                  <input type="date" className="border p-2 rounded w-full" name="dateOfBirth" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Phone No.*</label>
-                  <input type="tel" placeholder="Phone No.*" className="border p-2 rounded w-full" name="phone" onChange={hdlChange}/>
+                  <input type="tel" placeholder="Phone No.*" className="border p-2 rounded w-full" name="phone" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Line*</label>
-                  <input type="text" placeholder="Line*" className="border p-2 rounded w-full" name="socialContact" onChange={hdlChange}/>
+                  <input type="text" placeholder="Line*" className="border p-2 rounded w-full" name="socialContact" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Email*</label>
-                  <input type="email" placeholder="Email*" className="border p-2 rounded w-full" name="email" onChange={hdlChange}/>
+                  <input type="email" placeholder="Email*" className="border p-2 rounded w-full" name="email" onChange={hdlChange} />
                 </div>
               </div>
             </div>
@@ -121,17 +159,17 @@ export function DialogAdopt({petId}) {
                 </div>
                 <div>
                   <label className="block mb-1">Career*</label>
-                  <input type="text" placeholder="Career*" className="border p-2 rounded w-full"  name="career" onChange={hdlChange}/>
+                  <input type="text" placeholder="Career*" className="border p-2 rounded w-full" name="career" onChange={hdlChange} />
                 </div>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
                 <div>
                   <label className="block mb-1">Work Place*</label>
-                  <input type="text" placeholder="Work Place*" className="border p-2 rounded w-full"  name="workPlace" onChange={hdlChange}/>
+                  <input type="text" placeholder="Work Place*" className="border p-2 rounded w-full" name="workPlace" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Working Time*</label>
-                  <input type="text" placeholder="Working Time*" className="border p-2 rounded w-full"  name="workTime" onChange={hdlChange}/>
+                  <input type="text" placeholder="Working Time*" className="border p-2 rounded w-full" name="workTime" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Day off*</label>
@@ -139,13 +177,13 @@ export function DialogAdopt({petId}) {
                 </div>
                 <div>
                   <label className="block mb-1">Salary (baht/month)*</label>
-                  <input type="number" placeholder="Salary*" className="border p-2 rounded w-full" name="salary" onChange={hdlChange}/>
+                  <input type="number" placeholder="Salary*" className="border p-2 rounded w-full" name="salary" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Family member*</label>
-                  <input type="number" placeholder="Family member*" className="border p-2 rounded w-full" name="familyMemberCount" onChange={hdlChange}/>
+                  <input type="number" placeholder="Family member*" className="border p-2 rounded w-full" name="familyMemberCount" onChange={hdlChange} />
                 </div>
-                
+
               </div>
             </div>
 
@@ -155,11 +193,11 @@ export function DialogAdopt({petId}) {
               <label className="block mb-1">Is anyone home during the day?</label>
               <div className="flex gap-4 mb-2">
                 <label className="flex items-center">
-                  <input type="radio"  className="mr-2" name="familyAlwaysHome" value={true} onChange={hdlChange} />
+                  <input type="radio" className="mr-2" name="familyAlwaysHome" value={true} onChange={hdlChange} />
                   Yes
                 </label>
                 <label className="flex items-center">
-                  <input type="radio"  className="mr-2" name="familyAlwaysHome" value={false} onChange={hdlChange} />
+                  <input type="radio" className="mr-2" name="familyAlwaysHome" value={false} onChange={hdlChange} />
                   No
                 </label>
               </div>
@@ -184,27 +222,27 @@ export function DialogAdopt({petId}) {
               </select>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <label className="flex items-center">
-                  <input type="checkbox" className="mr-2" name="hasGarden" 
-                  onChange={(e)=>setHouseCheck({
-                    ...houseCheck,
-                    hasGarden:e.target.checked
-                  })} />
+                  <input type="checkbox" className="mr-2" name="hasGarden"
+                    onChange={(e) => setHouseCheck({
+                      ...houseCheck,
+                      hasGarden: e.target.checked
+                    })} />
                   I have a garden
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" className="mr-2" name="hasFence" 
-                    onChange={(e)=>setHouseCheck({
-                    ...houseCheck,
-                    hasFence:e.target.checked
-                  })} />
+                  <input type="checkbox" className="mr-2" name="hasFence"
+                    onChange={(e) => setHouseCheck({
+                      ...houseCheck,
+                      hasFence: e.target.checked
+                    })} />
                   I have a fence
                 </label>
                 <label className="flex items-center">
-                  <input type="checkbox" className="mr-2" name="canWalkDog" 
-                    onChange={(e)=>setHouseCheck({
-                    ...houseCheck,
-                    canWalkDog:e.target.checked
-                  })} 
+                  <input type="checkbox" className="mr-2" name="canWalkDog"
+                    onChange={(e) => setHouseCheck({
+                      ...houseCheck,
+                      canWalkDog: e.target.checked
+                    })}
                   />
                   I can walk the dog on a leash
                 </label>
@@ -215,51 +253,81 @@ export function DialogAdopt({petId}) {
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-3">Pet Information</h3>
               <div className="flex gap-2">
-              <div>
+                <div>
                   <label className="block mb-1">Current Pet Count*</label>
-                  <input type="number" placeholder="Number of Pets*" className="border p-2 rounded w-full" name="currentPetCount" onChange={hdlChange}/>
+                  <input type="number" placeholder="Number of Pets*" className="border p-2 rounded w-full" name="currentPetCount" onChange={hdlChange} />
                 </div>
                 <div>
                   <label className="block mb-1">Current Pet Detail*</label>
-                  <input type="text" placeholder="Pet Detail*" className="border p-2 rounded w-full" name="currentPetDetails" onChange={hdlChange}/>
+                  <input type="text" placeholder="Pet Detail*" className="border p-2 rounded w-full" name="currentPetDetails" onChange={hdlChange} />
                 </div>
               </div>
             </div>
 
             {/* Delivery Preference Section */}
             <div className="mb-6">
-            <h3 className="text-xl font-semibold mb-3">Delivery Checklist</h3>
-            <label className="block mb-1">Is anyone home during the day?</label>
+              <h3 className="text-xl font-semibold mb-3">Delivery Checklist</h3>
+              <label className="block mb-1">Is anyone home during the day?</label>
               <div className="flex gap-4 mb-2">
                 <label className="flex items-center">
-                  <input type="radio"  className="mr-2" name="deliveryType" value={"PICK_UP"} onChange={hdlChange} />
+                  <input type="radio" className="mr-2" name="deliveryType" value={"PICK_UP"} onChange={hdlChange} />
                   Can Pickup
                 </label>
                 <label className="flex items-center">
-                  <input type="radio"  className="mr-2" name="deliveryType" value={"REQUIRE_DELIVERY"} onChange={hdlChange} />
+                  <input type="radio" className="mr-2" name="deliveryType" value={"REQUIRE_DELIVERY"} onChange={hdlChange} />
                   Request for Delivery
                 </label>
               </div>
-              </div>
-            
+            </div>
+
 
             {/* Upload Accommodation Images Section */}
             <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-3">Upload Accommodation Images</h3>
-              <p className="text-gray-600 mb-2">(Max 3 Pictures)</p>
+              <h3 className="text-xl font-semibold mb-3">Upload Accommodation Images (3-5 Pictures)</h3>
+
+              <Button onClick={hdlAddClick} >Add Picture</Button>
+              {files.length > 0 ? <p>{files.length} selected files</p> : <p>no selected file</p>}
               <input
                 type="file"
                 accept="image/*"
+                ref={fileInput}
                 multiple
-                className="border p-2 rounded w-full"
+                className="border p-2 rounded w-full no "
+                style={{ display: "none" }}
+                onChange={hdlFileChange}
               />
             </div>
+
+            {files.length > 0 && (
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                {files.map((file, index) => (
+                  <div key={index} className="relative">
+                    <img
+                      src={URL.createObjectURL(file)}
+                      alt={`Upload ${index + 1}`}
+                      className="w-full h-48 object-cover rounded-lg"
+                    />
+                    <Button
+                      onMouseDown={(e) => hdlDeleteFile(index, e)}
+                      onClick={(e) => e.preventDefault()}
+                      type="button"
+                      className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1"
+                      size="sm"
+                    >
+                      ✕
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+
+
 
             {/*Explain why want to adopt Section */}
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-3">Tell us why you want to adopt this little guy?</h3>
-                <div>
-                <textarea  type="text" className="border p-2 rounded w-full h-[300px]" name="notes" onChange={hdlChange} />
+              <div>
+                <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="notes" onChange={hdlChange} />
               </div>
             </div>
 
