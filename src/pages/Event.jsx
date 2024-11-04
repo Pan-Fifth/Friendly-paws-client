@@ -14,13 +14,13 @@ const Event = () => {
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [expireEvent, setExpireEvent] = useState(null);
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-        }, 5000); //ม็อค
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+    //     }, 5000); //ม็อค
 
-        return () => clearInterval(interval);
-    }, []);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     const openModal = (event) => {
         setSelectedEvent(event);
@@ -38,10 +38,21 @@ const Event = () => {
     }
 
     // เรียกใช้งาน get events จาก store
+    // -------------------------------------
+
+    // เรียกใช้งาน register event จาก store
+
+    const regisEventForm = {
+        eventId: '',
+    };
 
     const pastEvent = useEventStore((state) => state.pastEvent);
     const events = useEventStore((state) => state.events);
     const getEvents = useEventStore((state) => state.getEvents);
+    const [form, setForm] = useState(regisEventForm);
+    const regisEvent = useEventStore((state) => state.regisEvent);
+    const registerEvent = useEventStore((state) => state.registerEvent);
+    const token = useAuthStore((state) => state.token);
     console.log("ไหนขอดู events", events)
     useEffect(() => {
         getEvents()
@@ -50,17 +61,6 @@ const Event = () => {
         return <div>Loading...</div>;
     }
 
-    // -------------------------------------
-
-    // เรียกใช้งาน register event จาก store
-
-    const regisEventForm = {
-        eventId: '',
-    };
-    const [form, setForm] = useState(regisEventForm);
-    const regisEvent = useEventStore((state) => state.regisEvent);
-    const registerEvent = useEventStore((state) => state.registerEvent);
-    const token = useAuthStore((state) => state.token);
 
 
 
