@@ -1,18 +1,18 @@
-import axios from 'axios'
+import axiosInstance from "../utils/axiosInstance";
 
 export const register = (form) => {
 
-    return axios.post("http://localhost:3000/auth/register", form)
+    return axiosInstance.post("/auth/register", form)
 }
 
 
 export const login = (form) => {
 
-    return axios.post("http://localhost:3000/auth/login", form)
+    return axiosInstance.post("/auth/login", form)
 
 }
 export const loginGoogle = (token) => {
-    return axios.post("http://localhost:3000/auth/login-google", { token }, {
+    return axiosInstance.post("/auth/login-google", { token }, {
         headers: {
             'Content-Type': 'application/json',
         }
@@ -21,7 +21,7 @@ export const loginGoogle = (token) => {
 
 export const forgetPassword = (email) => {
 
-    return axios.post("http://localhost:3000/auth/forget-password", { email }, {
+    return axiosInstance.post("/auth/forget-password", { email }, {
 
         headers: {
             'Content-Type': 'application/json'
@@ -31,8 +31,8 @@ export const forgetPassword = (email) => {
 
 
 export const resetPassword = (token, data) => {
-    console.log('token :>> ', token);
-    return axios.post(`http://localhost:3000/auth/reset-password/${token}`, data, {
+
+    return axiosInstance.post(`/auth/reset-password/${token}`, data, {
         headers: {
             'Content-Type': 'application/json',
         },
