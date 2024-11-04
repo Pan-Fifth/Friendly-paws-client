@@ -66,5 +66,41 @@
     "date": "Date : ",
     "location": "Location : ",
     "description": "Description : "
+  },
+  "aboutPage": {
+    
+    "headerTitle": "... is a charitable organization ... 🐶",
+    "headerDescription": "Since its founding in 2008, Big Dog Ranch Rescue has saved over 70,000 dogs! Our mission is to save 10,000 dogs per year, rehabilitate and find them warm homes, and educate people about proper dog care and the importance of spaying and neutering.",
+    "helpSectionTitle": "How You Can Help:",
+    "helpSectionDescription": "We rely on donations and support to help sick, abandoned, and abused dogs in our care. Every dog we rescue receives treatment, vaccinations, and spaying. We also rehabilitate, socialize, and work to find new homes for our dogs. But we can't do it alone.",
+    "supportButton": "Support Our Mission ❤️",
+    "adoptionChecklistTitle": "Adoption Requirements:",
+    "checklist": [
+      {
+        "title": "Age",
+        "description": "The adopter must be over 22 years old and employed. If under 22, parental permission is required.",
+        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
+      },
+      {
+        "title": "Exercise",
+        "description": "Dogs need exercise, and the adopter must walk the dog at least twice a day.",
+        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
+      },
+      {
+        "title": "Home",
+        "description": "We prefer homes with fenced yards, but will consider homes away from busy roads in friendly neighborhoods.",
+        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
+      },
+      {
+        "title": "Updates",
+        "description": "We require all adopters to follow our update schedule so we can monitor your progress with your new dog.",
+        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
+      },
+      {
+        "title": "Community",
+        "description": "To qualify, you must live in a pet-friendly neighborhood, village, or community where keeping a dog is allowed.",
+        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
+      }
+    ]
   }
 }

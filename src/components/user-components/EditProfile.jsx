@@ -22,6 +22,7 @@ export default function EditProfile() {
         fetchProfile();
     }, [token]);
     console.log(token, "tokennnn")
+    console.log('user :>> ', user);
     const fetchProfile = async () => {
         try {
 

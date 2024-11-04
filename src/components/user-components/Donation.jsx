@@ -22,13 +22,11 @@ import ChatPortal from "./ChatPortal";
 import PaymentDonate from "./PaymentDonate";
 import axiosInstance from "@/src/utils/axiosInstance";
 import { useTranslation } from 'react-i18next';
-import useLanguageStore from "@/src/stores/LanguageStore";
 
 
 const Donation = () => {
-
+  //change lang ห้ามมลบ
   const { t } = useTranslation();
-  const { language } = useLanguageStore();
 
 
   const { toast } = useToast();
@@ -95,7 +93,7 @@ const Donation = () => {
   useEffect(() => {
     getTotalDonationAmount();
     fetchGoals();
-  }, [language]);
+  }, []);
 
   useEffect(() => {
     return () => {
