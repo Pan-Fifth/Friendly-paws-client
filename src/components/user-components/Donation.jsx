@@ -170,8 +170,8 @@ const Donation = () => {
                       className="h-24 w-full flex flex-col items-center justify-center text-center p-2 transition-all"
                       onClick={() => handleAmountSelect(option.amount)}
                     >
-                      <span className="text-2xl mb-1">{option.icon}</span>
-                      <span className="font-bold">฿{option.amount}</span>
+                      <div className="text-2xl mb-1">{option.icon}</div>
+                      <div className="font-bold">฿{option.amount}</div>
                     </Button>
                   </motion.div>
                 ))}

@@ -1,239 +1,261 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom'
+import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from "@/components/ui/carousel"
 
-const Homepage = () => {
-  const [visibleSections, setVisibleSections] = useState(Array(5).fill(false)); // Track visibility for each section
-  const sectionsRef = useRef([]);
 
-  const handleIntersection = (entries) => {
-    entries.forEach((entry) => {
-      const index = parseInt(entry.target.id.split(' ')[1]) - 1; // Extract index from ID
 
-      if (entry.isIntersecting) {
-        setVisibleSections((prev) => {
-          const newVisibleSections = [...prev];
-          newVisibleSections[index] = true; // Set the specific section to visible
-          return newVisibleSections;
-        });
-      } else {
-        // Hide the section only if the next one is not visible
-        if (index < visibleSections.length - 1 && !visibleSections[index + 1]) {
-          setVisibleSections((prev) => {
-            const newVisibleSections = [...prev];
-            newVisibleSections[index] = false; // Set the specific section to not visible
-            return newVisibleSections;
-          });
-        }
-      }
-    });
-  };
+
+
+'use client'
+
+
+
+const Bubble = ({ size, left, top, delay }) => (
+  <motion.div
+    className="absolute rounded-full bg-white/20 backdrop-blur-sm"
+    style={{
+      width: size,
+      height: size,
+      left: `${left}%`,
+      top: `${top}%`,
+    }}
+    animate={{
+      y: [-20, 20, -20],
+      x: [-10, 10, -10],
+      scale: [1, 1.1, 1],
+    }}
+    transition={{
+      duration: 5,
+      repeat: Infinity,
+      delay: delay,
+    }}
+  />
+)
+
+const pages = [
+  { id: 'home', title: 'Home' },
+  { id: 'mission', title: 'Our Mission' },
+  { id: 'adoption', title: 'Adoption Process' },
+  { id: 'stories', title: 'Success Stories' },
+]
+
+export default function Homepage() {
+  const [currentPage, setCurrentPage] = useState(0)
+  const { scrollYProgress } = useScroll()
+  const scaleY = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  })
+  const containerRef = useRef(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(handleIntersection, {
-      threshold: 0.3, // Trigger when 30% of the section is in view
-    });
+    const handleScroll = () => {
+      if (containerRef.current) {
+        const scrollPosition = window.scrollY
+        const sectionHeight = window.innerHeight
+        const newPage = Math.round(scrollPosition / sectionHeight)
+        setCurrentPage(Math.min(newPage, pages.length - 1))
+      }
+    }
 
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
-    });
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
-    return () => {
-      sectionsRef.current.forEach((section) => {
-        if (section) observer.unobserve(section);
-      });
-    };
-  }, []);
+  const handleCircleClick = (index) => {
+    if (containerRef.current) {
+      const targetScrollPosition = index * window.innerHeight
+      window.scrollTo({
+        top: targetScrollPosition,
+        behavior: 'smooth',
+      })
+    }
+  }
+
+  const pageVariants = {
+    initial: { opacity: 0, y: 50 },
+    in: { opacity: 1, y: 0 },
+    out: { opacity: 0, y: -50 }
+  }
+
+  const pageTransition = {
+    type: 'tween',
+    ease: 'anticipate',
+    duration: 0.5
+  }
 
   return (
-    <div>
-      <section id="section 1" ref={el => (sectionsRef.current[0] = el)}>
-        
+    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-pink-400 via-orange-300 to-yellow-300 overflow-hidden relative">
+      {/* Vertical scroll progress indicator */}
+      <motion.div
+        className="fixed left-0 top-0 bottom-0 w-1 bg-pink-500 origin-top z-50"
+        style={{ scaleY }}
+      />
 
-        <div className={`fade-in-image ${visibleSections[0] ? 'inview' : ''} h-[800px] w-full flex m-auto`}>
-          <div className='w-full '>
-          <img
-            src="/src/assets/DogBlackMain.png"
-            alt=""
-            className='w-full h-full relative mx-auto z-20 '
+      {/* Main content */}
+      <main>
+        {pages.map((page, index) => (
+          <section
+            key={page.id}
+            id={page.id}
+            className="min-h-screen w-full flex items-center justify-center  relative overflow-hidden"
+          >
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={index}
+                initial="initial"
+                animate="in"
+                exit="out"
+                variants={pageVariants}
+                transition={pageTransition}
+                className="w-full mx-auto relative z-10 flex justify-center"
+              >
+                {index === 0 && (
+                    <div className="flex items-center justify-between relative w-full bg-white px-[300px] ">
+                    <div className="relative z-10">
+                            <img  src="/src/assets/dog.png" 
+                            alt=""  
+                            className='h-screen ' />
+                        </div>
+                      <div className="absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
+                    <div className="absolute w-full  left-0 right-0 top-0 bottom-0 z-0" />
+                        <div className="max-w-xl z-10">
+                      <h1 className="text-xl mb-4">
+                        ADOPT ME<span className="text-pink-600">, PLEASE</span>
+                      </h1>
+                      <h2 className="text-[150px] font-bold leading-tight mb-8">
+                        FRIENDLY POW
+                      </h2>
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-pink-600 text-white px-12 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-colors"
+                      >
+                        ADOPT
+                      </motion.button>
+                    </div>
+                    </div>
+                )}
+
+
+
+
+                {index === 1 && (
+                  <div className="relative bg-white/90 rounded-3xl p-12 backdrop-blur-sm">
+                    <div className="text-center mb-12">
+                      <h2 className="text-4xl font-bold mb-4">WELCOME TO OUR CLUB!</h2>
+                      <p className="text-gray-600 max-w-2xl mx-auto">
+                        Join our community of pet lovers and discover everything you need to know about pet care, health, and happiness.
+                      </p>
+                    </div>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                      <div className="text-center">
+                        <div className="relative w-48 h-48 mx-auto mb-4">
+                          <div className="absolute inset-0 rounded-full overflow-hidden">
+                           <img src="https://res.cloudinary.com/petrescue/image/upload/b_auto:predominant,c_pad,f_auto,h_648,w_648/x9vv6s9se8byqdikbza0.jpg" 
+                           alt="" 
+                           className=' w-full h-full' />
+                
+                          </div>
+                          <div className="absolute inset-0 bg-white/30 rounded-full"></div>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">CARE ADVICE</h3>
+                        <p className="text-gray-600">Expert tips for keeping your pets healthy and happy</p>
+                      </div>
+                      <div className="text-center">
+                        <div className="relative w-48 h-48 mx-auto mb-4">
+                          <div className="absolute inset-0 rounded-full overflow-hidden">
+                          <img src="https://res.cloudinary.com/petrescue/image/upload/b_auto:predominant,c_pad,f_auto,h_648,w_648/x9vv6s9se8byqdikbza0.jpg" 
+                           alt="" 
+                           className='  w-full h-full' />
+                
+                          </div>
+                          <div className="absolute inset-0 bg-white/30  rounded-full"></div>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">VETERINARY HELP</h3>
+                        <p className="text-gray-600">Professional medical care when you need it most</p>
+                      </div>
+                      <div className="text-center">
+                        <div className="relative w-48 h-48 mx-auto mb-4">
+                          <div className="absolute inset-0 rounded-full overflow-hidden">
+                          <img src="https://res.cloudinary.com/petrescue/image/upload/b_auto:predominant,c_pad,f_auto,h_648,w_648/x9vv6s9se8byqdikbza0.jpg" 
+                           alt="" 
+                           className=' w-full h-full' />
+                          </div>
+                          <div className="absolute inset-0 bg-white/30  rounded-full"></div>
+                        </div>
+                        <h3 className="text-xl font-bold mb-2">OUR TIPS</h3>
+                        <p className="text-gray-600">Daily guidance for better pet parenting</p>
+                      </div>
+                    </div>
+                    <div className="text-center mt-8">
+                      <motion.button
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        className="bg-pink-600 text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-pink-700 transition-colors"
+                      >
+                        VIEW MORE
+                      </motion.button>
+                    </div>
+                  </div>
+                )}
+                {index === 2 && (
+                  <div className="text-center">
+                    <h2 className="text-4xl font-bold text-pink-600 mb-4">Adoption Process</h2>
+                    <p className="text-xl text-orange-900">Learn about our simple and rewarding adoption process.</p>
+                  </div>
+                )}
+                {index === 3 && (
+                      <section className="w-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
+                      <div className="container px-4 md:px-6">
+                        <div className="flex flex-col items-center space-y-4 text-center">
+                          <div className="space-y-2">
+                            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Make a Difference Today</h2>
+                            <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                              Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution,
+                              no matter how small, can change a life.
+                            </p>
+                          </div>
+                          <Button className="bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
+                            Donate Now
+                          </Button>
+                        </div>
+                      </div>
+                    </section>
+                )}
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Randomly positioned bubbles for each section */}
+            {[...Array(15)].map((_, i) => (
+              <Bubble
+                key={`${page.id}-bubble-${i}`}
+                size={Math.random() * 60 + 20}
+                left={Math.random() * 100}
+                top={Math.random() * 100}
+                delay={Math.random() * 5}
+              />
+            ))}
+          </section>
+        ))}
+      </main>
+
+      {/* Vertical clickable dot navigation with z-index 20 */}
+      <div className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col space-y-4 z-20">
+        {pages.map((_, i) => (
+          <motion.button
+            key={i}
+            onClick={() => handleCircleClick(i)}
+            className={`w-4 h-4 rounded-full ${
+              i === currentPage ? 'bg-pink-600' : 'bg-orange-300'
+            }`}
+            whileHover={{ scale: 1.2 }}
+            whileTap={{ scale: 0.9 }}
+            aria-label={`Scroll to ${pages[i].title}`}
           />
-          </div>
-          <div>
-            <p className='text-yellow-300 text-[380px] opacity-60 absolute left-[250px] '>AD</p>
-            <p className='text-purple-400 text-[380px] opacity-60 absolute right-[290px] '>PT</p>
-            <em className='text-[180px] opacity-90 absolute top-[550px] right-[850px] z-30 '>ME</em>
-          
-          </div>
-        </div>
-
-
-        <span>First</span>
-      </section>
-
-      <section id="section 2" ref={el => (sectionsRef.current[1] = el)}>
-        <div className={`flex gap-10 h-[800px] fade-in-image ${visibleSections[1] ? 'inview' : ''}`}>
-          <div className='flex flex-1'>
-            <img src="https://jaidogrescue.org/wp-content/uploads/2024/05/support-2.jpg" alt="" />
-          </div>
-          
-          <div className='flex flex-1 text-sm flex-col gap-10 items-center justify-center'>
-            <p className='text-[50px]'>About the Friendly Pow</p>
-            <p className='text-[25px] tracking-wide'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eius, dolorem. Quaerat earum minus illum, iste fugiat voluptatibus! Eos, minus quae natus unde commodi consequatur excepturi quas, voluptatum explicabo cumque atque!</p>
-            <p className='text-[25px] tracking-wide'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Hic voluptates veniam explicabo rem tempora cumque eum necessitatibus enim ea optio iste autem ab impedit aspernatur doloremque corrupti eos iure, molestiae facilis quisquam qui. Cupiditate aut a sapiente ipsum nobis. Dolores nam aliquam ex natus ipsa porro veniam pariatur, minus quam.</p>
-          </div>
-        </div>
-        <span>Second</span>
-      </section>
-
-      <section id="section 3" ref={el => (sectionsRef.current[2] = el)}>
-        <div className={` flex flex-col gap-10 container h-[800px] fade-in-image ${visibleSections[2] ? 'inview' : ''}`}>
-          
-          <div className='flex m-auto text-[60px]'>
-            <p>Our friends who are looking for a house</p>
-          </div>
-
-          <div className="wgh-slider">
-            <input className="wgh-slider-target" type="radio" id="slide-1" name="slider"/>
-            <input className="wgh-slider-target" type="radio" id="slide-2" name="slider"/>
-            <input className="wgh-slider-target" type="radio" id="slide-3" name="slider" defaultChecked />
-            <input className="wgh-slider-target" type="radio" id="slide-4" name="slider"/>
-            <input className="wgh-slider-target" type="radio" id="slide-5" name="slider"/>
-            <div className="wgh-slider__viewport">
-              <div className="wgh-slider__viewbox">
-                <div className="wgh-slider__container">
-                  <div className="wgh-slider-item">
-                    <div className="wgh-slider-item__inner">
-                      <figure className="wgh-slider-item-figure">
-                        <img className="wgh-slider-item-figure__image" src="https://usercontent.one/wp/dogrescuethailand.com/wp-content/uploads/2023/06/el1-scaled-e1685610902204.jpeg?media=1660398864" alt="Alla"/>
-                        <figcaption className="wgh-slider-item-figure__caption">
-                          <a href="https://f4.bcbits.com/img/a3905613628_16.jpg">Ella</a>
-                          <p>Quantic</p>
-                        </figcaption>
-                      </figure>
-                      <label className="wgh-slider-item__trigger" htmlFor="slide-1" title="Show product 1"></label>
-                    </div>
-                  </div>
-                  <div className="wgh-slider-item">
-                    <div className="wgh-slider-item__inner">
-                      <figure className="wgh-slider-item-figure">
-                        <img className="wgh-slider-item-figure__image" src="https://rescuepawsthailand.org/wp-content/uploads/2024/08/Sod-Sai-2-1024x972.jpg" alt="The 5th Exotic"/>
-                        <figcaption className="wgh-slider-item-figure__caption">
-                          <a href="https://f4.bcbits.com/img/a3905613628_16.jpg">Sod Sai</a>
-                          <p>Quantic</p>
-                        </figcaption>
-                      </figure>
-                      <label className="wgh-slider-item__trigger" htmlFor="slide-2" title="Show product 2"></label>
-                    </div>
-                  </div>
-                  <div className="wgh-slider-item">
-                    <div className="wgh-slider-item__inner">
-                      <figure className="wgh-slider-item-figure">
-                        <img className="wgh-slider-item-figure__image" src="https://usercontent.one/wp/dogrescuethailand.com/wp-content/uploads/2023/02/str5-e1675759420935.jpeg?media=1660398864" alt="The 5th Exotic"/>
-                        <figcaption className="wgh-slider-item-figure__caption">
-                          <a href="https://f4.bcbits.com/img/a3905613628_16.jpg">Boolean</a>
-                          <p>Quantic</p>
-                        </figcaption>
-                      </figure>
-                      <label className="wgh-slider-item__trigger" htmlFor="slide-3" title="Show product 3"></label>
-                    </div>
-                  </div>
-                  <div className="wgh-slider-item">
-                    <div className="wgh-slider-item__inner">
-                      <figure className="wgh-slider-item-figure">
-                        <img className="wgh-slider-item-figure__image" src="https://rescuepawsthailand.org/wp-content/uploads/2023/11/Bambi3-e1700801399563-1024x1024.jpg" alt="The 5th Exotic"/>
-                        <figcaption className="wgh-slider-item-figure__caption">
-                          <a href="https://f4.bcbits.com/img/a3905613628_16.jpg">Bambi</a>
-                          <p>Quantic</p>
-                        </figcaption>
-                      </figure>
-                      <label className="wgh-slider-item__trigger" htmlFor="slide-4" title="Show product 4"></label>
-                    </div>
-                  </div>
-                  <div className="wgh-slider-item">
-                    <div className="wgh-slider-item__inner">
-                      <figure className="wgh-slider-item-figure">
-                        <img className="wgh-slider-item-figure__image" src="https://usercontent.one/wp/dogrescuethailand.com/wp-content/uploads/2022/12/de4-1536x2048.jpeg?media=1660398864" alt="RYSY - Traveler LP"/>
-                        <figcaption className="wgh-slider-item-figure__caption">
-                          <a href="https://picsum.photos/id/237/480/480">Kai</a>
-                          <p>RYSY</p>
-                        </figcaption>
-                      </figure>
-                      <label className="wgh-slider-item__trigger" htmlFor="slide-5" title="Show product 5"></label>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className='flex m-auto '>
-          <Button asChild className='w-[400px] h-[50px]' >
-            <Link to="/adopt" className='text-xl'>Get to know the rest</Link>
-          </Button>
-          </div>
-
-        </div>
-        <span>Third</span>
-      </section>
-
-      <section id="section 4" ref={el => (sectionsRef.current[3] = el)}>
-        <div className={`h-[500px] fade-in-image ${visibleSections[3] ? 'inview' : ''}`}>
-          <div className='flex flex-col gap-10 justify-center items-center text-center'>
-          <p className='text-[50px]'>Help Us Create Sustainable Change</p>
-            <p className='text-3xl w-2/3  p-14 border-4'>Sustainable change is not just about sterilizing as many animals as we can. Educating local communities about animal welfare and the importance of sterilization is just as critical to fundamentally change the attitudes and behavior that affects stray lives. This is the root of the problem and our unique approach to solving it, which is made possible with your support.</p>
-
-        </div>
-        </div>
-        <span>Fourth</span>
-      </section>
-
-        <section id="section 5" className=' w-full' ref={el => (sectionsRef.current[4] = el)}>
-        <div className={`h-[600px] relative flex flex-col mx-auto fade-in-image ${visibleSections[3] ? 'inview' : ''}`}>
-        {/* <img src="/src/assets/dogHome.jpg" className='h-full' alt="" />
-        <Button className='absolute variant="link" bottom-10 bg-white z-20 text-black w-fit h-[60px] left-[220px] text-3xl '>ADOPT NOW</Button> */}
-        {/* <Carousel className="w-full h-full">
-        <CarouselContent className="-ml-1">
-          {Array.from({ length: 5 }).map((_, index) => (
-            <CarouselItem key={index} className="bg-red-400 pl-1">
-              <div className="p-1"> 
-                <Card>
-                  <CardContent className="flex aspect-square items-center justify-center p-6">
-                    <span className="text-2xl font-semibold">{index + 1}</span>
-                  </CardContent>
-                </Card>
-              </div>
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-        <CarouselPrevious />
-        <CarouselNext />
-      </Carousel> */}
+        ))}
       </div>
-
-      <span>Fifth</span>
-        </section>
-        
-
-      <section id="section 6" ref={el => (sectionsRef.current[5] = el)}>
-        <span>Fifth</span>
-      </section>
-
-
-
-
-
-
-
     </div>
-  );
-};
-
-export default Homepage;
+  )
+}
