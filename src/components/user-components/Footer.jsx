@@ -7,57 +7,107 @@ import { MdEmail } from "react-icons/md";
 import SendEmailForm from './SendEmailForm';
 
 export default function Footer() {
+  return (
+    <div className="relative">
+      {/* Top cloud shape */}
+      <div className="absolute top-0 left-0 right-0 overflow-hidden">
+        <svg
+          className="relative block w-full h-[48px] text-blue-100 "
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+        >
+          <path
+            d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+            className="fill-white"
+          ></path>
+        </svg>
+      </div>
 
-    const socialIcons = [
-        { icon: <TiSocialTwitter className='w-16 h-16 text-yellow-500' />, },
-        { icon: <FaFacebook className='w-16 h-16 text-yellow-500' />, },
-        { icon: <FaYoutube className='w-16 h-16 text-yellow-500' />, },
-        { icon: <FaInstagram className='w-16 h-16 text-yellow-500' />, },
-    ];
-    return (
-        <div>
-            <footer className='bg-red-500 text-white h-auto mt-96'>
-                <div className='flex justify-around items-center mx-40 py-10'>
+      {/* Main content area (placeholder) */}
+      <div className="min-h-screen bg-white"></div>
 
-                    <div className='w-80 h-auto space-y-2'>
-                        <h1 className=' text-yellow-500 mb-4'>Contact</h1>
-                        <div className='space-y-2 '>
-                            <div className='flex gap-4 items-center'>
-                                <FaLocationDot className='w-5 h-5' />
-                                <h2 className='text-white'>adress</h2>
-                            </div>
-                            <div className='flex gap-4 items-center'>
-                                <FaPhoneAlt className='w-5 h-5' />
-                                <h2 className='text-white'>phone</h2>
-                            </div>
-                            <div className='flex gap-4 items-center'>
-                                <MdEmail className='w-5 h-5' />
-                                <h2 className='text-white'>email</h2>
-                            </div>
-                        </div>
-                    </div>
+      {/* Footer */}
+      <footer className="relative bg-blue-100">
+        {/* Bottom cloud shape */}
+        <div className="absolute top-0 left-0 right-0 overflow-hidden">
+          <svg
+            className="relative rotate-180 block w-full h-[45px] text-blue-100"
+            viewBox="0 0 1200 120"
+            preserveAspectRatio="none"
+          >
+            <path
+              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
+              className="fill-white "
+            ></path>
+          </svg>
+        </div>
 
+        {/* Footer content */}
+        <div className="container mx-auto px-6 pt-10 pb-6">
+          <div className="flex flex-wrap">
+            <div className="w-full md:w-1/4 text-center md:text-left">
+              <h5 className="uppercase mb-6 font-bold">Links</h5>
+              <ul className="mb-4">
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">FAQ</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Help</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Support</a>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/4 text-center md:text-left">
+              <h5 className="uppercase mb-6 font-bold">Legal</h5>
+              <ul className="mb-4">
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Terms</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Privacy</a>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/4 text-center md:text-left">
+              <h5 className="uppercase mb-6 font-bold">Social</h5>
+              <ul className="mb-4">
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Facebook</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Instagram</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Twitter</a>
+                </li>
+              </ul>
+            </div>
+            <div className="w-full md:w-1/4 text-center md:text-left">
+              <h5 className="uppercase mb-6 font-bold">Company</h5>
+              <ul className="mb-4">
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Blog</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">About Us</a>
+                </li>
+                <li className="mt-2">
+                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Contact</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div className="text-center pt-4 pb-8">
+          <p className="text-sm text-gray-600">
+            © 2024 Your Company. All rights reserved.
+          </p>
+        
+        </div>
+      </footer>
 
-
-                    <div className='relative'>
-                        <div className='flex gap-3 mt-4'>
-                            {socialIcons.map((item, index) => (
-                                <a
-                                    key={index}
-                                    className={`w-20 h-20 rounded-full border border-slate-100 hover:bg-white transition-all duration-300 flex items-center justify-center`}
-                                >
-                                    {item.icon}
-                                </a>
-                            ))}
-                        </div>
-
-
-                    </div>
-                    <div>
-                        <SendEmailForm />
-                    </div>
-                </div>
-            </footer>
         </div>
     )
 }
