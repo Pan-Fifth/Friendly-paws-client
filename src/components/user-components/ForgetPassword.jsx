@@ -10,6 +10,7 @@ export default function ForgetPassword() {
     const isOpen = useAuthStore((state) => state.isOpen);
     const setIsOpen = useAuthStore((state) => state.setIsOpen);
 
+    console.log('email forgetpassword :>> ', email);
     const handleForgetPassword = async () => {
         try {
 

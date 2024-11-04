@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { getDonateData, getAllDonateData } from '@/src/apis/AdminReportApi';
-import { getExportDonatationExcel } from '@/src/apis/AdminExportExcel';
+import { getExportDonatationExcel } from '@/src/apis/AdminExportExcelApi';
 import Swal from 'sweetalert2';
 
 export default function ReportDonation() {
