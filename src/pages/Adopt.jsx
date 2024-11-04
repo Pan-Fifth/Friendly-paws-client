@@ -50,8 +50,8 @@ const Adopt = () => {
                         <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Female"}</Button>
                     </div>
                 </div>
-                <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2'>
-                    {avaiPets?.map((el)=>(<AdoptPetCard key={el.id} id={el.id} name ={el.name_en} image={el.image[0]?.url}/>))}
+                <div className='flex gap-3 flex-wrap justify-center items-center'>
+                    {avaiPets?.map((el)=>(<AdoptPetCard key={el?.id} id={el?.id} name ={el?.name_en} image={el.image[0]?.url}/>))}
                 </div>
                 <div className='mt-10'>
                 <PaginationDemo className={"rounded-full bg-green-300"}/>
