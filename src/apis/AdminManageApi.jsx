@@ -1,1 +1,1 @@
-import axios from 'axios'
+import axiosInstance from "../utils/axiosInstance";

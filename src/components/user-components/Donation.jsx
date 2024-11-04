@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TypeAnimation } from "react-type-animation"; //newly installed
+import { TypeAnimation } from "react-type-animation";
 import {
   Card,
   CardHeader,
@@ -12,28 +12,29 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
-import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
 import axios from "axios";
-import useAuthStore from "@/src/stores/AuthStore";
+import useDonationStore from "@/src/stores/DonationStore";
 import DonationDashboard from "./DonationDashboard";
 import LiveChat from "./LiveChat";
 import ChatPortal from "./ChatPortal";
 import PaymentDonate from "./PaymentDonate";
 
 const Donation = () => {
-  // const { user, token } = useAuthStore();
-  const [amount, setAmount] = useState("");
-  const [customAmount, setCustomAmount] = useState("");
-  // const [paymentMethod, setPaymentMethod] = useState("CREDIT");
-  const [isRecurring, setIsRecurring] = useState(false);
-  const [totalDonationAmount, setTotalDonationAmount] = useState(0);
-  const [showPaymentDialog, setShowPaymentDialog] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-
   const { toast } = useToast();
-
+  const [isLoading, setIsLoading] = useState(false);
+  
+  const {
+    donation,
+    showPaymentDialog,
+    totalDonationAmount,
+    setTotal,
+    setIsRecurring,
+    setShowPaymentDialog,
+    setTotalDonationAmount,
+    reset
+  } = useDonationStore();
   const donationOptions = [
     {
       amount: 200,
@@ -77,22 +78,19 @@ const Donation = () => {
 
   useEffect(() => {
     return () => {
-      setShowPaymentDialog(false);
-      setAmount("");
-      setCustomAmount("");
+      reset();
     };
   }, []);
 
   const handleAmountSelect = (selectedAmount) => {
-    setAmount(selectedAmount);
-    setCustomAmount("");
+    setTotal(Number(selectedAmount)); // Ensure it's a number
   };
+  
 
   const handleCustomAmountChange = (e) => {
     const value = e.target.value;
     if (value >= 0) {
-      setCustomAmount(value);
-      setAmount(value);
+      setTotal(Number(value));
     }
   };
 
@@ -155,7 +153,7 @@ const Donation = () => {
                     whileTap={{ scale: 0.95 }}
                   >
                     <Button
-                      variant={amount === option.amount ? "default" : "outline"}
+                      variant={donation.total === option.amount ? "default" : "outline"}
                       className="h-24 w-full flex flex-col items-center justify-center text-center p-2 transition-all"
                       onClick={() => handleAmountSelect(option.amount)}
                     >
@@ -172,20 +170,20 @@ const Donation = () => {
                   id="custom-amount"
                   type="number"
                   placeholder="Enter custom amount"
-                  value={customAmount}
+                  value={donation.total || ''}
                   onChange={handleCustomAmountChange}
                   className="transition-all focus:ring-2 focus:ring-primary"
                 />
               </div>
 
-              {amount && (
+              {donation.total > 0 && (
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-muted p-4 rounded-lg border border-border/50"
                 >
                   <p className="font-semibold">Your Impact:</p>
-                  {donationOptions.find((opt) => opt.amount === Number(amount))?.benefit ||
+                  {donationOptions.find((opt) => opt.amount === donation.total)?.benefit ||
                     "Your generous donation will help support our animal welfare programs"}
                 </motion.div>
               )}
@@ -193,7 +191,7 @@ const Donation = () => {
               <div className="flex items-center space-x-2">
                 <Switch
                   id="recurring"
-                  checked={isRecurring}
+                  checked={donation.is_recurring}
                   onCheckedChange={setIsRecurring}
                   className="data-[state=checked]:bg-primary"
                 />
@@ -205,9 +203,9 @@ const Donation = () => {
               <Button
                 className="w-full bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 transition-all"
                 onClick={() => setShowPaymentDialog(true)}
-                disabled={!amount || amount <= 0}
+                disabled={!donation.total || donation.total <= 0}
               >
-                Donate ฿{amount || 0}
+                Donate ฿{donation.total || 0}
               </Button>
             </CardFooter>
           </Card>
@@ -226,7 +224,7 @@ const Donation = () => {
       {showPaymentDialog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
           <div className="bg-background p-6 rounded-lg max-w-md w-full">
-            <PaymentDonate amount={amount} />
+            <PaymentDonate amount={donation.total} />
             <Button className="mt-4 w-full" onClick={() => setShowPaymentDialog(false)}>
               Close
             </Button>

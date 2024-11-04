@@ -5,14 +5,96 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import useAuthStore from './../../stores/AuthStore';
 import { Button } from "@/components/ui/button"
 
+<<<<<<< HEAD
+=======
+//เปลี่ยนภาษา ห้ามลบบรรทัดนี้  only frontend
+import { useTranslation } from 'react-i18next';
+import { changeLanguage } from '../../i18n.js';
+import useLanguageStore from '@/src/stores/LanguageStore';
+
+
+// export default function Navbar() {
+
+//     const user = useAuthStore((state) => state.user)
+//     const actionLogout = useAuthStore((state) => state.actionLogout);
+
+
+
+//     console.log(user)
+//     const hdlClickLogout = () => {
+//         actionLogout();
+//     };
+
+//     return (
+//         <div>
+//             <nav className="top-0 left-0 w-full flex justify-between px-4 md:px-8 h-24 items-center bg-red-500 fixed z-20">
+
+//                 <div className="w-32 h-20 md:flex gap-8 flex items-center ">
+//                     <h1 className='text-3xl'>LOGO</h1>
+//                 </div>
+
+//                 <div className="hidden md:flex gap-8 text-white">
+//                     <Link to="/" className={({isActive}) => 
+//           isActive
+//             ? ' bg-slate-700 text-white  flex items-center gap-3'
+//           : ' hover:bg-slate-100 w-full flex items-center gap-3 '
+//           }>HOME</Link>
+//                     <Link to="/about" className="font-head">ABOUT</Link>
+//                     <Link to="/adopt" className="font-head">ADOPT</Link>
+//                     <Link to="/donate" className="font-head">DONATE</Link>
+//                     <Link to="/event" className="font-head">EVENT</Link>
+//                     <Link to="/contact" className="font-head">CONTACT</Link>
+//                 </div>
+//                 <div className="hidden md:flex gap-8 text-white">
+//                     {user ? (
+//                         <div className="flex items-center space-x-4">
+//                             {/* วงกลมที่แสดงตัวอักษร */}
+//                             <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
+//                                 <span className="text-white">
+//                                     {(user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())}
+//                                 </span>
+
+//                             </div>
+
+//                             <Link onClick={hdlClickLogout} to="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+//                                 Logout
+//                             </Link>
+//                         </div>
+//                     )
+//                         : (
+//                             <div className='flex gap-10'>
+//                                 <Link to="/register" className="font-head">register</Link>
+//                                 <Link to="/login" className="font-head">login</Link>
+//                             </div>
+//                         )}
+
+//                 </div>
+//             </nav>
+//         </div>
+//     )
+// }
+>>>>>>> dev
 
 
 export default function Navbar() {
+
+  //เปลี่ยนภาษา ห้ามลบบรรทัดนี้  only frontend
+  const { t } = useTranslation();
+  const { language, setLanguage } = useLanguageStore();
+  const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    changeLanguage(lang); // เปลี่ยนภาษาที่ใช้ใน i18n
+  };
+
   const user = useAuthStore((state) => state.user)
   const actionLogout = useAuthStore((state) => state.actionLogout);
   const [isDropdownUserOpen, setDropdownUserOpen] = useState(false);
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> dev
   console.log("Current user data:", user);
 
   const hdlClickLogout = () => {
@@ -39,12 +121,12 @@ export default function Navbar() {
 
 
           <div className="hidden md:flex gap-8 ">
-            <Link to="/" className="font-head">Home</Link>
-            <Link to="/about" className="font-head">About</Link>
-            <Link to="/adopt" className="font-head">Adopt</Link>
-            <Link to="/donate" className="font-head">Donate</Link>
-            <Link to="/event" className="font-head">Event</Link>
-            <Link to="/contact" className="font-head">Contact</Link>
+            <Link to="/" className="font-head">{t('navbar.home')}</Link>
+            <Link to="/about" className="font-head">{t('navbar.about')}</Link>
+            <Link to="/adopt" className="font-head">{t('navbar.adopt')}</Link>
+            <Link to="/donate" className="font-head">{t('navbar.donate')}</Link>
+            <Link to="/event" className="font-head">{t('navbar.event')}</Link>
+            <Link to="/contact" className="font-head">{t('navbar.contact')}</Link>
           </div>
           <div className="hidden md:flex gap-8 text-white">
             {user ? (
@@ -57,13 +139,13 @@ export default function Navbar() {
                     </span>
 
                   </div>
-                  <IoMdArrowDropdown className="cursor-pointer" onClick={toggleDropdownUser} />
+                  <IoMdArrowDropdown className="cursor-pointer text-black" onClick={toggleDropdownUser} />
                   {isDropdownUserOpen && (
                     <div className="absolute mt-5 w-32 top-6 right-0 bg-white rounded-md shadow-lg">
                       <ul className="py-2">
                         <li>
                           <Link to="/profile" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                            EditProfile
+                            {t('navbar.editProfile')}
                           </Link>
                         </li>
 
@@ -72,6 +154,7 @@ export default function Navbar() {
                   )}
                 </div>
 
+<<<<<<< HEAD
                             <Link onClick={hdlClickLogout} to="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                 LOGOUT
                             </Link>
@@ -83,11 +166,27 @@ export default function Navbar() {
                                 <Link to="/login" className="font-head text-black ">Login</Link>
                             </div>
                         )}
+=======
+                <Link onClick={hdlClickLogout} to="/login" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                  {t('navbar.logout')}
+                </Link>
+              </div>
+            )
+              : (
+                <div className='flex gap-10 text-black'>
+                  <Link to="/register" className="font-head">{t('navbar.register')}</Link>
+                  <Link to="/login" className="font-head">{t('navbar.login')}</Link>
+                </div>
+              )}
+>>>>>>> dev
 
           </div>
 
         </div>
       </div>
+      <button onClick={() => handleLanguageChange('en')} className=" hover:text-blue-800">EN  </button>
+      <p>/</p>
+      <button onClick={() => handleLanguageChange('th')} className="hover:text-blue-800"> TH</button>
     </nav>
   )
 }

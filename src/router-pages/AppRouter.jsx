@@ -23,6 +23,7 @@ import AdoptDetail from '../pages/AdoptDetail';
 
 
 
+
 import PrivacyPolicy from '../pages/PrivacyPolicy';
 import TermsOfService from '../pages/TermsOfService';
 import PaymentDonate from '../components/user-components/PaymentDonate';
@@ -45,11 +46,13 @@ import ReportPet from '../components/admin-components/ReportPet';
 import ReportDonation from '../components/admin-components/ReportDonation';
 import ReportAdopt from '../components/admin-components/ReportAdopt';
 import ReportEvent from '../components/admin-components/ReportEvent';
+import About from '../components/user-components/About';
+import Contact from '../components/user-components/Contact';
+import ManageUser from '../components/admin-components/ManageUser';
 
 
 
 
-[']']
 
 const pageRouter = createBrowserRouter([
 
@@ -65,10 +68,13 @@ const pageRouter = createBrowserRouter([
             { path: 'manage-event', element: <ManageEvent /> },
             { path: 'manage-donation', element: <ManageDonate /> },
             { path: 'manage-adopt', element: <ManageAdopt /> },
+            { path: 'manage-user', element: <ManageUser /> },
             { path: 'report-pet-list', element: <ReportPet /> },
             { path: 'report-donation', element: <ReportDonation /> },
             { path: 'report-adopt', element: <ReportAdopt /> },
             { path: 'report-event', element: <ReportEvent /> },
+
+
             // { path: 'report/total-unit-sold', element: <ShowAllMenuCount /> },
             // { path: 'report/total-sales', element: <ShowAllSaleReport /> },
             // { path: 'setting/edit-users', element: <EditUser /> },
@@ -93,12 +99,12 @@ const pageRouter = createBrowserRouter([
             { path: 'forget-password', element: <ForgetPassword /> },
             { path: 'reset-password/:token', element: <ResetPassword /> },
             { path: 'profile', element: <EditProfile /> },
-            { path: 'about', element: <Test /> },
+            { path: 'about', element: <About /> },
             { path: 'adopt', element: <Adopt /> },
             { path: 'adopt/detail/:id', element: <AdoptDetail /> },
             { path: 'donate', element: <Donation /> },
             { path: 'event', element: <Event /> },
-            { path: 'contact', element: <Test /> },
+            { path: 'contact', element: <Contact /> },
             { path: 'privacy-policy', element: <PrivacyPolicy /> },
             { path: 'terms', element: <TermsOfService /> },
             { path: 'payment', element: <PaymentDonate /> },

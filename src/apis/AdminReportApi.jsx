@@ -1,21 +1,24 @@
-import axios from 'axios'
+import axiosInstance from "../utils/axiosInstance";
 
 export const getEventData = (startDate, endDate) => {
-    return axios.get(`http://localhost:3000/admin/report-event?startDate=${startDate}&endDate=${endDate}`);
+    return axiosInstance.get(`/admin/report-event?startDate=${startDate}&endDate=${endDate}`);
 };
 export const getAllEventData = () => {
-    return axios.get(`http://localhost:3000/admin/report-event-all`);
+    return axiosInstance.get(`/admin/report-event-all`);
 };
 
 export const getAdoptData = (startDate, endDate) => {
-    return axios.get(`http://localhost:3000/admin/report-adopt?startDate=${startDate}&endDate=${endDate}`);
+    return axiosInstance.get(`/admin/report-adopt?startDate=${startDate}&endDate=${endDate}`);
 };
 export const getAllAdoptData = () => {
-    return axios.get(`http://localhost:3000/admin/report-adopt-all`);
+    return axiosInstance.get(`/admin/report-adopt-all`);
 };
 export const getDonateData = (startDate, endDate) => {
-    return axios.get(`http://localhost:3000/admin/report-donation?startDate=${startDate}&endDate=${endDate}`);
+    return axiosInstance.get(`/admin/report-donation?startDate=${startDate}&endDate=${endDate}`);
 };
 export const getAllDonateData = () => {
-    return axios.get(`http://localhost:3000/admin/report-donation-all`);
+    return axiosInstance.get(`/admin/report-donation-all`);
+};
+export const getAllPetData = () => {
+    return axiosInstance.get(`/admin/report-pet-all`);
 };

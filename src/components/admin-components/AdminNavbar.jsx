@@ -52,6 +52,9 @@ export default function AdminNavbar() {
                             <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
                                 <ul className="py-2">
                                     <li>
+                                        <Link to="/admin/manage-user" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            ข้อมูลผู้ใช้งาน
+                                        </Link>
                                         <Link to="/admin/manage-pet" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             สัตว์เลี้ยง
                                         </Link>

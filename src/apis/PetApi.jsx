@@ -1,12 +1,13 @@
-import axios from "axios";
+import axiosInstance from "../utils/axiosInstance";
 
-export const getAvialablePet =() => {
+export const getAvialablePet = () => {
     console.log("getAvialablePet")
-    return axios.get("http://localhost:3000/pet/get-apets")
+    return axiosInstance.get("/pet/get-apets")
 }
 
 export const getCurrentPet = (id) => {
 
+<<<<<<< HEAD
     return axios.get(`http://localhost:3000/pet/${id}`)
 }
 
@@ -43,3 +44,7 @@ export const deletePet = (token,id) => {
     })
 }
 
+=======
+    return axiosInstance.get(`/pet/${id}`)
+}
+>>>>>>> dev
