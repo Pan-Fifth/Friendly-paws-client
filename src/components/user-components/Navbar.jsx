@@ -19,7 +19,10 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguageStore();
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
-    changeLanguage(lang); // เปลี่ยนภาษาที่ใช้ใน i18n
+    changeLanguage(lang);
+    // เปลี่ยนภาษาที่ใช้ใน i18n
+    window.location.reload();
+
   };
 
   const user = useAuthStore((state) => state.user)

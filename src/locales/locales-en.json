@@ -10,5 +10,61 @@
       "login": "Login",
       "editProfile": "Edit Profile",
       "logout": "Logout"
-    }
+    },
+    
+      "donatePage": {
+        "titleMain": "Make a Difference Today",
+        "animation": [
+          "Your compassion could be a game changer.",
+          "Every donation makes a difference.",
+          "Help us give them a better life."
+        ],
+        "descriptionMain": "Join us in making a difference in the lives of animals in need. Your support helps provide food, shelter, and medical care.",
+        "titleForm": "Make a Donation",
+        "descriptionForm": "Support our furry friends in need",
+        "customAmountLabel": "Custom Amount (THB)",
+        "impactLabel": "Your Impact:",
+        "recurringLabel": "Make this a monthly donation",
+        "donateButton": "Donate ",
+        "closeButton": "Close ",
+        "placeHolder": "Enter custom amount"
+    
+  },
+  "donationGoals": {
+  "title": " Donation Goals",
+  "totalDonations": "Total Donations",
+  "impactSummary": "Impact Summary",
+  "petsHelped": "Pets Helped So Far",
+  "targetPets": "Target Pets for "
+},
+"adoptPage": {
+    "adoptMe": "ADOPT ME ",   
+    "adoptMe1": ", PLEASE",   
+    "friendlyPow": "FRIENDLY PAWS",
+    "adoptButton": "ADOPT",
+    "welcomeTitle": "WELCOME TO OUR CLUB!",
+    "welcomeDescription": "Join our community of pet lovers and discover everything you need to know about pet care, health, and happiness.",
+    "careAdvice": "CARE ADVICE",
+    "careAdviceDescription": "Expert tips for keeping your pets healthy and happy",
+    "veterinaryHelp": "VETERINARY HELP",
+    "veterinaryHelpDescription": "Professional medical care when you need it most",
+    "ourTips": "OUR TIPS",
+    "ourTipsDescription": "Daily guidance for better pet parenting",
+    "viewMoreButton": "VIEW MORE",
+    "adoptionProcessTitle": "Adoption Process",
+    "adoptionProcessDescription": "Learn about our simple and rewarding adoption process.",
+    "makeDifferenceTitle": "Make a Difference Today",
+    "makeDifferenceDescription": "Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution, no matter how small, can change a life.",
+    "donateNowButton": "Donate Now"
+  }, 
+  "eventPage": {
+    "newEvents": "New Events",
+    "pastEvents": "Past Events",
+    "moreInfo": "View More",
+    "register": "Register",
+    "close": "Close",
+    "date": "Date : ",
+    "location": "Location : ",
+    "description": "Description : "
+  }
 }
