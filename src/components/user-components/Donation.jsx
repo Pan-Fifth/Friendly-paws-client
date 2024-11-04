@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { TypeAnimation } from 'react-type-animation'; //newly installed
+import { TypeAnimation } from "react-type-animation"; //newly installed
 import {
   Card,
   CardHeader,
@@ -82,7 +82,6 @@ const Donation = () => {
       setCustomAmount("");
     };
   }, []);
-  
 
   const handleAmountSelect = (selectedAmount) => {
     setAmount(selectedAmount);
@@ -96,19 +95,17 @@ const Donation = () => {
       setAmount(value);
     }
   };
-  
-
-  
 
   return (
     <div className="container mx-auto p-6 min-h-screen bg-gradient-to-b from-background/50 to-muted/50">
       <ChatPortal>
-      <LiveChat className="fixed top-0 right-0" />
+        <LiveChat ref={React.createRef()} className="fixed top-0 right-0" />
       </ChatPortal>
+
       {/* Main Content Grid */}
       <div className="grid md:grid-cols-2 gap-8 mb-16">
         {/* Hero Section - Left */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           className="flex flex-col justify-center space-y-6"
@@ -118,11 +115,11 @@ const Donation = () => {
           </h1>
           <TypeAnimation
             sequence={[
-              'Your compassion could be a game changer.',
+              "Your compassion could be a game changer.",
               1500,
-              'Every donation makes a difference.',
+              "Every donation makes a difference.",
               1500,
-              'Help us give them a better life.',
+              "Help us give them a better life.",
               1500,
             ]}
             speed={50}
@@ -131,23 +128,21 @@ const Donation = () => {
             className="text-2xl text-muted-foreground"
           />
           <p className="text-muted-foreground text-lg">
-            Join us in making a difference in the lives of animals in need. Your support helps provide food, shelter, and medical care.
+            Join us in making a difference in the lives of animals in need. Your support helps
+            provide food, shelter, and medical care.
           </p>
         </motion.div>
-  
+
         {/* Donation Form - Right */}
-        <motion.div 
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-        >
+        <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }}>
           <Card className="backdrop-blur-sm bg-card/95 shadow-xl">
             <CardHeader>
               <CardTitle className="text-2xl">Make a Donation</CardTitle>
               <CardDescription>Support our furry friends in need</CardDescription>
             </CardHeader>
-            
+
             <CardContent className="space-y-6">
-              <motion.div 
+              <motion.div
                 className="grid grid-cols-3 gap-4"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -170,7 +165,7 @@ const Donation = () => {
                   </motion.div>
                 ))}
               </motion.div>
-  
+
               <div className="space-y-2">
                 <Label htmlFor="custom-amount">Custom Amount (THB)</Label>
                 <Input
@@ -182,9 +177,9 @@ const Donation = () => {
                   className="transition-all focus:ring-2 focus:ring-primary"
                 />
               </div>
-  
+
               {amount && (
-                <motion.div 
+                <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   className="bg-muted p-4 rounded-lg border border-border/50"
@@ -194,24 +189,22 @@ const Donation = () => {
                     "Your generous donation will help support our animal welfare programs"}
                 </motion.div>
               )}
-  
 
-  
               <div className="flex items-center space-x-2">
-                <Switch 
-                  id="recurring" 
-                  checked={isRecurring} 
+                <Switch
+                  id="recurring"
+                  checked={isRecurring}
                   onCheckedChange={setIsRecurring}
                   className="data-[state=checked]:bg-primary"
                 />
                 <Label htmlFor="recurring">Make this a monthly donation</Label>
               </div>
             </CardContent>
-            
+
             <CardFooter>
-              <Button 
+              <Button
                 className="w-full bg-gradient-to-r from-primary to-primary/80 hover:opacity-90 transition-all"
-                onClick={()=>setShowPaymentDialog(true)} 
+                onClick={() => setShowPaymentDialog(true)}
                 disabled={!amount || amount <= 0}
               >
                 Donate ฿{amount || 0}
@@ -220,7 +213,7 @@ const Donation = () => {
           </Card>
         </motion.div>
       </div>
-  
+
       {/* Goal Section - Bottom Full Width */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -231,21 +224,17 @@ const Donation = () => {
         <DonationDashboard totalDonationAmount={totalDonationAmount} />
       </motion.div>
       {showPaymentDialog && (
-  <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-    <div className="bg-background p-6 rounded-lg max-w-md w-full">
-      <PaymentDonate amount={amount} />
-      <Button 
-        className="mt-4 w-full"
-        onClick={() => setShowPaymentDialog(false)}
-      >
-        Close
-      </Button>
-    </div>
-  </div>
-)}
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+          <div className="bg-background p-6 rounded-lg max-w-md w-full">
+            <PaymentDonate amount={amount} />
+            <Button className="mt-4 w-full" onClick={() => setShowPaymentDialog(false)}>
+              Close
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
-  
 };
 
 export default Donation;

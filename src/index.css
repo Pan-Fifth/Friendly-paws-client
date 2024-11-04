@@ -174,8 +174,8 @@
     @apply bg-background text-foreground;
     }
 }
-
-@property --n {
+/* under this  */
+/* @property --n {
     syntax: "<number>";
     inherits: true;
     initial-value: 0;
@@ -189,11 +189,11 @@
     height: fit;
     display: flex;
     margin: auto;
-    /* border-radius: 1px;
-    box-sizing: border-box; */
+    border-radius: 1px;
+    box-sizing: border-box;
     padding: 20px;
-    /* box-shadow: 0 0 4px rgb(206,209,212); */
-    /* background: linear-gradient(45deg, rgb(182, 29, 29), rgb(222,235,252)); */
+    box-shadow: 0 0 4px rgb(206,209,212);
+    background: linear-gradient(45deg, rgb(182, 29, 29), rgb(222,235,252));
     animation-timeline: view(block 98% 2%);
     animation-name: slide;
     animation-fill-mode: both;
@@ -238,22 +238,22 @@
       width: 4px;
       height: inherit;
       background: rgb(55,126,245);
-      transform: scaleY(var(--n)); /* where the animation takes place */
+      transform: scaleY(var(--n)); 
       transform-origin: top;
     }
-  }
+  } */
   
-  .fade-in-image {
+  /* .fade-in-image {
     opacity: 0; /* Start hidden */
-    transition: opacity 0.8s ease; /* Transition for fade effect */
-  }
+    /* transition: opacity 0.8s ease; Transition for fade effect */
+  /* } */
   
-  .fade-in-image.inview {
+  /* .fade-in-image.inview {
     opacity: 1; /* Fade in when the section is visible */
-  }
+  /* } */
   
 
-  .container {
+  /* .container {
     position: relative;
     width: 100%;
     height: 800px;
@@ -494,4 +494,4 @@
 
 
 
-
+ */
