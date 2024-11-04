@@ -3,6 +3,12 @@ import useAuthStore from '../../stores/AuthStore'
 import { useNavigate } from 'react-router-dom'
 import validateRegister from './../../utils/RegisterValidate';
 
+import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Input } from "@/components/ui/input"
+import { Facebook, Play } from "lucide-react"
+
 
 export default function Register() {
 
@@ -11,6 +17,7 @@ export default function Register() {
         password: '',
         confirmPassword: ''
     }
+    
 
 
     const [form, setForm] = useState(intitialState)
@@ -56,6 +63,9 @@ export default function Register() {
             console.error("Registration failed:", err);
         }
     }
+    const getPlaceholder = (name) => {
+      return formatError[name] || (name === "email" ? "gmail.com" : name === "password" ? "Enter your password" : "Confirm password")
+  }
     const inputs = [
 
         { label: "Email", name: 'email', type: 'email', placeholder: "Email" },
@@ -66,32 +76,97 @@ export default function Register() {
 
     return (
         <div>
-            <form onSubmit={handleSubmit} className='bg-red-500 w-1/3 mx-auto mt-40 p-6 flex flex-col justify-center items-center gap-4 rounded-lg'>
-                <h1 className='font-main text-yellow mt-3'>Register</h1>
+            <div className=" w-full flex items-center justify-center bg-gradient-to-br from-purple-50 to-white p-4 md:p-8">
+           <Card className="my-10 w-full max-w-4xl overflow-hidden">
+            <CardContent className="p-0">
+            <div className="grid md:grid-cols-2 gap-6">
+      
+                <div className="p-6 md:p-8">
+                    <div className="flex items-center gap-2 mb-8">
+                        <div className="w-8 h-8 rounded-full bg-purple-500" />
+                        <h1 className="text-3xl text-purple-500">Sign Up On Friendly Pow</h1>
+                    </div>
 
-                {inputs.map((input, index) => (
-                    <div key={index} className='w-full flex flex-col'>
-                        <div className='flex items-center h-12'>
-                            <label className='text-yellow font-bold w-1/3 text-right pr-4' htmlFor={input.name}>
-                                {input.label} :
-                            </label>
-                            <input
-                                name={input.name}
-                                value={form[input.name] || ''}
+                    <form onSubmit={handleSubmit} className="space-y-4">
+
+
+                        <div className="space-y-2">
+                            <label className="text-sm text-gray-600">Email Address:</label>
+                            <Input
+                                type="email"
+                                name="email"
+                                value={form.email || ''}
+                                placeholder={getPlaceholder("email")}
                                 onChange={handleChange}
-                                className='p-2 outline-yellow-500 w-2/3 rounded-md'
-                                type={input.type}
-                                placeholder={input.placeholder}
+                            />
+
+                        </div>
+                        <div className='w-2/3 ml-auto text-right'>
+                            {formatError.email && <p className='text-gray-300 text-xs'>{formatError.email}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm text-gray-600">Password:</label>
+                            <Input type="password"
+                                name="password"
+                                value={form.password || ''}
+                                placeholder={getPlaceholder("password")}
+                                onChange={handleChange}
                             />
                         </div>
                         <div className='w-2/3 ml-auto text-right'>
-                            {formatError[input.name] && <p className='text-gray-300 text-xs'>{formatError[input.name]}</p>}
+                            {formatError.password && <p className='text-gray-300 text-xs'>{formatError.password}</p>}
+                        </div>
+
+                        <div className="space-y-2">
+                            <label className="text-sm text-gray-600">Confirm Password:</label>
+                            <Input
+                                type="password"
+                                name="confirmPassword"
+                                value={form.confirmPassword || ''}
+                                placeholder={getPlaceholder("confirmPassword")}
+                                onChange={handleChange}
+                            />
+                        </div>
+                        <div className='w-2/3 ml-auto text-right'>
+                            {formatError.confirmPassword && <p className='text-gray-300 text-xs'>{formatError.confirmPassword}</p>}
+                        </div>
+
+
+                        <Button className="w-full bg-gradient-to-r from-purple-500 to-yellow-500 hover:from-purple-600 hover:to-pink-600">
+                            Sign Up
+                        </Button>
+
+
+
+                        <div className="text-center text-sm text-gray-600">
+                            Already have an account?{" "}
+                            <Button variant="link" className="text-purple-500 p-0">
+                                Log in
+                            </Button>
+                        </div>
+                    </form>
+                </div>
+
+                {/* Right Content Section */}
+                <div className="relative hidden md:block">
+                    <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-yellow-500 rounded-l-[8rem]">
+                        <div className="p-8 text-white space-y-6 mt-20">
+                            <h2 className="text-4xl font-bold">Friendly Pow</h2>
+                            <p className="text-sm opacity-90">
+                                Sign up to become part of our growing community. Connect with like-minded individuals, share your ideas, and explore new opportunities. Your journey with Friendly Pow starts here!
+                            </p>
+
                         </div>
                     </div>
-                ))}
+                </div>
+            </div>
+            </CardContent>
+        </Card>
+        </div>
 
-                <button className='bg-yellow p-4 m-2 font-head rounded-xl text-white'>Submit</button>
-            </form>
+
+
         </div>
     )
 }

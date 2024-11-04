@@ -39,8 +39,8 @@ const DonationDashboard = ({ totalDonationAmount }) => {
           <div className="space-y-4">
             <div>
               <div className="flex justify-between mb-2">
-                <span>Total Donations</span>
-                <span>฿{totalDonationAmount.toLocaleString()} / ฿{goals2024.targetAmount.toLocaleString()}</span>
+                <div>Total Donations</div>
+                <div>฿{totalDonationAmount.toLocaleString()} / ฿{goals2024.targetAmount.toLocaleString()}</div>
               </div>
               <Progress value={progressPercentage} className="h-2" />
             </div>
@@ -50,7 +50,7 @@ const DonationDashboard = ({ totalDonationAmount }) => {
                 <Card key={metric.title}>
                   <CardContent className="p-4">
                     <div className="flex items-center space-x-2">
-                      <span className="text-2xl">{metric.icon}</span>
+                      <div className="text-2xl">{metric.icon}</div>
                       <div>
                         <p className="text-xl font-bold">{metric.count}</p>
                         <p className="text-sm text-muted-foreground">{metric.title}</p>
