@@ -20,10 +20,17 @@ import DonationDashboard from "./DonationDashboard";
 import LiveChat from "./LiveChat";
 import ChatPortal from "./ChatPortal";
 import PaymentDonate from "./PaymentDonate";
+import axiosInstance from "@/src/utils/axiosInstance";
 
 const Donation = () => {
   const { toast } = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [goals, setGoals] = useState({
+    targetAmount: 0,
+    petsHelped: 0,
+    targetPets: 0,
+  });
+
   
   const {
     donation,
@@ -71,9 +78,15 @@ const Donation = () => {
       setIsLoading(false);
     }
   };
-
+  const fetchGoals = async () => {
+    const currentYear = new Date().getFullYear();
+    const response = await axiosInstance.get(`/admin/?year=${currentYear}`);
+    setGoals(response.data);
+  };
+ 
   useEffect(() => {
     getTotalDonationAmount();
+    fetchGoals();
   }, []);
 
   useEffect(() => {
@@ -93,7 +106,7 @@ const Donation = () => {
       setTotal(Number(value));
     }
   };
-
+  console.log(goals)
   return (
     <div className="container mx-auto p-6 min-h-screen bg-gradient-to-b from-background/50 to-muted/50">
       <ChatPortal>
@@ -219,7 +232,7 @@ const Donation = () => {
         transition={{ delay: 0.3 }}
         className="w-full mt-8"
       >
-        <DonationDashboard totalDonationAmount={totalDonationAmount} />
+        <DonationDashboard totalDonationAmount={totalDonationAmount} goals={goals} />
       </motion.div>
       {showPaymentDialog && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
