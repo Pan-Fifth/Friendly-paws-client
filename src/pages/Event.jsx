@@ -6,12 +6,13 @@ import useAuthStore from "../stores/AuthStore";
 const images = [
     "https://scontent.fbkk7-2.fna.fbcdn.net/v/t39.30808-6/463721703_122116729292516599_4376622466092872756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=v60Xjf44aCkQ7kNvgFxi-CR&_nc_zt=23&_nc_ht=scontent.fbkk7-2.fna&_nc_gid=A95Ci2R9iXzNvveBapHt-ew&oh=00_AYARb5juLz46D_qWvE6t1p6s_PUoRs-69Sgpnv4sDStp_A&oe=6727B257",
     "https://scontent.fbkk7-2.fna.fbcdn.net/v/t39.30808-6/457359756_122094396200516599_167661491692975046_n.png?stp=dst-jpg&_nc_cat=109&ccb=1-7&_nc_sid=86c6b0&_nc_ohc=tcHO914JIxcQ7kNvgE6xYKp&_nc_zt=23&_nc_ht=scontent.fbkk7-2.fna&_nc_gid=AaYgnzawWHiu0AsycYTnrRL&oh=00_AYD7_idGe2CwLknzVDNz3CzmJnFNadKkRl4O9FeSxsSBqA&oe=6727E442",
-    "https://scontent.fbkk7-3.fna.fbcdn.net/v/t39.30808-6/444782816_862961605876621_8788554679762370599_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=SVZNKE1lBhIQ7kNvgEfB5dQ&_nc_zt=23&_nc_ht=scontent.fbkk7-3.fna&_nc_gid=AWt5qABoZ2xp1-rxYnRuroX&oh=00_AYDIi9M1OPho1Tyfcvt5NabP_7G5qPKDCq3qUUfuK3SBuw&oe=6727D6D8",
+    "https://scontent.fbkk7-3.fna.fbcdn.net/v/t39.30808-6/444782816_862961605876621_8788554679762370599_n.jpg?stp=dst-jpg_s2048x2048&_nc_cat=107&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=yFwj0l0uydIQ7kNvgFMr92r&_nc_zt=23&_nc_ht=scontent.fbkk7-3.fna&_nc_gid=ABDcs8HLNQhj-q6wDHs4j1H&oh=00_AYBl0B3CtuI6YTs-Vml7eW2tQhPOv1Xp1t1BLpjwVFg0nA&oe=672E3618",
 ];
 
 const Event = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [expireEvent, setExpireEvent] = useState(null);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -28,6 +29,13 @@ const Event = () => {
     const closeModal = () => {
         setSelectedEvent(null);
     };
+
+    const openExpireEvent = (event) => {
+        setExpireEvent(event)
+    }
+    const closeExpireEvent = () => {
+        setExpireEvent(null)
+    }
 
     // เรียกใช้งาน get events จาก store
 
@@ -84,6 +92,11 @@ const Event = () => {
                 </div>
             </div>
 
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+                <h1>กิจกรรมใหม่</h1>
+            </div>
+
+
             {/* Event Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
                 {events?.events?.map((event) => (
@@ -99,7 +112,7 @@ const Event = () => {
                         <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
                             {event.title_th}
                         </h2>
-                        <h2>{event.date_start}</h2>
+                        <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
                             className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
                             onClick={() => openModal(event)}>
@@ -118,6 +131,12 @@ const Event = () => {
                             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
                             ✕
                         </button>
+                        <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
+                            <img
+                                src={selectedEvent.image[0].url}
+                                alt="Cat Event"
+                                className="object-cover w-full h-full" />
+                        </div>
                         <h2 className="text-2xl font-semibold mb-4">{selectedEvent.title}</h2>
                         <p><strong>Date:</strong> {selectedEvent.date_start}</p>
                         <p><strong>Location:</strong> {selectedEvent.location}</p>
@@ -131,11 +150,17 @@ const Event = () => {
                     </div>
                 </div>
             )}
+
+
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
                 <h1>กิจกรรมที่ผ่านมาแล้ว</h1>
             </div>
+
+
+
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8" >
                 {events?.pastEvent?.map((event) => (
                     <div
                         key={event.id}
@@ -149,10 +174,10 @@ const Event = () => {
                         <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
                             {event.title_th}
                         </h2>
-                        <h2>{event.date_start}</h2>
+                        <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
                             className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
-                            onClick={() => openModal(event)}>
+                            onClick={() => openExpireEvent(event)}>
                             ดูเพิ่มเติม
                         </button>
                     </div>
@@ -160,23 +185,29 @@ const Event = () => {
             </div>
 
             {/* Modal กิจกรรมที่ผ่านมาแล้ว*/}
-            {selectedEvent && (
+            {expireEvent && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white w-full max-w-lg p-5 rounded-lg relative transform translate-y-6 mx-4 sm:mx-6 md:mx-8 lg:mx-12 shadow-lg">
                         <button
-                            onClick={closeModal}
+                            onClick={closeExpireEvent}
                             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
                             ✕
                         </button>
-                        <h2 className="text-2xl font-semibold mb-4">{selectedEvent.title}</h2>
-                        <p><strong>Date:</strong> {selectedEvent.date_start}</p>
-                        <p><strong>Location:</strong> {selectedEvent.location}</p>
-                        <p className="mt-2"><strong>Description:</strong> {selectedEvent.description_th}</p>
+                        <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
+                            <img
+                                src={expireEvent.image[0].url}
+                                alt="Cat Event"
+                                className="object-cover w-full h-full" />
+                        </div>
+                        <h2 className="text-2xl font-semibold mb-4">{expireEvent.title}</h2>
+                        <p><strong>Date:</strong> {expireEvent.date_start}</p>
+                        <p><strong>Location:</strong> {expireEvent.location}</p>
+                        <p className="mt-2"><strong>Description:</strong> {expireEvent.description_th}</p>
                         <button
                             className="mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
-                            onClick={() => handleRegister(selectedEvent.id)}
+                            onClick={closeExpireEvent}
                         >
-                            สมัครเข้าร่วมกิจกรรม
+                            ปิด
                         </button>
                     </div>
                 </div>
