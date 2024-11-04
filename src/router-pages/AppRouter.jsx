@@ -45,6 +45,7 @@ import ReportPet from '../components/admin-components/ReportPet';
 import ReportDonation from '../components/admin-components/ReportDonation';
 import ReportAdopt from '../components/admin-components/ReportAdopt';
 import ReportEvent from '../components/admin-components/ReportEvent';
+import CreateEvent from '../components/event-controller/CreateEvent';
 
 
 
@@ -63,6 +64,7 @@ const pageRouter = createBrowserRouter([
             { path: 'profile', element: <EditProfile /> },
             { path: 'manage-pet', element: <ManagePet /> },
             { path: 'manage-event', element: <ManageEvent /> },
+            { path: 'create-event', element: <CreateEvent />},
             { path: 'manage-donation', element: <ManageDonate /> },
             { path: 'manage-adopt', element: <ManageAdopt /> },
             { path: 'report-pet-list', element: <ReportPet /> },
