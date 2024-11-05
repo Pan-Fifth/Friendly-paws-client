@@ -27,7 +27,7 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
             <div>
               <div className="flex justify-between mb-2">
                 <span>{t("donationGoals.totalDonations")}</span>
-                <span>฿{totalDonationAmount?.toLocaleString() ?? 0} / ฿{goals ??.targetAmount?.toLocaleString() ?? 0}</span>
+                <span>฿{totalDonationAmount?.toLocaleString() ?? 0} / ฿{goals?.targetAmount?.toLocaleString() ?? 0}</span>
               </div>
               <Progress value={progressPercentage} className="h-2" />
             </div>
