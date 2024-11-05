@@ -2,17 +2,23 @@ import React from 'react'
 import { Button } from "@/components/ui/button"
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-
+import useAuthStore from '@/src/stores/AuthStore'
 'use client'
 
 import { useState } from 'react'
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
 function DesignCard({name,image,id,onClickHandler}) {
+  const token = useAuthStore(state=>state.token)
+  const navigate = useNavigate()
   const [showDetails, setShowDetails] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
   const handleClick = () => {
-    onClickHandler()
+    if(!token){
+      navigate('/login')
+    }else{
+      onClickHandler()
+    }
   }
 
 

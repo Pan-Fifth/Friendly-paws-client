@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useState, useRef } from "react"
 import { toast } from "react-toastify"
 export function DialogAdopt({ petId }) {
-  const token = useAuthStore(state => state.user.token)
+  const token = useAuthStore(state => state.token)
   const fileInput = useRef(null)
   const [files, setFiles] = useState([]);
   const [houseCheck, setHouseCheck] = useState({
