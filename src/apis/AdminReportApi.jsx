@@ -22,3 +22,11 @@ export const getAllDonateData = () => {
 export const getAllPetData = () => {
     return axiosInstance.get(`/admin/report-pet-all`);
 };
+
+export const getAllAdoptRequest = (token)=>{
+    return axiosInstance.get(`/admin/all-adopts`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
