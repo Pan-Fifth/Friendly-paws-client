@@ -162,66 +162,66 @@ export default function Homepage() {
                         className="bg-pink-600 text-white px-12 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-colors"
                         onClick={()=>navigate('/adopt')}
                       >
-                        {t("Adoptttttt")}
+                        {t("Adopt")}
                       </motion.button>
                     </div>
                   </div>
                 )}
 
                 {index === 1 && (
-                  <div className="relative bg-white/90 rounded-3xl p-12 backdrop-blur-sm">
+                  <div className="relative bg-white/90 rounded-3xl p-12 backdrop-blur-sm w-2/3 h-[700px]">
+                    
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center md:items-start gap-12">
+      <div className="w-full md:w-1/2 grid grid-cols-2 gap-4">
 
-                    
-                    <div className="text-center mb-12">
-                      <h2 className="text-4xl font-bold mb-4">{content?.[0]}</h2>
-                      <p className="text-gray-600 max-w-2xl mx-auto">
-                        {content?.[1]}
-                      </p>
-                    
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div className="text-center">
-                        <div className="relative w-48 h-48 mx-auto mb-4">
-                          <div className="absolute inset-0 rounded-full overflow-hidden">
-                            <img src={homeContent?.image1} alt="" className='w-full h-full' />
-                          </div>
-                          <div className="absolute inset-0 bg-white/30 rounded-full"></div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">{content?.[2]}</h3>
-                        <p className="text-gray-600">{content?.[3]}</p>
-                      </div>
-                      <div className="text-center">
-                        <div className="relative w-48 h-48 mx-auto mb-4">
-                          <div className="absolute inset-0 rounded-full overflow-hidden">
-                            <img src={homeContent?.image2} alt="" className='w-full h-full' />
-                          </div>
-                          <div className="absolute inset-0 bg-white/30 rounded-full"></div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">{content?.[4]}</h3>
-                        <p className="text-gray-600">{content?.[5]}</p>
-                      </div>
-                      <div className="text-center">
-                        <div className="relative w-48 h-48 mx-auto mb-4">
-                          <div className="absolute inset-0 rounded-full overflow-hidden">
-                            <img src={homeContent?.image3} alt="" className='w-full h-full' />
-                          </div>
-                          <div className="absolute inset-0 bg-white/30 rounded-full"></div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">{content?.[6]}</h3>
-                        <p className="text-gray-600">{content?.[7]}</p>
-                      </div>
-                    </div>
-                    <div className="text-center mt-8">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-pink-600 text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-pink-700 transition-colors"
-                      >
-                        {t("adoptPage.viewMoreButton")}
-                      </motion.button>
-                    </div>
-                  </div>
-                )}
+        <div className='flex flex-col items-center justify-center ' >
+        <img
+          src={homeContent?.image1}
+          className=" object-cover h-[320px]"
+        />
+          <p>{content?.[2]}</p>
+          <p>{content?.[3]}</p>
+          </div>
+        
+          <div className='flex flex-col items-center justify-end'>
+        <img
+          src={homeContent?.image2}
+          className="object-cover h-[270px]"
+        />
+          <p>{content?.[4]}</p>
+          <p>{content?.[5]}</p>
+          </div>
+        
+          <div className='flex flex-col mx-auto items-center justify-center w-[500px]'>
+          <img
+            src={homeContent?.image3}
+            className="col-span-2 object-cover w-full h-[200px] mx-auto "
+          />
+          <p>{content?.[6]}</p>
+          <p>{content?.[7]}</p>
+          </div>
+        </div>
+        
+        <div className="w-full h-[400px] md:w-1/2 space-y-4 flex flex-col  my-auto"> 
+          <h2 className="text-4xl font-bold">{content?.[0]}</h2>
+          <p className="text-gray-600">
+          {content?.[1]}
+          </p>
+          
+          <div className="text-center mt-8">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-orange-400 text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-orange-600 transition-colors"
+                        >
+                  {t("adoptPage.viewMoreButton")}
+                </motion.button>
+            </div>
+          </div>
+
+        </div>
+        </div>
+        )}
 
                 {index === 2 && (
                   <div className="text-center">

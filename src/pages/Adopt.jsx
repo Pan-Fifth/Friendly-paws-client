@@ -64,7 +64,8 @@ const Adopt = () => {
         <p>Our friends who are looking for a house</p>
       </div> */}
             <div className="relative">
-            <img src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10" />
+            <div className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div>
+            {/* <div src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div> */}
             </div>
       <div className=" absolute top-20  w-full h-[500px]">
         <div className="h-full flex flex-col items-center justify-center">
@@ -86,13 +87,7 @@ const Adopt = () => {
                   onChange={hdlChangeFilter}
                   value={filter.age}
                 />
-                {/* <DropdownWithArrow
-                  name="size"
-                  array={["Small", "Medium", "Large"]}
-                  className="w-[300px] text-xl"
-                  onChange={hdlChangeFilter}
-                  value={filter.size}
-                /> */}
+              
                 <Button
                
                     className={`
