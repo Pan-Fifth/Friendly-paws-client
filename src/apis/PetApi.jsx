@@ -26,7 +26,7 @@ export const createPet = (token, body) => {
         },
     })
 }
-export const editPet = (token,id, body) => {
+export const editPet = (token, id, body) => {
 
     return axiosInstance.patch(`/pet/${id}`, body, {
         headers: {
@@ -34,11 +34,15 @@ export const editPet = (token,id, body) => {
         },
     })
 }
-export const deletePet = (token,id) => {
+export const deletePet = (token, id) => {
 
-    return axiosInstance.delete(`/pet/${id}`,{
+    return axiosInstance.delete(`/pet/${id}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
     })
+}
+
+export const createAdoptRequest = (data) => {
+    return axiosInstance.post("/pet/create-adopt", data,)
 }

@@ -7,7 +7,13 @@ import EditProfileValidate from '../../utils/EditProfileValidate';
 import { getProfile, editProfile } from '../../apis/UserApi';
 import useAuthStore from '@/src/stores/AuthStore';
 
+import { useTranslation } from 'react-i18next';
+
+
 export default function EditProfile() {
+
+    //change lang ห้ามมลบ
+    const { t } = useTranslation();
 
 
     const [user, setUser] = useState({});
@@ -22,6 +28,7 @@ export default function EditProfile() {
         fetchProfile();
     }, [token]);
     console.log(token, "tokennnn")
+    console.log('user :>> ', user);
     const fetchProfile = async () => {
         try {
 
@@ -56,15 +63,15 @@ export default function EditProfile() {
     };
 
     const inputs = [
-        { label: 'firstname', name: 'firstname', type: 'text', placeholder: "Firstname" },
-        { label: 'lastname', name: 'lastname', type: 'text', placeholder: "Lastname" },
-        { label: 'phone', name: 'phone', type: 'text', placeholder: "Phone number" },
-        { label: 'email', name: 'email', type: 'email', placeholder: "Email" },
+        { label: `${t('editProfile.firstname')}`, name: 'firstname', type: 'text', placeholder: `${t('editProfile.firstname')}` },
+        { label: `${t('editProfile.lastname')}`, name: 'lastname', type: 'text', placeholder: `${t('editProfile.lastname')}` },
+        { label: `${t('editProfile.phone')}`, name: 'phone', type: 'text', placeholder: `${t('editProfile.phone')}` },
+        { label: `${t('editProfile.email')}`, name: 'email', type: 'email', placeholder: `${t('editProfile.email')}` },
     ];
 
     return (
         <div className='my-40 bg-red-gradient w-1/3 mx-auto p-6 rounded-lg'>
-            <h1 className='text-center font-main text-yellow my-4'>Edit Profile</h1>
+            <h1 className='text-center font-main text-yellow my-4'>{t('editProfile.title')}</h1>
 
             <form onSubmit={handleUpdateProfile} className='space-y-4 w-full flex flex-col '>
                 {inputs.map((input, index) => (
@@ -84,7 +91,7 @@ export default function EditProfile() {
                     </div>
                 ))}
                 <button type='submit' className='bg-yellow text-white p-5 font-head rounded-xl w-1/3 mx-auto cursor-pointer '>
-                    Confirm
+                    {t('editProfile.confirmButton')}
                 </button>
             </form>
         </div>

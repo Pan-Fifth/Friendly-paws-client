@@ -44,7 +44,7 @@ export const getEvents = async () => {
 export const registerEvent = async (token, eventId) => {
     console.log(token)
     try {
-        const response = await axiosInstance.post('/event/regisevent', {eventId}, {
+        const response = await axiosInstance.post('/event/regisevent', { eventId }, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

@@ -50,6 +50,7 @@ import CreateEvent from '../components/event-controller/CreateEvent';
 import About from '../components/user-components/About';
 import Contact from '../components/user-components/Contact';
 import ManageUser from '../components/admin-components/ManageUser';
+import ManageGoal from '../components/admin-components/ManageGoal';
 
 
 
@@ -71,6 +72,7 @@ const pageRouter = createBrowserRouter([
             { path: 'manage-donation', element: <ManageDonate /> },
             { path: 'manage-adopt', element: <ManageAdopt /> },
             { path: 'manage-user', element: <ManageUser /> },
+            { path: 'manage-goal', element: <ManageGoal /> },
             { path: 'report-pet-list', element: <ReportPet /> },
             { path: 'report-donation', element: <ReportDonation /> },
             { path: 'report-adopt', element: <ReportAdopt /> },
