@@ -4,6 +4,9 @@ import useAuthStore from "../stores/AuthStore";
 import { useTranslation } from 'react-i18next';
 import useLanguageStore from "../stores/LanguageStore";
 import { t } from "i18next";
+import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 
 const images = [
@@ -24,7 +27,7 @@ const Event = () => {
     const pastEvent = useEventStore((state) => state.pastEvent);
     const events = useEventStore((state) => state.events);
     const getEvents = useEventStore((state) => state.getEvents);
-
+    const navigate = useNavigate()
     useEffect(() => {
         const interval = setInterval(() => {
             setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -74,8 +77,16 @@ const Event = () => {
     const token = useAuthStore((state) => state.token);
 
     const handleRegister = (eventId) => {
+        if (!token) {
+            Swal.fire({
+                title: "ftrtrth",
+                text: "ftrtrth",
+                icon: 'warning',
+                confirmButtonText: "ตลกง",
+            });
+            return;
+        }
         registerEvent(token, { eventId });
-        console.log("handleRegister-->", eventId)
     };
 
     // -------------------------------------
@@ -168,9 +179,6 @@ const Event = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
                 <h1>{t('eventPage.pastEvents')}</h1>
             </div>
-
-
-
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8" >
                 {events?.pastEvent?.map((event) => (
@@ -231,4 +239,3 @@ const Event = () => {
 };
 
 export default Event;
-
