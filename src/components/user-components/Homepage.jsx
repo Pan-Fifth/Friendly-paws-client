@@ -91,7 +91,7 @@ export default function Homepage() {
   }
 
   return (
-    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-pink-400 via-orange-300 to-yellow-300 overflow-hidden relative">
+    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-orange-200 via-pink-100 to-orange-300 overflow-hidden relative">
       {/* Vertical scroll progress indicator */}
       <motion.div
         className="fixed left-0 top-0 bottom-0 w-1 bg-pink-500 origin-top z-50"
@@ -104,8 +104,27 @@ export default function Homepage() {
           <section
             key={page.id}
             id={page.id}
-            className="min-h-screen w-full flex items-center justify-center  relative overflow-hidden"
+           className={` min-h-screen w-full flex items-center justify-center relative overflow-hidden
+             ${page.id !== 'home'&& page.id !=='mission' ? 'bg-[#FFF3E9]' : ''}`}
+             
           >
+          {page.id === 'mission' && (
+          <div className='absolute bottom-[-750px]  w-full h-full'>
+            <svg
+              viewBox="0 0 1440 98"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0 0C240 98 480 98 720 98C960 98 1200 98 1440 0V98H0V0Z"
+                fill="#FFF3E9"
+              />
+            </svg>
+          </div>
+        )}
+            
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
@@ -137,7 +156,7 @@ export default function Homepage() {
                         whileTap={{ scale: 0.95 }}
                         className="bg-pink-600 text-white px-12 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-colors"
                       >
-                        {t("adoptPage.adoptButton")}
+                        {t("Adoptttttt")}
                       </motion.button>
                     </div>
                   </div>
@@ -148,11 +167,14 @@ export default function Homepage() {
 
                 {index === 1 && (
                   <div className="relative bg-white/90 rounded-3xl p-12 backdrop-blur-sm">
+
+                    
                     <div className="text-center mb-12">
                       <h2 className="text-4xl font-bold mb-4">{t("adoptPage.welcomeTitle")}</h2>
                       <p className="text-gray-600 max-w-2xl mx-auto">
                         {t("adoptPage.welcomeDescription")}
                       </p>
+                    
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                       <div className="text-center">
@@ -212,7 +234,7 @@ export default function Homepage() {
                   </div>
                 )}
                 {index === 3 && (
-                  <section className="w-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
+                  <section className=" relative w-full h-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
                     <div className="container px-4 md:px-6">
                       <div className="flex flex-col items-center space-y-4 text-center">
                         <div className="space-y-2">
@@ -225,6 +247,7 @@ export default function Homepage() {
                           {t("adoptPage.donateNowButton")}
                         </Button>
                       </div>
+                      {/* <img className='absolute bottom-[-260px]  z-[100]  ' src="/src/assets/DedogHome.png" alt="" /> */}
                     </div>
                   </section>
                 )}

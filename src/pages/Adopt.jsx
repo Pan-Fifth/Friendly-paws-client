@@ -123,23 +123,7 @@ const Adopt = () => {
           
         </div>
       </div>
-      {/* <div className='h-[400px] flex gap-2 justify-center items-center'>
-                    <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Small"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Medium"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Large"}</Button>
-                    </div>
-                    <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Kid"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Junior"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Senior"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Adult"}</Button>
-                    </div>
-                    <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Male"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Female"}</Button>
-                    </div>
-                </div> */}
+     
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
         {avaiPets?.map((el) => (
           <AdoptPetCard
