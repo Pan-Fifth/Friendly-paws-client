@@ -49,6 +49,7 @@ export default function Homepage() {
   });
   const containerRef = useRef(null);
 
+
   const getHome = () => {
     axiosInstance.get('/admin/home-content').then((response) => {
       setHomeContent(response.data[0]);
@@ -232,6 +233,14 @@ export default function Homepage() {
 
                 {index === 3 && (
                   <section className=" relative w-full h-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
+                    
+                      <div></div>
+                    
+                    
+                    
+                    
+                    
+                    
                     <div className="container px-4 md:px-6">
                       <div className="flex flex-col items-center space-y-4 text-center">
                         <div className="space-y-2">
