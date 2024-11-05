@@ -1,26 +1,7 @@
 import React from 'react'
 import { Button } from "@/components/ui/button"
 import { useNavigate } from 'react-router-dom'
-
-// const AdoptPetCard = ({name,image,id}) => {
-//     const navigate = useNavigate()
-//     const hdlClick = () =>{
-//         navigate(`/adopt/detail/${id}`)
-
-//     }
-//     return (
-//         <div className='w-[300px] flex flex-col gap-3 justify-center items-center border border-blue-600 rounded-xl'>
-//             <img className='h-[200px] w-[250px] object-cover rounded-xl p-3' src={image}/>
-//             <p className=' text-2xl text-center'>{name}</p>
-//             <Button onClick={hdlClick} variant="secondary" className="w-[100px] h-[50px] text-slate-800">{"Learn More"}</Button>
-//         </div>
-//     )
-// }
-
-// export default AdoptPetCard
-
-
-
+import { motion } from 'framer-motion'
 
 'use client'
 
@@ -29,10 +10,15 @@ import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
 function DesignCard({name,image,id,onClickHandler}) {
   const [showDetails, setShowDetails] = useState(false)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const handleClick = () => {
+    onClickHandler()
+  }
+
 
   return (
     <Card className="w-full max-w-sm mx-auto overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105">
-     <div className="relative h-60">
+     <div className="relative h-80">
         {/* Full-width picture */}
         
         <img
@@ -48,7 +34,7 @@ function DesignCard({name,image,id,onClickHandler}) {
 
         {/* Curved separator */}
         <svg
-          className="absolute bottom-0 w-full text-white"
+          className="absolute bottom-[-20px] w-full text-white"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
           preserveAspectRatio="none"
@@ -63,22 +49,38 @@ function DesignCard({name,image,id,onClickHandler}) {
       </div>
       
       
-      <CardFooter className="bg-white p-4 pt-0 flex flex-col">
-        {/* <div>{name}</div> */}
-        <Button 
-         onClick={onClickHandler}
-          className="w-full"
-        >
-        </Button >
+      <CardFooter className="bg-white p-4 pt-0 flex flex-col gap-5">
+        <div className='text-2xl z-20'>{name}</div>
+        <div>
+        <div className="flex items-center justify-center bg-gray-100">
+        <motion.div
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          animate={isAnimating ? { rotate: [0, 10, -10, 0] } : {}}
+          transition={{ duration: 0.3 }}
+          >
+          <Button 
+            onClick={handleClick}
+            className="px-6 py-3 text-lg font-semibold bg-gradient-to-r from-pink-300 to-orange-300 hover:from-pink-500 hover:to-orange-400 text-white rounded-full shadow-lg"
+          >
+            Adopt me!
+          </Button>
+        </motion.div>
+    </div>
+    </div>
       </CardFooter>
     </Card>
   )
 }
 
 export default function AdoptPetCard({name,image,id}) {
+  const [isAnimating, setIsAnimating] = useState(false)
     const navigate = useNavigate()
     const hdlClick = () =>{
+      setIsAnimating(true)
+      setTimeout(() => setIsAnimating(false), 300)
         navigate(`/adopt/detail/${id}`)
+        onClickHandler()
 
     }
   return (
