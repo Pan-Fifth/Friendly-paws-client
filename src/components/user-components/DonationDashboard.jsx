@@ -1,64 +1,35 @@
-import React from "react";
+
+
+import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
+import axios from "axios";
+import { useTranslation } from 'react-i18next';
 
-const DonationDashboard = ({ totalDonationAmount }) => {
-  const goals2024 = {
-    targetAmount: 500000,
-    petsHelped: 250,
-    targetPets: 500,
-  };
 
-  const impactMetrics = [
-    {
-      title: "Pets Vaccinated",
-      count: Math.floor(totalDonationAmount / 500),
-      icon: "💉",
-    },
-    {
-      title: "Pets Fed",
-      count: Math.floor(totalDonationAmount / 200),
-      icon: "🍖",
-    },
-    {
-      title: "Medical Treatments",
-      count: Math.floor(totalDonationAmount / 1000),
-      icon: "🏥",
-    },
-  ];
+const DonationDashboard = ({ totalDonationAmount, goals }) => {
+  // console.log("Data received:",totalDonationAmount, goals)
 
-  const progressPercentage = (totalDonationAmount / goals2024.targetAmount) * 100;
+  const { t } = useTranslation();
+
+
+
+  const progressPercentage = (totalDonationAmount / goals?.targetAmount ?? 1) * 100;
 
   return (
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>2024 Donation Goals</CardTitle>
+          <CardTitle>{new Date().getFullYear()} {t("donationGoals.title")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
               <div className="flex justify-between mb-2">
-                <div>Total Donations</div>
-                <div>฿{totalDonationAmount.toLocaleString()} / ฿{goals2024.targetAmount.toLocaleString()}</div>
+                <span>{t("donationGoals.totalDonations")}</span>
+                <span>฿{totalDonationAmount?.toLocaleString() ?? 0} / ฿{goals?.targetAmount?.toLocaleString() ?? 0}</span>
               </div>
               <Progress value={progressPercentage} className="h-2" />
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              {impactMetrics.map((metric) => (
-                <Card key={metric.title}>
-                  <CardContent className="p-4">
-                    <div className="flex items-center space-x-2">
-                      <div className="text-2xl">{metric.icon}</div>
-                      <div>
-                        <p className="text-xl font-bold">{metric.count}</p>
-                        <p className="text-sm text-muted-foreground">{metric.title}</p>
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
             </div>
           </div>
         </CardContent>
@@ -66,19 +37,17 @@ const DonationDashboard = ({ totalDonationAmount }) => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Impact Summary</CardTitle>
+          <CardTitle>{t("donationGoals.impactSummary")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-3xl font-bold mb-2">
-                {Math.floor((totalDonationAmount / goals2024.targetAmount) * goals2024.targetPets)}
-              </p>
-              <p className="text-sm text-muted-foreground">Pets Helped So Far</p>
+              <p className="text-3xl font-bold mb-2">{goals?.petsHelped ?? 0}</p>
+              <p className="text-sm text-muted-foreground">{t("donationGoals.petsHelped")}</p>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-3xl font-bold mb-2">{goals2024.targetPets}</p>
-              <p className="text-sm text-muted-foreground">Target Pets for 2024</p>
+              <p className="text-3xl font-bold mb-2">{goals?.targetPets ?? 0}</p>
+              <p className="text-sm text-muted-foreground">{t("donationGoals.targetPets")} {new Date().getFullYear()}</p>
             </div>
           </div>
         </CardContent>

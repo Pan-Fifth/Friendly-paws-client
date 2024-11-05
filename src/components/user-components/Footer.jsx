@@ -23,8 +23,6 @@ export default function Footer() {
         </svg>
       </div>
 
-      {/* Main content area (placeholder) */}
-      <div className="min-h-screen bg-white"></div>
 
       {/* Footer */}
       <footer className="relative bg-blue-100">
@@ -104,10 +102,10 @@ export default function Footer() {
           <p className="text-sm text-gray-600">
             © 2024 Your Company. All rights reserved.
           </p>
-        
+
         </div>
       </footer>
 
-        </div>
-    )
+    </div>
+  )
 }
