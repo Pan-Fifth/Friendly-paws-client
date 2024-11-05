@@ -36,9 +36,9 @@ const usePetStore = create(persist((set,get)=>({
         throw err;
     }
    },
-   actionCreateAdoptRequest: async(data)=>{
+   actionCreateAdoptRequest: async(data,token)=>{
     try {
-        const resp = await createAdoptRequest(data);
+        const resp = await createAdoptRequest(data,token);
         toast.success(resp)
         return resp.data
     } catch (err) {
