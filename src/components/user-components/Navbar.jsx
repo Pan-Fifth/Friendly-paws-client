@@ -82,7 +82,7 @@ export default function Navbar() {
         </div>
 
 
-        <div className="flex items-center md:hidden space-x-2">
+        <div className="flex items-center  space-x-2">
           <button onClick={() => handleLanguageChange('en')}
             className={`hover:text-blue-800 ${language === 'en' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
             EN
@@ -92,6 +92,12 @@ export default function Navbar() {
             className={`hover:text-blue-800 ${language === 'th' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
             TH
           </button>
+
+
+
+        </div>
+        <div className="flex items-center md:hidden space-x-2">
+
           <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} className="ml-4">
             {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
           </button>
