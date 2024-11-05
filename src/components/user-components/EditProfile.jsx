@@ -70,8 +70,8 @@ export default function EditProfile() {
     ];
 
     return (
-        <div className='my-40 bg-red-gradient w-1/3 mx-auto p-6 rounded-lg'>
-            <h1 className='text-center font-main text-yellow my-4'>{t('editProfile.title')}</h1>
+        <div className='my-40 border-2 w-full md:w-1/3 mx-auto p-6 rounded-lg'>
+            <h1 className='text-center font-main my-4'>{t('editProfile.title')}</h1>
 
             <form onSubmit={handleUpdateProfile} className='space-y-4 w-full flex flex-col '>
                 {inputs.map((input, index) => (
@@ -90,7 +90,7 @@ export default function EditProfile() {
                         {formatError[input.name] && <p className="text-red-500 text-sm">{formatError[input.name]}</p>}
                     </div>
                 ))}
-                <button type='submit' className='bg-yellow text-white p-5 font-head rounded-xl w-1/3 mx-auto cursor-pointer '>
+                <button type='submit' className='bg-yellow p-5 font-head rounded-xl w-1/3 mx-auto cursor-pointer '>
                     {t('editProfile.confirmButton')}
                 </button>
             </form>
