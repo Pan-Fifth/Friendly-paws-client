@@ -14,7 +14,7 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
 
 
 
-  const progressPercentage = (totalDonationAmount / goals.targetAmount) * 100;
+  const progressPercentage = (totalDonationAmount / goals?.targetAmount ?? 1) * 100;
 
   return (
     <div className="space-y-6">
@@ -27,7 +27,7 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
             <div>
               <div className="flex justify-between mb-2">
                 <span>{t("donationGoals.totalDonations")}</span>
-                <span>฿{totalDonationAmount.toLocaleString()} / ฿{goals?.targetAmount.toLocaleString()}</span>
+                <span>฿{totalDonationAmount?.toLocaleString() ?? 0} / ฿{goals ??.targetAmount?.toLocaleString() ?? 0}</span>
               </div>
               <Progress value={progressPercentage} className="h-2" />
             </div>
@@ -42,11 +42,11 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-3xl font-bold mb-2">{goals.petsHelped}</p>
+              <p className="text-3xl font-bold mb-2">{goals?.petsHelped ?? 0}</p>
               <p className="text-sm text-muted-foreground">{t("donationGoals.petsHelped")}</p>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
-              <p className="text-3xl font-bold mb-2">{goals.targetPets}</p>
+              <p className="text-3xl font-bold mb-2">{goals?.targetPets ?? 0}</p>
               <p className="text-sm text-muted-foreground">{t("donationGoals.targetPets")} {new Date().getFullYear()}</p>
             </div>
           </div>

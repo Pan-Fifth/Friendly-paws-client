@@ -3,18 +3,19 @@ import { PaymentElement } from "@stripe/react-stripe-js";
 import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 import useAuthStore from "../../stores/AuthStore";
+import useDonationStore from "@/src/stores/DonationStore";
 
 export default function CheckoutFormCredit({ onPaymentSuccess }) {
   const user = useAuthStore((state) => state.user);
   const elements = useElements();
   const stripe = useStripe();
-
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
  const handleSubmit = async (e) => {
     try {
         e.preventDefault();
+
 
         if (!stripe || !elements) {
             return;
@@ -39,6 +40,7 @@ export default function CheckoutFormCredit({ onPaymentSuccess }) {
         }
 
         setIsProcessing(false);
+        console.log("PaymentIntent:", paymentIntent);
     } catch (error) {
         console.error('Error confirming payment:', error);
         setMessage(('checkoutForm.paymentFailed'));
