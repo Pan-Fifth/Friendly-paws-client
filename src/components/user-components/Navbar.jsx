@@ -79,36 +79,47 @@ export default function Navbar() {
               <Link to="/login" className="font-head">{t('navbar.login')}</Link>
             </div>
           )}
+          <div className="flex items-center sm:justify-end space-x-2">
+            <button onClick={() => handleLanguageChange('en')}
+              className={`hover:text-blue-800 ${language === 'en' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
+              EN
+            </button>
+            <p>/</p>
+            <button onClick={() => handleLanguageChange('th')}
+              className={`hover:text-blue-800 ${language === 'th' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
+              TH
+            </button>
+
+
+
+          </div>
         </div>
 
 
-        <div className="flex items-center  space-x-2">
-          <button onClick={() => handleLanguageChange('en')}
-            className={`hover:text-blue-800 ${language === 'en' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
-            EN
-          </button>
-          <p>/</p>
-          <button onClick={() => handleLanguageChange('th')}
-            className={`hover:text-blue-800 ${language === 'th' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
-            TH
-          </button>
-
-
-
-        </div>
-        <div className="flex items-center md:hidden space-x-2">
-
-          <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} className="ml-4">
-            {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
-          </button>
-
-
-        </div>
       </div>
+      <div className='flex items-center md:hidden space-x-2'>
+        <button onClick={() => handleLanguageChange('en')}
+          className={`hover:text-blue-800 ${language === 'en' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
+          EN
+        </button>
+        <p>/</p>
+        <button onClick={() => handleLanguageChange('th')}
+          className={`hover:text-blue-800 ${language === 'th' ? 'font-bold text-blue-700' : ''} text-sm md:text-base`}>
+          TH
+        </button>
+      </div>
+      <div className="flex items-center md:hidden space-x-2">
 
+        <button onClick={() => setMobileMenuOpen(!isMobileMenuOpen)} className="ml-4">
+          {isMobileMenuOpen ? <FiX size={24} /> : <FiMenu size={24} />}
+        </button>
+
+
+      </div>
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="md:hidden absolute top-20 left-0 w-full bg-white shadow-lg z-40">
+
           <div className="flex flex-col p-4 space-y-4">
             <Link to="/" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.home')}</Link>
             <Link to="/about" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.about')}</Link>
@@ -117,11 +128,12 @@ export default function Navbar() {
             <Link to="/event" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.event')}</Link>
             <Link to="/contact" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.contact')}</Link>
 
+
             {/* Add register/login/edit profile based on user status */}
             {user ? (
               <>
                 <Link to="/profile" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.editProfile')}</Link>
-                <Link to="/login" onClick={hdlClickLogout} className="font-head  text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.logout')}</Link>
+                <Link to="/login" className="font-head  text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.logout')}</Link>
               </>
             ) : (
               <>
@@ -129,6 +141,7 @@ export default function Navbar() {
                 <Link to="/login" className="font-head  text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.login')}</Link>
               </>
             )}
+
           </div>
         </div>
       )}
