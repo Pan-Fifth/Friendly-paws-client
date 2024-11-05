@@ -12,6 +12,10 @@ const images = [
 const Event = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
+    const [expireEvent, setExpireEvent] = useState(null);
+    const pastEvent = useEventStore((state) => state.pastEvent);
+    const events = useEventStore((state) => state.events);
+    const getEvents = useEventStore((state) => state.getEvents);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -29,12 +33,16 @@ const Event = () => {
         setSelectedEvent(null);
     };
 
+    const openExpireEvent = (event) => {
+        setExpireEvent(event)
+    }
+    const closeExpireEvent = () => {
+        setExpireEvent(null)
+    }
+
     // เรียกใช้งาน get events จาก store
 
-    const pastEvent = useEventStore((state) => state.pastEvent);
-    const events = useEventStore((state) => state.events);
-    const getEvents = useEventStore((state) => state.getEvents);
-    console.log("ไหนขอดู events", events)
+    // console.log("ไหนขอดู events", events)
     useEffect(() => {
         getEvents()
     }, []);
@@ -49,7 +57,6 @@ const Event = () => {
     const regisEventForm = {
         eventId: '',
     };
-    const [form, setForm] = useState(regisEventForm);
     const regisEvent = useEventStore((state) => state.regisEvent);
     const registerEvent = useEventStore((state) => state.registerEvent);
     const token = useAuthStore((state) => state.token);
@@ -58,6 +65,7 @@ const Event = () => {
 
     const handleRegister = (eventId) => {
         registerEvent(token, { eventId });
+        console.log("handleRegister-->", eventId)
     };
 
     // -------------------------------------
@@ -123,6 +131,12 @@ const Event = () => {
                             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
                             ✕
                         </button>
+                        <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
+                            <img
+                                src={selectedEvent.image[0].url}
+                                alt="Cat Event"
+                                className="object-cover w-full h-full" />
+                        </div>
                         <h2 className="text-2xl font-semibold mb-4">{selectedEvent.title}</h2>
                         <p><strong>Date:</strong> {selectedEvent.date_start}</p>
                         <p><strong>Location:</strong> {selectedEvent.location}</p>
@@ -133,6 +147,7 @@ const Event = () => {
                         >
                             สมัครเข้าร่วมกิจกรรม
                         </button>
+                        
                     </div>
                 </div>
             )}
@@ -142,7 +157,6 @@ const Event = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
                 <h1>กิจกรรมที่ผ่านมาแล้ว</h1>
             </div>
-
 
 
 
@@ -164,7 +178,7 @@ const Event = () => {
                         <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
                             className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
-                            onClick={() => openModal(event)}>
+                            onClick={() => openExpireEvent(event)}>
                             ดูเพิ่มเติม
                         </button>
                     </div>
@@ -172,27 +186,27 @@ const Event = () => {
             </div>
 
             {/* Modal กิจกรรมที่ผ่านมาแล้ว*/}
-            {selectedEvent && (
+            {expireEvent && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
                     <div className="bg-white w-full max-w-lg p-5 rounded-lg relative transform translate-y-6 mx-4 sm:mx-6 md:mx-8 lg:mx-12 shadow-lg">
                         <button
-                            onClick={closeModal}
+                            onClick={closeExpireEvent}
                             className="absolute top-2 right-2 text-gray-600 hover:text-gray-800">
                             ✕
                         </button>
                         <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
                             <img
-                                src={selectedEvent.image[0].url}
+                                src={expireEvent.image[0].url}
                                 alt="Cat Event"
                                 className="object-cover w-full h-full" />
                         </div>
-                        <h2 className="text-2xl font-semibold mb-4">{selectedEvent.title}</h2>
-                        <p><strong>Date:</strong> {selectedEvent.date_start}</p>
-                        <p><strong>Location:</strong> {selectedEvent.location}</p>
-                        <p className="mt-2"><strong>Description:</strong> {selectedEvent.description_th}</p>
+                        <h2 className="text-2xl font-semibold mb-4">{expireEvent.title}</h2>
+                        <p><strong>Date:</strong> {expireEvent.date_start}</p>
+                        <p><strong>Location:</strong> {expireEvent.location}</p>
+                        <p className="mt-2"><strong>Description:</strong> {expireEvent.description_th}</p>
                         <button
                             className="mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
-                            onClick={closeModal}
+                            onClick={closeExpireEvent}
                         >
                             ปิด
                         </button>
