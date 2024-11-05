@@ -43,6 +43,10 @@ export const deletePet = (token,id) => {
     })
 }
 
-export const createAdoptRequest = (data) => {
-    return axios.post("http://localhost:3000/pet/create-adopt",data)
+export const createAdoptRequest = (data,token) => {
+    return axiosInstance.post("/pet/create-adopt",data,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
 }

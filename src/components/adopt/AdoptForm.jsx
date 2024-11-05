@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useState, useRef } from "react"
 import { toast } from "react-toastify"
 export function DialogAdopt({ petId }) {
+  const token = useAuthStore(state=>state.token)
   const fileInput = useRef(null)
   const [files, setFiles] = useState([]);
   const [houseCheck, setHouseCheck] = useState({
@@ -77,7 +78,7 @@ export function DialogAdopt({ petId }) {
     formData.forEach((value, key) => {
       console.log(key, value)
     })
-    await actionCreateAdoptRequest(formData)
+    await actionCreateAdoptRequest(formData,token)
     toast.success("Adoption request submitted successfully")
     setOpen(false)
     
@@ -88,6 +89,7 @@ export function DialogAdopt({ petId }) {
 
   }
   console.log("user",user.id)
+  console.log("token",token)
   console.log(input)
   console.log(houseCheck)
   console.log(files)
@@ -215,6 +217,7 @@ export function DialogAdopt({ petId }) {
               <h3 className="text-xl font-semibold mb-3">Adoption Checklist</h3>
               <label className="block mb-1">House Holder*</label>
               <select className="border p-2 rounded w-full" onChange={hdlChange} name="housingType" required>
+                <option disabled>Select</option>
                 <option value={"OWN_HOUSE"}>I own a house</option>
                 <option value={"RENTAL_HOUSE"}>I rent a house</option>
                 <option value={"CONDO"}>I live in condo</option>
