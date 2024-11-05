@@ -1,8 +1,7 @@
 import axiosInstance from "../utils/axiosInstance";
 
-export const getAvialablePet = () => {
-    console.log("getAvialablePet")
-    return axiosInstance.get("/pet/get-apets")
+export const getAvialablePet = (count = 12, page = 1,query) => {
+    return axiosInstance.get(`/pet/get-apets/${count}/${page}`,{params:query})
 }
 
 export const getCurrentPet = (id) => {
@@ -43,6 +42,10 @@ export const deletePet = (token, id) => {
     })
 }
 
-export const createAdoptRequest = (data) => {
-    return axiosInstance.post("/pet/create-adopt", data,)
+export const createAdoptRequest = (data,token) => {
+    return axiosInstance.post("/pet/create-adopt",data,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
 }

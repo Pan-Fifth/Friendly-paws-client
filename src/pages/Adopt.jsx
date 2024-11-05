@@ -1,65 +1,153 @@
-import React, { useEffect } from 'react'
-import { DropdownWithArrow } from '@/components/ui/dropdown-with-arrow'
-import { Button } from "@/components/ui/button"
-import AdoptPetCard from '../components/adopt/AdoptPetCard'
-import usePetStore from '../stores/PetStore'
-import { PaginationDemo } from '../components/adopt/PageSelect'
+import React, { useEffect, useState } from "react";
+import { DropdownWithArrow } from "@/components/ui/dropdown-with-arrow";
+import { Button } from "@/components/ui/button";
+import AdoptPetCard from "../components/adopt/AdoptPetCard";
+import usePetStore from "../stores/PetStore";
 
 const Adopt = () => {
-    useEffect(()=>{
-        actionGetAvaiPet()
-    },[])
-    const actionGetAvaiPet = usePetStore(state=>state.actionGetAvaiPet)
-    const avaiPets = usePetStore(state=>state.avaiPets)
-    if (!avaiPets) {
-        return <div className="flex items-center justify-center h-screen">Loading...</div>
+  const [page, setPage] = useState(1);
+  const actionGetAvaiPet = usePetStore((state) => state.actionGetAvaiPet);
+  const avaiPets = usePetStore((state) => state.avaiPets);
+  const filter = usePetStore((state) => state.filter);
+  const setFilter = usePetStore((state) => state.setFilter);
+  const [isClicked, setIsClicked] = useState(false)
+
+  useEffect(() => {
+    setFilter({})
+    actionGetAvaiPet(12, page)
+}, [])
+
+
+  const hdlPageChange = (n) => {
+    try {
+      if (page + n < 1) {
+        return;
+      }
+      if (n > 0 && avaiPets.length < 12) {
+        return;
+      }
+      setPage((prev) => prev + n);
+      actionGetAvaiPet(12, page + n);
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } catch (err) {
+      return;
     }
-    console.log("available pet",avaiPets)
-    return (
-        <div>
-            <div className='w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto'>
-                <p>Our friends who are looking for a house</p>
-            </div>
-            <div className=' w-full h-[300px] bg-slate-400'>
-                <div className='h-full flex flex-col gap-3 items-center justify-center'>
-                    <div className='flex gap-3 justify-center'>
-                        <p className='text-3xl'>Furreal You've found 7,634 listings for</p>
-                        <div className='flex gap-3'>
-                            <DropdownWithArrow name={"Gender"} array={["Male", "Female"]} className={"w-[300px] text-xl"} />
-                            <DropdownWithArrow name={"Age"} array={["Kid", "Junior", "Senior", "Adult"]} className={"w-[300px] text-xl"} />
-                            <DropdownWithArrow name={"Size"} array={["Small", "Medium", "Large"]} className={"w-[300px] text-xl"} />
-                        </div>
-                    </div>
-                    <p className='text-3xl'>Including pets located interstate</p>
-                </div>
-            </div>
-                <div className='h-[400px] flex gap-2 justify-center items-center'>
-                    <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Small"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Medium"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Large"}</Button>
-                    </div>
-                    <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Kid"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Junior"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Senior"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Adult"}</Button>
-                    </div>
-                    <div className='flex gap-2 border border-black rounded-2xl p-10'>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Male"}</Button>
-                        <Button variant="secondary" className="w-[100px] h-[100px] text-slate-800" >{"Female"}</Button>
-                    </div>
-                </div>
-                <div className='flex gap-3 flex-wrap justify-center items-center'>
-                    {avaiPets?.map((el)=>(<AdoptPetCard key={el?.id} id={el?.id} name ={el?.name_en} image={el.image[0]?.url}/>))}
-                </div>
-                <div className='mt-10'>
-                <PaginationDemo className={"rounded-full bg-green-300"}/>
-                </div>
+  };
 
-
-        </div>
-    )
+  const hdlChangeFilter = (e) => {
+    setFilter({
+        ...filter,
+        [e.target.name]: e.target.value.toUpperCase()
+    })
 }
 
-export default Adopt
+  const hdlSubmit = (e) => {
+    e.preventDefault();
+    actionGetAvaiPet(12, page, filter);
+    console.log(filter);
+  };
+
+  if (!avaiPets) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        Loading...
+      </div>
+    );
+  }
+  console.log("available pet", avaiPets);
+  return (
+    <div>
+      {/* <div className="w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto">
+        <p>Our friends who are looking for a house</p>
+      </div> */}
+            <div className="relative">
+            <div className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div>
+            {/* <div src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div> */}
+            </div>
+      <div className=" absolute top-20  w-full h-[500px]">
+        <div className="h-full flex flex-col items-center justify-center">
+        <p className="w-full h-[200px] z-20 text-[70px] font-bold flex items-center justify-center">Our friends who are looking for a house</p>
+          <div className="flex gap-3 z-20 justify-center">
+            <form onSubmit={hdlSubmit}>
+              <div className="flex gap-3">
+                <DropdownWithArrow
+                  name="gender"
+                  array={["Male", "Female"]}
+                  className="w-[300px] text-xl"
+                  onChange={hdlChangeFilter}
+                  value={filter.gender}
+                />
+                <DropdownWithArrow
+                  name="age"
+                  array={["Kid", "Junior", "Senior", "Adult"]}
+                  className="w-[300px] text-xl"
+                  onChange={hdlChangeFilter}
+                  value={filter.age}
+                />
+              
+                <Button
+               
+                    className={`
+                    bg-pink-400 w-1/4 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-full
+                    transform transition-all duration-300 ease-in-out
+                    ${isClicked ? 'scale-95' : 'animate-pulse-pink'}
+                    `}
+                >
+                   Search
+                </Button>
+                <style jsx global>{`
+                    @keyframes pulse-pink {
+                    0%, 100% {
+                        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+                    }
+                    50% {
+                        box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+                    }
+                    }
+                    .animate-pulse-pink {
+                    animation: pulse-pink 2s infinite;
+                    }
+                `}</style>
+
+              </div>
+            </form>
+          </div>
+          
+        </div>
+      </div>
+     
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+        {avaiPets?.map((el) => (
+          <AdoptPetCard
+            key={el.id}
+            id={el.id}
+            name={el.name_en}
+            image={el.image[0]?.url}
+          />
+        ))}
+      </div>
+      <div className="mt-10">
+        <div className="flex justify-center items-center gap-2">
+          <Button
+            onClick={() => hdlPageChange(-1)}
+            className="border text-xl join-item btn btn-md"
+          >
+            previous
+          </Button>
+          <p className="text-2xl">Page {page}</p>
+          <Button
+            onClick={() => hdlPageChange(+1)}
+            className="border text-xl join-item btn btn-md "
+          >
+            next
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Adopt;
