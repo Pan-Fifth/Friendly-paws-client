@@ -102,6 +102,32 @@
         "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
       }
     ]
+  },
+  "register": {
+    "title": "สมัครใช้งาน Friendly Pow",
+    "emailLabel": "อีเมล",
+    "passwordLabel": "รหัสผ่าน",
+    "confirmPasswordLabel": "ยืนยันรหัสผ่าน",
+    "signUpButton": "สมัครใช้งาน",
+    "alreadyAccount": "มีบัญชีแล้ว?",
+    "logIn": "เข้าสู่ระบบ",    
+    "rightContentText": "สมัครเป็นส่วนหนึ่งของชุมชนที่เติบโตของเรา เชื่อมต่อกับคนที่มีใจเดียวกัน แบ่งปันความคิดของคุณ และสำรวจโอกาสใหม่ ๆ การเดินทางกับ Friendly Pow ของคุณเริ่มต้นที่นี่!"
+  },
+  "login": {
+    "title": "เข้าสู่ระบบ / สมัครสมาชิก",
+        "forgetPassword": "ลืมรหัสผ่าน?",
+    "loginButton": "เข้าสู่ระบบ",
+    "connectWith": "หรือ เข้าสู่ระบบด้วย",
+    "noAccount": "ยังไม่มีบัญชี?",
+     "rightContentText": "เป็นข้อความตัวอย่างในอุตสาหกรรมการพิมพ์และการจัดวาง Lorem Ipsum เป็นมาตรฐานของอุตสาหกรรมตั้งแต่ช่วงปี 1500"
+  },
+  "editProfile": {
+    "title": "แก้ไขโปรไฟล์",
+    "firstname": "ชื่อจริง",
+    "lastname": "นามสกุล",
+    "phone": "เบอร์โทรศัพท์",
+    "email": "อีเมล",
+    "confirmButton": "ยืนยัน"
   }
 
 }

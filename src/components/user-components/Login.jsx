@@ -12,7 +12,13 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
 import { Play } from "lucide-react"
 
+import { useTranslation } from 'react-i18next';
+
+
 export default function Login() {
+
+  //change lang ห้ามมลบ
+  const { t } = useTranslation();
 
   const [form, setForm] = useState({
 
@@ -79,12 +85,12 @@ export default function Login() {
               <div className="p-6 md:p-8">
                 <div className="flex items-center gap-2 mb-8">
                   <div className="w-8 h-8 rounded-full bg-purple-500" />
-                  <h1 className="text-2xl text-purple-500">Log in / Sign Up On Circle</h1>
+                  <h1 className="text-2xl text-purple-500">{t("login.title")}</h1>
                 </div>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm text-gray-600">Email Address:</label>
+                    <label className="text-sm text-gray-600">{t("register.emailLabel")} :</label>
                     <Input type="email" placeholder="abc@xyz.com" name="email" onChange={handleChange} value={form.email} />
                   </div>
                   <div className='w-2/3 '>
@@ -92,8 +98,8 @@ export default function Login() {
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm text-gray-600">Password:</label>
-                    <Input type="password" name="password" onChange={handleChange} value={form.password} />
+                    <label className="text-sm text-gray-600">{t("register.passwordLabel")} :</label>
+                    <Input type="password" placeholder={t("register.passwordLabel")} name="password" onChange={handleChange} value={form.password} />
                   </div>
                   <div className='w-2/3 '>
                     {formatError && <p className='text-gray-300 text-xs'>{formatError.password}</p>}
@@ -101,12 +107,12 @@ export default function Login() {
 
                   <div className="flex items-center justify-between">
 
-                    <p onClick={() => setIsOpen(!isOpen)} className=' cursor-pointer underline hover:text-yellow'>Forget Password ?</p>
+                    <p onClick={() => setIsOpen(!isOpen)} className=' cursor-pointer underline hover:text-yellow'>{t("login.forgetPassword")}</p>
                     {isOpen && <ForgetPassword />}
                   </div>
 
                   <Button className="w-full bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600">
-                    Log in
+                    {t("login.loginButton")}
                   </Button>
 
                   <div className="relative my-6">
@@ -114,7 +120,7 @@ export default function Login() {
                       <div className="w-full border-t border-gray-200" />
                     </div>
                     <div className="relative flex justify-center text-sm">
-                      <div className="px-2 bg-white text-gray-500">or connect with</div>
+                      <div className="px-2 bg-white text-gray-500">{t("login.connectWith")}</div>
                     </div>
                   </div>
 
@@ -126,9 +132,9 @@ export default function Login() {
                   </div>
 
                   <div className="text-center text-sm text-gray-600">
-                    Don't have an account?{" "}
+                    {t("login.noAccount")}{" "}
                     <Button variant="link" className="text-purple-500 p-0" onClick={() => navigate('/register')}>
-                      Sign up
+                      {t("register.signUpButton")}
                     </Button>
                   </div>
                 </form>
@@ -140,9 +146,7 @@ export default function Login() {
                   <div className="p-8 text-white space-y-6 mt-20">
                     <h2 className="text-4xl font-bold">Friendly Pow</h2>
                     <p className="text-sm opacity-90">
-                      Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                      standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to
-                      make a type specimen book.
+                      {t("login.rightContentText")}
                     </p>
 
                   </div>
@@ -152,24 +156,6 @@ export default function Login() {
           </CardContent>
         </Card>
       </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     </div>
 

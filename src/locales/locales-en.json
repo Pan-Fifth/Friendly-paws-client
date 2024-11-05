@@ -102,5 +102,31 @@
         "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
       }
     ]
+  },
+  "register": {
+    "title": "Sign Up On Friendly Pow",
+    "emailLabel": "Email Address",
+    "passwordLabel": "Password",
+    "confirmPasswordLabel": "Confirm Password",
+    "signUpButton": "Sign Up",
+    "alreadyAccount": "Already have an account?",
+    "logIn": "Log in",    
+    "rightContentText": "Sign up to become part of our growing community. Connect with like-minded individuals, share your ideas, and explore new opportunities. Your journey with Friendly Pow starts here!"
+  },
+  "login": {
+    "title": "Log in / Sign Up On Circle",
+       "forgetPassword": "Forget Password?",
+    "loginButton": "Log in",
+    "connectWith": "or connect with",
+    "noAccount": "Don't have an account?",
+       "rightContentText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+  },
+  "editProfile": {
+    "title": "Edit Profile",
+    "firstname": "Firstname",
+    "lastname": "Lastname",
+    "phone": "Phone number",
+    "email": "Email",
+    "confirmButton": "Confirm"
   }
 }

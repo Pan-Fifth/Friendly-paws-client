@@ -21,6 +21,9 @@ const Event = () => {
     const [expireEvent, setExpireEvent] = useState(null);
     console.log('expireEvent :>> ', expireEvent);
     console.log('selectedEvent :>> ', selectedEvent);
+    const pastEvent = useEventStore((state) => state.pastEvent);
+    const events = useEventStore((state) => state.events);
+    const getEvents = useEventStore((state) => state.getEvents);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -51,9 +54,6 @@ const Event = () => {
 
 
 
-    const pastEvent = useEventStore((state) => state.pastEvent);
-    const events = useEventStore((state) => state.events);
-    const getEvents = useEventStore((state) => state.getEvents);
     // console.log("ไหนขอดู events", events)
     useEffect(() => {
         getEvents()

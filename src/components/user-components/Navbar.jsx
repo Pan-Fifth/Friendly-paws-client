@@ -105,9 +105,9 @@ export default function Navbar() {
 
         </div>
       </div>
-      <button onClick={() => handleLanguageChange('en')} className=" hover:text-blue-800">EN  </button>
+      <button onClick={() => handleLanguageChange('en')} className={`hover:text-blue-800 ${language === 'en' ? 'font-bold text-blue-700' : ''}`}>EN  </button>
       <p>/</p>
-      <button onClick={() => handleLanguageChange('th')} className="hover:text-blue-800"> TH</button>
+      <button onClick={() => handleLanguageChange('th')} className={`hover:text-blue-800 ${language === 'th' ? 'font-bold text-blue-700' : ''}`}> TH</button>
     </nav>
   )
 }
