@@ -19,7 +19,10 @@ export default function Navbar() {
   const { language, setLanguage } = useLanguageStore();
   const handleLanguageChange = (lang) => {
     setLanguage(lang);
-    changeLanguage(lang); // เปลี่ยนภาษาที่ใช้ใน i18n
+    changeLanguage(lang);
+    // เปลี่ยนภาษาที่ใช้ใน i18n
+    window.location.reload();
+
   };
 
   const user = useAuthStore((state) => state.user)
@@ -102,9 +105,9 @@ export default function Navbar() {
 
         </div>
       </div>
-      <button onClick={() => handleLanguageChange('en')} className=" hover:text-blue-800">EN  </button>
+      <button onClick={() => handleLanguageChange('en')} className={`hover:text-blue-800 ${language === 'en' ? 'font-bold text-blue-700' : ''}`}>EN  </button>
       <p>/</p>
-      <button onClick={() => handleLanguageChange('th')} className="hover:text-blue-800"> TH</button>
+      <button onClick={() => handleLanguageChange('th')} className={`hover:text-blue-800 ${language === 'th' ? 'font-bold text-blue-700' : ''}`}> TH</button>
     </nav>
   )
 }

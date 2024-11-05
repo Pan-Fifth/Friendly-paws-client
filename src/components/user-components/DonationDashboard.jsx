@@ -4,11 +4,14 @@ import React, { useEffect, useState } from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import axios from "axios";
-import { t } from "i18next";
+import { useTranslation } from 'react-i18next';
+
 
 const DonationDashboard = ({ totalDonationAmount, goals }) => {
   // console.log("Data received:",totalDonationAmount, goals)
-  
+
+  const { t } = useTranslation();
+
 
 
   const progressPercentage = (totalDonationAmount / goals?.targetAmount ?? 1) * 100;
@@ -17,15 +20,15 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
     <div className="space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>{new Date().getFullYear()} Donation Goals</CardTitle>
+          <CardTitle>{new Date().getFullYear()} {t("donationGoals.title")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
             <div>
               <div className="flex justify-between mb-2">
-                <span>Total Donations</span>
+                <span>{t("donationGoals.totalDonations")}</span>
                 <span>฿{totalDonationAmount?.toLocaleString() ?? 0} / ฿{goals?.targetAmount?.toLocaleString() ?? 0}</span>
-                </div>
+              </div>
               <Progress value={progressPercentage} className="h-2" />
             </div>
           </div>
@@ -34,17 +37,17 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
 
       <Card>
         <CardHeader>
-          <CardTitle>Impact Summary</CardTitle>
+          <CardTitle>{t("donationGoals.impactSummary")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 gap-4">
             <div className="text-center p-4 bg-muted rounded-lg">
               <p className="text-3xl font-bold mb-2">{goals?.petsHelped ?? 0}</p>
-              <p className="text-sm text-muted-foreground">Pets Helped So Far</p>
+              <p className="text-sm text-muted-foreground">{t("donationGoals.petsHelped")}</p>
             </div>
             <div className="text-center p-4 bg-muted rounded-lg">
               <p className="text-3xl font-bold mb-2">{goals?.targetPets ?? 0}</p>
-              <p className="text-sm text-muted-foreground">Target Pets for {new Date().getFullYear()}</p>
+              <p className="text-sm text-muted-foreground">{t("donationGoals.targetPets")} {new Date().getFullYear()}</p>
             </div>
           </div>
         </CardContent>
