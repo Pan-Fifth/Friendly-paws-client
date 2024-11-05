@@ -1,14 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-
-
-
-
+import { useTranslation } from 'react-i18next';
+import axiosInstance from '@/src/utils/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 'use client'
-
-
 
 const Bubble = ({ size, left, top, delay }) => (
   <motion.div
@@ -40,67 +37,101 @@ const pages = [
 ]
 
 export default function Homepage() {
-  const [currentPage, setCurrentPage] = useState(0)
-  const { scrollYProgress } = useScroll()
+  const { t, i18n } = useTranslation();
+  const [currentPage, setCurrentPage] = useState(0);
+  const [homeContent, setHomeContent] = useState(null);
+  const { scrollYProgress } = useScroll();
+  const navigate = useNavigate();
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
     restDelta: 0.001
-  })
-  const containerRef = useRef(null)
+  });
+  const containerRef = useRef(null);
+
+  const getHome = () => {
+    axiosInstance.get('/admin/home-content').then((response) => {
+      setHomeContent(response.data[0]);
+
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  };
 
   useEffect(() => {
     const handleScroll = () => {
       if (containerRef.current) {
-        const scrollPosition = window.scrollY
-        const sectionHeight = window.innerHeight
-        const newPage = Math.round(scrollPosition / sectionHeight)
-        setCurrentPage(Math.min(newPage, pages.length - 1))
+        const scrollPosition = window.scrollY;
+        const sectionHeight = window.innerHeight;
+        const newPage = Math.round(scrollPosition / sectionHeight);
+        setCurrentPage(Math.min(newPage, pages.length - 1));
       }
-    }
+    };
+    getHome();
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleCircleClick = (index) => {
     if (containerRef.current) {
-      const targetScrollPosition = index * window.innerHeight
+      const targetScrollPosition = index * window.innerHeight;
       window.scrollTo({
         top: targetScrollPosition,
         behavior: 'smooth',
-      })
+      });
     }
-  }
+  };
 
   const pageVariants = {
     initial: { opacity: 0, y: 50 },
     in: { opacity: 1, y: 0 },
     out: { opacity: 0, y: -50 }
-  }
+  };
 
   const pageTransition = {
     type: 'tween',
     ease: 'anticipate',
     duration: 0.5
-  }
+  };
 
+  const content = homeContent?.[`content_${i18n.language}`]?.split('|');
+  console.log(homeContent)
   return (
-    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-pink-400 via-orange-300 to-yellow-300 overflow-hidden relative">
+    <div ref={containerRef} className="min-h-screen bg-gradient-to-br from-orange-200 via-pink-100 to-orange-300 overflow-hidden relative">
       {/* Vertical scroll progress indicator */}
       <motion.div
         className="fixed left-0 top-0 bottom-0 w-1 bg-pink-500 origin-top z-50"
         style={{ scaleY }}
       />
 
-      {/* Main content */}
       <main>
         {pages.map((page, index) => (
           <section
             key={page.id}
             id={page.id}
-            className="min-h-screen w-full flex items-center justify-center  relative overflow-hidden"
+           className={` min-h-screen w-full flex items-center justify-center relative overflow-hidden
+             ${page.id !== 'home'&& page.id !=='mission' ? 'bg-[#FFF3E9]' : ''}`}
+             
           >
+          {page.id === 'mission' && (
+          <div className='absolute bottom-[-750px]  w-full h-full'>
+            <svg
+              viewBox="0 0 1440 98"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="w-full"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0 0C240 98 480 98 720 98C960 98 1200 98 1440 0V98H0V0Z"
+                fill="#FFF3E9"
+              />
+            </svg>
+          </div>
+        )}
+            
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
@@ -112,122 +143,114 @@ export default function Homepage() {
                 className="w-full mx-auto relative z-10 flex justify-center"
               >
                 {index === 0 && (
-                    <div className="flex items-center justify-between relative w-full bg-white px-[300px] ">
+                  <div className="flex items-center justify-between relative w-full bg-white px-[300px]">
                     <div className="relative z-10">
-                            <img  src="/src/assets/dog.png" 
-                            alt=""  
-                            className='h-screen ' />
-                        </div>
-                      <div className="absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
-                    <div className="absolute w-full  left-0 right-0 top-0 bottom-0 z-0" />
-                        <div className="max-w-xl z-10">
+                      <img src="/src/assets/dog.png" alt="img" className='h-screen' />
+                    </div>
+                    <div className="absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
+                    <div className="absolute w-full left-0 right-0 top-0 bottom-0 z-0" />
+                    <div className="max-w-xl z-10">
                       <h1 className="text-xl mb-4">
-                        ADOPT ME<span className="text-pink-600">, PLEASE</span>
+                        {t("adoptPage.adoptMe")}<span className="text-pink-600"> {t("adoptPage.adoptMe1")}</span>
                       </h1>
                       <h2 className="text-[150px] font-bold leading-tight mb-8">
-                        FRIENDLY POW
+                        {t("adoptPage.friendlyPow")}
                       </h2>
                       <motion.button
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
                         className="bg-pink-600 text-white px-12 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-colors"
+                        onClick={()=>navigate('/adopt')}
                       >
-                        ADOPT
+                        {t("Adopt")}
                       </motion.button>
                     </div>
-                    </div>
+                  </div>
                 )}
-
-
-
 
                 {index === 1 && (
-                  <div className="relative bg-white/90 rounded-3xl p-12 backdrop-blur-sm">
-                    <div className="text-center mb-12">
-                      <h2 className="text-4xl font-bold mb-4">WELCOME TO OUR CLUB!</h2>
-                      <p className="text-gray-600 max-w-2xl mx-auto">
-                        Join our community of pet lovers and discover everything you need to know about pet care, health, and happiness.
-                      </p>
-                    </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                      <div className="text-center">
-                        <div className="relative w-48 h-48 mx-auto mb-4">
-                          <div className="absolute inset-0 rounded-full overflow-hidden">
-                           <img src="https://res.cloudinary.com/petrescue/image/upload/b_auto:predominant,c_pad,f_auto,h_648,w_648/x9vv6s9se8byqdikbza0.jpg" 
-                           alt="" 
-                           className=' w-full h-full' />
-                
-                          </div>
-                          <div className="absolute inset-0 bg-white/30 rounded-full"></div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">CARE ADVICE</h3>
-                        <p className="text-gray-600">Expert tips for keeping your pets healthy and happy</p>
-                      </div>
-                      <div className="text-center">
-                        <div className="relative w-48 h-48 mx-auto mb-4">
-                          <div className="absolute inset-0 rounded-full overflow-hidden">
-                          <img src="https://res.cloudinary.com/petrescue/image/upload/b_auto:predominant,c_pad,f_auto,h_648,w_648/x9vv6s9se8byqdikbza0.jpg" 
-                           alt="" 
-                           className='  w-full h-full' />
-                
-                          </div>
-                          <div className="absolute inset-0 bg-white/30  rounded-full"></div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">VETERINARY HELP</h3>
-                        <p className="text-gray-600">Professional medical care when you need it most</p>
-                      </div>
-                      <div className="text-center">
-                        <div className="relative w-48 h-48 mx-auto mb-4">
-                          <div className="absolute inset-0 rounded-full overflow-hidden">
-                          <img src="https://res.cloudinary.com/petrescue/image/upload/b_auto:predominant,c_pad,f_auto,h_648,w_648/x9vv6s9se8byqdikbza0.jpg" 
-                           alt="" 
-                           className=' w-full h-full' />
-                          </div>
-                          <div className="absolute inset-0 bg-white/30  rounded-full"></div>
-                        </div>
-                        <h3 className="text-xl font-bold mb-2">OUR TIPS</h3>
-                        <p className="text-gray-600">Daily guidance for better pet parenting</p>
-                      </div>
-                    </div>
-                    <div className="text-center mt-8">
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-pink-600 text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-pink-700 transition-colors"
-                      >
-                        VIEW MORE
-                      </motion.button>
-                    </div>
-                  </div>
-                )}
+                  <div className="relative bg-white/90 rounded-3xl p-12 backdrop-blur-sm w-2/3 h-[700px]">
+                    
+      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center md:items-start gap-12">
+      <div className="w-full md:w-1/2 grid grid-cols-2 gap-4">
+
+        <div className='flex flex-col items-center justify-center ' >
+        <img
+          src={homeContent?.image1}
+          className=" object-cover h-[320px]"
+        />
+          <p>{content?.[2]}</p>
+          <p>{content?.[3]}</p>
+          </div>
+        
+          <div className='flex flex-col items-center justify-end'>
+        <img
+          src={homeContent?.image2}
+          className="object-cover h-[270px]"
+        />
+          <p>{content?.[4]}</p>
+          <p>{content?.[5]}</p>
+          </div>
+        
+          <div className='flex flex-col mx-auto items-center justify-center w-[500px]'>
+          <img
+            src={homeContent?.image3}
+            className="col-span-2 object-cover w-full h-[200px] mx-auto "
+          />
+          <p>{content?.[6]}</p>
+          <p>{content?.[7]}</p>
+          </div>
+        </div>
+        
+        <div className="w-full h-[400px] md:w-1/2 space-y-4 flex flex-col  my-auto"> 
+          <h2 className="text-4xl font-bold">{content?.[0]}</h2>
+          <p className="text-gray-600">
+          {content?.[1]}
+          </p>
+          
+          <div className="text-center mt-8">
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-orange-400 text-white px-8 py-2 rounded-full text-sm font-medium hover:bg-orange-600 transition-colors"
+                        >
+                  {t("adoptPage.viewMoreButton")}
+                </motion.button>
+            </div>
+          </div>
+
+        </div>
+        </div>
+        )}
+
                 {index === 2 && (
                   <div className="text-center">
-                    <h2 className="text-4xl font-bold text-pink-600 mb-4">Adoption Process</h2>
-                    <p className="text-xl text-orange-900">Learn about our simple and rewarding adoption process.</p>
+                    <h2 className="text-4xl font-bold text-pink-600 mb-4">{t("adoptPage.adoptionProcessTitle")}</h2>
+                    <p className="text-xl text-orange-900">{t("adoptPage.adoptionProcessDescription")}</p>
                   </div>
                 )}
+
                 {index === 3 && (
-                      <section className="w-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
-                      <div className="container px-4 md:px-6">
-                        <div className="flex flex-col items-center space-y-4 text-center">
-                          <div className="space-y-2">
-                            <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Make a Difference Today</h2>
-                            <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                              Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution,
-                              no matter how small, can change a life.
-                            </p>
-                          </div>
-                          <Button className="bg-primary text-primary-foreground hover:bg-primary/90" size="lg">
-                            Donate Now
-                          </Button>
+                  <section className=" relative w-full h-full py-12 md:py-24 lg:py-32 bg-white flex justify-center gap-4">
+                    <div className="container px-4 md:px-6">
+                      <div className="flex flex-col items-center space-y-4 text-center">
+                        <div className="space-y-2">
+                          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">{t("adoptPage.makeDifferenceTitle")}</h2>
+                          <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
+                            {t("adoptPage.makeDifferenceDescription")}
+                          </p>
                         </div>
+                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90" size="lg" onClick={()=>{navigate("/donate")}}>
+                          {t("adoptPage.donateNowButton")}
+                        </Button>
                       </div>
-                    </section>
+                      {/* <img className='absolute bottom-[-260px]  z-[100]  ' src="/src/assets/DedogHome.png" alt="" /> */}
+                    </div>
+                  </section>
                 )}
               </motion.div>
             </AnimatePresence>
 
-            {/* Randomly positioned bubbles for each section */}
             {[...Array(15)].map((_, i) => (
               <Bubble
                 key={`${page.id}-bubble-${i}`}
@@ -241,15 +264,12 @@ export default function Homepage() {
         ))}
       </main>
 
-      {/* Vertical clickable dot navigation with z-index 20 */}
       <div className="fixed right-8 top-1/2 -translate-y-1/2 flex flex-col space-y-4 z-20">
         {pages.map((_, i) => (
           <motion.button
             key={i}
             onClick={() => handleCircleClick(i)}
-            className={`w-4 h-4 rounded-full ${
-              i === currentPage ? 'bg-pink-600' : 'bg-orange-300'
-            }`}
+            className={`w-4 h-4 rounded-full ${i === currentPage ? 'bg-pink-600' : 'bg-orange-300'}`}
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
             aria-label={`Scroll to ${pages[i].title}`}
@@ -257,5 +277,5 @@ export default function Homepage() {
         ))}
       </div>
     </div>
-  )
+  );
 }

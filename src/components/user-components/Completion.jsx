@@ -9,11 +9,10 @@ import { confirmPayment } from '../../apis/PaymentApi';
 import useDonationStore from '@/src/stores/DonationStore';
 
 export default function Completion() {
-    const {donation} = useDonationStore()
+    const donation = useDonationStore(state=> state.donation)
+    const setShowPaymentDialog = useDonationStore(state => state.setShowPaymentDialog)
     const user = useAuthStore((state) => state.user);
-    const userId = user.id || 1
-    console.log(user, "userrr")
-    console.log(donation, "this is donation")
+    const userId = user?.user.id
     useEffect(() => {
         
         const paymentData = {
@@ -24,6 +23,7 @@ export default function Completion() {
         async function clearCart() {
             try {
                 // เรียก API เพื่อยืนยันการชำระเงินในเบื้องต้น
+                setShowPaymentDialog(false)
                 const response = await confirmPayment(paymentData);
 
                 // แสดงข้อความยืนยันว่าการชำระเงินสำเร็จ
@@ -48,7 +48,7 @@ export default function Completion() {
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
 
-            <h2 className="text-4xl font-semibold text-gray-800 mt-4">Thank You! {user.firstname}</h2>
+            <h2 className="text-4xl font-semibold text-gray-800 mt-4">Thank You! {user?.firstname}</h2>
             <p className="text-gray-600 mt-2 text-center">
                 Your payment has been successfully processed.
             </p>

@@ -10,6 +10,7 @@ const LoginGoogle = () => {
 
     const handleLogin = async (credentialResponse) => {
 
+        console.log('credentialResponse:', credentialResponse);
         const token = credentialResponse.credential;
 
         try {

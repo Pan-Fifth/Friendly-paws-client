@@ -1,113 +1,92 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-import { TiSocialTwitter } from "react-icons/ti";
-import { FaFacebook, FaLocationDot } from "react-icons/fa6";
-import { FaYoutube, FaInstagram, FaPhoneAlt } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
-import SendEmailForm from './SendEmailForm';
+
 
 export default function Footer() {
   return (
-    <div className="relative">
-      {/* Top cloud shape */}
-      <div className="absolute top-0 left-0 right-0 overflow-hidden">
-        <svg
-          className="relative block w-full h-[48px] text-blue-100 "
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-            className="fill-white"
-          ></path>
-        </svg>
-      </div>
+    <footer className="relative mt-16">
+    {/* Wave SVG */}
+    <div className="absolute  left-0 w-full transform -translate-y-full">
+      <svg
+        viewBox="0 0 1440 120"
+        className="w-full h-[100px]"
+        preserveAspectRatio="none"
+        fill="#FFF5EA"
+      >
+        <path d="M0,64L48,80C96,96,192,128,288,128C384,128,480,96,576,80C672,64,768,64,864,80C960,96,1056,128,1152,128C1248,128,1344,96,1392,80L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z" />
+      </svg>
+    </div>
 
-      {/* Main content area (placeholder) */}
-      <div className="min-h-screen bg-white"></div>
-
-      {/* Footer */}
-      <footer className="relative bg-blue-100">
-        {/* Bottom cloud shape */}
-        <div className="absolute top-0 left-0 right-0 overflow-hidden">
-          <svg
-            className="relative rotate-180 block w-full h-[45px] text-blue-100"
-            viewBox="0 0 1200 120"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M985.66,92.83C906.67,72,823.78,31,743.84,14.19c-82.26-17.34-168.06-16.33-250.45.39-57.84,11.73-114,31.07-172,41.86A600.21,600.21,0,0,1,0,27.35V120H1200V95.8C1132.19,118.92,1055.71,111.31,985.66,92.83Z"
-              className="fill-white "
-            ></path>
-          </svg>
-        </div>
-
-        {/* Footer content */}
-        <div className="container mx-auto px-6 pt-10 pb-6">
-          <div className="flex flex-wrap">
-            <div className="w-full md:w-1/4 text-center md:text-left">
-              <h5 className="uppercase mb-6 font-bold">Links</h5>
-              <ul className="mb-4">
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">FAQ</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Help</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Support</a>
-                </li>
-              </ul>
+    <div className="bg-[#FFF5EA] pt-12 pb-8">
+      {/* Main Content */}
+      <div className="container mx-auto px-4">
+        {/* Contact Section */}
+        <div className="text-center mb-10">
+          <h2 className="text-3xl font-bold text-primary mb-2">How can we help?</h2>
+          <p className="text-xl text-gray-600 mb-6">Contact us anytime.</p>
+          <div className="flex flex-wrap justify-center gap-4">
+            <div className="bg-white rounded-lg px-4 py-2 flex items-center gap-2 shadow-sm">
+              {/* <Mail className="h-4 w-4 text-primary" /> */}
+              <span className="text-sm">hello@homephase.org</span>
             </div>
-            <div className="w-full md:w-1/4 text-center md:text-left">
-              <h5 className="uppercase mb-6 font-bold">Legal</h5>
-              <ul className="mb-4">
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Terms</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Privacy</a>
-                </li>
-              </ul>
-            </div>
-            <div className="w-full md:w-1/4 text-center md:text-left">
-              <h5 className="uppercase mb-6 font-bold">Social</h5>
-              <ul className="mb-4">
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Facebook</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Instagram</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Twitter</a>
-                </li>
-              </ul>
-            </div>
-            <div className="w-full md:w-1/4 text-center md:text-left">
-              <h5 className="uppercase mb-6 font-bold">Company</h5>
-              <ul className="mb-4">
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Blog</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">About Us</a>
-                </li>
-                <li className="mt-2">
-                  <a href="#" className="hover:underline text-gray-600 hover:text-blue-500">Contact</a>
-                </li>
-              </ul>
+            <div className="bg-white rounded-lg px-4 py-2 flex items-center gap-2 shadow-sm">
+              {/* <Phone className="h-4 w-4 text-primary" /> */}
+              <span className="text-sm">813-534-6365</span>
             </div>
           </div>
         </div>
-        <div className="text-center pt-4 pb-8">
-          <p className="text-sm text-gray-600">
-            © 2024 Your Company. All rights reserved.
-          </p>
-        
-        </div>
-      </footer>
 
+        {/* Footer Links */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6 text-sm">
+          <div>
+            <h3 className="font-semibold mb-3">About Us</h3>
+            <ul className="space-y-2">
+              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Our Story</Link></li>
+              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Benefits</Link></li>
+              <li><Link href="#" className="text-gray-600 hover:text-gray-900">FAQ</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-3">Legal</h3>
+            <ul className="space-y-2">
+              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Terms & Conditions</Link></li>
+              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-3">Keep In Touch</h3>
+            <ul className="space-y-2">
+              <li><Link href="mailto:hello@homephase.org" className="text-gray-600 hover:text-gray-900">hello@homephase.org</Link></li>
+              <li><Link href="tel:813-534-6365" className="text-gray-600 hover:text-gray-900">813-534-6365</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h3 className="font-semibold mb-3">Follow Us</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="#" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
+                  {/* <Facebook className="h-4 w-4" /> */}
+                  Facebook
+                </Link>
+              </li>
+              <li>
+                <Link href="#" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
+                  {/* <Twitter className="h-4 w-4" /> */}
+                  Twitter
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
-    )
+
+        {/* Copyright */}
+        <div className="border-t border-gray-200 pt-4">
+          <p className="text-gray-600 text-sm text-center">© 2024 Your Company. All rights reserved.</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  
+  )
 }

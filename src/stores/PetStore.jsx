@@ -7,11 +7,15 @@ import { act } from "react";
 
 const usePetStore = create(persist((set,get)=>({
     allPets : [],
-    avaiPets:null ,
+    avaiPets:null,
     currentPet:null,
-   actionGetAvaiPet : async()=>{
+    filter: {},
+    setFilter: (filterObj) => set({ filter: filterObj }),
+    actionGetAvaiPet : async(count,page,query)=>{
     try {
-        const resp = await getAvialablePet();
+        
+        const resp = await getAvialablePet(count,page,query);
+        
         toast.success(resp)
         set({avaiPets:resp.data})
         return resp.data;

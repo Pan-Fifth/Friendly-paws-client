@@ -67,6 +67,9 @@ export default function AdminNavbar() {
                                         <Link to="/admin/manage-adopt" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์
                                         </Link>
+                                        <Link to="/admin/manage-web" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            แก้ไขหน้าเว็บ
+                                        </Link>
                                     </li>
 
                                 </ul>
@@ -92,6 +95,7 @@ export default function AdminNavbar() {
                                         <Link to="/admin/report-adopt" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์
                                         </Link>
+  
                                     </li>
 
                                 </ul>

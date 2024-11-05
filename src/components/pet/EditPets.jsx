@@ -25,6 +25,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
         type: '',
         breed_en: '',
         breed_th: '',
+        status: 'AVAILABLE',
         description_en: '',
         description_th: '',
         is_vaccinated: false,
@@ -48,6 +49,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
               type: currentPet.type,
               breed_en: currentPet.breed_en,
               breed_th: currentPet.breed_th,
+              status: currentPet.status,
               description_en: currentPet.description_en,
               description_th: currentPet.description_th,
               is_vaccinated: currentPet.is_vaccinated,
@@ -84,6 +86,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
         body.append('type', formData.type);
         body.append('breed_en', formData.breed_en);
         body.append('breed_th', formData.breed_th);
+        body.append('status', formData.status);
         body.append('description_en', formData.description_en);
         body.append('description_th', formData.description_th);
         body.append('is_vaccinated', formData.is_vaccinated);
@@ -109,6 +112,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
             breed_th: '',
             description_en: '',
             description_th: '',
+            status: '',
             is_vaccinated: false,
             is_neutered: false,
             weight: '',
@@ -219,6 +223,21 @@ const EditPetsForm = ({ petId, setOpen }) => {
         <div className="space-y-2">
           <Label htmlFor="weight">Weight</Label>
           <Input id="weight" name="weight" type="number" value={formData.weight} onChange={hdlChange} />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="status">Status</Label>
+          <Select onValueChange={hdlSelectChange('status')}>
+            <SelectTrigger>
+              <SelectValue placeholder="Select type" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="AVAILABLE">AVAILABLE</SelectItem>
+              <SelectItem value="PENDING">PENDING</SelectItem>
+              <SelectItem value="ADOPTED">ADOPTED</SelectItem>
+              <SelectItem value="FOSTERED">FOSTERED</SelectItem>
+              <SelectItem value="UNAVAILABLE">UNAVAILABLE</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
       </div>
 

@@ -57,37 +57,43 @@ export default function ReportAdopt() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="flex gap-4 mb-6">
-                <input
-                    type="date"
-                    value={startDate}
-                    onChange={e => setStartDate(e.target.value)}
-                    className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                />
-                <input
-                    type="date"
-                    value={endDate}
-                    onChange={e => setEndDate(e.target.value)}
-                    className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
-                />
-                <button
-                    onClick={handleFetchReport}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
-                >
-                    รายงาน
-                </button>
-                <button
-                    onClick={handleFetchAllReport}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
-                >
-                    ข้อมูลรับเลี้ยงสัตว์ทั้งหมดของปีนี้
-                </button>
-                <button
-                    onClick={handleExportExcel}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
-                >
-                    บันทึกข้อมูล
-                </button>
+            <div className="flex justify-between gap-4 mb-6">
+                <div className='flex gap-6'>
+                    <p className='flex justify-center items-center'>วันที่สร้างข้อมูล : </p>
+
+                    <input
+                        type="date"
+                        value={startDate}
+                        onChange={e => setStartDate(e.target.value)}
+                        className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                    <input
+                        type="date"
+                        value={endDate}
+                        onChange={e => setEndDate(e.target.value)}
+                        className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                    />
+                    <button
+                        onClick={handleFetchReport}
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                    >
+                        รายงาน
+                    </button>
+                </div>
+                <div className='flex gap-6'>
+                    <button
+                        onClick={handleFetchAllReport}
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                    >
+                        ข้อมูลรับเลี้ยงสัตว์ทั้งหมดของปีนี้
+                    </button>
+                    <button
+                        onClick={handleExportExcel}
+                        className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
+                    >
+                        บันทึกข้อมูล
+                    </button>
+                </div>
             </div>
 
             {adopts && adopts.length > 0 ? (

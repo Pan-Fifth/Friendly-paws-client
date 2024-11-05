@@ -12,7 +12,7 @@ export const sendEmailApi = async (recipient, subject, message, token) => {
         return response;
     } catch (error) {
         console.error("Error in sendEmailApi:", error);
-        throw error;  // เพิ่มการโยนข้อผิดพลาดออกไปเพื่อให้แสดงข้อผิดพลาดใน console
+        throw error;
     }
 };
 

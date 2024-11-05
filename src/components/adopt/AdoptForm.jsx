@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom"
 import { useState, useRef } from "react"
 import { toast } from "react-toastify"
 export function DialogAdopt({ petId }) {
-  const token = useAuthStore(state=>state.token)
+  const token = useAuthStore(state => state.user.token)
   const fileInput = useRef(null)
   const [files, setFiles] = useState([]);
   const [houseCheck, setHouseCheck] = useState({
@@ -54,41 +54,42 @@ export function DialogAdopt({ petId }) {
   const hdlSubmit = async (e) => {
     try {
       e.preventDefault()
-    if (files.length > 5) {
-      toast.error("You can only upload 5 files")
-      return
-    }
-    if (files.length < 3) {
-      toast.error("You must upload at least 3 files")
-      return
-    }
-    const formData = new FormData()
-    for (const key in input) {
-      formData.append(key, input[key])
-    }
-    for (const key in houseCheck) {
-      formData.append(key, houseCheck[key])
-    }
-    formData.append("userId", user.id)
-    formData.append("petId", petId)
-    formData.append("files", files)
-    files.forEach((file) => {
-      formData.append('files', file);
-    });
-    formData.forEach((value, key) => {
-      console.log(key, value)
-    })
-    await actionCreateAdoptRequest(formData,token)
-    toast.success("Adoption request submitted successfully")
-    setOpen(false)
-    
+      if (files.length > 5) {
+        toast.error("You can only upload 5 files")
+        return
+      }
+      if (files.length < 3) {
+        toast.error("You must upload at least 3 files")
+        return
+      }
+      const formData = new FormData()
+      for (const key in input) {
+        formData.append(key, input[key])
+      }
+      for (const key in houseCheck) {
+        formData.append(key, houseCheck[key])
+      }
+      formData.append("userId", user.id)
+      formData.append("petId", petId)
+      formData.append("files", files)
+      files.forEach((file) => {
+        formData.append('files', file);
+      });
+      formData.forEach((value, key) => {
+        console.log(key, value)
+      })
+      await actionCreateAdoptRequest(formData,token)
+      toast.success("Adoption request submitted successfully")
+      setOpen(false)
+
     } catch (err) {
       setOpen(true)
-      toast.error(err.response.data.message)
+      console.log(err, "err here")
+      // toast.error(err.response.data.message)
     }
 
   }
-  console.log("user",user.id)
+  console.log("user", user.id)
   console.log("token",token)
   console.log(input)
   console.log(houseCheck)

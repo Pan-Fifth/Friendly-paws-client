@@ -46,10 +46,12 @@ import ReportPet from '../components/admin-components/ReportPet';
 import ReportDonation from '../components/admin-components/ReportDonation';
 import ReportAdopt from '../components/admin-components/ReportAdopt';
 import ReportEvent from '../components/admin-components/ReportEvent';
+import CreateEvent from '../components/event-controller/CreateEvent';
 import About from '../components/user-components/About';
 import Contact from '../components/user-components/Contact';
 import ManageUser from '../components/admin-components/ManageUser';
 import ManageGoal from '../components/admin-components/ManageGoal';
+import { ManageWeb } from '../pages/admin-pages/ManageWeb';
 
 
 
@@ -67,10 +69,12 @@ const pageRouter = createBrowserRouter([
             { path: 'profile', element: <EditProfile /> },
             { path: 'manage-pet', element: <ManagePet /> },
             { path: 'manage-event', element: <ManageEvent /> },
+            { path: 'create-event', element: <CreateEvent />},
             { path: 'manage-donation', element: <ManageDonate /> },
             { path: 'manage-adopt', element: <ManageAdopt /> },
             { path: 'manage-user', element: <ManageUser /> },
             { path: 'manage-goal', element: <ManageGoal /> },
+            { path: 'manage-web', element: <ManageWeb /> },
             { path: 'report-pet-list', element: <ReportPet /> },
             { path: 'report-donation', element: <ReportDonation /> },
             { path: 'report-adopt', element: <ReportAdopt /> },
