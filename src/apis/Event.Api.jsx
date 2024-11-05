@@ -55,3 +55,17 @@ export const registerEvent = async (token, eventId) => {
         throw error;  // เพิ่มการโยนข้อผิดพลาดออกไปเพื่อให้แสดงข้อผิดพลาดใน console
     }
 };
+
+export const createEvent = async (token, eventData) => {
+    try {
+        const response = await axiosInstance.post('/admin/events', eventData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        return response;
+    } catch (error) {
+        console.error("Error in createEvent:", error);
+        throw error;  // เพิ่มการโยนข้อผิดพลาดออกไปเพื่อให้แสดงข้อผิดพลาดใน console
+    }
+};
