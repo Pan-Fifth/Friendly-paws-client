@@ -5,6 +5,8 @@ import { toast } from "react-toastify";
 
 export const ManageHome = () => {
   const [content, setContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const sectionNames = [
     "Header",
     "Subtitle",
@@ -16,6 +18,12 @@ export const ManageHome = () => {
     "Image 3 Content",
   ];
   const [images, setImages] = useState({
+    image1: null,
+    image2: null,
+    image3: null,
+  });
+
+  const [imagePreviews, setImagePreviews] = useState({
     image1: null,
     image2: null,
     image3: null,
@@ -48,10 +56,20 @@ export const ManageHome = () => {
   };
 
   const handleImageChange = (e, imageField) => {
-    setImages({
-      ...images,
-      [imageField]: e.target.files[0],
-    });
+    const file = e.target.files[0];
+    if (file) {
+      setImages({
+        ...images,
+        [imageField]: file,
+      });
+
+      // Create preview URL for the selected image
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreviews({
+        ...imagePreviews,
+        [imageField]: previewUrl,
+      });
+    }
   };
 
   const handleTextChange = (language, index, value) => {
@@ -62,43 +80,47 @@ export const ManageHome = () => {
   };
 
   const handleSubmit = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
     try {
       const formData = new FormData();
-      
+
       // Always include content fields even if they haven't changed
-      formData.append('content_en', textContent.content_en.join('|'));
-      formData.append('content_th', textContent.content_th.join('|'));
-  
+      formData.append("content_en", textContent.content_en.join("|"));
+      formData.append("content_th", textContent.content_th.join("|"));
+
       // Only append images if they were selected
       if (images.image1) {
-        formData.append('image1', images.image1);
+        formData.append("image1", images.image1);
       }
       if (images.image2) {
-        formData.append('image2', images.image2);
+        formData.append("image2", images.image2);
       }
       if (images.image3) {
-        formData.append('image3', images.image3);
+        formData.append("image3", images.image3);
       }
-  
+
       // Log formData to verify content
       for (let pair of formData.entries()) {
         console.log(pair[0], pair[1]);
       }
-  
+
       const response = await axiosInstance.put(`/admin/home-content/${content.id}`, formData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+          "Content-Type": "multipart/form-data",
+        },
       });
-  
-      console.log('Update successful:', response.data);
+
+      console.log("Update successful:", response.data);
       fetchContent(); // Refresh content after update
       toast.success("Update successful");
     } catch (error) {
-      console.error('Error details:', error.response?.data || error.message);
+      console.error("Error details:", error.response?.data || error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
@@ -111,7 +133,7 @@ export const ManageHome = () => {
           {["image1", "image2", "image3"].map((imageField) => (
             <div key={imageField} className="flex items-center gap-4">
               <img
-                src={content?.[imageField]}
+                src={imagePreviews[imageField] || content?.[imageField]}
                 alt={imageField}
                 className="w-24 h-24 object-cover rounded"
               />
@@ -156,11 +178,8 @@ export const ManageHome = () => {
           ))}
         </div>
 
-        <Button
-          onClick={handleSubmit}
-          className="w-full bg-primary text-white py-2 rounded hover:bg-primary/90"
-        >
-          Update Content
+        <Button className="w-full mt-6" onClick={handleSubmit} disabled={isLoading}>
+          {isLoading ? "Saving..." : "Save Changes"}
         </Button>
       </div>
     </div>

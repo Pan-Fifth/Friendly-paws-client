@@ -7,6 +7,7 @@ import { t } from "i18next";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import axiosInstance from "../utils/axiosInstance";
 
 const images = [
   "https://scontent.fbkk7-2.fna.fbcdn.net/v/t39.30808-6/463721703_122116729292516599_4376622466092872756_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=cc71e4&_nc_ohc=v60Xjf44aCkQ7kNvgFxi-CR&_nc_zt=23&_nc_ht=scontent.fbkk7-2.fna&_nc_gid=A95Ci2R9iXzNvveBapHt-ew&oh=00_AYARb5juLz46D_qWvE6t1p6s_PUoRs-69Sgpnv4sDStp_A&oe=6727B257",
@@ -78,6 +79,8 @@ const Event = () => {
     getEvents();
     fetchBannerImages();
   }, []);
+
+  console.log(bannerImages,"============")
   if (events.length === 0) {
     return <div>Loading...</div>;
   }

@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { useToast } from "@/hooks/use-toast"
 import axiosInstance from '@/src/utils/axiosInstance'
+import { toast } from "react-toastify"
 
 const ManageEventPage = () => {
-  const { toast } = useToast()
   const [banner, setBanner] = useState(null)
+  const [isLoading, setIsLoading] = useState(false)
   const [files, setFiles] = useState({
     image1: null,
     image2: null,
@@ -50,6 +50,9 @@ const ManageEventPage = () => {
   }
 
   const handleSubmit = async () => {
+    if (isLoading) return
+    
+    setIsLoading(true)
     try {
       const formData = new FormData()
       Object.keys(files).forEach(key => {
@@ -64,17 +67,12 @@ const ManageEventPage = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      toast({
-        title: "Success",
-        description: "Banner images updated successfully"
-      })
+      toast.success("Banner updated successfully")
       fetchBanner()
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error updating banner",
-        description: error.message
-      })
+      toast.error("Failed to update banner")
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -99,6 +97,7 @@ const ManageEventPage = () => {
                   type="file"
                   accept="image/*"
                   onChange={(e) => handleFileChange(e, `image${num}`)}
+                  disabled={isLoading}
                 />
               </div>
             </div>
@@ -106,8 +105,9 @@ const ManageEventPage = () => {
           <Button 
             className="w-full mt-4" 
             onClick={handleSubmit}
+            disabled={isLoading}
           >
-            Save Changes
+            {isLoading ? "Saving Changes..." : "Save Changes"}
           </Button>
         </CardContent>
       </Card>
