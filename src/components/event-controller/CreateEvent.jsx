@@ -24,7 +24,7 @@
 
 
 
-    
+
 //     const handleInputChange = (e) => {
 //         const { name, value } = e.target
 //         setFormData((prev) => ({ ...prev, [name]: value }))
@@ -163,10 +163,13 @@ import { createEvent } from '@/src/apis/Event.Api'
 import useAuthStore from '@/src/stores/AuthStore'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import EventFormValidate from '@/src/utils/EventFormValidate'
 
 export default function CreateEvent() {
+    const [formatError, setFormatError] = useState({});
     const token = useAuthStore(state => state.token);
     const navigate = useNavigate()
+    const [loading, setLoading] = useState(false);
     const [formData, setFormData] = useState({
         title_en: '',
         title_th: '',
@@ -192,7 +195,13 @@ export default function CreateEvent() {
     }
 
     const handleSubmit = async (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        setLoading(true);
+        setFormatError({});
+        const error = EventFormValidate(formData)
+        if (error) {
+            return setFormatError(error)
+        }
         try {
             const body = new FormData()
             body.append("title_en", formData.title_en)
@@ -204,25 +213,28 @@ export default function CreateEvent() {
             body.append("date_end", formData.date_end)
             body.append("status", formData.status)
             if (formData.image) body.append("image", formData.image)
-                
-                const response = await createEvent(token, body)
-                console.log("สร้างกิจกรรมสำเร็จ:", response.data)
-                setFormData({
-                    title_en: '',
-                    title_th: '',
-                    location: '',
-                    description_en: '',
-                    description_th: '',
-                    date_start: null,
-                    date_end: null,
-                    image: null
-                })
-                navigate('/admin/manage-event')
-                toast.success("สร้างกิจกรรมสำเร็จ")
-            } catch (error) {
-                console.error("ไม่สามารถสร้างได้ดูหน้า Create ที่ Client :", error)
-            }
-            console.log("ดู CreateEvent--->",formData)
+
+            const response = await createEvent(token, body)
+            console.log("สร้างกิจกรรมสำเร็จ:", response.data)
+            setFormData({
+                title_en: '',
+                title_th: '',
+                location: '',
+                description_en: '',
+                description_th: '',
+                date_start: null,
+                date_end: null,
+                image: null
+            })
+            navigate('/admin/manage-event')
+            toast.success("สร้างกิจกรรมสำเร็จ")
+        } catch (error) {
+            console.error("ไม่สามารถสร้างได้ดูหน้า Create ที่ Client :", error)
+
+        } finally {
+            setLoading(false);
+        }
+        console.log("ดู CreateEvent--->", formData)
     }
 
     return (
@@ -235,18 +247,22 @@ export default function CreateEvent() {
                     value={formData.title_th}
                     onChange={handleInputChange}
                     placeholder="กรอกชื่อ Event"
+
                 />
+                {formatError.title_th && <p className="text-red-500 text-xs">{formatError.title_th}</p>}
             </div>
             <div>
                 <Label htmlFor="title_en">ชื่อ Event (ภาษาอังกฤษ)</Label>
                 <Input
                     type="text"
-                    name="title_en"  
+                    name="title_en"
                     value={formData.title_en}
                     onChange={handleInputChange}
                     placeholder="กรอกชื่อ Event"
                 />
+                {formatError.title_en && <p className="text-red-500 text-xs">{formatError.title_en}</p>}
             </div>
+
             <div>
                 <Label htmlFor="location">สถานที่จัดกิจกรรม</Label>
                 <Input
@@ -256,6 +272,7 @@ export default function CreateEvent() {
                     onChange={handleInputChange}
                     placeholder="กรอก สถานที่จัดกิจกรรม"
                 />
+                {formatError.location && <p className="text-red-500 text-xs">{formatError.location}</p>}
             </div>
             <div>
                 <Label htmlFor="description_th">รายละเอียด Event</Label>
@@ -265,15 +282,17 @@ export default function CreateEvent() {
                     onChange={handleInputChange}
                     placeholder="กรอกรายละเอียด Event"
                 />
+                {formatError.description_th && <p className="text-red-500 text-xs">{formatError.description_th}</p>}
             </div>
             <div>
-                <Label htmlFor="description_en">รายละเอียด Event (ภาษาอังกฤษ)</Label> 
+                <Label htmlFor="description_en">รายละเอียด Event (ภาษาอังกฤษ)</Label>
                 <Textarea
                     name="description_en"
                     value={formData.description_en}
                     onChange={handleInputChange}
                     placeholder="กรอกรายละเอียด Event"
                 />
+                {formatError.description_en && <p className="text-red-500 text-xs">{formatError.description_en}</p>}
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -284,6 +303,7 @@ export default function CreateEvent() {
                         value={formData.date_start}
                         onChange={(e) => handleDateChange('date_start', e.target.value)}
                     />
+                    {formatError.date_start && <p className="text-red-500 text-xs">{formatError.date_start}</p>}
                 </div>
                 <div>
                     <Label htmlFor="date_end">วันที่สิ้นสุด</Label>
@@ -293,6 +313,7 @@ export default function CreateEvent() {
                         value={formData.date_end}
                         onChange={(e) => handleDateChange('date_end', e.target.value)}
                     />
+                    {formatError.date_end && <p className="text-red-500 text-xs">{formatError.date_end}</p>}
                 </div>
             </div>
             <div>
@@ -303,8 +324,9 @@ export default function CreateEvent() {
                     onChange={(e) => handleFileChange(e.target.files[0])}
                     accept="image/*"
                 />
+                {formatError.image && <p className="text-red-500 text-xs">{formatError.image}</p>}
             </div>
-            <Button type="submit" className="w-full mt-4">บันทึกข้อมูล Event</Button>
+            <Button type="submit" className="w-full mt-4" disabled={loading} > {loading ? "กำลังโหลด..." : "สร้างกิจกรรม"}</Button>
         </form>
     )
 }
