@@ -43,7 +43,7 @@ export default function AdminNavbar() {
                 </div>
 
 
-                <div className="hidden md:flex gap-8 text-white">
+                <div className="hidden md:flex gap-14 text-white">
                     <Link to="/admin" >หน้าแรก</Link>
                     <div className="relative flex items-center" onClick={toggleDropdownManage}>
                         <h1 >จัดการ</h1>
@@ -107,14 +107,13 @@ export default function AdminNavbar() {
                                         <Link to="/admin/report-adopt" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์
                                         </Link>
-  
+
                                     </li>
 
                                 </ul>
                             </div>
                         )}
                     </div>
-                    <Link >ระดมทุน</Link>
 
                 </div>
                 <div className="hidden md:flex gap-8 text-black">
