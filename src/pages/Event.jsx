@@ -19,6 +19,12 @@ const Event = () => {
 
     const { language } = useLanguageStore();
 
+    const regisEventForm = {
+        eventId: '',
+    };
+    const regisEvent = useEventStore((state) => state.regisEvent);
+    const registerEvent = useEventStore((state) => state.registerEvent);
+    const token = useAuthStore((state) => state.token);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [expireEvent, setExpireEvent] = useState(null);
@@ -69,12 +75,6 @@ const Event = () => {
 
     // เรียกใช้งาน register event จาก store
 
-    const regisEventForm = {
-        eventId: '',
-    };
-    const regisEvent = useEventStore((state) => state.regisEvent);
-    const registerEvent = useEventStore((state) => state.registerEvent);
-    const token = useAuthStore((state) => state.token);
 
     const handleRegister = (eventId) => {
         if (!token) {
