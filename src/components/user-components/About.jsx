@@ -65,7 +65,7 @@ function About() {
       </section>
 
       {/* Adoption Checklist */}
-      <section className="adoption-checklist py-12 px-4 sm:px-8 bg-gray-100 rounded-lg shadow-md mb-8 w-full">
+      {/* <section className="adoption-checklist py-12 px-4 sm:px-8 bg-gray-100 rounded-lg shadow-md mb-8 w-full">
         <h2 className="text-center text-2xl font-semibold mb-8 text-gray-800">
           {t('aboutPage.adoptionChecklistTitle')}
         </h2>
@@ -87,7 +87,7 @@ function About() {
             </div>
           ))}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }
