@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { persist, createJSONStorage }  from "zustand/middleware";
 import { toast } from "react-toastify";
-import { getEvents, registerEvent } from "../apis/Event.Api";
+import { getEvents, registerEvent, deleteEvent, updateEvent } from "../apis/Event.Api";
 
 const useEventStore = create(persist((set)=>({
     
@@ -26,7 +26,26 @@ const useEventStore = create(persist((set)=>({
             toast.success("Event registered successfully");
             set({ regisEvent: response.data });
         } catch (error) {
-            toast.error("Error registering event");
+            toast.error("ลงทะเบียนสำเร็จไปแล้วนะมิงค์");
+        }
+    },
+    deleteEvent: async (token,id) => {
+        console.log("first", token)
+        try {
+            const response = await deleteEvent(token,id);
+            toast.success("Event registered successfully");
+            set({ regisEvent: response.data });
+        } catch (error) {
+            toast.error("ลงทะเบียนสำเร็จไปแล้วนะมิงค์");
+        }
+    },
+    updateEvent: async (token,eventId, updatedData) => {
+        try {
+            const response = await updateEvent(token, eventId, updatedData);
+            toast.success("Event updated successfully");
+            set({ events: response.data });
+        } catch (error) {
+            toast.error("Error updating event");
         }
     }
 }),

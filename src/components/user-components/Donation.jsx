@@ -43,7 +43,6 @@ const Donation = () => {
     showPaymentDialog,
     totalDonationAmount,
     setTotal,
-    setIsRecurring,
     setShowPaymentDialog,
     setTotalDonationAmount,
     reset
@@ -206,15 +205,7 @@ const Donation = () => {
                 </motion.div>
               )}
 
-              <div className="flex items-center space-x-2">
-                <Switch
-                  id="recurring"
-                  checked={donation.is_recurring}
-                  onCheckedChange={setIsRecurring}
-                  className="data-[state=checked]:bg-primary"
-                />
-                <Label htmlFor="recurring">{t('donatePage.recurringLabel')}</Label>
-              </div>
+
             </CardContent>
 
             <CardFooter>
