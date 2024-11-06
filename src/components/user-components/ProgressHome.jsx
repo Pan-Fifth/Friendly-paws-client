@@ -81,7 +81,7 @@ export default function ProgressHome() {
   }, [])
 
   return (
-    <div className="container w-full mx-auto px-4 py-12 text-[100px]">
+    <div className="container w-full mx-auto px-4 py-12 ">
       <div>
         {animalPositions.map((position, index) => (
           position.type === 'dog' ? (
@@ -107,7 +107,7 @@ export default function ProgressHome() {
           )
         ))}
         </div>
-      <div className="relative w-2/3 mx-auto flex flex-col gap-4">
+      <div className="relative w-full mx-auto flex flex-col gap-4">
         
         <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary/30" aria-hidden="true" />
         {features.map((feature, index) => {
@@ -136,7 +136,7 @@ export default function ProgressHome() {
                 <Accordion type="single" collapsible className={`w-full ${isEven ? "mx-5" : "mx-[-20px]"}`}>
                   <AccordionItem value={feature.number}>
                     <AccordionTrigger
-                      className={`text-[30px] w-fit font-semibold mx-6 ${
+                      className={`text-[20px] md:text-[30px] lg:text-[30px] w-fit font-semibold mx-6 ${
                         openItem === feature.number ? "text-[#db2777]" : ""
                       }`}
                       onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}

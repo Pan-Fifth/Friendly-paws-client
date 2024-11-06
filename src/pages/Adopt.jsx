@@ -66,12 +66,9 @@ const Adopt = () => {
   console.log("available pet", avaiPets);
   return (
     <div>
-      {/* <div className="w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto">
-        <p>Our friends who are looking for a house</p>
-      </div> */}
       <div className="relative">
         <div className="w-4/5 rounded-3xl h-[250px] md:h-[500px] mx-auto blur-sm my-10"></div>
-        {/* <div src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div> */}
+       
       </div>
       <div className=" absolute top-20  w-full h-[250px] md:h-[500px]">
         <div className="h-full flex flex-col items-center justify-center">
