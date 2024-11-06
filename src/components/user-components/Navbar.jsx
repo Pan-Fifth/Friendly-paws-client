@@ -7,7 +7,6 @@ import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '../../i18n.js';
 import useLanguageStore from '@/src/stores/LanguageStore';
 
-import imgLogo from '../../assets/Screenshot 2024-11-05 212157_preview_rev_1.png';
 
 
 export default function Navbar() {
@@ -64,18 +63,29 @@ export default function Navbar() {
                       <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                         {t('navbar.editProfile')}
                       </Link>
+
+                    </li>
+                    <li>
+                      <Link
+                        onClick={hdlClickLogout}
+                        to="/login"
+                        className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm md:text-base"
+                        style={{ fontSize: 'inherit' }}
+                      >
+                        {t('navbar.logout')}
+                      </Link>
                     </li>
                   </ul>
                 </div>
               )}
-              <Link
+              {/* <Link
                 onClick={hdlClickLogout}
                 to="/login"
                 className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm md:text-base"
                 style={{ fontSize: 'inherit' }}
               >
                 {t('navbar.logout')}
-              </Link>
+              </Link> */}
             </div>
           ) : (
             <div className="flex gap-10 text-black">
