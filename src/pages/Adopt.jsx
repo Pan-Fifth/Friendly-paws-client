@@ -3,8 +3,14 @@ import { DropdownWithArrow } from "@/components/ui/dropdown-with-arrow";
 import { Button } from "@/components/ui/button";
 import AdoptPetCard from "../components/adopt/AdoptPetCard";
 import usePetStore from "../stores/PetStore";
+import { useTranslation } from 'react-i18next';
+
 
 const Adopt = () => {
+  //change lang ห้ามมลบ
+  const { t, i18n } = useTranslation();
+  const language = i18n.language;
+
   const [page, setPage] = useState(1);
   const actionGetAvaiPet = usePetStore((state) => state.actionGetAvaiPet);
   const avaiPets = usePetStore((state) => state.avaiPets);
@@ -15,9 +21,9 @@ const Adopt = () => {
   useEffect(() => {
     setFilter({})
     actionGetAvaiPet(12, page)
-}, [])
+  }, [])
 
-
+  console.log(avaiPets, "avaiPets")
   const hdlPageChange = (n) => {
     try {
       if (page + n < 1) {
@@ -39,10 +45,10 @@ const Adopt = () => {
 
   const hdlChangeFilter = (e) => {
     setFilter({
-        ...filter,
-        [e.target.name]: e.target.value.toUpperCase()
+      ...filter,
+      [e.target.name]: e.target.value.toUpperCase()
     })
-}
+  }
 
   const hdlSubmit = (e) => {
     e.preventDefault();
@@ -63,40 +69,42 @@ const Adopt = () => {
       {/* <div className="w-full h-[200px] text-3xl font-bold flex justify-center items-center overflow-auto">
         <p>Our friends who are looking for a house</p>
       </div> */}
-            <div className="relative">
-            <div className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div>
-            {/* <div src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div> */}
-            </div>
-      <div className=" absolute top-20  w-full h-[500px]">
+      <div className="relative">
+        <div className="w-4/5 rounded-3xl h-[180px] md:h-[500px] mx-auto blur-sm my-10"></div>
+        {/* <div src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div> */}
+      </div>
+      <div className=" absolute top-20  w-full h-[250px] md:h-[500px]">
         <div className="h-full flex flex-col items-center justify-center">
-        <p className="w-full h-[200px] z-20 text-[70px] font-bold flex items-center justify-center">Our friends who are looking for a house</p>
-          <div className="flex gap-3 z-20 justify-center">
-            <form onSubmit={hdlSubmit}>
+          <p className="w-full h-[150px] lg:h-[200px] z-20 text-3xl md:text-5xl lg:text-[70px] font-bold flex items-center justify-center text-center">
+            {t("adoptPageMain.maincontent")}
+          </p>
+          <div className="flex flex-col gap-12 md:gap-24 z-20 justify-center">
+            <form onSubmit={hdlSubmit} className="w-full flex flex-col md:flex-row gap-3 items-center justify-center">
               <div className="flex gap-3">
                 <DropdownWithArrow
                   name="gender"
                   array={["Male", "Female"]}
-                  className="w-[300px] text-xl"
+                  className="w-full md:w-[300px] text-lg md:text-xl"
                   onChange={hdlChangeFilter}
                   value={filter.gender}
                 />
                 <DropdownWithArrow
                   name="age"
                   array={["Kid", "Junior", "Senior", "Adult"]}
-                  className="w-[300px] text-xl"
+                  className="w-full md:w-[300px] text-lg md:text-xl"
                   onChange={hdlChangeFilter}
                   value={filter.age}
                 />
-              
+
                 <Button
-               
-                    className={`
+
+                  className={`
                     bg-pink-400 w-1/4 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-full
                     transform transition-all duration-300 ease-in-out
                     ${isClicked ? 'scale-95' : 'animate-pulse-pink'}
                     `}
                 >
-                   Search
+                  {t("adoptPageMain.search")}
                 </Button>
                 <style jsx global>{`
                     @keyframes pulse-pink {
@@ -114,35 +122,49 @@ const Adopt = () => {
 
               </div>
             </form>
+            <div>
+              {
+                avaiPets.length === 0 && (
+                  <div className="flex items-start justify-center ">
+                    <p className="text-3xl font-bold">no pet found</p>
+                  </div>
+                )
+              }
+            </div>
           </div>
-          
+
         </div>
       </div>
-     
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2">
+
+
+      <div className="grid container mx-auto grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-2">
+
         {avaiPets?.map((el) => (
           <AdoptPetCard
             key={el.id}
             id={el.id}
-            name={el.name_en}
+            name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
             image={el.image[0]?.url}
           />
         ))}
+
       </div>
+
+
       <div className="mt-10">
         <div className="flex justify-center items-center gap-2">
           <Button
             onClick={() => hdlPageChange(-1)}
             className="border text-xl join-item btn btn-md"
           >
-            previous
+            {t("adoptPageMain.previous")}
           </Button>
-          <p className="text-2xl">Page {page}</p>
+          <p className="text-2xl">{t("adoptPageMain.page")} {page}</p>
           <Button
             onClick={() => hdlPageChange(+1)}
             className="border text-xl join-item btn btn-md "
           >
-            next
+            {t("adoptPageMain.next")}
           </Button>
         </div>
       </div>

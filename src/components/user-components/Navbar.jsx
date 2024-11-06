@@ -7,6 +7,9 @@ import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '../../i18n.js';
 import useLanguageStore from '@/src/stores/LanguageStore';
 
+import imgLogo from '../../assets/Screenshot 2024-11-05 212157_preview_rev_1.png';
+
+
 export default function Navbar() {
   const { t } = useTranslation();
   const { language, setLanguage } = useLanguageStore();
@@ -27,11 +30,12 @@ export default function Navbar() {
 
   return (
     <nav className="fixed inset-x-0 top-0 z-50 bg-white shadow-sm w-full flex px-4 md:px-8 h-24 items-center">
-      <div className="w-full max-w-7xl mx-auto flex justify-between items-center">
+      <div className="w-full flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <MountainIcon className="h-6 w-6" />
+          <MountainIcon className="h-8 w-8" />
         </Link>
+
 
         {/* Links for Large Screen */}
         <div className="hidden md:flex gap-8">
@@ -47,17 +51,17 @@ export default function Navbar() {
         <div className="hidden md:flex gap-8 text-black">
           {user ? (
             <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
+              <div className="relative w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
                 <span className="text-white">
                   {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())) || ((user?.firstname?.charAt(0).toUpperCase() || user?.role?.charAt(0).toUpperCase()))}
                 </span>
               </div>
-              <IoMdArrowDropdown className="cursor-pointer text-black" onClick={() => setDropdownUserOpen(!isDropdownUserOpen)} />
+              <IoMdArrowDropdown className=" cursor-pointer text-black" onClick={() => setDropdownUserOpen(!isDropdownUserOpen)} />
               {isDropdownUserOpen && (
-                <div className="absolute mt-5 w-32 top-6 right-0 bg-white rounded-md shadow-lg">
+                <div className="absolute top-20 bg-white rounded-md shadow-lg" onClick={() => setDropdownUserOpen(false)}>
                   <ul className="py-2">
                     <li>
-                      <Link to="/profile" onClick={() => setDropdownUserOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                      <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                         {t('navbar.editProfile')}
                       </Link>
                     </li>
