@@ -73,7 +73,7 @@ export default function Login() {
       navigate('/')
     }
   }
-
+  console.log("token login",token)
   return (
     <div className='mx-auto rounded-md flex flex-col justify-center items-center gap-4'>
 

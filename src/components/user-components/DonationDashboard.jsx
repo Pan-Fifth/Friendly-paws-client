@@ -14,7 +14,7 @@ const DonationDashboard = ({ totalDonationAmount, goals }) => {
 
 
 
-  const progressPercentage = (totalDonationAmount / goals?.targetAmount ?? 1) * 100;
+  const progressPercentage = (totalDonationAmount / goals?.targetAmount || 1) * 100;
 
   return (
     <div className="space-y-6">

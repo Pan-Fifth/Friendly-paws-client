@@ -83,8 +83,8 @@ const Event = () => {
                 text: "ftrtrth",
                 icon: 'warning',
                 confirmButtonText: "ตลกง",
-              });
-              return;
+            });
+            return;
         }
         registerEvent(token, { eventId });
     };
@@ -179,9 +179,6 @@ const Event = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
                 <h1>{t('eventPage.pastEvents')}</h1>
             </div>
-
-
-
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8" >
                 {events?.pastEvent?.map((event) => (
@@ -242,4 +239,3 @@ const Event = () => {
 };
 
 export default Event;
-
