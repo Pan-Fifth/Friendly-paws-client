@@ -16,7 +16,7 @@ export default function AdminNavbar() {
 
 
 
-    console.log("Current user data:", user);
+    
 
     const hdlClickLogout = () => {
         actionLogout();
