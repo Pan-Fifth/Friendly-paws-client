@@ -67,8 +67,20 @@ export default function AdminNavbar() {
                                         <Link to="/admin/manage-adopt" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์
                                         </Link>
-                                        <Link to="/admin/manage-web" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            แก้ไขหน้าเว็บ
+                                        <Link to="/admin/edit-page-home" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            แก้ไขหน้าหลัก
+                                        </Link>
+                                        <Link to="/admin/edit-page-about" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            แก้ไขหน้าเกี่ยวกับเรา
+                                        </Link>
+                                        <Link to="/admin/edit-page-donation" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            แก้ไขหน้าบริจาค
+                                        </Link>
+                                        <Link to="/admin/edit-page-event" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            แก้ไขหน้ากิจกรรม
+                                        </Link>
+                                        <Link to="/admin/edit-page-contact" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            แก้ไขหน้าติดต่อเรา
                                         </Link>
                                     </li>
 
