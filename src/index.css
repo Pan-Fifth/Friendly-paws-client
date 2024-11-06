@@ -2,6 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Dongle&display=swap');
+@layer base {
+    * {
+      font-family: "Dongle", sans-serif;
+    }
+  }
 /* text-size */
 @layer components{
 
