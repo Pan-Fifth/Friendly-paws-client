@@ -23,8 +23,16 @@ export const getAllPetData = () => {
     return axiosInstance.get(`/admin/report-pet-all`);
 };
 
-export const getAllAdoptRequest = (token)=>{
-    return axiosInstance.get(`/admin/all-adopts`, {
+export const getAllAdoptRequest = (token,page)=>{
+    return axiosInstance.get(`/admin/all-adopts/6/${page}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+};
+
+export const getRequestScore = (token,requestId) =>{
+    return axiosInstance.get(`/admin/score/${requestId}/th`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

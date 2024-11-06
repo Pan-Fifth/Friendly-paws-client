@@ -1,18 +1,36 @@
 import { Button } from '@/components/ui/button'
-import React, { useState } from 'react'
-import axios from 'axios'
+import React, { useEffect, useState } from 'react'
 import useAuthStore from '@/src/stores/AuthStore'
+import { getRequestScore } from '@/src/apis/AdminReportApi'
 
-const AdminAdoptCard = ({ img, petName, name, phone, email, requestId }) => {
+const AdminAdoptCard = ({ img, petName, name, phone, email, requestId, page }) => {
     const token = useAuthStore(state => state.token)
+    const [load,setLoad]=useState(false)
+    useEffect(() => {
+        setDetail('')
+        setScore('')
+    }, [page])
     const [detail, setDetail] = useState('')
     const [score, setScore] = useState('')
     const hdlScore = async () => {
-        console.log(requestId)
-        const resp = await axios.get(`http://localhost:3000/pet/score/${requestId}/en`)
-        setDetail(resp.data.shortDetail)
-        setScore(resp.data.score)
+        try {
+            setLoad(true)
+            const resp = await getRequestScore(token, requestId)
+            console.log(resp)
+            setLoad(false)
+            setDetail(resp?.data?.message?.shortDetail)
+            setScore(resp?.data?.message?.score)
+            
+        } catch (err) {
+            console.error('Error fetching score:', err)
+        }
     }
+    const hdlClear = ()=>{
+        setDetail('')
+        setScore('')
+    }
+    console.log('re render')
+    console.log(detail,score)
     return (
         <div className=' flex items-center'>
             <div className="h-[200px] border border-black rounded-xl p-3 m-2 flex-1">
@@ -22,23 +40,27 @@ const AdminAdoptCard = ({ img, petName, name, phone, email, requestId }) => {
                         alt="Card Image"
                         className='w-[100px] h-[100px] object-cover rounded-full'
                     />
-                    <h3 className="font-bold">Pet Name</h3>
+                    <h3 className="font-bold">น้องชื่อ:</h3>
                     <p className="">{petName}</p>
                 </div>
                 <ul className="flex gap-2">
-                    <li><strong>Name :</strong>{name}</li>
-                    <li><strong>Email :</strong>{email}</li>
-                    <li><strong>Phone :</strong>{phone}</li>
+                    <li><strong>ชื่อผู้ขอรับเลี้ยง:  </strong>{name}</li>
+                    <li><strong>อีเมล : </strong>{email}</li>
+                    <li><strong>เบอร์โทร :</strong>{phone}</li>
 
                 </ul>
                 <div className='flex gap-2 items-center'>
                     <Button onClick={hdlScore}>Scoring by Ai</Button>
+                    {score && <Button onClick = {hdlClear}>clear</Button> } 
+                    {load && <p className=' self-center'>loading.......</p>}
                 </div>
+                
             </div>
+           
             {score && <div className='flex-1'>
-                <p>Score: {score} /100</p>
+                <p><strong>คะแนน:</strong> {score} /100</p>
                 <div>
-                    <p>Detail:</p>
+                    <strong>รายละเอียด:</strong>
                     <p>{detail}</p>
                 </div>
             </div>}

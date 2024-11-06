@@ -5,9 +5,9 @@ import {getAllAdoptRequest} from "../apis/AdminReportApi"
 
 const useAdoptStore = create(persist((set,get)=>({
     allAdoptRequest : null,
-    actionGetAllAdoptRequest : async(token)=>{
+    actionGetAllAdoptRequest : async(token,page)=>{
         try {
-            const result = await getAllAdoptRequest(token);
+            const result = await getAllAdoptRequest(token,page);
             set({allAdoptRequest:result.data})
         } catch (err) {
             toast.error(err.response.data.message)
