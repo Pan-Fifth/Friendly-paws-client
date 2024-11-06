@@ -24,7 +24,7 @@
 
 
 
-    
+
 //     const handleInputChange = (e) => {
 //         const { name, value } = e.target
 //         setFormData((prev) => ({ ...prev, [name]: value }))
@@ -204,31 +204,31 @@ export default function CreateEvent() {
             body.append("date_end", formData.date_end)
             body.append("status", formData.status)
             if (formData.image) body.append("image", formData.image)
-                
-                const response = await createEvent(token, body)
-                console.log("สร้างกิจกรรมสำเร็จ:", response.data)
-                setFormData({
-                    title_en: '',
-                    title_th: '',
-                    location: '',
-                    description_en: '',
-                    description_th: '',
-                    date_start: null,
-                    date_end: null,
-                    image: null
-                })
-                navigate('/admin/manage-event')
-                toast.success("สร้างกิจกรรมสำเร็จ")
-            } catch (error) {
-                console.error("ไม่สามารถสร้างได้ดูหน้า Create ที่ Client :", error)
-            }
-            console.log("ดู CreateEvent--->",formData)
+
+            const response = await createEvent(token, body)
+            console.log("สร้างกิจกรรมสำเร็จ:", response.data)
+            setFormData({
+                title_en: '',
+                title_th: '',
+                location: '',
+                description_en: '',
+                description_th: '',
+                date_start: null,
+                date_end: null,
+                image: null
+            })
+            navigate('/admin/manage-event')
+            toast.success("สร้างกิจกรรมสำเร็จ")
+        } catch (error) {
+            console.error("ไม่สามารถสร้างได้ดูหน้า Create ที่ Client :", error)
+        }
+        console.log("ดู CreateEvent--->", formData)
     }
 
     return (
         <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-white shadow-md rounded-md">
             <div>
-                <Label htmlFor="title_th">ชื่อ Event</Label>
+                <Label htmlFor="title_th">ชื่อกิจกรรมภาษาไทย</Label>
                 <Input
                     type="text"
                     name="title_th"
@@ -238,10 +238,10 @@ export default function CreateEvent() {
                 />
             </div>
             <div>
-                <Label htmlFor="title_en">ชื่อ Event (ภาษาอังกฤษ)</Label>
+                <Label htmlFor="title_en">ชื่อกิจกรรมภาษาอังกฤษ</Label>
                 <Input
                     type="text"
-                    name="title_en"  
+                    name="title_en"
                     value={formData.title_en}
                     onChange={handleInputChange}
                     placeholder="กรอกชื่อ Event"
@@ -258,7 +258,7 @@ export default function CreateEvent() {
                 />
             </div>
             <div>
-                <Label htmlFor="description_th">รายละเอียด Event</Label>
+                <Label htmlFor="description_th">รายละเอียดกิจกรรมภาษาไทย</Label>
                 <Textarea
                     name="description_th"
                     value={formData.description_th}
@@ -267,7 +267,7 @@ export default function CreateEvent() {
                 />
             </div>
             <div>
-                <Label htmlFor="description_en">รายละเอียด Event (ภาษาอังกฤษ)</Label> 
+                <Label htmlFor="description_en">รายละเอียดกิจกรรมภาษาอังกฤษ</Label>
                 <Textarea
                     name="description_en"
                     value={formData.description_en}
@@ -277,7 +277,7 @@ export default function CreateEvent() {
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <Label htmlFor="date_start">วันที่เริ่ม</Label>
+                    <Label htmlFor="date_start">วันที่เริ่มกิจรรม</Label>
                     <Input
                         type="date"
                         name="date_start"
@@ -304,7 +304,7 @@ export default function CreateEvent() {
                     accept="image/*"
                 />
             </div>
-            <Button type="submit" className="w-full mt-4">บันทึกข้อมูล Event</Button>
+            <Button type="submit" className="w-full mt-4">บันทึกข้อมูล</Button>
         </form>
     )
 }

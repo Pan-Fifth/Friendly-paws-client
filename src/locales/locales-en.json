@@ -174,8 +174,7 @@
     "dayOff": "Day Off*",
     "salary": "Salary (baht/month)*",
     "familyMember": "Family Member*",
-    "homeEnvironment": "Home Environment",
-   
+    "homeEnvironment": "Home Environment",   
     "yes": "Yes",
     "no": "No",
     "aloneHours": "If no one is home, how many hours will the dog be alone?",
@@ -203,6 +202,21 @@
       "selectedFiles": "selected files",
       "noSelectedFile": "no selected file",
       "adoptionReason": "Tell us why you want to adopt this little guy?"
+  },
+  "adoptFormtoast":{
+     "maxFiles": "You can only upload 5 files",
+    "minFiles": "You must upload at least 3 files",
+     "successMessage": "Adoption request submitted successfully"
+  },
+  "payment": {
+    "processing": "Processing",
+    "payNow": "Pay now",
+    "confirmedTitle": "Payment Confirmed!",
+    "confirmedText": "Your payment has been successfully confirmed.",
+    "buttonText": "OK",
+    "thankYou": "Thank You! ",
+    "processed": "Your payment has been successfully processed.",
+    "backToHome": "Back to Home Page"
   }
   
 }

@@ -45,13 +45,13 @@ export default function ManageEvent() {
 
     const handleDelete = async (id) => {
         const result = await Swal.fire({
-            title: "Are you sure?",
-            text: "You won't be able to revert this!",
+            title: " ยืนยันที่จะลบข้อมูลใช่หรือไม่?",
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "ใช่ ,ฉันจะลบ!",
+            cancelButtonText: "ไม่ ,ฉันจะยกเลิก!"
         });
         if (result.isConfirmed) {
             try {
@@ -144,11 +144,11 @@ export default function ManageEvent() {
             {isEditModalOpen && (
                 <div className="modal fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
                     <div className="modal-content bg-white p-6 rounded-lg shadow-lg w-full max-w-lg">
-                        <h2 className="text-xl font-semibold mb-4">Edit Event</h2>
+                        <h2 className="text-xl font-semibold mb-4">แก้ไขกิจกรรม</h2>
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
                             <div className="col-span-2">
-                                <label className="block text-sm font-medium text-gray-700">ชื่อ Event</label>
+                                <label className="block text-sm font-medium text-gray-700">ชื่อกิจกรรมภาษาไทย</label>
                                 <input
                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                                     name="title_th"
@@ -158,7 +158,7 @@ export default function ManageEvent() {
                             </div>
 
                             <div className="col-span-2">
-                                <label className="block text-sm font-medium text-gray-700">ชื่อ Event (ภาษาอังกฤษ)</label>
+                                <label className="block text-sm font-medium text-gray-700">ชื่อกิจกรรมภาษาอังกฤษ</label>
                                 <input
                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                                     name="title_en"
@@ -178,7 +178,7 @@ export default function ManageEvent() {
                             </div>
 
                             <div className="col-span-2">
-                                <label className="block text-sm font-medium text-gray-700">รายละเอียด Event</label>
+                                <label className="block text-sm font-medium text-gray-700">รายละเอียดกิจกรรมภาษาไทย</label>
                                 <textarea
                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                                     name="description_th"
@@ -188,7 +188,7 @@ export default function ManageEvent() {
                             </div>
 
                             <div className="col-span-2">
-                                <label className="block text-sm font-medium text-gray-700">รายละเอียด Event (ภาษาอังกฤษ)</label>
+                                <label className="block text-sm font-medium text-gray-700">รายละเอียดกิจกรรมภาษาอังกฤษ</label>
                                 <textarea
                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
                                     name="description_en"
@@ -198,7 +198,7 @@ export default function ManageEvent() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">วันที่เริ่ม</label>
+                                <label className="block text-sm font-medium text-gray-700">วันที่เริ่มกิจรรม</label>
                                 <input
                                     type="date"
                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -222,8 +222,8 @@ export default function ManageEvent() {
                         </div>
 
                         <div className="flex justify-end space-x-3 mt-4">
-                            <Button onClick={handleUpdateEvent} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Save</Button>
-                            <Button onClick={closeEditModal} variant="secondary" className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400">Cancel</Button>
+                            <Button onClick={handleUpdateEvent} className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">บันทึก</Button>
+                            <Button onClick={closeEditModal} variant="secondary" className="bg-gray-300 text-gray-800 px-4 py-2 rounded-lg hover:bg-gray-400">ยกเลิก</Button>
                         </div>
                     </div>
                 </div>
