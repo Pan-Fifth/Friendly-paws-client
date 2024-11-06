@@ -3,7 +3,7 @@ import axiosInstance from "@/src/utils/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
 
-export const ManageWeb = () => {
+export const ManageHome = () => {
   const [content, setContent] = useState(null);
   const sectionNames = [
     "Header",
@@ -93,6 +93,7 @@ export const ManageWeb = () => {
   
       console.log('Update successful:', response.data);
       fetchContent(); // Refresh content after update
+      toast.success("Update successful");
     } catch (error) {
       console.error('Error details:', error.response?.data || error.message);
     }

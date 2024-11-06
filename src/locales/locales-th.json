@@ -23,7 +23,6 @@
   "descriptionForm": "สนับสนุนเพื่อนขนฟูของเราที่ต้องการความช่วยเหลือ",
   "customAmountLabel": "จำนวนเงินที่กำหนดเอง (บาท)",
   "impactLabel": "ผลกระทบของคุณ:",
-  "recurringLabel": "ทำให้การบริจาคนี้เป็นรายเดือน",
   "donateButton": "บริจาค ",
   "closeButton": "ปิด ",
   "placeHolder": "กรอกจำนวนเงินที่ต้องการ"
@@ -128,6 +127,83 @@
     "phone": "เบอร์โทรศัพท์",
     "email": "อีเมล",
     "confirmButton": "ยืนยัน"
+  },
+  "adoptPageMain": 
+  {
+  "maincontent": "เพื่อนของเราที่กำลังมองหาบ้าน", 
+  "search": "ค้นหา",
+  "previous": "ก่อนหน้า",
+  "next": "ถัดไป",
+  "page": "หน้า "
+  },
+  "adoptDetail": 
+  {
+    "chat": "พูดคุยกับเรา?",
+   "breed": "สายพันธุ์",
+  "color": "สี",
+  "birthday": "วันเกิด",
+  "year": "ปี",
+  "age": "อายุ",
+  "weight": "น้ำหนัก",
+  "gender": "เพศ",
+  "vaccinationStatus": "ได้รับวัคซีน",
+  "neuterationStatus": "การทำหมัน"
+  },
+  "adoptForm": 
+  {
+    "adoptMe": "รับเลี้ยงฉัน",
+    "adoptionFormTitle": "แบบฟอร์มการรับเลี้ยง",
+    "adoptionFormDescription": "กรอกแบบฟอร์มนี้เพื่อเริ่มต้นการรับเลี้ยงของคุณ",
+    "adoptionApplication": "ใบสมัครการรับเลี้ยง",
+    "welcomeMessage1": "ยินดีต้อนรับ, คุณ",
+    "welcomeMessage2": " ขอบคุณที่พิจารณาการรับเลี้ยงผ่าน Friendly Paws",
+    "personalInformation": "ข้อมูลส่วนตัว",
+    "firstName": "ชื่อจริง*",
+    "lastName": "นามสกุล*",
+    "contactInformation": "ข้อมูลการติดต่อ",
+    "dateOfBirth": "วันเกิด*",
+    "phoneNo": "เบอร์โทร*",
+    "lineContact": "ไลน์*",
+    "email": "อีเมล*",
+    "livingSituation": "สถานภาพการอยู่อาศัย",
+    "address": "ที่อยู่*",
+    "career": "อาชีพ*",
+    "submitApplication": "ส่งใบสมัคร",
+    "workPlace": "สถานที่ทำงาน*",
+  "workingTime": "เวลาทำงาน*",
+  "dayOff": "วันหยุด*",
+  "salary": "เงินเดือน (บาท/เดือน)*",
+  "familyMember": "สมาชิกในครอบครัว*",
+  "homeEnvironment": "สภาพแวดล้อมบ้าน",
+  "yes": "ใช่",
+  "no": "ไม่ใช่",
+  "aloneHours": "หากไม่มีใครอยู่บ้าน สุนัขจะอยู่ตามลำพังกี่ชั่วโมง",
+  "adoptionChecklist": "รายการตรวจสอบการรับเลี้ยง",
+  "houseHolder": "เจ้าของบ้าน*",
+  "select": "เลือก",
+  "ownHouse": "ฉันเป็นเจ้าของบ้าน",
+  "rentalHouse": "ฉันเช่าบ้าน",
+  "condo": "ฉันอยู่ในคอนโด",
+  "apartment": "ฉันอยู่ในอพาร์ตเมนต์",
+  "hasGarden": "ฉันมีสวน",
+  "hasFence": "ฉันมีรั้ว",
+  "canWalkDog": "ฉันสามารถพาสุนัขเดินด้วยสายจูง",
+  "petInformation": "ข้อมูลสัตว์เลี้ยง",
+  "currentPetCount": "จำนวนสัตว์เลี้ยงปัจจุบัน*",
+  "numberOfPets": "จำนวนสัตว์เลี้ยง*",
+  "currentPetDetail": "รายละเอียดสัตว์เลี้ยงปัจจุบัน*",
+  "petDetail": "รายละเอียดสัตว์เลี้ยง*",
+  "deliveryChecklist": "รายการตรวจสอบการจัดส่ง",
+  "canPickup": "สามารถรับเองได้",
+  "requestForDelivery": "ต้องการให้จัดส่ง",
+    "homeDuringDay": "มีใครอยู่บ้านตอนกลางวันไหม?",
+    "uploadImages": "อัปโหลดภาพที่พัก (3-5 ภาพ)",
+  "addPicture": "เพิ่มรูปภาพ",
+  "selectedFiles": "ไฟล์ที่เลือก",
+  "noSelectedFile": "ไม่มีไฟล์ที่เลือก",
+  "adoptionReason": "บอกเราว่าทำไมคุณถึงต้องการรับเลี้ยงเจ้าตัวเล็กนี้?"
+
   }
+  
 
 }
