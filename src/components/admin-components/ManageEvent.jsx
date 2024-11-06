@@ -70,8 +70,8 @@ export default function ManageEvent() {
             title_th: event.title_th,
             description_en: event.description_en,
             description_th: event.description_th,
-            date_start: event.date_start,
-            date_end: event.date_end,
+            date_start: event.date_start ? event.date_start.split('T')[0] : '',
+            date_end: event.date_end ? event.date_end.split('T')[0] : '',
             location: event.location
         });
         setIsEditModalOpen(true);

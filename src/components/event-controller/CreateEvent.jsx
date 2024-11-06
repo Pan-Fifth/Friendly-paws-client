@@ -40,12 +40,12 @@ export default function CreateEvent() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true);
         setFormatError({});
         const error = EventFormValidate(formData)
         if (error) {
             return setFormatError(error)
         }
+        setLoading(true);
         try {
             const body = new FormData()
             body.append("title_en", formData.title_en)
@@ -73,6 +73,7 @@ export default function CreateEvent() {
             navigate('/admin/manage-event')
             toast.success("สร้างกิจกรรมสำเร็จ")
         } catch (error) {
+            setLoading(false);
             console.error("ไม่สามารถสร้างได้ดูหน้า Create ที่ Client :", error)
 
         } finally {
