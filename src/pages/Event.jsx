@@ -15,42 +15,42 @@ const images = [
 ];
 
 const Event = () => {
-  const { language } = useLanguageStore();
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [selectedEvent, setSelectedEvent] = useState(null);
-  const [expireEvent, setExpireEvent] = useState(null);
-  const [bannerImages, setBannerImages] = useState([]);
-  console.log("expireEvent :>> ", expireEvent);
-  console.log("selectedEvent :>> ", selectedEvent);
-  const pastEvent = useEventStore((state) => state.pastEvent);
-  const events = useEventStore((state) => state.events);
-  const getEvents = useEventStore((state) => state.getEvents);
-  const regisEventForm = {
-    eventId: "",
-  };
-  const regisEvent = useEventStore((state) => state.regisEvent);
-  const registerEvent = useEventStore((state) => state.registerEvent);
-  const token = useAuthStore((state) => state.token);
-  const navigate = useNavigate();
-  const fetchBannerImages = async () => {
-    try {
-      const response = await axiosInstance.get("/admin/event-banner");
-      setBannerImages(
-        [response.data.image1, response.data.image2, response.data.image3].filter(Boolean)
-      );
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Failed to load banner images",
-      });
-    }
-  };
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-    }, 5000); //ม็อค
+    const { t, i18n } = useTranslation();
+    const language = i18n.language;
+
+    const regisEventForm = {
+        eventId: '',
+    };
+    const regisEvent = useEventStore((state) => state.regisEvent);
+    const registerEvent = useEventStore((state) => state.registerEvent);
+    const token = useAuthStore((state) => state.token);
+    const [bannerImages, setBannerImages] = useState([]);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [selectedEvent, setSelectedEvent] = useState(null);
+    const [expireEvent, setExpireEvent] = useState(null);
+    const pastEvent = useEventStore((state) => state.pastEvent);
+    const events = useEventStore((state) => state.events);
+    const getEvents = useEventStore((state) => state.getEvents);
+    const navigate = useNavigate()
+    const fetchBannerImages = async () => {
+        try {
+          const response = await axiosInstance.get("/admin/event-banner");
+          setBannerImages(
+            [response.data.image1, response.data.image2, response.data.image3].filter(Boolean)
+          );
+        } catch (error) {
+          toast({
+            variant: "destructive",
+            title: "Error",
+            description: "Failed to load banner images",
+          });
+        }
+      };
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
+        }, 5000); //ม็อค
 
     return () => clearInterval(interval);
   }, []);
@@ -84,7 +84,8 @@ const Event = () => {
 
   // -------------------------------------
 
-  // เรียกใช้งาน register event จาก store
+    // เรียกใช้งาน register event จาก store
+
 
   const handleRegister = (eventId) => {
     if (!token) {
@@ -138,7 +139,7 @@ const Event = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">{event.title}</h2>
+            <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">{language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}</h2>
             <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
             <button
               className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
@@ -167,7 +168,7 @@ const Event = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <h2 className="text-2xl font-semibold mb-4">{selectedEvent.title}</h2>
+            <h2 className="text-2xl font-semibold mb-4">{language === 'th' ? (selectedEvent.title_th || selectedEvent.title_en) : selectedEvent.title_en || selectedEvent.title_th}</h2>
             <p>
               <strong>{t("eventPage.date")}</strong> {selectedEvent.date_start}
             </p>
@@ -175,7 +176,7 @@ const Event = () => {
               <strong>{t("eventPage.location")}</strong> {selectedEvent.location}
             </p>
             <p className="mt-2">
-              <strong>{t("eventPage.description")}</strong> {selectedEvent.description}
+              <strong>{t("eventPage.description")}</strong>{language === 'th' ? (selectedEvent.description_th || selectedEvent.description_en) : selectedEvent.description_en || selectedEvent.description_th}
             </p>
             <button
               className="mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
@@ -201,7 +202,7 @@ const Event = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">{event.title}</h2>
+            <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">{language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}</h2>
             <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
             <button
               className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
@@ -230,7 +231,7 @@ const Event = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <h2 className="text-2xl font-semibold mb-4">{expireEvent.title}</h2>
+            <h2 className="text-2xl font-semibold mb-4">{language === 'th' ? (expireEvent.title_th || expireEvent.title_en) : expireEvent.title_en || expireEvent.title_th}</h2>
             <p>
               <strong>{t("eventPage.date")}</strong> {expireEvent.date_start}
             </p>
@@ -238,7 +239,7 @@ const Event = () => {
               <strong>{t("eventPage.location")}</strong> {expireEvent.location}
             </p>
             <p className="mt-2">
-              <strong>{t("eventPage.description")}</strong> {expireEvent.description}
+              <strong>{t("eventPage.description")}</strong> {language === 'th' ? (expireEvent.description_th || expireEvent.description_en) : expireEvent.description_en || expireEvent.description_th}
             </p>
             <button
               className="mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
