@@ -143,6 +143,8 @@
    "breed": "สายพันธุ์",
   "color": "สี",
   "birthday": "วันเกิด",
+  "year": "ปี",
+  "age": "อายุ",
   "weight": "น้ำหนัก",
   "gender": "เพศ",
   "vaccinationStatus": "ได้รับวัคซีน",

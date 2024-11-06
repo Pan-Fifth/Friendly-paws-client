@@ -143,6 +143,8 @@
     "breed": "Breed",
     "color": "Color",
     "birthday": "Birth day",
+    "year": "yr.",
+    "age": "age",
     "weight": "Weight",
     "gender": "Gender",
     "vaccinationStatus": "Vaccine Taken",

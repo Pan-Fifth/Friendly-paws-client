@@ -4,6 +4,8 @@ import usePetStore from '../stores/PetStore'
 import { Button } from '@/components/ui/button'
 import { DialogAdopt } from '../components/adopt/AdoptForm'
 import { useTranslation } from 'react-i18next';
+import { format } from "date-fns"
+
 
 
 const AdoptDetail = () => {
@@ -35,16 +37,18 @@ const AdoptDetail = () => {
       </div>
       <div className=' grid-cols-1 m-8'>
         <div className='flex justify-center items-center flex-col gap-8'>
-          <p className='font-bold text-3xl'>{language === 'th' ? currentPet.description_th : currentPet.description_en}</p>
+          <p className='font-bold text-3xl'>{language === 'th' ? (currentPet.description_th || currentPet.description_en) : currentPet.description_en || currentPet.description_th}</p>
           <div className=' grid grid-cols-2 flex-1 gap-8'>
             <p >{t("adoptDetail.breed")}</p>
-            <p>{language === 'th' ? currentPet.breed_th : currentPet.breed_en}</p>
+            <p>{language === 'th' ? (currentPet.breed_th || currentPet.breed_en) : currentPet.breed_en || currentPet.breed_th}</p>
             <p >{t("adoptDetail.color")}</p>
             <p >{currentPet.color}</p>
             <p >{t("adoptDetail.birthday")}</p>
-            <p >{currentPet.birthDay}</p>
+            <p > {format(new Date(currentPet.birthDay), 'dd/MM/yyyy ')}</p>
+            <p >{t("adoptDetail.age")}</p>
+            <p > {(Math.floor(currentPet.age / 365))}.{Math.floor(currentPet.age % 365 / 30.44)} {t("adoptDetail.year")}</p>
             <p >{t("adoptDetail.weight")}</p>
-            <p >{currentPet.weight}</p>
+            <p >{(currentPet.weight).toFixed(2)}</p>
             <p >{t("adoptDetail.gender")}</p>
             <p >{currentPet.gender}</p>
             <p >{t("adoptDetail.vaccinationStatus")}</p>
