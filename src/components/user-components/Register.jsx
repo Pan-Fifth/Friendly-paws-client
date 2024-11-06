@@ -51,16 +51,15 @@ export default function Register() {
 
             return setFormatError(error)
         }
-        console.log("object111")
+
 
         try {
 
             await actionRegister(form);
-            console.log("Action register succeeded");
             navigate('/login');
             setForm(intitialState);
             setFormatError({});
-            console.log("object222")
+
 
 
         } catch (err) {
@@ -71,13 +70,6 @@ export default function Register() {
     const getPlaceholder = (name) => {
         return formatError[name] || (name === "email" ? "gmail.com" : name === "password" ? "Enter your password" : "Confirm password")
     }
-    const inputs = [
-
-        { label: "Email", name: 'email', type: 'email', placeholder: "Email" },
-        { label: "Password", name: 'password', type: 'password', placeholder: "Password" },
-        { label: "Confirm Password", name: 'confirmPassword', type: 'password', placeholder: "Confirm Password" }
-
-    ];
 
     return (
         <div>

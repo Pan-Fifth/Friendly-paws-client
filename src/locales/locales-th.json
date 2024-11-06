@@ -9,7 +9,9 @@
     "register": "ลงทะเบียน",
     "login": "เข้าสู่ระบบ",
     "editProfile": "แก้ไขโปรไฟล์",
-    "logout": "ออกจากระบบ"
+    "logout": "ออกจากระบบ",
+    "sendEmail" : "ส่งอีเมล",
+    "send" : "ส่ง "
   },
   "donatePage": {
   "titleMain": "ร่วมสร้างความเปลี่ยนแปลงวันนี้",
@@ -25,7 +27,12 @@
   "impactLabel": "ผลกระทบของคุณ:",
   "donateButton": "บริจาค ",
   "closeButton": "ปิด ",
-  "placeHolder": "กรอกจำนวนเงินที่ต้องการ"
+  "placeHolder": "กรอกจำนวนเงินที่ต้องการ",
+  "amount200": "จัดหาอาหารสำหรับสัตว์เลี้ยง 2 ตัว เป็นเวลา 1 สัปดาห์",
+    "amount500": "ครอบคลุมการตรวจสุขภาพเบื้องต้นสำหรับสัตว์เลี้ยง 1 ตัว",
+    "amount1000": "สนับสนุนวัคซีนและยาสำหรับสัตว์เลี้ยง 2 ตัว",
+    "errorTitle": "ข้อผิดพลาด",
+    "errorMessage": "มีบางอย่างผิดพลาด โปรดลองอีกครั้ง"
 
 
 },
@@ -126,7 +133,9 @@
     "lastname": "นามสกุล",
     "phone": "เบอร์โทรศัพท์",
     "email": "อีเมล",
-    "confirmButton": "ยืนยัน"
+    "confirmButton": "ยืนยัน",
+     "errorFetchingProfile": "เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์",
+    "updateSuccess": "อัปเดตเรียบร้อย!"
   },
   "adoptPageMain": 
   {
@@ -217,7 +226,33 @@
     "buttonText": "ตกลง",
     "thankYou": "ขอบคุณ! คุณ",
     "processed": "การชำระเงินของคุณเสร็จสมบูรณ์แล้ว",
-    "backToHome": "กลับสู่หน้าหลัก"
+    "backToHome": "กลับสู่หน้าหลัก",
+    "subject": "ขอบคุณสำหรับการบริจาคให้ Friendly Paws!",
+   
+    "successToast": "ส่งอีเมลยืนยันการบริจาคแล้ว",
+    "errorToast": "ไม่สามารถส่งอีเมลยืนยันได้",
+      "ChoosePayment":"เลือกวิธีการชำระเงิน"
+  },
+  "resetPassword": {
+    "title": "เปลี่ยนรหัสผ่าน",
+    "confirm": "ยืนยัน"
+  },
+  "sendemailForm" :{
+    "loginRequired": "กรุณาเข้าสู่ระบบเพื่อส่งอีเมล",
+    "adminRestriction": "แอดมินไม่สามารถส่งอีเมลได้",
+    "sendFailed": "ไม่สามารถส่งอีเมลได้",
+    
+      "title": "ส่งอีเมล",
+      "recipientPlaceholder": "กรอกอีเมลผู้รับ",
+      "subjectPlaceholder": "กรอกหัวข้ออีเมล",
+      "messagePlaceholder": "กรอกข้อความ",
+      "sendButton": "ส่ง"
+  
+  },
+  "alerteventRegister": {
+   "noTokenTitle": "ต้องการการอนุญาต",
+    "noTokenText": "กรุณาเข้าสู่ระบบเพื่อดำเนินการต่อ",
+    "confirmButton": "ตกลง"
   }
   
 

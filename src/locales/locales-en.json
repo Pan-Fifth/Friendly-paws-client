@@ -9,7 +9,9 @@
       "register": "Register",
       "login": "Login",
       "editProfile": "Edit Profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "sendEmail" : "Send Email",
+      "send" : "Send "
     },
     
       "donatePage": {
@@ -26,7 +28,12 @@
         "impactLabel": "Your Impact:",
         "donateButton": "Donate ",
         "closeButton": "Close ",
-        "placeHolder": "Enter custom amount"
+        "placeHolder": "Enter custom amount",
+        "amount200": "Provides food for 2 pets for a week",
+    "amount500": "Covers basic veterinary check-up for 1 pet",
+    "amount1000": "Supports vaccination and medicine for 2 pets",
+    "errorTitle": "Error",
+    "errorMessage": "Something went wrong. Please try again."
     
   },
   "donationGoals": {
@@ -126,7 +133,9 @@
     "lastname": "Lastname",
     "phone": "Phone number",
     "email": "Email",
-    "confirmButton": "Confirm"
+    "confirmButton": "Confirm",
+     "errorFetchingProfile": "Error fetching profile",
+    "updateSuccess": "Updated successfully!"
   },
   "adoptPageMain": 
   {
@@ -216,7 +225,31 @@
     "buttonText": "OK",
     "thankYou": "Thank You! ",
     "processed": "Your payment has been successfully processed.",
-    "backToHome": "Back to Home Page"
-  }
-  
+    "backToHome": "Back to Home Page",
+    "subject": "Thank You for Your Donation to Friendly Paws!",
+   
+    "successToast": "Donation confirmation email sent",
+    "errorToast": "Could not send confirmation email",
+    "ChoosePayment":"Choose Payment"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "confirm": "Confirm"
+  },
+  "sendemailForm" :{
+    "loginRequired": "Please log in to send an email",
+    "adminRestriction": "Admins cannot send emails",
+    "sendFailed": "Failed to send email",    
+      "title": "Send Email",
+      "recipientPlaceholder": "Enter recipient's email",
+      "subjectPlaceholder": "Enter email subject",
+      "messagePlaceholder": "Enter message",
+      "sendButton": "Send"
+  },
+  "alerteventRegister": {
+    "noTokenTitle": "Authorization Required",
+    "noTokenText": "Please log in to continue.",
+    "confirmButton": "OK"
+  }  
 }
+  

@@ -27,17 +27,15 @@ export default function EditProfile() {
         }
         fetchProfile();
     }, [token]);
-    console.log(token, "tokennnn")
-    console.log('user :>> ', user);
+
     const fetchProfile = async () => {
         try {
 
             const resp = await getProfile(token);
-            console.log(resp, "edit udssererr")
             setUser(resp.data);
 
         } catch (err) {
-            toast.error('Error fetching profile');
+            toast.error(t('editProfile.errorFetchingProfile'));
         }
     };
 
@@ -56,7 +54,7 @@ export default function EditProfile() {
         try {
             const resp = await editProfile(user.id, token, user);
             fetchProfile();
-            toast.success(`updated successfully!`);
+            toast.success(t('editProfile.updateSuccess'));
         } catch (err) {
             toast.error(err.response.data.message);
         }

@@ -88,7 +88,7 @@ export const ManageAbout = () => {
       if (images.image) {
         formData.append("image", images.image);
       }
-
+      // ตรวจสอบข้อมูลที่ส่งไปยัง API(ถ้ามี)
       const response = await axiosInstance.put(
         `/admin/about-content/${content.id}`,
         formData,
