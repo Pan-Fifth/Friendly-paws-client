@@ -1,3 +1,4 @@
+import { PawPrint } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -7,7 +8,7 @@ export default function Footer() {
   return (
     <footer className="relative mt-16">
     {/* Wave SVG */}
-    <div className="absolute  left-0 w-full transform -translate-y-full">
+    <div className="absolute left-0 w-full transform -translate-y-full">
       <svg
         viewBox="0 0 1440 120"
         className="w-full h-[100px]"
@@ -40,38 +41,36 @@ export default function Footer() {
         {/* Footer Links */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6 text-sm">
           <div>
-            <h3 className="font-semibold mb-3">About Us</h3>
+          LOGO
+          </div>
+          
+          
+          <div>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Our Story</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Benefits</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-gray-900">FAQ</Link></li>
+            <li><Link to={'/'} className="mb-3 hover:text-gray-800 hover:font-semibold">Home</Link></li>
+            <li><Link to={'/adopt'} className="mb-3 hover:text-gray-800 hover:font-semibold">Adopt</Link></li>
+            
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Legal</h3>
             <ul className="space-y-2">
-              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Terms & Conditions</Link></li>
-              <li><Link href="#" className="text-gray-600 hover:text-gray-900">Privacy Policy</Link></li>
+            <li><Link to={'/donate'} className="mb-3 hover:text-gray-800 hover:font-semibold">Donate</Link></li>
+            <li><Link to={'/event'} className="mb-3 hover:text-gray-800 hover:font-semibold">Event</Link></li>
+            <li><Link to={'/contact'} className="mb-3 hover:text-gray-800 hover:font-semibold">Contact</Link></li>
+            
             </ul>
           </div>
           <div>
-            <h3 className="font-semibold mb-3">Keep In Touch</h3>
-            <ul className="space-y-2">
-              <li><Link href="mailto:hello@homephase.org" className="text-gray-600 hover:text-gray-900">hello@homephase.org</Link></li>
-              <li><Link href="tel:813-534-6365" className="text-gray-600 hover:text-gray-900">813-534-6365</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-3">Follow Us</h3>
+            {/* <h3 className="font-bold mb-3">Follow Us</h3> */}
             <ul className="space-y-2">
               <li>
-                <Link href="#" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
+                <Link href="#" className="text-gray-600 hover:text-gray-800 hover:font-semibold">
                   {/* <Facebook className="h-4 w-4" /> */}
                   Facebook
                 </Link>
               </li>
               <li>
-                <Link href="#" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
+                <Link href="#" className="text-gray-600 hover:text-gray-800 hover:font-semibold">
                   {/* <Twitter className="h-4 w-4" /> */}
                   Twitter
                 </Link>
