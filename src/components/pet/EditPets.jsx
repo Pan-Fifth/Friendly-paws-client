@@ -232,9 +232,6 @@ const EditPetsForm = ({ petId, setOpen }) => {
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="AVAILABLE">AVAILABLE</SelectItem>
-              <SelectItem value="PENDING">PENDING</SelectItem>
-              <SelectItem value="ADOPTED">ADOPTED</SelectItem>
-              <SelectItem value="FOSTERED">FOSTERED</SelectItem>
               <SelectItem value="UNAVAILABLE">UNAVAILABLE</SelectItem>
             </SelectContent>
           </Select>
