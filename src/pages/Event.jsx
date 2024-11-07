@@ -119,11 +119,11 @@ const Event = () => {
 
 
             {/* Event Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container mx-auto px-4 mb-8 justify-items-center">
                 {events?.events?.map((event) => (
                     <div
                         key={event.id}
-                        className="bg-white rounded-lg shadow-lg p-4 text-center">
+                        className="bg-white rounded-lg shadow-lg p-4 text-center max-w-[350px]">
                         <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
                             <img
                                 src={event.image[0].url}
@@ -179,11 +179,11 @@ const Event = () => {
                 <h1>{t('eventPage.pastEvents')}</h1>
             </div>
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8" >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container mx-auto px-4 mb-8 justify-items-center" >
                 {events?.pastEvent?.map((event) => (
                     <div
                         key={event.id}
-                        className="bg-white rounded-lg shadow-lg p-4 text-center">
+                        className="bg-white rounded-lg shadow-lg p-4 text-center max-w-[350px]">
                         <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
                             <img
                                 src={event.image[0].url}
