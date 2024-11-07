@@ -4,21 +4,17 @@ import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 
-const cards = [
-    { id: 1, title: "Rosa khutor", location: "Krasnodar", image: "https://i.pinimg.com/564x/ee/00/20/ee0020e9d7586708083aecdb77be6293.jpg" },
-    { id: 2, title: "Teletskiy", location: "Alta Republic", image: "https://i.pinimg.com/564x/fa/98/82/fa988290ed5db0af24e733cdc5522158.jpg" },
-    { id: 3, title: "Sheregesh", location: "Siberia", image: "https://i.pinimg.com/564x/a6/8a/ba/a68abadc337799911f4db1adb36a4cf1.jpg" },
-    { id: 4, title: "Big wood", location: "Kamchatka", image: "https://i.pinimg.com/564x/fa/82/bc/fa82bc582fd33946eb7a6cbb3f915329.jpg" },
-    { id: 5, title: "Dombay", location: "Karachay-Cherkessia", image: "https://i.pinimg.com/564x/1b/23/b5/1b23b5e16b3f318e61fdc5af3ea4579e.jpg" },
-  ]
 
-  export default function CardHome() {
+
+  export default function CardHome({cards}) {
+    const { t, i18n } = useTranslation()
     const [activeIndex, setActiveIndex] = useState(2)
     const totalCards = cards.length
-    const navigate = useNavigate();
+    const navigate = useNavigate()
   
     const getCardStyle = (index) => {
       const position = index - activeIndex
@@ -40,6 +36,14 @@ const cards = [
   
     const handlePrev = () => {
       setActiveIndex((prev) => (prev - 1 + totalCards) % totalCards)
+    }
+
+    const getName = (card) => {
+      return i18n.language === 'th' ? card.name_th : card.name_en
+    }
+  
+    const getBreed = (card) => {
+      return i18n.language === 'th' ? card.breed_th : card.breed_en
     }
   
     return (
@@ -77,36 +81,35 @@ const cards = [
           </button>
   
           <div className="relative h-full flex items-center justify-center">
-            {cards.map((card, index) => (
-              <div
-                key={card.id}
-                className="absolute w-[200px] md:w-[300px] h-[300px] md:h-[400px] transition-all duration-500 ease-out cursor-pointer"
-                style={getCardStyle(index)}
-                onClick={() => setActiveIndex(index)}
-              >
-                <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-lg">
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    className="object-cover"
-                  />
-                  
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0" />
-                  
-                  <div className="absolute top-4 right-4 text-white/80 text-sm">
-                    {index + 1} / {totalCards}
-                  </div>
-                  
-                  <div className="absolute bottom-6 left-6 text-white">
-                    <h3 className="text-2xl font-bold mb-2">{card.title}</h3>
-                    <p className="text-white/80">{card.location}</p>
-                  </div>
+          {cards.map((card, index) => (
+            <div
+              key={index}
+              className="absolute w-[200px] md:w-[300px] h-[300px] md:h-[400px] transition-all duration-500 ease-out cursor-pointer"
+              style={getCardStyle(index)}
+              onClick={() => setActiveIndex(index)}
+            >
+              <div className="relative w-full h-full rounded-3xl overflow-hidden shadow-lg">
+                <img
+                  src={card.image[0].url}
+                  alt={getName(card)}
+                  className="w-full h-full object-cover"
+                />
+                
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/0" />
+                
+                <div className="absolute top-4 right-4 text-white/80 text-sm">
+                  {index + 1} / {totalCards}
+                </div>
+                
+                <div className="absolute bottom-6 left-6 text-white">
+                  <h3 className="text-2xl font-bold mb-2">{getName(card)}</h3>
+                  <p className="text-white/80">{getBreed(card)}</p>
                 </div>
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
-    )
-  }
+    </div>
+  )
+}
