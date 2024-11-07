@@ -91,13 +91,41 @@ const ManageDonation = () => {
                   onChange={(e) => handleContentChange("description_en", e.target.value)}
                 />
               </div>
-              <div>
-                <Label>Typing Messages (separate by |)</Label>
-                <Input
-                  value={content.typing_en}
-                  onChange={(e) => handleContentChange("typing_en", e.target.value)}
-                />
-              </div>
+              <div className="space-y-4">
+  <div>
+    <Label>Typing Message 1</Label>
+    <Input
+      value={content.typing_en?.split('|')[0] || ''}
+      onChange={(e) => {
+        const messages = content.typing_en?.split('|') || ['', '', ''];
+        messages[0] = e.target.value;
+        handleContentChange("typing_en", messages.join('|'));
+      }}
+    />
+  </div>
+  <div>
+    <Label>Typing Message 2</Label>
+    <Input
+      value={content.typing_en?.split('|')[1] || ''}
+      onChange={(e) => {
+        const messages = content.typing_en?.split('|') || ['', '', ''];
+        messages[1] = e.target.value;
+        handleContentChange("typing_en", messages.join('|'));
+      }}
+    />
+  </div>
+  <div>
+    <Label>Typing Message 3</Label>
+    <Input
+      value={content.typing_en?.split('|')[2] || ''}
+      onChange={(e) => {
+        const messages = content.typing_en?.split('|') || ['', '', ''];
+        messages[2] = e.target.value;
+        handleContentChange("typing_en", messages.join('|'));
+      }}
+    />
+  </div>
+</div>
               <div>
                 <Label>Form Title</Label>
                 <Input
@@ -134,13 +162,41 @@ const ManageDonation = () => {
                   onChange={(e) => handleContentChange("description_th", e.target.value)}
                 />
               </div>
-              <div>
-                <Label>Typing Messages (separate by |)</Label>
-                <Input
-                  value={content.typing_th}
-                  onChange={(e) => handleContentChange("typing_th", e.target.value)}
-                />
-              </div>
+              <div className="space-y-4">
+  <div>
+    <Label>Typing Message 1</Label>
+    <Input
+      value={content.typing_th?.split('|')[0] || ''}
+      onChange={(e) => {
+        const messages = content.typing_th?.split('|') || ['', '', ''];
+        messages[0] = e.target.value;
+        handleContentChange("typing_th", messages.join('|'));
+      }}
+    />
+  </div>
+  <div>
+    <Label>Typing Message 2</Label>
+    <Input
+      value={content.typing_th?.split('|')[1] || ''}
+      onChange={(e) => {
+        const messages = content.typing_th?.split('|') || ['', '', ''];
+        messages[1] = e.target.value;
+        handleContentChange("typing_th", messages.join('|'));
+      }}
+    />
+  </div>
+  <div>
+    <Label>Typing Message 3</Label>
+    <Input
+      value={content.typing_th?.split('|')[2] || ''}
+      onChange={(e) => {
+        const messages = content.typing_th?.split('|') || ['', '', ''];
+        messages[2] = e.target.value;
+        handleContentChange("typing_th", messages.join('|'));
+      }}
+    />
+  </div>
+</div>
               <div>
                 <Label>Form Title</Label>
                 <Input
