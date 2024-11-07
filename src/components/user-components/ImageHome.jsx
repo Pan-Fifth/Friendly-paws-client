@@ -4,9 +4,9 @@ import { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const images = [
-  "https://i.pinimg.com/564x/43/45/d5/4345d5d933c489bcb04bf32d9e28c298.jpg",
+  "https://i.pinimg.com/564x/6c/3f/79/6c3f793a11a7c8f807ff0d0bf2a006e9.jpg",
   "https://i.pinimg.com/564x/24/86/4f/24864fa604c48845ee9e64ebc6441c3c.jpg",
-  "https://i.pinimg.com/564x/8d/88/25/8d882521553d98c76552d753ded38ffa.jpg",
+  "https://i.pinimg.com/564x/e5/e6/17/e5e617f23c4a1e8f768ee78307b9b330.jpg",
 ]
 
 export default function ImageHome() {
@@ -63,7 +63,7 @@ export default function ImageHome() {
   }
 
   return (
-    <div className="min-h-screen py-16">
+    <div className="min-h-screen py-2 px-20">
       <div className="container mx-auto px-4 max-w-4xl">
       <div className="space-y-2">
           {images.map((src, index) => (

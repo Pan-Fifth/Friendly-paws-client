@@ -67,8 +67,8 @@ const Adopt = () => {
   return (
     <div>
       <div className="relative">
-        <div className="w-4/5 rounded-3xl h-[180px] md:h-[500px] mx-auto blur-sm my-10"></div>
-        {/* <div src="/src/assets/bg1.jpg" alt="" className="w-4/5 rounded-3xl h-[500px] mx-auto blur-sm my-10"></div> */}
+        <div className="w-4/5 rounded-3xl h-[180px] md:h-[300px] mx-auto blur-sm my-10"></div>
+       
       </div>
       <div className=" absolute top-20  w-full h-[250px] md:h-[500px]">
         <div className="h-full flex flex-col items-center justify-center">

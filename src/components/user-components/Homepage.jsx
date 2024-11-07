@@ -15,6 +15,30 @@ import TextHome from './TextHome';
 
 'use client'
 
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 3.5,
+      ease: [0.43, 0.13, 0.23, 0.96],
+    },
+  },
+}
+
+const buttonVariants = {
+  hidden: { y: 50, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: 1.2,
+      duration: 0.8,
+      ease: [0.215, 0.61, 0.355, 1],
+    },
+  },
+}
 
 const Bubble = ({ size, left, top, delay }) => (
   <motion.div
@@ -155,35 +179,52 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 0 && (
-  <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh] md:h-auto">
-    <div className="relative z-10 order-2 md:order-1">
-      <img 
-        src="/src/assets/dog.png" 
-        alt="img" 
-        className=' md:block h-screen w-auto object-contain' 
-      />
-    </div>
-    <div className="hidden md:block absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
-    <div className="absolute w-full left-0 right-0 top-0 bottom-0 z-0" />
-    <div className="max-w-xl z-10 order-1 md:order-2 text-center md:text-left px-4 md:px-0">
-      <h1 className="text-lg md:text-xl mb-2 md:mb-4">
-        {t("adoptPage.adoptMe")}<span className="text-pink-600"> {t("adoptPage.adoptMe1")}</span>
-      </h1>
-      <h2 className="text-[80px] md:text-[150px] font-bold leading-tight mb-4 md:mb-8">
-        {t("adoptPage.friendlyPow")}
-        {/* <TextHome /> */}
-      </h2>
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="bg-pink-600 flex gap-2 text-white px-8 md:px-12 py-2 md:py-3 rounded-full text-base md:text-lg font-medium hover:bg-pink-700 transition-colors mx-auto md:mx-0"
-        onClick={()=>navigate('/adopt')}
-      >
-        <Heart />
-        {t("Adopt")}
-      </motion.button>
-    </div>
-  </div>
+                <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh] md:h-auto">
+                  <div className="relative z-10 order-2 md:order-1">
+
+                  <img src="/src/assets/dogGif.gif" alt="" className='hidden md:block md:absolute top-[-60px] left-[-150px] rotate-[-40deg]' />
+
+
+                  <motion.div
+                    variants={item}
+                    initial="hidden"
+                    animate="show"
+                    className="space-y-2"
+                  >
+                    <img 
+                      src="/src/assets/dog.png" 
+                      alt="img" 
+                      className=' md:block h-screen w-auto object-contain' 
+                    />
+                    </motion.div>
+                  </div>
+                  <div className="hidden md:block absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
+                  <div className="absolute w-full left-0 right-0 top-0 bottom-0 z-0" />
+                  <div className="max-w-xl z-10 order-1 md:order-2 text-center md:text-left px-4 md:px-0">
+                    <h1 className="text-lg md:text-xl mb-2 md:mb-4">
+                      {t("adoptPage.adoptMe")}<span className="text-pink-600"> {t("adoptPage.adoptMe1")}</span>
+                    </h1>
+
+
+                    <h2 className="text-[80px] md:text-[150px] font-bold leading-tight mb-4 md:mb-8">
+                      {t("adoptPage.friendlyPow")}
+                      {/* <TextHome /> */}
+                    </h2>
+                    
+                    <motion.button
+                      variants={buttonVariants}
+                      initial="hidden"
+                       animate="show"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-pink-600 flex gap-2 text-white px-8 md:px-12 py-2 md:py-3 rounded-full text-base md:text-lg font-medium hover:bg-pink-700 transition-colors mx-auto md:mx-0"
+                      onClick={()=>navigate('/adopt')}
+                    >
+                      <Heart />
+                      {t("Adopt")}
+                    </motion.button>
+                  </div>
+                </div>
 )}
 
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
