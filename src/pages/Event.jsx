@@ -17,13 +17,18 @@ const images = [
 
 const Event = () => {
 
-    const { language } = useLanguageStore();
+    const { t, i18n } = useTranslation();
+    const language = i18n.language;
 
+    const regisEventForm = {
+        eventId: '',
+    };
+    const regisEvent = useEventStore((state) => state.regisEvent);
+    const registerEvent = useEventStore((state) => state.registerEvent);
+    const token = useAuthStore((state) => state.token);
     const [currentIndex, setCurrentIndex] = useState(0);
     const [selectedEvent, setSelectedEvent] = useState(null);
     const [expireEvent, setExpireEvent] = useState(null);
-    console.log('expireEvent :>> ', expireEvent);
-    console.log('selectedEvent :>> ', selectedEvent);
     const pastEvent = useEventStore((state) => state.pastEvent);
     const events = useEventStore((state) => state.events);
     const getEvents = useEventStore((state) => state.getEvents);
@@ -69,24 +74,19 @@ const Event = () => {
 
     // เรียกใช้งาน register event จาก store
 
-    const regisEventForm = {
-        eventId: '',
-    };
-    const regisEvent = useEventStore((state) => state.regisEvent);
-    const registerEvent = useEventStore((state) => state.registerEvent);
-    const token = useAuthStore((state) => state.token);
 
     const handleRegister = (eventId) => {
         if (!token) {
             Swal.fire({
-                title: "ftrtrth",
-                text: "ftrtrth",
+                title: t('alerteventRegister.noTokenTitle'),
+                text: t('alerteventRegister.noTokenText'),
                 icon: 'warning',
-                confirmButtonText: "ตลกง",
+                confirmButtonText: t('alerteventRegister.confirmButton'),
             });
             return;
         }
         registerEvent(token, { eventId });
+        toast.success(t('alerteventRegister.registerSuccess'));
     };
 
     // -------------------------------------
@@ -120,11 +120,11 @@ const Event = () => {
 
 
             {/* Event Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container mx-auto px-4 mb-8 justify-items-center">
                 {events?.events?.map((event) => (
                     <div
                         key={event.id}
-                        className="bg-white rounded-lg shadow-lg p-4 text-center">
+                        className="bg-white rounded-lg shadow-lg p-4 text-center max-w-[350px]">
                         <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
                             <img
                                 src={event.image[0].url}
@@ -132,7 +132,7 @@ const Event = () => {
                                 className="object-cover w-full h-full" />
                         </div>
                         <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
-                            {event.title}
+                            {language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}
                         </h2>
                         <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
@@ -159,10 +159,10 @@ const Event = () => {
                                 alt="Cat Event"
                                 className="object-cover w-full h-full" />
                         </div>
-                        <h2 className="text-2xl font-semibold mb-4">{selectedEvent.title}</h2>
+                        <h2 className="text-2xl font-semibold mb-4">{language === 'th' ? (selectedEvent.title_th || selectedEvent.title_en) : selectedEvent.title_en || selectedEvent.title_th}</h2>
                         <p><strong>{t('eventPage.date')}</strong> {selectedEvent.date_start}</p>
                         <p><strong>{t('eventPage.location')}</strong> {selectedEvent.location}</p>
-                        <p className="mt-2"><strong>{t('eventPage.description')}</strong> {selectedEvent.description}</p>
+                        <p className="mt-2"><strong>{t('eventPage.description')}</strong>{language === 'th' ? (selectedEvent.description_th || selectedEvent.description_en) : selectedEvent.description_en || selectedEvent.description_th}</p>
                         <button
                             className="mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
                             onClick={() => handleRegister(selectedEvent.id)}
@@ -180,11 +180,11 @@ const Event = () => {
                 <h1>{t('eventPage.pastEvents')}</h1>
             </div>
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8" >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container mx-auto px-4 mb-8 justify-items-center" >
                 {events?.pastEvent?.map((event) => (
                     <div
                         key={event.id}
-                        className="bg-white rounded-lg shadow-lg p-4 text-center">
+                        className="bg-white rounded-lg shadow-lg p-4 text-center max-w-[350px]">
                         <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
                             <img
                                 src={event.image[0].url}
@@ -192,7 +192,7 @@ const Event = () => {
                                 className="object-cover w-full h-full" />
                         </div>
                         <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
-                            {event.title}
+                            {language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}
                         </h2>
                         <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
                         <button
@@ -220,10 +220,10 @@ const Event = () => {
                                 alt="Cat Event"
                                 className="object-cover w-full h-full" />
                         </div>
-                        <h2 className="text-2xl font-semibold mb-4">{expireEvent.title}</h2>
+                        <h2 className="text-2xl font-semibold mb-4">{language === 'th' ? (expireEvent.title_th || expireEvent.title_en) : expireEvent.title_en || expireEvent.title_th}</h2>
                         <p><strong>{t('eventPage.date')}</strong> {expireEvent.date_start}</p>
                         <p><strong>{t('eventPage.location')}</strong> {expireEvent.location}</p>
-                        <p className="mt-2"><strong>{t('eventPage.description')}</strong> {expireEvent.description}</p>
+                        <p className="mt-2"><strong>{t('eventPage.description')}</strong> {language === 'th' ? (expireEvent.description_th || expireEvent.description_en) : expireEvent.description_en || expireEvent.description_th}</p>
                         <button
                             className="mt-4 px-4 py-2 bg-blue-500 text-white font-bold rounded-lg"
                             onClick={closeExpireEvent}

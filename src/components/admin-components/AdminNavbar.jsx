@@ -10,13 +10,11 @@ export default function AdminNavbar() {
     const actionLogout = useAuthStore((state) => state.actionLogout);
     const [isDropdownUserOpen, setDropdownUserOpen] = useState(false);
     const [isDropdownManageOpen, setDropdownManageOpen] = useState(false);
+    const [isDropdownManagePageOpen, setDropdownManagePageOpen] = useState(false);
     const [isDropdownReportOpen, setDropdownReportOpen] = useState(false);
 
 
 
-
-
-    console.log("Current user data:", user);
 
     const hdlClickLogout = () => {
         actionLogout();
@@ -27,6 +25,9 @@ export default function AdminNavbar() {
     };
     const toggleDropdownManage = () => {
         setDropdownManageOpen(!isDropdownManageOpen);
+    };
+    const toggleDropdownManagePage = () => {
+        setDropdownManagePageOpen(!isDropdownManagePageOpen);
     };
     const toggleDropdownReport = () => {
         setDropdownReportOpen(!isDropdownReportOpen);
@@ -43,10 +44,10 @@ export default function AdminNavbar() {
                 </div>
 
 
-                <div className="hidden md:flex gap-8 text-white">
+                <div className="hidden md:flex gap-14 text-white">
                     <Link to="/admin" >หน้าแรก</Link>
                     <div className="relative flex items-center" onClick={toggleDropdownManage}>
-                        <h1 >จัดการ</h1>
+                        <h1 >จัดการข้อมูล</h1>
                         <IoMdArrowDropdown className="cursor-pointer" />
                         {isDropdownManageOpen && (
                             <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
@@ -67,8 +68,35 @@ export default function AdminNavbar() {
                                         <Link to="/admin/manage-adopt" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์
                                         </Link>
-                                        <Link to="/admin/manage-web" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            แก้ไขหน้าเว็บ
+
+                                    </li>
+
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                    <div className="relative flex items-center" onClick={toggleDropdownManagePage}>
+                        <h1 >จัดการแก้ไขหน้าเพจ</h1>
+                        <IoMdArrowDropdown className="cursor-pointer" />
+                        {isDropdownManagePageOpen && (
+                            <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
+                                <ul className="py-2">
+                                    <li>
+
+                                        <Link to="/admin/edit-page-home" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            หน้าหลัก
+                                        </Link>
+                                        <Link to="/admin/edit-page-about" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            หน้าเกี่ยวกับเรา
+                                        </Link>
+                                        <Link to="/admin/edit-page-donation" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            หน้าบริจาค
+                                        </Link>
+                                        <Link to="/admin/edit-page-event" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            หน้ากิจกรรม
+                                        </Link>
+                                        <Link to="/admin/edit-page-contact" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            หน้าติดต่อเรา
                                         </Link>
                                     </li>
 
@@ -83,26 +111,25 @@ export default function AdminNavbar() {
                             <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
                                 <ul className="py-2">
                                     <li>
-                                        <Link to="/admin/report-pet-list" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        <Link to="/admin/report-pet-list" onClick={() => setDropdownManagePageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             สัตว์เลี้ยง
                                         </Link>
-                                        <Link to="/admin/report-event" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            อีเวนท์
+                                        <Link to="/admin/report-event" onClick={() => setDropdownManagePageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                            กิจกรรม
                                         </Link>
-                                        <Link to="/admin/report-donation" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        <Link to="/admin/report-donation" onClick={() => setDropdownManagePageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             ระดมทุน
                                         </Link>
-                                        <Link to="/admin/report-adopt" onClick={() => setDropdownReportOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                        <Link to="/admin/report-adopt" onClick={() => setDropdownManagePageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์
                                         </Link>
-  
+
                                     </li>
 
                                 </ul>
                             </div>
                         )}
                     </div>
-                    <Link >ระดมทุน</Link>
 
                 </div>
                 <div className="hidden md:flex gap-8 text-black">

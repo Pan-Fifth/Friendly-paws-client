@@ -13,6 +13,8 @@ import { Input } from "@/components/ui/input"
 import { Play } from "lucide-react"
 
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+
 
 
 export default function Login() {
@@ -48,13 +50,14 @@ export default function Login() {
 
     e.preventDefault();
 
-    const error = validateLogin(form)
+    const error = validateLogin(form, t)
 
     if (error) {
 
       return setFormatError(error)
     }
     const role = await actionLogin(form)
+    toast.success(t('login.toastLogin'));
 
     if (role) {
 
@@ -73,7 +76,7 @@ export default function Login() {
       navigate('/')
     }
   }
-  console.log("token login",token)
+
   return (
     <div className='mx-auto rounded-md flex flex-col justify-center items-center gap-4'>
 
@@ -92,17 +95,13 @@ export default function Login() {
                   <div className="space-y-2">
                     <label className="text-sm text-gray-600">{t("register.emailLabel")} :</label>
                     <Input type="email" placeholder="abc@xyz.com" name="email" onChange={handleChange} value={form.email} />
-                  </div>
-                  <div className='w-2/3 '>
-                    {formatError && <p className='text-gray-300 text-xs'>{formatError.email}</p>}
+                    {formatError && <p className='text-red-500 text-xs'>{formatError.email}</p>}
                   </div>
 
                   <div className="space-y-2">
                     <label className="text-sm text-gray-600">{t("register.passwordLabel")} :</label>
                     <Input type="password" placeholder={t("register.passwordLabel")} name="password" onChange={handleChange} value={form.password} />
-                  </div>
-                  <div className='w-2/3 '>
-                    {formatError && <p className='text-gray-300 text-xs'>{formatError.password}</p>}
+                    {formatError && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                   </div>
 
                   <div className="flex items-center justify-between">

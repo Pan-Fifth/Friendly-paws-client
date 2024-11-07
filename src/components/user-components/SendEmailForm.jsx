@@ -3,9 +3,11 @@ import useAuthStore from './../../stores/AuthStore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { sendEmailApi } from '../../apis/UserApi';
+import { useTranslation } from 'react-i18next';
 
 export default function SendEmailForm() {
 
+    const { t } = useTranslation();
     const user = useAuthStore((state) => state.user);
     const token = useAuthStore((state) => state.token);
     const [recipient, setRecipient] = useState('');
@@ -16,11 +18,11 @@ export default function SendEmailForm() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (!token) {
-            toast.error('Please log in to send an email');
+            toast.error(t("sendemailForm.loginRequired"));
             return navigate('/login');
         }
         if (user?.user?.role === "ADMIN") {
-            toast.error('Admins cannot send emails.');
+            toast.error(t("sendemailForm.adminRestriction"));
             return;
         }
 
@@ -33,52 +35,52 @@ export default function SendEmailForm() {
                 toast.success(response.data.message);
             }
         } catch (error) {
-            toast.error('Failed to send email');
+            toast.error(t("sendemailForm.sendFailed"));
         }
     };
 
     return (
         <div className="flex items-center justify-center h-[500px]">
             <form onSubmit={handleSubmit} className="bg-slate-200 p-8 rounded-xl shadow-xl w-full max-w-lg">
-                <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">Send Email</h2>
+                <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">{t("sendemailForm.title")}</h2>
 
                 <div className="mb-4">
-                    <label className="block text-gray-600 font-semibold mb-1">Email</label>
+                    <label className="block text-gray-600 font-semibold mb-1">{t("sendemailForm.recipientPlaceholder")}</label>
                     <input
                         type="email"
                         value={recipient}
                         onChange={(e) => setRecipient(e.target.value)}
-                        placeholder="Enter recipient's email"
+                        placeholder={t("sendemailForm.recipientPlaceholder")}
                         required
                         className="text-black w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
                 <div className="mb-4">
-                    <label className="block text-gray-600 font-semibold mb-1">Subject</label>
+                    <label className="block text-gray-600 font-semibold mb-1">{t("sendemailForm.subjectPlaceholder")}</label>
                     <input
                         type="text"
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
-                        placeholder="Enter email subject"
+                        placeholder={t("sendemailForm.subjectPlaceholder")}
                         required
                         className="text-black w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
                 <div className="mb-6">
-                    <label className="block text-gray-600 font-semibold mb-1">Message</label>
+                    <label className="block text-gray-600 font-semibold mb-1">{t("sendemailForm.messagePlaceholder")}</label>
                     <textarea
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
-                        placeholder="Enter message"
+                        placeholder={t("sendemailForm.messagePlaceholder")}
                         required
                         className="w-full text-black px-4 py-2 border rounded-md h-32 focus:outline-none focus:ring-2 focus:ring-blue-500"
                     />
                 </div>
 
                 <button type="submit" className="w-full bg-blue-500 text-white font-semibold py-2 rounded-md hover:bg-blue-600 transition duration-300">
-                    Send
+                    {t("sendemailForm.sendButton")}
                 </button>
             </form>
         </div>

@@ -40,7 +40,7 @@ export default function EditEvent() {
     return (
         <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-white shadow-md rounded-md">
             <div>
-                <Label htmlFor="title_th">ชื่อ Event</Label>
+                <Label htmlFor="title_th">ชื่อกิจกรรมภาษาไทย</Label>
                 <Input
                     type="text"
                     name="title_th"
@@ -50,7 +50,7 @@ export default function EditEvent() {
                 />
             </div>
             <div>
-                <Label htmlFor="title_th">ชื่อ Event (ภาษาอังกฤษ)</Label>
+                <Label htmlFor="title_th">ชื่อกิจกรรมภาษาอังกฤษ</Label>
                 <Input
                     type="text"
                     name="title_th"
@@ -70,7 +70,7 @@ export default function EditEvent() {
                 />
             </div>
             <div>
-                <Label htmlFor="description_th">รายละเอียด Event</Label>
+                <Label htmlFor="description_th">รายละเอียดกิจกรรมภาษาไทย</Label>
                 <Textarea
                     name="description_th"
                     value={formData.description_th}
@@ -79,7 +79,7 @@ export default function EditEvent() {
                 />
             </div>
             <div>
-                <Label htmlFor="description_th">รายละเอียด Event (ภาษาอังกฤษ)</Label>
+                <Label htmlFor="description_th">รายละเอียดกิจกรรมภาษาอังกฤษ</Label>
                 <Textarea
                     name="description_th"
                     value={formData.description_th}
@@ -89,11 +89,11 @@ export default function EditEvent() {
             </div>
             <div className="grid grid-cols-2 gap-4">
                 <div>
-                    <Label htmlFor="date_start">วันที่เริ่ม</Label>
+                    <Label htmlFor="date_start">วันที่เริ่มกิจรรม</Label>
                     <Input
                         type="date"
-                        value={formData.date_start} 
-                        onChange={(e) => handleDateChange('date_start', e.target.value)} 
+                        value={formData.date_start}
+                        onChange={(e) => handleDateChange('date_start', e.target.value)}
                         placeholderText="เลือกวันที่เริ่ม"
                     />
                 </div>
@@ -101,8 +101,8 @@ export default function EditEvent() {
                     <Label htmlFor="date_end">วันที่สิ้นสุด</Label>
                     <Input
                         type="date"
-                        value={formData.date_end} 
-                        onChange={(e) => handleDateChange('date_end', e.target.value)} 
+                        value={formData.date_end}
+                        onChange={(e) => handleDateChange('date_end', e.target.value)}
                         placeholderText="เลือกวันที่สิ้นสุด"
                     />
                 </div>
@@ -126,7 +126,7 @@ export default function EditEvent() {
                     accept="image/*"
                 />
             </div>
-            <Button type="submit" className="w-full mt-4">บันทึกข้อมูล Event</Button>
+            <Button type="submit" className="w-full mt-4">บันทึกข้อมูล</Button>
         </form>
     )
 }

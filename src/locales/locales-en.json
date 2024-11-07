@@ -9,7 +9,9 @@
       "register": "Register",
       "login": "Login",
       "editProfile": "Edit Profile",
-      "logout": "Logout"
+      "logout": "Logout",
+      "sendEmail" : "Send Email",
+      "send" : "Send "
     },
     
       "donatePage": {
@@ -24,10 +26,14 @@
         "descriptionForm": "Support our furry friends in need",
         "customAmountLabel": "Custom Amount (THB)",
         "impactLabel": "Your Impact:",
-        "recurringLabel": "Make this a monthly donation",
         "donateButton": "Donate ",
         "closeButton": "Close ",
-        "placeHolder": "Enter custom amount"
+        "placeHolder": "Enter custom amount",
+        "amount200": "Provides food for 2 pets for a week",
+    "amount500": "Covers basic veterinary check-up for 1 pet",
+    "amount1000": "Supports vaccination and medicine for 2 pets",
+    "errorTitle": "Error",
+    "errorMessage": "Something went wrong. Please try again."
     
   },
   "donationGoals": {
@@ -111,7 +117,9 @@
     "signUpButton": "Sign Up",
     "alreadyAccount": "Already have an account?",
     "logIn": "Log in",    
-    "rightContentText": "Sign up to become part of our growing community. Connect with like-minded individuals, share your ideas, and explore new opportunities. Your journey with Friendly Pow starts here!"
+    "rightContentText": "Sign up to become part of our growing community. Connect with like-minded individuals, share your ideas, and explore new opportunities. Your journey with Friendly Pow starts here!",
+    "toastRegister" : "Register success"
+
   },
   "login": {
     "title": "Log in / Sign Up On Circle",
@@ -119,7 +127,8 @@
     "loginButton": "Log in",
     "connectWith": "or connect with",
     "noAccount": "Don't have an account?",
-       "rightContentText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
+       "rightContentText": "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+       "toastLogin" : "Login success"
   },
   "editProfile": {
     "title": "Edit Profile",
@@ -127,6 +136,139 @@
     "lastname": "Lastname",
     "phone": "Phone number",
     "email": "Email",
-    "confirmButton": "Confirm"
-  }
+    "confirmButton": "Confirm",
+     "errorFetchingProfile": "Error fetching profile",
+    "updateSuccess": "Updated successfully!"
+  },
+  "adoptPageMain": 
+  {
+    "maincontent": "Our friends who are looking for a house",
+    "search": "Search",
+    "previous": "Previous",
+    "next": "Next",
+    "page": "Page"
+  },
+  "adoptDetail": 
+  {
+    "chat": "chat?",
+    "breed": "Breed",
+    "color": "Color",
+    "birthday": "Birth day",
+    "year": "yr.",
+    "age": "age",
+    "weight": "Weight",
+    "gender": "Gender",
+    "vaccinationStatus": "Vaccine Taken",
+    "neuterationStatus": "Neuteration"   
+  },
+  "adoptForm": 
+  {
+    "adoptMe": "Adopt Me",
+    "adoptionFormTitle": "Adoption Form",
+    "adoptionFormDescription": "Fill out this form to begin your adoption journey",
+    "adoptionApplication": "Adoption Application",
+    "welcomeMessage1": "Welcome, ",
+    "welcomeMessage2": ". Thank you for considering adoption through Friendly Paws.",
+    "personalInformation": "Personal Information",
+    "firstName": "First Name*",
+    "lastName": "Last Name*",
+    "contactInformation": "Contact Information",
+    "dateOfBirth": "Date of Birth*",
+    "phoneNo": "Phone No.*",
+    "lineContact": "Line*",
+    "email": "Email*",
+    "livingSituation": "Living Situation",
+    "address": "Address*",
+    "career": "Career*",
+    "submitApplication": "Submit Application",
+    "workPlace": "Work Place*",
+    "workingTime": "Working Time*",
+    "dayOff": "Day Off*",
+    "salary": "Salary (baht/month)*",
+    "familyMember": "Family Member*",
+    "homeEnvironment": "Home Environment",   
+    "yes": "Yes",
+    "no": "No",
+    "aloneHours": "If no one is home, how many hours will the dog be alone?",
+    "adoptionChecklist": "Adoption Checklist",
+    "houseHolder": "House Holder*",
+    "select": "Select",
+    "ownHouse": "I own a house",
+    "rentalHouse": "I rent a house",
+    "condo": "I live in a condo",
+    "apartment": "I live in an apartment",
+    "hasGarden": "I have a garden",
+    "hasFence": "I have a fence",
+    "canWalkDog": "I can walk the dog on a leash",
+    "petInformation": "Pet Information",
+    "currentPetCount": "Current Pet Count*",
+    "numberOfPets": "Number of Pets*",
+    "currentPetDetail": "Current Pet Detail*",
+    "petDetail": "Pet Detail*",
+    "deliveryChecklist": "Delivery Checklist",
+    "canPickup": "Can Pickup",
+    "requestForDelivery": "Request for Delivery",
+      "homeDuringDay": "Is anyone home during the day?",
+      "uploadImages": "Upload Accommodation Images (3-5 Pictures)",
+      "addPicture": "Add Picture",
+      "selectedFiles": "selected files",
+      "noSelectedFile": "no selected file",
+      "adoptionReason": "Tell us why you want to adopt this little guy?"
+  },
+  "adoptFormtoast":{
+     "maxFiles": "You can only upload 5 files",
+    "minFiles": "You must upload at least 3 files",
+     "successMessage": "Adoption request submitted successfully"
+  },
+  "payment": {
+    "processing": "Processing",
+    "payNow": "Pay now",
+    "confirmedTitle": "Payment Confirmed!",
+    "confirmedText": "Your payment has been successfully confirmed.",
+    "buttonText": "OK",
+    "thankYou": "Thank You! ",
+    "processed": "Your payment has been successfully processed.",
+    "backToHome": "Back to Home Page",
+    "subject": "Thank You for Your Donation to Friendly Paws!",
+   
+    "successToast": "Donation confirmation email sent",
+    "errorToast": "Could not send confirmation email",
+    "ChoosePayment":"Choose Payment"
+  },
+  "resetPassword": {
+    "title": "Reset Password",
+    "confirm": "Confirm"
+  },
+  "sendemailForm" :{
+    "loginRequired": "Please log in to send an email",
+    "adminRestriction": "Admins cannot send emails",
+    "sendFailed": "Failed to send email",    
+      "title": "Send Email",
+      "recipientPlaceholder": "Enter recipient's email",
+      "subjectPlaceholder": "Enter email subject",
+      "messagePlaceholder": "Enter message",
+      "sendButton": "Send"
+  },
+  "alerteventRegister": {
+    "noTokenTitle": "Authorization Required",
+    "noTokenText": "Please log in to continue.",
+    "confirmButton": "OK",
+    "registerSuccess" : "Event registered successfully"
+  } ,
+  "validation": {
+          "fnRequired": "Please enter your 'Firstname'",
+      "fnPattern": "Firstname can only contain letters (Thai or English)",
+      "fnMax": "Firstname must not exceed 20 characters",
+      "lnRequired": "Please enter your 'Lastname'",
+      "lnPattern": "Lastname can only contain letters (Thai or English)",
+      "lnMax": "Lastname must not exceed 20 characters",
+      "pnRequired": "Please enter your 'Phone number'",
+      "pnPattern": "Phone number must be 10 numbers",
+       "emRequired": "Please enter your 'Email'",
+      "emFormat": "Email should contain '@'",
+      "psRequired": "Please enter your 'Password'",
+      "psPattern": "Password must be at least 8 characters a-z, A-Z, 0-9 and special characters"
+
+    }
 }
+  
