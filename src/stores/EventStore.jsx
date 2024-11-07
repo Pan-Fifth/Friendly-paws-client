@@ -13,7 +13,6 @@ const useEventStore = create(persist((set) => ({
             const response = await getEvents();
             set({ events: response.data });
             set({ pastEvent: response.data });
-
         }
         catch (error) {
             console.log(error)

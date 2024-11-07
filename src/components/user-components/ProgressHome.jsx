@@ -81,7 +81,7 @@ export default function ProgressHome() {
   }, [])
 
   return (
-    <div className="container w-full mx-auto px-4 py-12 text-[100px]">
+    <div className="container w-full md:w-2/3 mx-auto py-7">
       <div>
         {animalPositions.map((position, index) => (
           position.type === 'dog' ? (
@@ -106,52 +106,42 @@ export default function ProgressHome() {
             />
           )
         ))}
-        </div>
-      <div className="relative w-2/3 mx-auto flex flex-col gap-4">
-        
-        <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-primary/30" aria-hidden="true" />
-        {features.map((feature, index) => {
-          const isEven = index % 2 === 1
-          return (
-            <div
-              key={feature.number}
-              className={`relative flex items-start mb-12 last:mb-0 ${
-                isEven ? "flex-row-reverse" : ""
-              }`}
-            >
-              <div
-                className={`absolute left-1/2 w-8 h-8 rounded-full bg-primary flex items-center justify-center ${
-                  isEven ? "-translate-x-1/2" : "translate-x-[-15px]"
-                }`}
-              >
-                <div className="w-2 h-2 rounded-full bg-white" />
-              </div>
-              <div className={`w-1/2 ${isEven ? "pr-8 text-center" : "pl-8"}`}>
-                <div className={`flex items-center space-x-2 mb-2 ${isEven ? "mx-5" : ""}`}>
-                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                    {feature.icon} 
-                  </div>
-                  <div className="text-sm font-medium text-muted-foreground">{feature.number}</div>
-                </div>
-                <Accordion type="single" collapsible className={`w-full ${isEven ? "mx-5" : "mx-[-20px]"}`}>
-                  <AccordionItem value={feature.number}>
-                    <AccordionTrigger
-                      className={`text-[30px] w-fit font-semibold mx-6 ${
-                        openItem === feature.number ? "text-[#db2777]" : ""
-                      }`}
-                      onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}
-                    >
-                      {feature.title}
-                    </AccordionTrigger>
-                    <AccordionContent className="text-muted-foreground">
-                      {feature.description}
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              </div>
+      </div>
+      <div className="relative w-full mx-auto flex flex-col gap-4">
+      <div className="absolute  left-[80%] md:left-[750px] top-0 bottom-0 w-0.5 bg-primary" aria-hidden="true" />
+        {features.map((feature) => (
+          <div
+            key={feature.number}
+            className="relative  flex items-start mb-12 last:mb-0"
+          >
+            <div className="absolute  left-[80%]   md:left-[750px] w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-x-[-15px]">
+            <div className="w-2 h-2 rounded-full bg-white" />
             </div>
-          )
-        })}
+            <div className="md:w-[70%]  md:ml-[20px] w-1/2 pr-1 ml-[80px]">
+              <div className="flex items-center space-x-2 md:my-[-9px]  md:mx-[600px] mb-2">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-pink-200  flex items-center justify-center">
+                  {feature.icon}
+                </div>
+                <em className="text-[30px] text-pink-500">{feature.number}</em>
+              </div>
+              <Accordion type="single" collapsible className="w-full md:ml-[220px]  text-[12px] ">
+  <AccordionItem value={feature.number}>
+    <AccordionTrigger
+      className={`md:text-[30px]   lg:text-[30px] w-full font-semibold ${
+        openItem === feature.number ? "text-[#db2777]" : ""
+      }`}
+      onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}
+    >
+      {feature.title}
+    </AccordionTrigger>
+    <AccordionContent className="text-muted-foreground text-[18px]">
+      {feature.description}
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   )
