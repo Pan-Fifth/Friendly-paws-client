@@ -9,6 +9,9 @@ import ProgressHome from './ProgressHome';
 import CardHome from './CardHome';
 import { Separator } from "@/components/ui/separator"
 import { Heart, HeartHandshake, PawPrint } from 'lucide-react';
+import { Image } from '@radix-ui/react-avatar';
+import ImageHome from './ImageHome';
+import TextHome from './TextHome';
 
 'use client'
 
@@ -168,6 +171,7 @@ export default function Homepage() {
       </h1>
       <h2 className="text-[80px] md:text-[150px] font-bold leading-tight mb-4 md:mb-8">
         {t("adoptPage.friendlyPow")}
+        {/* <TextHome /> */}
       </h2>
       <motion.button
         whileHover={{ scale: 1.05 }}
@@ -248,9 +252,17 @@ export default function Homepage() {
 
                   {index === 2 && (
                   <div className="relative text-center my-10 w-full min-h-screen flex flex-col gap-4">
-                    <h1 className='text-3xl md:text-5xl lg:text-[70px]'>Adopt Progress</h1>
-                    <ProgressHome />
                     
+                    <h1 className='text-3xl md:text-5xl lg:text-[70px]'>Adopt Progress</h1>
+                    <div className='flex w-full justify-center '>
+                    <div className='w-full md:w-1/2 '>
+                      <ProgressHome />
+                    </div>
+                    <div className='w-1/2 hidden md:block'>
+                      <ImageHome />
+                    </div>
+                    </div>
+
                     <div className="bg-gradient from-red-300 to-white h-[150px] w-full">
                       <div className="absolute bottom-[-50px] left-0 right-0">
                         <svg
