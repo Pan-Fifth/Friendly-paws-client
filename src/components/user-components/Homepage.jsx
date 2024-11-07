@@ -9,9 +9,36 @@ import ProgressHome from './ProgressHome';
 import CardHome from './CardHome';
 import { Separator } from "@/components/ui/separator"
 import { Heart, HeartHandshake, PawPrint } from 'lucide-react';
+import { Image } from '@radix-ui/react-avatar';
+import ImageHome from './ImageHome';
+import TextHome from './TextHome';
 
 'use client'
 
+const item = {
+  hidden: { y: 20, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      duration: 3.5,
+      ease: [0.43, 0.13, 0.23, 0.96],
+    },
+  },
+}
+
+const buttonVariants = {
+  hidden: { y: 50, opacity: 0 },
+  show: {
+    y: 0,
+    opacity: 1,
+    transition: {
+      delay: 1.2,
+      duration: 0.8,
+      ease: [0.215, 0.61, 0.355, 1],
+    },
+  },
+}
 
 const Bubble = ({ size, left, top, delay }) => (
   <motion.div
@@ -152,150 +179,172 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 0 && (
-                  <div className="flex items-center justify-between relative w-full bg-white px-[300px]">
-                    <div className="relative z-10">
-                      <img src="/src/assets/dog.png" alt="img" className='h-screen' />
-                    </div>
-                    <div className="absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
-                    <div className="absolute w-full left-0 right-0 top-0 bottom-0 z-0" />
-                    <div className="max-w-xl z-10">
-                      <h1 className="text-xl mb-4">
-                        {t("adoptPage.adoptMe")}<span className="text-pink-600"> {t("adoptPage.adoptMe1")}</span>
-                      </h1>
-                      <h2 className="text-[150px] font-bold leading-tight mb-8">
-                        {t("adoptPage.friendlyPow")}
-                      </h2>
-                      <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className="bg-pink-600 flex gap-2 text-white px-12 py-3 rounded-full text-lg font-medium hover:bg-pink-700 transition-colors"
-                        onClick={()=>navigate('/adopt')}
-                      >
-                        <Heart />
-                        {t("Adopt")}
-                      </motion.button>
-                    </div>
+                <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh] md:h-auto">
+                  <div className="relative z-10 order-2 md:order-1">
+
+                  <img src="/src/assets/dogGif.gif" alt="" className='hidden md:block md:absolute top-[-60px] left-[-150px] rotate-[-40deg]' />
+
+
+                  <motion.div
+                    variants={item}
+                    initial="hidden"
+                    animate="show"
+                    className="space-y-2"
+                  >
+                    <img 
+                      src="/src/assets/dog.png" 
+                      alt="img" 
+                      className=' md:block h-screen w-auto object-contain' 
+                    />
+                    </motion.div>
                   </div>
-                )}
+                  <div className="hidden md:block absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
+                  <div className="absolute w-full left-0 right-0 top-0 bottom-0 z-0" />
+                  <div className="max-w-xl z-10 order-1 md:order-2 text-center md:text-left px-4 md:px-0">
+                    <h1 className="text-lg md:text-xl mb-2 md:mb-4">
+                      {t("adoptPage.adoptMe")}<span className="text-pink-600"> {t("adoptPage.adoptMe1")}</span>
+                    </h1>
+
+
+                    <h2 className="text-[80px] md:text-[150px] font-bold leading-tight mb-4 md:mb-8">
+                      {t("adoptPage.friendlyPow")}
+                      {/* <TextHome /> */}
+                    </h2>
+                    
+                    <motion.button
+                      variants={buttonVariants}
+                      initial="hidden"
+                       animate="show"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      className="bg-pink-600 flex gap-2 text-white px-8 md:px-12 py-2 md:py-3 rounded-full text-base md:text-lg font-medium hover:bg-pink-700 transition-colors mx-auto md:mx-0"
+                      onClick={()=>navigate('/adopt')}
+                    >
+                      <Heart />
+                      {t("Adopt")}
+                    </motion.button>
+                  </div>
+                </div>
+)}
 
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 1 && (
-                  <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-2/3 rounded-3xl h-[700px]">
-                    <div className="container mx-auto p-6">
-                          <div className="space-y-8">
-                            <div className="grid gap-6 md:grid-cols-3">
-                              <Card>
-                                <CardContent className="p-4 space-y-2">
-                                  <div className="aspect-square relative overflow-hidden rounded-lg">
-                                    <img
-                                      src={homeContent?.image1}
-                                      alt="Black dog looking at camera"
-                                      className="object-cover"
-                                      fill
-                                    />
-                                  </div>
-                                  <p className='font-semibold text-lg'>{content?.[2]}</p>
-                                  <p className='text-sm text-muted-foreground'>{content?.[3]}</p>
-                                </CardContent>
-                              </Card>
-                              <Card>
-                                <CardContent className="p-4 space-y-2">
-                                  <div className="aspect-square relative overflow-hidden rounded-lg">
-                                    <img
-                                      src={homeContent?.image2}
-                                      alt="Gray tabby cat sitting on a rug"
-                                      className="object-cover"
-                                      fill
-                                    />
-                                  </div>
-                                  <p className='font-semibold text-lg'>{content?.[4]}</p>
-                                  <p className='text-sm text-muted-foreground'>{content?.[5]}</p>
-                                </CardContent>
-                              </Card>
-                              <Card>
-                                <CardContent className="p-4 space-y-2">
-                                  <div className="aspect-square relative overflow-hidden rounded-lg">
-                                    <img
-                                      src={homeContent?.image3}
-                                      alt="Gray tabby cat close-up"
-                                      className="object-cover"
-                                      fill
-                                    />
-                                  </div>
-                                  <p className='font-semibold text-lg'>{content?.[6]}</p>
-                                  <p className='text-sm text-muted-foreground'>{content?.[7]}</p>
-                                </CardContent>
-                              </Card>
-                            </div>
-                            
-                            <div className="text-center space-y-4">
-                              <h1 className="text-4xl font-bold tracking-tighter">WELCOME TO OUR CLUB!</h1>
-                              <p className="mx-auto max-w-[600px] text-muted-foreground">
-                                Join our community of pet lovers and discover everything you need to know about pet care, health, and happiness.
-                              </p>
-                              <Button size="lg" className="bg-pink-500 hover:bg-pink-600"  onClick={()=>navigate('/about')}>
-                               ABOUT US
-                              </Button>
-                            </div>
-                          </div>
-                        </div>
+        <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 rounded-3xl min-h-700 md:h-full px-4">
+        <div className="container mx-auto p-2 md:p-6">
+          <div className="space-y-4 md:space-y-8">
+            <div className="flex flex-row gap-2 md:gap-6 overflow-x-scroll md:scrollbar-hide justify-start md:justify-center ">
+              <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto"> 
+                <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center ">
+                  <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
+                    <img
+                      src={homeContent?.image1}
+                      alt="Black dog looking at camera"
+                      className="object-cover w-full h-full"
+                    />
                   </div>
-                  )}
+                  <p className='font-semibold text-center md:text-lg'>{content?.[2]}</p>
+                  <p className='text-xs md:text-sm text-muted-foreground'>{content?.[3]}</p>
+                </CardContent>
+              </Card>
+              <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+                <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
+                  <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
+                    <img
+                      src={homeContent?.image1}
+                      alt="Black dog looking at camera"
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <p className='font-semibold text-center-base md:text-lg'>{content?.[4]}</p>
+                  <p className='text-xs md:text-sm text-muted-foreground'>{content?.[5]}</p>
+                </CardContent>
+              </Card>
+              <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+                <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
+                  <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
+                    <img
+                      src={homeContent?.image1}
+                      alt="Black dog looking at camera"
+                      className="object-cover w-full h-full"
+                    />
+                  </div>
+                  <p className='font-semibold text-center md:text-lg'>{content?.[6]}</p>
+                  <p className='text-xs md:text-sm text-muted-foreground'>{content?.[7]}</p>
+                </CardContent>
+              </Card>
+              </div>
+                            
+                      <div className="text-center space-y-2 md:space-y-4">
+                      <h1 className="text-2xl md:text-4xl font-bold tracking-tighter">WELCOME TO OUR CLUB!</h1>
+                      <p className="mx-auto max-w-[600px] text-sm md:text-base text-muted-foreground">
+                        Join our community of pet lovers and discover everything you need to know about pet care, health, and happiness.
+                      </p>
+                      <Button size="lg" className="bg-pink-500 hover:bg-pink-600" onClick={()=>navigate('/about')}>
+                        ABOUT US
+                      </Button>
+                    </div>
+                    </div>
+                  </div>
+                </div>
+              )}
 
                   {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
+                  {index === 2 && (
+                  <div className="relative text-center my-10 w-full min-h-screen flex flex-col gap-4">
+                    
+                    <h1 className='text-3xl md:text-5xl lg:text-[70px]'>Adopt Progress</h1>
+                    <div className='flex w-full justify-center '>
+                    <div className='w-full md:w-1/2 '>
+                      <ProgressHome />
+                    </div>
+                    <div className='w-1/2 hidden md:block'>
+                      <ImageHome />
+                    </div>
+                    </div>
 
-                {index === 2 && (
-                  <div className=" relative text-center my-10 w-full h-[1300px] flex flex-col gap-4">
-                    <h1 className='text-[70px]'>Adopt Progress</h1>
-                    <ProgressHome />
-              
-                   
-                        <div className="bg-gradient from-red-300 to-white h-[400px] w-full">
-                          <div className="absolute bottom-[-50px] left-0 right-0">
-                          <svg
-                            viewBox="0 0 1440 320"
-                            className="w-full h-48"
-                            preserveAspectRatio="none"
-                          >
-                            <path
-                              fill="white"
-                              fillOpacity="1"
-                              d="M0,160L26.7,165.3C53.3,171,107,181,160,192C213.3,203,267,213,320,213.3C373.3,213,427,203,480,181.3C533.3,160,587,128,640,128C693.3,128,747,160,800,181.3C853.3,203,907,213,960,208C1013.3,203,1067,181,1120,176C1173.3,171,1227,181,1280,176C1333.3,171,1387,149,1413,138.7L1440,128L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"
-                            ></path>
-                              </svg>
-                        </div>
-                        </div>
-                        
-                </div>
+                    <div className="bg-gradient from-red-300 to-white h-[150px] w-full">
+                      <div className="absolute bottom-[-50px] left-0 right-0">
+                        <svg
+                          viewBox="0 0 1440 320"
+                          className="w-full h-48"
+                          preserveAspectRatio="none"
+                        >
+                          <path
+                            fill="white"
+                            fillOpacity="1"
+                            d="M0,160L26.7,165.3C53.3,171,107,181,160,192C213.3,203,267,213,320,213.3C373.3,213,427,203,480,181.3C533.3,160,587,128,640,128C693.3,128,747,160,800,181.3C853.3,203,907,213,960,208C1013.3,203,1067,181,1120,176C1173.3,171,1227,181,1280,176C1333.3,171,1387,149,1413,138.7L1440,128L1440,320L1413.3,320C1386.7,320,1333,320,1280,320C1226.7,320,1173,320,1120,320C1066.7,320,1013,320,960,320C906.7,320,853,320,800,320C746.7,320,693,320,640,320C586.7,320,533,320,480,320C426.7,320,373,320,320,320C266.7,320,213,320,160,320C106.7,320,53,320,27,320L0,320Z"
+                          ></path>
+                        </svg>
+                      </div>
+                    </div>
+                  </div>
                 )}
 
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
 
                 {index === 3 && (
-                  <section className=" z-0 relative w-full h-[500px] py-12 md:py-24 lg:py-32 flex-col flex justify-center  gap-4">
+                  <section className="relative w-full h-screen py-8 md:py-12 lg:py-24 flex flex-col justify-center gap-4">
+                    <CardHome className="absolute z-20" />
+                    <Separator orientation="horizontal" className="shrink-0 md:left-[350px] bg-border h-[1px] w-2/3 absolute left-[100px] top-[290px]" />
                     
-                      <CardHome className='absolute z-20' />
-                      <Separator orientation="horizontal" className='shrink-0 bg-border h-[1px] w-2/3 absolute left-[300px] top-[200px]' />
-                    <div className="container w-full h-full z-0 px-4 md:px-6 py-[200px] mx-auto">
-                      <div className="flex flex-col mx-auto justify-center items-center space-y-4 text-center ">
-                        <div className="space-y-2 ">
-                          <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl">Make a Difference Today</h2>
-                          <p className="max-w-[900px] text-gray-500 md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed dark:text-gray-400">
-                          Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution, no matter how small, can change a life.
-                          </p>
-                        </div>
-                        <Button className="bg-primary text-primary-foreground hover:bg-primary/90" size="lg" onClick={()=>{navigate("/donate")}}>
-                          Donate
-                        </Button>
-                        <HeartHandshake className='h-[200px] w-[200px] text-pink-500' />
-                      </div>
-                      <Separator orientation="horizontal" className='shrink-0 bg-border h-[1px] w-1/3 absolute left-[650px] top-[650px]' />
-
+                    <div className="container w-full h-full z-0 px-4 md:px-6 py-[60px] md:py-[100px] lg:py-[200px] mx-auto">
+                    <div className=" flex flex-col mx-auto justify-center my-[250px] items-center space-y-4 md:space-y-6 text-center md:my-[30px]">
+                    <div className="space-y-2 md:space-y-4">
+                      <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tighter">Make a Difference Today</h2>
+                      <p className="max-w-[900px] text-sm md:text-base lg:text-xl text-gray-500 dark:text-gray-400 px-2 md:px-4">
+                        Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution, no matter how small, can change a life.
+                      </p>
                     </div>
-                   
+                    <Button className="bg-primary text-primary-foreground hover:bg-primary/90 w-[200px] md:w-auto" size="lg" onClick={()=>{navigate("/donate")}}>
+                      Donate
+                    </Button>
+                    <HeartHandshake className="h-[80px] w-[80px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] text-pink-500" />
+                  </div>
+                  <Separator orientation="horizontal" className="hidden md:block md:top-[800px]  shrink-0 bg-border h-[1px] w-1/3 absolute left-1/2 transform -translate-x-1/2 top-[650px]" />
+                </div>
                   </section>
                 )}
               </motion.div>
@@ -319,7 +368,7 @@ export default function Homepage() {
         {pages.map((_, i) => (
           <motion.button
             key={i}
-            // onClick={()=>navigate('/donate')}
+             onClick={() => handleCircleClick(i)}
             className={`w-4 h-4 rounded-full ${i === currentPage ? 'bg-pink-600' : 'bg-orange-300'}`}
             whileHover={{ scale: 1.2 }}
             whileTap={{ scale: 0.9 }}
