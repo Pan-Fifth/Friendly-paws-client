@@ -19,62 +19,62 @@ import { toast } from 'react-toastify';
 
 // Table header columns definition
 const TABLE_COLUMNS = [
-  'No.', 'Image', 'ชื่อ', 'Name', 'สายพันธุ์', 'Breed','คำอธิบาย', 
-  'Description', 'Color', 'Date of Birth', 'Gender', 'Status', 'Weight',
-  'Neutered', 'Vaccinated', 'Edit', 'Delete'
+  'ลำดับ', 'รูปภาพ', 'ชื่อภาษาไทย', 'ชื่อภาษาอังกฤษ', 'สายพันธุ์ภาษาไทย', 'สายพันธุ์ภาษาอังกฤษ', 'คำอธิบายภาษาไทย',
+  'คำอธิบายภาษาอังกฤษ', 'สี', 'วันเกิด', 'เพศ', 'สถานะ', 'น้ำหนัก',
+  'ทำหมัน', 'วัคซีน', 'แก้ไข', 'ลบ'
 ];
 
 const EditPetDialog = ({ petId }) => {
   const [open, setOpen] = useState(false)
   return (
-  <Dialog open={open} onOpenChange={setOpen}>
-    <DialogTrigger asChild>
-    <button className="h-8 w-8 cursor-pointer hover:text-blue-500">
-        <Edit />
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <button className="h-8 w-8 cursor-pointer hover:text-blue-500">
+          <Edit />
         </button>
-    </DialogTrigger>
-    <DialogContent className="w-[700px] h-[600px] overflow-auto">
-      <DialogHeader>
-        <DialogTitle>Edit Pets</DialogTitle>
-        <DialogDescription>
-            Make changes to your pet's information here.
+      </DialogTrigger>
+      <DialogContent className="w-[700px] h-[600px] overflow-auto">
+        <DialogHeader>
+          <DialogTitle>แก้ไข รายละเอียดสัตว์เลี้ยง</DialogTitle>
+          <DialogDescription>
+            เปลี่ยนรายละเอียดสัตว์เลี้ยงได้ที่นี่.
           </DialogDescription>
-        <EditPetsForm petId={petId} setOpen={setOpen}/>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
+          <EditPetsForm petId={petId} setOpen={setOpen} />
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
   )
 }
 // Add Pet Dialog Component
 const AddPetDialog = () => {
   const [open, setOpen] = useState(false)
-  return(
-  <Dialog open={open} onOpenChange={setOpen}>
-    <DialogTrigger asChild>
-    <Button
-      className="w-1/5 items-center mx-auto my-5 group relative overflow-hidden bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl active:scale-95">
-      <span className="relative z-10 flex items-center justify-center gap-3">
-        <span className="text-lg">+ Add Pet</span>
-      </span>
-      <span className="absolute inset-0 z-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
-    </Button>
-    </DialogTrigger>
-    <DialogContent className="w-[700px] h-[600px] overflow-auto">
-      <DialogHeader>
-        <DialogTitle>Add Pets</DialogTitle>
-        <DialogDescription>
-            Fill in the details to add a new pet.
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          className="w-1/5 items-center mx-auto my-5 group relative overflow-hidden bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl active:scale-95">
+          <span className="relative z-10 flex items-center justify-center gap-3">
+            <span className="text-lg">+ เพิ่มสัตว์เลี้ยง</span>
+          </span>
+          <span className="absolute inset-0 z-0 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="w-[700px] h-[600px] overflow-auto">
+        <DialogHeader>
+          <DialogTitle>เพิ่ม</DialogTitle>
+          <DialogDescription>
+            กรอกข้อมูลสัตว์เลี้ยงได้ที่นี่
           </DialogDescription>
-        <PetForm  setOpen={setOpen}/>
-      </DialogHeader>
-    </DialogContent>
-  </Dialog>
-);
+          <PetForm setOpen={setOpen} />
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
 
 }
 
 // Pet Table Row Component
-const PetTableRow = ({ pet, index,hdlDeletePet }) => (
+const PetTableRow = ({ pet, index, hdlDeletePet }) => (
   <div className="grid grid-cols-[70px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_80px_80px_50px_50px] gap-4 border-t p-4 text-sm hover:bg-gray-50 transition-colors duration-150">
     <div className="flex items-center gap-2">
       <div className="text-gray-500">{index + 1}</div>
@@ -108,11 +108,11 @@ const PetTableRow = ({ pet, index,hdlDeletePet }) => (
 
     <div className="">
       {/* <button className="h-8 w-8 cursor-pointer hover:text-blue-500"> */}
-        <EditPetDialog petId={pet.id}/>
+      <EditPetDialog petId={pet.id} />
       {/* </button> */}
     </div>
     <div>
-    <button className="h-8 w-8 cursor-pointer hover:text-red-500" onClick={() => hdlDeletePet(pet.id)}>
+      <button className="h-8 w-8 cursor-pointer hover:text-red-500" onClick={() => hdlDeletePet(pet.id)}>
         <Trash />
       </button>
     </div>
@@ -134,20 +134,30 @@ export default function ManagePet() {
   }, []);
 
   const hdlDeletePet = async (petId) => {
-  
+    const result = await Swal.fire({
+      title: "ยืนยันที่จะลบข้อมูลใช่หรือไม่?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "ใช่ ,ฉันจะลบ!",
+      cancelButtonText: "ไม่ ,ฉันจะยกเลิก!"
+    });
+    if (result.isConfirmed) {
       try {
         await actionDeletePet(token, petId);
-        toast.success('Pet deleted successfully!');
+
         actionGetAllPets(token);
       } catch (error) {
         console.error('Error deleting pet:', error);
       }
     }
+  }
 
   return (
     <div className="flex flex-col min-h-screen w-full">
       <AddPetDialog />
-      
+
       <main className="flex-1 space-y-4 p-8 pt-6">
         <div className="rounded-lg border bg-white shadow-md">
           {/* Table Header */}
@@ -156,7 +166,7 @@ export default function ManagePet() {
               <div key={index}>{column}</div>
             ))}
           </div>
-          
+
           {/* Table Body */}
           {allPets.map((pet, index) => (
             <PetTableRow key={pet.id} pet={pet} index={index} hdlDeletePet={hdlDeletePet} />

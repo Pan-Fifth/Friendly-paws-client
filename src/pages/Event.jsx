@@ -78,14 +78,15 @@ const Event = () => {
     const handleRegister = (eventId) => {
         if (!token) {
             Swal.fire({
-                title: "ftrtrth",
-                text: "ftrtrth",
+                title: t('alerteventRegister.noTokenTitle'),
+                text: t('alerteventRegister.noTokenText'),
                 icon: 'warning',
-                confirmButtonText: "ตลกง",
+                confirmButtonText: t('alerteventRegister.confirmButton'),
             });
             return;
         }
         registerEvent(token, { eventId });
+        toast.success(t('alerteventRegister.registerSuccess'));
     };
 
     // -------------------------------------

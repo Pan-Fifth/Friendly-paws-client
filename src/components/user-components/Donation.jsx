@@ -50,17 +50,17 @@ const Donation = () => {
   const donationOptions = [
     {
       amount: 200,
-      benefit: "Provides food for 2 pets for a week",
+      benefit: t("donatePage.amount200"),
       icon: "🐱",
     },
     {
       amount: 500,
-      benefit: "Covers basic veterinary check-up for 1 pet",
+      benefit: t("donatePage.amount500"),
       icon: "💉",
     },
     {
       amount: 1000,
-      benefit: "Supports vaccination and medicine for 2 pets",
+      benefit: t("donatePage.amount1000"),
       icon: "🏥",
     },
   ];
@@ -76,8 +76,8 @@ const Donation = () => {
       console.error("Error getting donation amount:", error);
       toast({
         variant: "destructive",
-        title: "Error",
-        description: error.response?.data?.message || "Something went wrong. Please try again.",
+        title: t("donatePage.errorTitle"),
+        description: error.response?.data?.message || t("donatePage.errorMessage"),
       });
     } finally {
       setIsLoading(false);

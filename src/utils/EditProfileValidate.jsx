@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 
-const editProfileAuthen = Joi.object({
+const editProfileAuthen = (t) => Joi.object({
     id: Joi.number().allow(),
 
     firstname: Joi.string()
@@ -9,25 +9,28 @@ const editProfileAuthen = Joi.object({
         .pattern(/^[a-zA-Zก-๙]+$/)
         .max(20)
         .messages({
-            "string.empty": "please enter your 'Firstname'",
-            "string.pattern.base": "Firstname can only contain letters (Thai or English)",
-            "string.max": "Firstname must not exceed 20 characters"
+            "string.base": t('validation.fnRequired'),
+            "string.empty": t('validation.fnRequired'),
+            "string.pattern.base": t('validation.fnPattern'),
+            "string.max": t('validation.fnMax')
         }),
     lastname: Joi.string()
         .required()
         .pattern(/^[a-zA-Zก-๙]+$/)
         .max(20)
         .messages({
-            "string.empty": "please enter your 'Lastname'",
-            "string.pattern.base": "Lastname can only contain letters (Thai or English)",
-            "string.max": "Lastname must not exceed 20 characters"
+            "string.empty": t('validation.lnRequired'),
+            "string.base": t('validation.lnRequired'),
+            "string.pattern.base": t('validation.lnPattern'),
+            "string.max": t('validation.lnMax')
         }),
     phone: Joi.string()
         .required()
         .pattern(/^[0-9]{10}$/)
         .messages({
-            "string.empty": "please enter your 'Phone number'",
-            "string.pattern.base": "Phone number must be 10 numbers"
+            "string.empty": t('validation.pnRequired'),
+            "string.base": t('validation.pnRequired'),
+            "string.pattern.base": t('validation.pnPattern')
         }),
 
 
@@ -35,15 +38,15 @@ const editProfileAuthen = Joi.object({
         .email({ tlds: false })
         .required()
         .messages({
-            "string.empty": "please enter your 'Email'",
-            "string.email": "Email should contain '@'"
+            "string.empty": t('validation.emRequired'),
+            "string.email": t('validation.emFormat')
         }),
 
 });
 
-const validateEditProfile = (input) => {
-    console.log(input, "this is input")
-    const { error } = editProfileAuthen.validate(input, {
+const validateEditProfile = (input, t) => {
+
+    const { error } = editProfileAuthen(t).validate(input, {
         abortEarly: false
     });
     console.log(error, "this is error")

@@ -2,6 +2,8 @@ import React from 'react';
 import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import useAuthStore from '../../stores/AuthStore';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const LoginGoogle = () => {
 
@@ -15,7 +17,7 @@ const LoginGoogle = () => {
 
         try {
             const response = await actionLoginGoogle(token);
-            console.log(response, "respon googlelogin")
+            toast.success(t('login.toastLogin'));
 
 
             if (response === 'USER' || response === 'VOLUNTEER') {

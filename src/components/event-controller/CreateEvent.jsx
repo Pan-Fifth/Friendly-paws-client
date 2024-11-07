@@ -1,3 +1,5 @@
+
+
 import React, { useState } from 'react'
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
@@ -88,7 +90,7 @@ export default function CreateEvent() {
         <div>
             <form onSubmit={handleSubmit} className="space-y-4 p-6 bg-white shadow-md rounded-md">
                 <div>
-                    <Label htmlFor="title_th">ชื่อกิจกรรม</Label>
+                    <Label htmlFor="title_th">ชื่อกิจกรรม (ภาษาไทย)</Label>
                     <Input
                         type="text"
                         name="title_th"
@@ -122,7 +124,7 @@ export default function CreateEvent() {
                     {formatError.location && <p className="text-red-500 text-xs">{formatError.location}</p>}
                 </div>
                 <div>
-                    <Label htmlFor="description_th">รายละเอียดกิจกรรม</Label>
+                    <Label htmlFor="description_th">รายละเอียดกิจกรรม (ภาษาไทย)</Label>
                     <Textarea
                         name="description_th"
                         value={formData.description_th}

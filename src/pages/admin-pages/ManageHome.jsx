@@ -6,14 +6,14 @@ import { toast } from "react-toastify";
 export const ManageHome = () => {
   const [content, setContent] = useState(null);
   const sectionNames = [
-    "Header",
-    "Subtitle",
-    "Image 1 Title",
-    "Image 1 Content",
-    "Image 2 Title",
-    "Image 2 Content",
-    "Image 3 Title",
-    "Image 3 Content",
+    "หัวข้อหลัก",
+    "หัวข้อย่อย",
+    "รูปภาพหลัก1",
+    "รูปภาพคอนเทนต์1",
+    "รูปภาพหลัก2",
+    "รูปภาพคอนเทนต์2",
+    "รูปภาพหลัก3",
+    "รูปภาพคอนเทนต์3",
   ];
   const [images, setImages] = useState({
     image1: null,
@@ -64,11 +64,11 @@ export const ManageHome = () => {
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      
+
       // Always include content fields even if they haven't changed
       formData.append('content_en', textContent.content_en.join('|'));
       formData.append('content_th', textContent.content_th.join('|'));
-  
+
       // Only append images if they were selected
       if (images.image1) {
         formData.append('image1', images.image1);
@@ -79,18 +79,18 @@ export const ManageHome = () => {
       if (images.image3) {
         formData.append('image3', images.image3);
       }
-  
+
       // Log formData to verify content
       for (let pair of formData.entries()) {
         console.log(pair[0], pair[1]);
       }
-  
+
       const response = await axiosInstance.put(`/admin/home-content/${content.id}`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       });
-  
+
       console.log('Update successful:', response.data);
       fetchContent(); // Refresh content after update
       toast.success("Update successful");
@@ -98,16 +98,16 @@ export const ManageHome = () => {
       console.error('Error details:', error.response?.data || error.message);
     }
   };
-  
+
 
   return (
     <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Manage Homepage Content</h1>
+      <h1 className="text-2xl font-bold mb-6">แก้ไข คอนเทนต์หน้าหลัก</h1>
 
       <div className="space-y-8">
         {/* Image Management */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Images</h2>
+          <h2 className="text-xl font-semibold">รูปภาพ</h2>
           {["image1", "image2", "image3"].map((imageField) => (
             <div key={imageField} className="flex items-center gap-4">
               <img
@@ -126,7 +126,7 @@ export const ManageHome = () => {
 
         {/* English Content */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">English Content</h2>
+          <h2 className="text-xl font-semibold">คอนเทนต์ภาษาอังกฤษ</h2>
           {textContent.content_en.map((text, index) => (
             <div key={`en-${index}`} className="flex flex-col gap-2">
               <label>{sectionNames[index]}</label>
@@ -142,7 +142,7 @@ export const ManageHome = () => {
 
         {/* Thai Content */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Thai Content</h2>
+          <h2 className="text-xl font-semibold">คอนเทนต์ภาษาไทย</h2>
           {textContent.content_th.map((text, index) => (
             <div key={`th-${index}`} className="flex flex-col gap-2">
               <label>{sectionNames[index]}</label>
@@ -160,7 +160,7 @@ export const ManageHome = () => {
           onClick={handleSubmit}
           className="w-full bg-primary text-white py-2 rounded hover:bg-primary/90"
         >
-          Update Content
+          อัพเดท
         </Button>
       </div>
     </div>
