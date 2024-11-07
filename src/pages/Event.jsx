@@ -86,6 +86,7 @@ const Event = () => {
             return;
         }
         registerEvent(token, { eventId });
+        toast.success(t('alerteventRegister.registerSuccess'));
     };
 
     // -------------------------------------

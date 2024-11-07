@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { Facebook, Play } from "lucide-react"
+
 
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 
 
@@ -56,6 +57,7 @@ export default function Register() {
         try {
 
             await actionRegister(form);
+            toast.success(t('register.toastRegister'));
             navigate('/login');
             setForm(intitialState);
             setFormatError({});
