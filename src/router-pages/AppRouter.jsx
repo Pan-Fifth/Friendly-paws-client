@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navbar from "../components/user-components/Navbar";
 import Footer from "../components/user-components/Footer";
 
-import Test from "../components/user-components/Test";
 import Login from "../components/user-components/Login";
 import Register from "../components/user-components/Register";
 import ForgetPassword from "../components/user-components/ForgetPassword";

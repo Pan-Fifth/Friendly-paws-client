@@ -2,9 +2,11 @@ import React, { useState } from 'react'
 import useAuthStore from '../../stores/AuthStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import { resetPassword } from '../../apis/AuthApi';
+import { useTranslation } from 'react-i18next';
 
 export default function ResetPassword() {
 
+    const { t } = useTranslation()
     const { token } = useParams()
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
@@ -26,14 +28,14 @@ export default function ResetPassword() {
             navigate('/login');
         } catch (error) {
             setMessage('Failed to reset password');
-            console.error('Error:', error);
+
         }
     };
 
 
     return (
         <div className='bg-gray-300 mx-auto w-96 h-96 mt-40 rounded-md flex flex-col justify-center items-center gap-6 p-4 '>
-            <h2 className='font-main'>Reset password</h2>
+            <h2 className='font-main'>{t("resetPassword.title")}</h2>
             <input
                 type="password"
                 placeholder="Enter your new password"
@@ -49,7 +51,7 @@ export default function ResetPassword() {
                 className='p-2 rounded-xl w-2/3'
             />
             <button onClick={handleResetPassword} className='bg-yellow p-2 rounded-lg font-head'>
-                Confirm
+                {t("resetPassword.confirm")}
             </button>
             {message && <p>{message}</p>}
         </div>

@@ -16,7 +16,7 @@ const ProtectRoute = ({ element, allow }) => {
         checkRole()
     }, [])
 
-    console.log(user, "this is user")
+
     const checkRole = async () => {
 
         try {

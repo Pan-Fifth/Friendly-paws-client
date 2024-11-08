@@ -7,14 +7,17 @@ import Swal from 'sweetalert2';
 import useAuthStore from '../../stores/AuthStore';
 import { confirmPayment } from '../../apis/PaymentApi';
 import useDonationStore from '@/src/stores/DonationStore';
+import { useTranslation } from 'react-i18next';
 
 export default function Completion() {
-    const donation = useDonationStore(state=> state.donation)
+
+    const { t } = useTranslation()
+    const donation = useDonationStore(state => state.donation)
     const setShowPaymentDialog = useDonationStore(state => state.setShowPaymentDialog)
     const user = useAuthStore((state) => state.user);
     const userId = user?.user.id
     useEffect(() => {
-        
+
         const paymentData = {
             userId,
             amount: Number(donation.total),
@@ -28,10 +31,10 @@ export default function Completion() {
 
                 // แสดงข้อความยืนยันว่าการชำระเงินสำเร็จ
                 Swal.fire({
-                    title: 'Payment Confirmed!',
-                    text: 'Your payment has been successfully confirmed.',
+                    title: t("payment.confirmedTitle"),
+                    text: t("payment.confirmedText"),
                     icon: 'success',
-                    confirmButtonText: 'OK'
+                    confirmButtonText: t("payment.buttonText")
                 })
             } catch (err) {
                 console.error('Error confirming payment:', err);
@@ -43,17 +46,16 @@ export default function Completion() {
 
     }, []);
 
-    console.log(user, "this is user payment")
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
 
-            <h2 className="text-4xl font-semibold text-gray-800 mt-4">Thank You! {user?.firstname}</h2>
+            <h2 className="text-4xl font-semibold text-gray-800 mt-4">{t("payment.thankYou")} {user?.firstname}</h2>
             <p className="text-gray-600 mt-2 text-center">
-                Your payment has been successfully processed.
+                {t("payment.processed")}
             </p>
             <Link to="/" className="mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">
-                Back to Home Page
+                {t("payment.backToHome")}
             </Link>
         </div>
     );

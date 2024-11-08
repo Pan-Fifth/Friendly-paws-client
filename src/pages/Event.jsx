@@ -90,18 +90,19 @@ const Event = () => {
     // เรียกใช้งาน register event จาก store
 
 
-  const handleRegister = (eventId) => {
-    if (!token) {
-      Swal.fire({
-        title: "ftrtrth",
-        text: "ftrtrth",
-        icon: "warning",
-        confirmButtonText: "ตลกง",
-      });
-      return;
-    }
-    registerEvent(token, { eventId });
-  };
+    const handleRegister = (eventId) => {
+        if (!token) {
+            Swal.fire({
+                title: t('alerteventRegister.noTokenTitle'),
+                text: t('alerteventRegister.noTokenText'),
+                icon: 'warning',
+                confirmButtonText: t('alerteventRegister.confirmButton'),
+            });
+            return;
+        }
+        registerEvent(token, { eventId });
+        toast.success(t('alerteventRegister.registerSuccess'));
+    };
 
   // -------------------------------------
 
@@ -131,28 +132,30 @@ const Event = () => {
         <h1>{t("eventPage.newEvents")}</h1>
       </div>
 
-      {/* Event Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
-        {events?.events?.map((event) => (
-          <div key={event.id} className="bg-white rounded-lg shadow-lg p-4 text-center">
-            <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
-              <img
-                src={event.image[0].url}
-                alt="Cat Event"
-                className="object-cover w-full h-full"
-              />
+            {/* Event Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container mx-auto px-4 mb-8 justify-items-center">
+                {events?.events?.map((event) => (
+                    <div
+                        key={event.id}
+                        className="bg-white rounded-lg shadow-lg p-4 text-center max-w-[350px]">
+                        <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
+                            <img
+                                src={event.image[0].url}
+                                alt="Cat Event"
+                                className="object-cover w-full h-full" />
+                        </div>
+                        <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
+                            {language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}
+                        </h2>
+                        <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
+                        <button
+                            className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
+                            onClick={() => openModal(event)}>
+                            {t('eventPage.moreInfo')}
+                        </button>
+                    </div>
+                ))}
             </div>
-            <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">{language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}</h2>
-            <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
-            <button
-              className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
-              onClick={() => openModal(event)}
-            >
-              {t("eventPage.moreInfo")}
-            </button>
-          </div>
-        ))}
-      </div>
 
       {/* Modal */}
       {selectedEvent && (
@@ -191,31 +194,34 @@ const Event = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
-        <h1>{t("eventPage.pastEvents")}</h1>
-      </div>
-      {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
-        {events?.pastEvent?.map((event) => (
-          <div key={event.id} className="bg-white rounded-lg shadow-lg p-4 text-center">
-            <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
-              <img
-                src={event.image[0].url}
-                alt="Cat Event"
-                className="object-cover w-full h-full"
-              />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+                <h1>{t('eventPage.pastEvents')}</h1>
             </div>
-            <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">{language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}</h2>
-            <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
-            <button
-              className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
-              onClick={() => openExpireEvent(event)}
-            >
-              {t("eventPage.moreInfo")}
-            </button>
-          </div>
-        ))}
-      </div>
+            {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 container mx-auto px-4 mb-8 justify-items-center" >
+                {events?.pastEvent?.map((event) => (
+                    <div
+                        key={event.id}
+                        className="bg-white rounded-lg shadow-lg p-4 text-center max-w-[350px]">
+                        <div className="bg-cover bg-center h-80 rounded-t-lg overflow-hidden">
+                            <img
+                                src={event.image[0].url}
+                                alt="Cat Event"
+                                className="object-cover w-full h-full" />
+                        </div>
+                        <h2 className="text-xl font-semibold mt-4 whitespace-pre-line">
+                            {language === 'th' ? (event.title_th || event.title_en) : event.title_en || event.title_th}
+                        </h2>
+                        <h2>{new Date(event.date_start).toLocaleDateString()}</h2>
+                        <button
+                            className="mt-4 px-4 py-2 bg-yellow-300 text-white font-bold rounded-lg"
+                            onClick={() => openExpireEvent(event)}>
+                            {t('eventPage.moreInfo')}
+                        </button>
+                    </div>
+                ))}
+            </div>
+
 
       {/* Modal กิจกรรมที่ผ่านมาแล้ว*/}
       {expireEvent && (
