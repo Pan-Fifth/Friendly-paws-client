@@ -44,6 +44,7 @@ import { ManageHome } from "../pages/admin-pages/ManageHome";
 import ManageDonation from "../pages/admin-pages/ManageDonation";
 import ManageAbout from "../pages/admin-pages/ManageAbout";
 import ManageContact from "../pages/admin-pages/ManageContact";
+import ManageEventPage from "../pages/admin-pages/ManageEventPage";
 
 const pageRouter = createBrowserRouter([
   {
@@ -62,7 +63,7 @@ const pageRouter = createBrowserRouter([
       { path: "edit-page-home", element: <ManageHome /> },
       { path: "edit-page-about", element: <ManageAbout /> },
       { path: "edit-page-donation", element: <ManageDonation /> },
-      { path: "edit-page-event", element: <ManageEvent /> },
+      { path: "edit-page-event", element: <ManageEventPage /> },
       { path: "edit-page-contact", element: <ManageContact /> },
       { path: "report-pet-list", element: <ReportPet /> },
       { path: "report-donation", element: <ReportDonation /> },
