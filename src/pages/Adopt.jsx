@@ -154,14 +154,14 @@ const Adopt = () => {
         <div className="flex justify-center items-center gap-2">
           <Button
             onClick={() => hdlPageChange(-1)}
-            className="border text-xl join-item btn btn-md"
+            className="border text-xl"
           >
             {t("adoptPageMain.previous")}
           </Button>
           <p className="text-2xl">{t("adoptPageMain.page")} {page}</p>
           <Button
             onClick={() => hdlPageChange(+1)}
-            className="border text-xl join-item btn btn-md "
+            className="border text-xl"
           >
             {t("adoptPageMain.next")}
           </Button>

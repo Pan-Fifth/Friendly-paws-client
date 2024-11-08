@@ -25,3 +25,27 @@ export const getAllDonateData = () => {
 export const getAllPetData = () => {
     return axiosInstance.get(`/admin/report-pet-all`);
 };
+
+export const getAllAdoptRequest = (token,page)=>{
+    return axiosInstance.get(`/admin/all-adopts/6/${page}`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+};
+
+export const getRequestScore = (token,requestId) =>{
+    return axiosInstance.get(`/admin/score/${requestId}/th`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
+
+export const editAdoptRequest = (token,data,id)=>{
+    return axiosInstance.patch(`/admin/edit-adopt-request/${id}`, data,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}
