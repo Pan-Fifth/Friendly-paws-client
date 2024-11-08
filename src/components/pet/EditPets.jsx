@@ -1,4 +1,4 @@
-import { useState,useEffect } from 'react'
+import { useState,useEffect, useRef } from 'react'
 import usePetStore from '@/src/stores/PetStore'
 import useAuthStore from '@/src/stores/AuthStore'
 import { Button } from "@/components/ui/button"
@@ -9,13 +9,15 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "react-toastify";
 
+
 const EditPetsForm = ({ petId, setOpen }) => {
-  
+    const fileInput = useRef(null)
+    const [existingImages, setExistingImages] = useState([]);
     const allPets = usePetStore(state => state.allPets);
     const actionGetAllPets = usePetStore(state => state.actionGetAllPets);
     const actionEditPet = usePetStore(state => state.actionEditPet);
     const token = useAuthStore(state => state.token);
-    const [file, setFile] = useState(null)
+    const [file, setFile] = useState([])
     const [formData, setFormData] = useState({
         name_en: '',
         name_th: '',
@@ -34,6 +36,18 @@ const EditPetsForm = ({ petId, setOpen }) => {
         userId: '',
         image: ''
       })
+
+      const [errors, setErrors] = useState({
+        name_en: '',
+        name_th: '',
+        age: '',
+        color: '',
+        breed_en: '',
+        breed_th: '',
+        weight: '',
+        description_en: '',
+        description_th: ''
+      });
 
       useEffect(() => {
         if (petId) {
@@ -56,9 +70,64 @@ const EditPetsForm = ({ petId, setOpen }) => {
               is_neutered: currentPet.is_neutered,
               weight: currentPet.weight,
             });
+            setExistingImages(currentPet.image || []);
           }
         }
       }, [petId]);
+
+      const validateForm = () => {
+        let isValid = true;
+        const newErrors = {};
+      
+        if (!formData.name_en.trim()) {
+          newErrors.name_en = 'English name is required';
+          isValid = false;
+        }
+      
+        if (!formData.name_th.trim()) {
+          newErrors.name_th = 'Thai name is required';
+          isValid = false;
+        }
+      
+        if (!formData.age || formData.age <= 0) {
+          newErrors.age = 'Age must be greater than 0';
+          isValid = false;
+        }
+      
+        if (!formData.color.trim()) {
+          newErrors.color = 'Color is required';
+          isValid = false;
+        }
+      
+        if (!formData.breed_en.trim()) {
+          newErrors.breed_en = 'English breed is required';
+          isValid = false;
+        }
+      
+        if (!formData.breed_th.trim()) {
+          newErrors.breed_th = 'Thai breed is required';
+          isValid = false;
+        }
+      
+        if (!formData.weight || formData.weight <= 0) {
+          newErrors.weight = 'Weight must be greater than 0';
+          isValid = false;
+        }
+      
+        if (!formData.description_en.trim()) {
+          newErrors.description_en = 'English description is required';
+          isValid = false;
+        }
+      
+        if (!formData.description_th.trim()) {
+          newErrors.description_th = 'Thai description is required';
+          isValid = false;
+        }
+      
+        setErrors(newErrors);
+        return isValid;
+      };
+      
 
       const hdlChange= e => {
         setFormData(prev => ({...prev, [e.target.name] : e.target.value}))
@@ -70,8 +139,52 @@ const EditPetsForm = ({ petId, setOpen }) => {
         setFormData((prev) => ({ ...prev, [name]: value }));
       };
     
-      const hdlSubmit = async(e) => {
+      const handleFileChange = (e) => {
+        const selectFile = Array.from(e.target.files)
+        console.log(selectFile)
+        setFile([...file, ...selectFile])
+    
+      };
+      const handleAddClick = (e) => {
         e.preventDefault();
+        e.stopPropagation()
+        if(fileInput.current){
+          fileInput.current.click()
+        }
+      }
+    
+      const handleDeleteFile = (index,e) => {
+        e.preventDefault()
+        e.stopPropagation()
+       const newFile = file.filter((_, i) => i !== index)
+       setFile(newFile)
+      }
+
+      const [deleteImage,setDeleteImage] = useState([])
+      const [deleteImageId,setDeleteImageId] = useState([])
+      const hdlDeleteExistingImage = (index, e,url,image) => {
+        e.preventDefault()
+        e.stopPropagation()
+        setDeleteImage([...deleteImage,url])
+        setDeleteImageId([...deleteImageId,image.id])
+        
+        const updatedImages = existingImages.filter((_, i) => i !== index)
+        setExistingImages(updatedImages)
+      }
+     
+
+
+      const hdlSubmit = async(e) => {
+
+        // if(file.length < 1 || file.length > 3){
+        //   toast.error('Please select 3 or less files')
+        //   return
+        // }
+        e.preventDefault();
+        if (!validateForm()) {
+          return;
+        }
+        
         if (!petId) {
             console.error("Pet ID is not defined");
             return;
@@ -92,9 +205,11 @@ const EditPetsForm = ({ petId, setOpen }) => {
         body.append('is_vaccinated', formData.is_vaccinated);
         body.append('is_neutered', formData.is_neutered);
         body.append('weight', formData.weight);
-        if(file){
-            body.append('image', file)
-          }
+        body.append('deleteImage', deleteImage)
+        body.append('deleteImageId', deleteImageId)
+        file.forEach(el => {
+          body.append('image', el)
+        })
           const result = await actionEditPet(token,petId,body)
           toast.success("Edit Pet Successfully")
         actionGetAllPets(token)
@@ -132,22 +247,47 @@ const EditPetsForm = ({ petId, setOpen }) => {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="name_en">Name (English)</Label>
-          <Input id="name_en" name="name_en" value={formData.name_en} onChange={hdlChange} />
+          <Input 
+          id="name_en" 
+          name="name_en" 
+          value={formData.name_en} 
+          onChange={hdlChange} 
+          className={errors.name_en ? 'border-red-500' : ''} />
+          {errors.name_en && <p className="text-red-500 text-sm">{errors.name_en}</p>}
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="name_th">Name (Thai)</Label>
-          <Input id="name_th" name="name_th" value={formData.name_th} onChange={hdlChange} />
+          <Input 
+          id="name_th" 
+          name="name_th" 
+          value={formData.name_th} 
+          onChange={hdlChange}
+          className={errors.name_th ? 'border-red-500' : ''} />
+          {errors.name_th && <p className="text-red-500 text-sm">{errors.name_th}</p>}
         </div>
-      </div>
+        </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="age">Age</Label>
-          <Input id="age" name="age" type="number" value={formData.age} onChange={hdlChange} />
+          <Input
+           id="age" 
+           name="age" 
+           type="number" 
+           value={formData.age} 
+           onChange={hdlChange}
+           className={errors.age ? 'border-red-500' : ''} />
+           {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
         </div>
+
         <div className="space-y-2">
           <Label htmlFor="color">Color</Label>
-          <Input id="color" name="color" value={formData.color} onChange={hdlChange} />
+          <Input 
+          id="color" 
+          name="color" 
+          value={formData.color} 
+          onChange={hdlChange} />
         </div>
       </div>
 
@@ -181,11 +321,24 @@ const EditPetsForm = ({ petId, setOpen }) => {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="breed_en">Breed (English)</Label>
-          <Input id="breed_en" name="breed_en" value={formData.breed_en} onChange={hdlChange} />
+          <Input 
+          id="breed_en" 
+          name="breed_en" 
+          value={formData.breed_en} 
+          onChange={hdlChange}
+          className={errors.breed_en ? 'border-red-500' : ''} />
+          {errors.breed_en && <p className="text-red-500 text-sm">{errors.breed_en}</p>}
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="breed_th">Breed (Thai)</Label>
-          <Input id="breed_th" name="breed_th" value={formData.breed_th} onChange={hdlChange} />
+
+         <div className="space-y-2">
+          <Label htmlFor="breed_en">Breed (Thai)</Label>
+          <Input 
+          id="breed_th" 
+          name="breed_th" 
+          value={formData.breed_th} 
+          onChange={hdlChange}
+          className={errors.breed_th ? 'border-red-500' : ''} />
+          {errors.breed_th && <p className="text-red-500 text-sm">{errors.breed_th}</p>}
         </div>
       </div>
 
@@ -239,9 +392,44 @@ const EditPetsForm = ({ petId, setOpen }) => {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="image">Image</Label>
-        <Input id="image" name="image" type="file" onChange={(e) => setFile(e.target.files[0])} />
+        <Button onClick={handleAddClick} className='text-white'>Add Picture</Button>
+            {existingImages?.length > 0 && (
+        <div className="space-y-2">
+        <Label>Current Images</Label>
+        <div className="flex flex-wrap gap-2">
+          {existingImages.map((image, index) => (
+            <div key={index} className="w-24 h-24 relative">
+              <img src={image.url} alt="" className="w-full h-full object-cover rounded"/>
+              <button onClick={(e) => hdlDeleteExistingImage(index,e,image.url,image)} className='bg-red-500 h-[20px] w-[20px] rounded-full absolute top-[-10px] right-[-4px] z-20 flex justify-center items-center'>x</button>
+            </div>
+          ))}
+        </div>
       </div>
+    )}
+
+        {file?.length > 0 ? <p>{file?.length} selected files</p> :<p>No file selected</p> }
+        <Input 
+        id="image" 
+        name="image" 
+        type="file" 
+        accept="image/*" 
+        ref={fileInput}
+        multiple={true}
+        style={{ display: 'none' }}
+        onChange={handleFileChange} />
+      </div>
+      {file?.length > 0 && (
+        <div className="space-y-2">
+          <div className="flex flex-wrap gap-2">
+            {file?.map((file, index) => (
+              <div key={index} className="w-24 h-24 relative ">
+                <img src={URL.createObjectURL(file)} alt=""/>
+                <button onClick={(e) => handleDeleteFile(index,e)} className='bg-red-500 h-[20px] w-[20px] rounded-full absolute top-[-10px] right-[-4px] z-20 flex justify-center items-center'>x</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <Button type="submit" className="w-full">Submit</Button>
     </form>

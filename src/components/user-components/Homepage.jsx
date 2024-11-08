@@ -150,7 +150,7 @@ export default function Homepage() {
              
           >
           {page.id === 'mission' && (
-          <div className='absolute bottom-[-750px] w-full h-full'>
+          <div className='absolute bottom-[-990px] w-full h-full'>
             <svg
               viewBox="0 0 1440 98"
               fill="none"
@@ -179,7 +179,7 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 0 && (
-                <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh] md:h-auto">
+                <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[400px] min-h-[100vh] md:h-auto">
                   <div className="relative z-10 order-2 md:order-1">
 
                   <img src="/src/assets/dogGif.gif" alt="" className='hidden md:block md:absolute top-[-60px] left-[-150px] rotate-[-40deg]' />
@@ -230,11 +230,11 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 1 && (
-        <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 rounded-3xl min-h-700 md:h-full px-4">
-        <div className="container mx-auto p-2 md:p-6">
+        <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full  md:w-2/3 rounded-3xl min-h-700 md:h-full px-4">
+        <div className="container mx-auto p-2 md:p-10 md:h-[800px] md:flex md:flex-col md:justify-center h-[500px] ">
           <div className="space-y-4 md:space-y-8">
-            <div className="flex flex-row gap-2 md:gap-6 overflow-x-scroll md:scrollbar-hide justify-start md:justify-center ">
-              <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto"> 
+            <div className="flex flex-row gap-2 md:gap-6 overflow-x-scroll md:scrollbar-hide justify-start md:justify-center">
+              <Card className="w-[250px] h-[300px] md:w-[300px] md:h-[300px] flex-shrink-0 flex justify-center items-center mx-auto "> 
                 <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center ">
                   <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
                     <img
@@ -247,7 +247,7 @@ export default function Homepage() {
                   <p className='text-xs md:text-sm text-muted-foreground'>{content?.[3]}</p>
                 </CardContent>
               </Card>
-              <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+              <Card className="w-[250px] md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
                 <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
                   <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
                     <img
@@ -260,7 +260,7 @@ export default function Homepage() {
                   <p className='text-xs md:text-sm text-muted-foreground'>{content?.[5]}</p>
                 </CardContent>
               </Card>
-              <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+              <Card className="w-[250px] md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
                 <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
                   <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
                     <img
@@ -326,13 +326,13 @@ export default function Homepage() {
 
 
                 {index === 3 && (
-                  <section className="relative w-full h-screen py-8 md:py-12 lg:py-24 flex flex-col justify-center gap-4">
+                  <section className="relative w-full h-[300px] md:h-[600px] md: py-8 md:py-12  flex flex-col justify-center gap-4">
                     <CardHome className="absolute z-20" />
-                    <Separator orientation="horizontal" className="shrink-0 md:left-[350px] bg-border h-[1px] w-2/3 absolute left-[100px] top-[290px]" />
+                    <Separator orientation="horizontal" className="shrink-0 md:left-[350px] bg-border h-[1px] w-2/3 absolute left-[120px] top-[190px] md:top-[250px]" />
                     
                     <div className="container w-full h-full z-0 px-4 md:px-6 py-[60px] md:py-[100px] lg:py-[200px] mx-auto">
-                    <div className=" flex flex-col mx-auto justify-center my-[250px] items-center space-y-4 md:space-y-6 text-center md:my-[30px]">
-                    <div className="space-y-2 md:space-y-4">
+                    <div className=" flex flex-col gap-3 mx-auto justify-center my-[150px] items-center space-y-4 md:space-y-6 text-center md:my-[30px]">
+                    <div className="space-y-2 md:space-y-4 flex flex-col gap-4">
                       <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tighter">Make a Difference Today</h2>
                       <p className="max-w-[900px] text-sm md:text-base lg:text-xl text-gray-500 dark:text-gray-400 px-2 md:px-4">
                         Your donation helps us provide food, shelter, and medical care to animals in need. Every contribution, no matter how small, can change a life.
