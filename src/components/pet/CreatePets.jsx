@@ -45,6 +45,7 @@ export default function PetForm({ setOpen }) {
   const handleSelectChange = (name) => (value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
+
   const handleFileChange = (e) => {
     const selectFile = Array.from(e.target.files)
     console.log(selectFile)
@@ -65,7 +66,6 @@ export default function PetForm({ setOpen }) {
    const newFile = file.filter((_, i) => i !== index)
    setFile(newFile)
   }
-
 
   
   const handleSubmit = async(e) => {
@@ -107,55 +107,55 @@ export default function PetForm({ setOpen }) {
     } catch (err) {
       console.log(err);
     }
-   
+
   };
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-2xl mx-auto p-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="name_en">Name (English)</Label>
+          <Label htmlFor="name_en">ชื่อภาษาอังกฤษ</Label>
           <Input id="name_en" name="name_en" value={formData.name_en} onChange={handleInputChange} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="name_th">Name (Thai)</Label>
+          <Label htmlFor="name_th">ชื่อภาษาไทย</Label>
           <Input id="name_th" name="name_th" value={formData.name_th} onChange={handleInputChange} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="age">Birthday</Label>
+          <Label htmlFor="age">วันเกิด</Label>
           <Input id="age" name="age" type="date" value={formData.age} onChange={handleInputChange} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="color">Color</Label>
+          <Label htmlFor="color">สี</Label>
           <Input id="color" name="color" value={formData.color} onChange={handleInputChange} />
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="gender">Gender</Label>
+          <Label htmlFor="gender">เพศ</Label>
           <Select onValueChange={handleSelectChange('gender')}>
             <SelectTrigger>
               <SelectValue placeholder="Select gender" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="MALE">Male</SelectItem>
-              <SelectItem value="FEMALE">Female</SelectItem>
+              <SelectItem value="MALE">ชาย</SelectItem>
+              <SelectItem value="FEMALE">หญิง</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="type">Type</Label>
+          <Label htmlFor="type">ประเภท</Label>
           <Select onValueChange={handleSelectChange('type')}>
             <SelectTrigger>
               <SelectValue placeholder="Select type" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="DOG">Dog</SelectItem>
-              <SelectItem value="CAT">Cat</SelectItem>
+              <SelectItem value="DOG">หมา</SelectItem>
+              <SelectItem value="CAT">แมว</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -163,55 +163,55 @@ export default function PetForm({ setOpen }) {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="breed_en">Breed (English)</Label>
+          <Label htmlFor="breed_en">สายพันธุ์ภาษาอังกฤษ</Label>
           <Input id="breed_en" name="breed_en" value={formData.breed_en} onChange={handleInputChange} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="breed_th">Breed (Thai)</Label>
+          <Label htmlFor="breed_th">สายพันธุ์ภาษาไทย</Label>
           <Input id="breed_th" name="breed_th" value={formData.breed_th} onChange={handleInputChange} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description_en">Description (English)</Label>
+        <Label htmlFor="description_en">คำอธิบายภาษาอังกฤษ</Label>
         <Textarea id="description_en" name="description_en" value={formData.description_en} onChange={handleInputChange} />
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="description_th">Description (Thai)</Label>
+        <Label htmlFor="description_th">คำอธิบายภาษาไทย</Label>
         <Textarea id="description_th" name="description_th" value={formData.description_th} onChange={handleInputChange} />
       </div>
 
 
       <div className="flex space-x-4">
         <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="is_vaccinated" 
-            checked={formData.is_vaccinated} 
-            onCheckedChange={handleCheckboxChange('is_vaccinated')} 
+          <Checkbox
+            id="is_vaccinated"
+            checked={formData.is_vaccinated}
+            onCheckedChange={handleCheckboxChange('is_vaccinated')}
           />
-          <Label htmlFor="is_vaccinated">Vaccinated</Label>
+          <Label htmlFor="is_vaccinated">วัคซีน</Label>
         </div>
         <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="is_neutered" 
-            checked={formData.is_neutered} 
-            onCheckedChange={handleCheckboxChange('is_neutered')} 
+          <Checkbox
+            id="is_neutered"
+            checked={formData.is_neutered}
+            onCheckedChange={handleCheckboxChange('is_neutered')}
           />
-          <Label htmlFor="is_neutered">Neutered</Label>
+          <Label htmlFor="is_neutered">ทำหมัน</Label>
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="weight">Weight</Label>
+          <Label htmlFor="weight">น้ำหนัก</Label>
           <Input id="weight" name="weight" type="number" value={formData.weight} onChange={handleInputChange} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Button onClick={handleAddClick} className='text-white'>Add Picture</Button>
-        {file.length > 0 ? <p>{file.length} selected files</p> :<p>No file selected</p> }
+        <Button onClick={handleAddClick} className='text-white'>เพิ่มรูปภาพ</Button>
+        {file.length > 0 ? <p>{file.length} เลือกไฟล์</p> :<p>ไม่ได้เลือกไฟล์</p> }
         <Input 
         id="image" 
         name="image" 
@@ -235,7 +235,7 @@ export default function PetForm({ setOpen }) {
         </div>
       )}
 
-      <Button type="submit" className="w-full">Submit</Button>
+      <Button type="submit" className="w-full">ยืนยัน</Button>
     </form>
   )
 }

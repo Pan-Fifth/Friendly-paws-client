@@ -37,18 +37,18 @@ export default function Dashboard() {
   const [clickCount, setClickCount] = useState(0);
 
   const handleDonationClick = () => {
-      setTimeout(() => {
-        setClickCount((prev) => {
-          console.log(prev)
-          if (prev + 1 === 7) {
-            navigate("/admin/manage-goal");
-            return 0;
-          }
-          return prev + 1;
-        });
-      }, 3000);
-    };
-  
+    setTimeout(() => {
+      setClickCount((prev) => {
+        console.log(prev)
+        if (prev + 1 === 7) {
+          navigate("/admin/manage-goal");
+          return 0;
+        }
+        return prev + 1;
+      });
+    }, 3000);
+  };
+
 
   useEffect(() => {
     const fetchDashboardData = async () => {
@@ -87,7 +87,7 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
         <div onClick={handleDonationClick}>
           <DonationDashboard
-            totalDonationAmount={dashboardData.overview.ytdDonationsAmount}
+            totalDonationAmount={dashboardData?.overview.ytdDonationsAmount}
             goals={goals}
           />
         </div>

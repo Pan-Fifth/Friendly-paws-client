@@ -61,11 +61,11 @@ export function DialogAdopt({ petId }) {
     try {
       e.preventDefault()
       if (files.length > 5) {
-        toast.error("You can only upload 5 files")
+        toast.error(t("adoptFormtoast.maxFiles"))
         return
       }
       if (files.length < 3) {
-        toast.error("You must upload at least 3 files")
+        toast.error(t("adoptFormtoast.minFiles"))
         return
       }
       const formData = new FormData()
@@ -85,7 +85,7 @@ export function DialogAdopt({ petId }) {
         console.log(key, value)
       })
       await actionCreateAdoptRequest(formData, token)
-      toast.success("Adoption request submitted successfully")
+      toast.success(t("adoptFormtoast.successMessage"))
       setOpen(false)
 
     } catch (err) {
@@ -95,11 +95,7 @@ export function DialogAdopt({ petId }) {
     }
 
   }
-  console.log("user", user.id)
-  console.log("token", token)
-  console.log(input)
-  console.log(houseCheck)
-  console.log(files)
+
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -337,7 +333,7 @@ export function DialogAdopt({ petId }) {
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-3">  {t("adoptForm.adoptionReason")}</h3>
               <div>
-                <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="notes" onChange={hdlChange} />
+                <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="why" onChange={hdlChange} />
               </div>
             </div>
 

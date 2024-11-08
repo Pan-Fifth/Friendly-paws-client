@@ -4,48 +4,49 @@ import { useStripe, useElements } from "@stripe/react-stripe-js";
 
 import useAuthStore from "../../stores/AuthStore";
 import useDonationStore from "@/src/stores/DonationStore";
+import { useTranslation } from 'react-i18next';
 
 export default function CheckoutFormCredit({ onPaymentSuccess }) {
+
+  const { t } = useTranslation()
   const user = useAuthStore((state) => state.user);
   const elements = useElements();
   const stripe = useStripe();
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
 
- const handleSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     try {
-        e.preventDefault();
+      e.preventDefault();
 
 
-        if (!stripe || !elements) {
-            return;
-        }
+      if (!stripe || !elements) {
+        return;
+      }
 
-        setIsProcessing(true);
+      setIsProcessing(true);
 
-        const { error, paymentIntent } = await stripe.confirmPayment({
-            elements,
-            confirmParams: {
-                // Add payment_method to return URL
-                return_url: `${window.location.origin}/Completion?payment_method=${elements.getElement('payment').type}`,
-            },
-        });
+      const { error, paymentIntent } = await stripe.confirmPayment({
+        elements,
+        confirmParams: {
+          // Add payment_method to return URL
+          return_url: `${window.location.origin}/Completion?payment_method=${elements.getElement('payment').type}`,
+        },
+      });
 
-        if (error) {
-            setMessage(
-                error.type === "card_error" || error.type === "validation_error"
-                    ? t('checkoutForm.cardError')
-                    : t('checkoutForm.unexpectedError')
-            );
-        }
+      if (error) {
+        setMessage(
+          error.type === "card_error" || error.type === "validation_error"
+            ? t('checkoutForm.cardError')
+            : t('checkoutForm.unexpectedError')
+        );
+      }
 
-        setIsProcessing(false);
-        console.log("PaymentIntent:", paymentIntent);
+      setIsProcessing(false);
     } catch (error) {
-        console.error('Error confirming payment:', error);
-        setMessage(('checkoutForm.paymentFailed'));
+      setMessage(('checkoutForm.paymentFailed'));
     }
-};
+  };
 
 
 
@@ -57,7 +58,7 @@ export default function CheckoutFormCredit({ onPaymentSuccess }) {
         disabled={isProcessing || !stripe || !elements}
         id="submit"
       >
-        <span id="button-text ">{isProcessing ? "Processing" : "Pay now"}</span>
+        <span id="button-text ">{isProcessing ? t("payment.processing") : t("payment.payNow")}</span>
       </button>
 
       {message && <div id="payment-message">{message}</div>}

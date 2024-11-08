@@ -2,7 +2,7 @@
 import { create } from "zustand";
 import { register, login, loginGoogle } from "../apis/AuthApi";
 import { persist, createJSONStorage } from "zustand/middleware";
-import { toast } from 'react-toastify';
+
 
 
 const useAuthStore = create(persist((set, get) => ({
@@ -17,10 +17,9 @@ const useAuthStore = create(persist((set, get) => ({
         try {
 
             const resp = await register(form);
-            toast.success(resp.data.message || "Register success");
             return resp.data;
         } catch (err) {
-            toast.error(err.response.data.message);
+
             throw err;
         }
     },
@@ -28,18 +27,16 @@ const useAuthStore = create(persist((set, get) => ({
 
         try {
             const resp = await login(form)
-            console.log(resp)
+
             set({
 
                 user: resp.data.user,
                 token: resp.data.token
             })
 
-            toast.success(`Welcome ${resp.data.user.user.role}`)
             return resp
         } catch (err) {
-            toast.error(err.response.data.message);
-
+            throw err;
         }
     },
     actionLogout: () => {
@@ -59,15 +56,14 @@ const useAuthStore = create(persist((set, get) => ({
                     user: result.data.user,
                     token: result.data.token
                 });
-                console.log("User after login:", result.data.user);
-                console.log("Token after login:", result.data.token);
+
                 return result.data.user.user.role;
             } else {
                 throw new Error("Login failed or token not received.");
             }
         } catch (err) {
             console.error("Error during Google login:", err);
-            toast.error("Login failed");
+
         }
     },
 

@@ -7,9 +7,10 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Input } from "@/components/ui/input"
-import { Facebook, Play } from "lucide-react"
+
 
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 
 
@@ -51,16 +52,16 @@ export default function Register() {
 
             return setFormatError(error)
         }
-        console.log("object111")
+
 
         try {
 
             await actionRegister(form);
-            console.log("Action register succeeded");
+            toast.success(t('register.toastRegister'));
             navigate('/login');
             setForm(intitialState);
             setFormatError({});
-            console.log("object222")
+
 
 
         } catch (err) {
@@ -71,13 +72,6 @@ export default function Register() {
     const getPlaceholder = (name) => {
         return formatError[name] || (name === "email" ? "gmail.com" : name === "password" ? "Enter your password" : "Confirm password")
     }
-    const inputs = [
-
-        { label: "Email", name: 'email', type: 'email', placeholder: "Email" },
-        { label: "Password", name: 'password', type: 'password', placeholder: "Password" },
-        { label: "Confirm Password", name: 'confirmPassword', type: 'password', placeholder: "Confirm Password" }
-
-    ];
 
     return (
         <div>

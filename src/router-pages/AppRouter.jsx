@@ -5,7 +5,6 @@ import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
 import Navbar from "../components/user-components/Navbar";
 import Footer from "../components/user-components/Footer";
 
-import Test from "../components/user-components/Test";
 import Login from "../components/user-components/Login";
 import Register from "../components/user-components/Register";
 import ForgetPassword from "../components/user-components/ForgetPassword";
@@ -45,6 +44,7 @@ import { ManageHome } from "../pages/admin-pages/ManageHome";
 import ManageDonation from "../pages/admin-pages/ManageDonation";
 import ManageAbout from "../pages/admin-pages/ManageAbout";
 import ManageContact from "../pages/admin-pages/ManageContact";
+import ManageEventPage from "../pages/admin-pages/ManageEventPage";
 
 const pageRouter = createBrowserRouter([
   {
@@ -63,7 +63,7 @@ const pageRouter = createBrowserRouter([
       { path: "edit-page-home", element: <ManageHome /> },
       { path: "edit-page-about", element: <ManageAbout /> },
       { path: "edit-page-donation", element: <ManageDonation /> },
-      { path: "edit-page-event", element: <ManageEvent /> },
+      { path: "edit-page-event", element: <ManageEventPage /> },
       { path: "edit-page-contact", element: <ManageContact /> },
       { path: "report-pet-list", element: <ReportPet /> },
       { path: "report-donation", element: <ReportDonation /> },

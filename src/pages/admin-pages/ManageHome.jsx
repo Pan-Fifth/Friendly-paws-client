@@ -2,29 +2,56 @@ import React, { useState, useEffect } from "react";
 import axiosInstance from "@/src/utils/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-toastify";
+import { Textarea } from "@/components/ui/textarea";
 
 export const ManageHome = () => {
   const [content, setContent] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+
   const sectionNames = [
-    "Header",
-    "Subtitle",
-    "Image 1 Title",
-    "Image 1 Content",
-    "Image 2 Title",
-    "Image 2 Content",
-    "Image 3 Title",
-    "Image 3 Content",
+    "Hero Title 1",
+    "Hero Title 2",
+    "Brand Name",
+    "Welcome Title",
+    "Welcome Description",
+    "Care Advice Title",
+    "Care Advice Description",
+    "Veterinary Help Title",
+    "Veterinary Help Description",
+    "Tips Title",
+    "Tips Description",
+    "Adoption Process Title",
+    "Adoption Process Description",
+    "Donation Title",
+    "Donation Description",
+    "View More Button",
+    "Donate Button"
   ];
+
   const [images, setImages] = useState({
+    image1: null, // Hero section image
+    image2: null, // Care Advice image
+    image3: null, // Veterinary Help image
+    image4: null  // Tips image
+  });
+
+  const imageLabels = {
+    image1: "Hero Section Image",
+    image2: "Care Advice Image",
+    image3: "Veterinary Help Image",
+    image4: "Tips Image"
+  };
+
+  const [imagePreviews, setImagePreviews] = useState({
     image1: null,
     image2: null,
     image3: null,
+    image4: null
   });
 
-  // Split content into editable fields
   const [textContent, setTextContent] = useState({
-    content_en: ["", "", "", "", "", "", "", ""],
-    content_th: ["", "", "", "", "", "", "", ""],
+    content_en: Array(17).fill(""),
+    content_th: Array(17).fill("")
   });
 
   useEffect(() => {
@@ -37,130 +64,165 @@ export const ManageHome = () => {
       const data = response.data[0];
       setContent(data);
 
-      // Split the content strings into arrays
       setTextContent({
         content_en: data.content_en.split("|"),
-        content_th: data.content_th.split("|"),
+        content_th: data.content_th.split("|")
+      });
+
+      setImagePreviews({
+        image1: data.image1,
+        image2: data.image2,
+        image3: data.image3,
+        image4: data.image4
       });
     } catch (error) {
+      toast.error("Error fetching content");
       console.error("Error fetching content:", error);
     }
   };
 
   const handleImageChange = (e, imageField) => {
-    setImages({
-      ...images,
-      [imageField]: e.target.files[0],
-    });
+    const file = e.target.files[0];
+    if (file) {
+      if (file.size > 5 * 1024 * 1024) {
+        toast.error("Image size should be less than 5MB");
+        return;
+      }
+      setImages({
+        ...images,
+        [imageField]: file
+      });
+
+      const previewUrl = URL.createObjectURL(file);
+      setImagePreviews({
+        ...imagePreviews,
+        [imageField]: previewUrl
+      });
+    }
   };
 
   const handleTextChange = (language, index, value) => {
     setTextContent((prev) => ({
       ...prev,
-      [language]: prev[language].map((text, i) => (i === index ? value : text)),
+      [language]: prev[language].map((text, i) => (i === index ? value : text))
     }));
   };
 
   const handleSubmit = async () => {
+    if (isLoading) return;
+
+    setIsLoading(true);
     try {
       const formData = new FormData();
-      
-      // Always include content fields even if they haven't changed
-      formData.append('content_en', textContent.content_en.join('|'));
-      formData.append('content_th', textContent.content_th.join('|'));
-  
-      // Only append images if they were selected
-      if (images.image1) {
-        formData.append('image1', images.image1);
-      }
-      if (images.image2) {
-        formData.append('image2', images.image2);
-      }
-      if (images.image3) {
-        formData.append('image3', images.image3);
-      }
-  
-      // Log formData to verify content
-      for (let pair of formData.entries()) {
-        console.log(pair[0], pair[1]);
-      }
-  
-      const response = await axiosInstance.put(`/admin/home-content/${content.id}`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
+
+      formData.append("content_en", textContent.content_en.join("|"));
+      formData.append("content_th", textContent.content_th.join("|"));
+
+      Object.entries(images).forEach(([key, value]) => {
+        if (value) formData.append(key, value);
       });
-  
-      console.log('Update successful:', response.data);
-      fetchContent(); // Refresh content after update
-      toast.success("Update successful");
+
+      await axiosInstance.put(`/admin/home-content/${content.id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" }
+      });
+
+      toast.success("Content updated successfully");
+      fetchContent();
     } catch (error) {
-      console.error('Error details:', error.response?.data || error.message);
+      toast.error("Failed to update content");
+      console.error("Error:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
-  
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      <h1 className="text-2xl font-bold mb-6">Manage Homepage Content</h1>
+    <div className="p-6 max-w-6xl mx-auto">
+      <h1 className="text-3xl font-bold mb-8">Manage Homepage Content</h1>
 
       <div className="space-y-8">
         {/* Image Management */}
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Images</h2>
-          {["image1", "image2", "image3"].map((imageField) => (
-            <div key={imageField} className="flex items-center gap-4">
-              <img
-                src={content?.[imageField]}
-                alt={imageField}
-                className="w-24 h-24 object-cover rounded"
-              />
-              <input
-                type="file"
-                onChange={(e) => handleImageChange(e, imageField)}
-                accept="image/*"
-              />
-            </div>
-          ))}
+          <h2 className="text-2xl font-semibold mb-4">Images</h2>
+          <div className="grid grid-cols-2 gap-6">
+            {Object.keys(images).map((imageField) => (
+              <div key={imageField} className="space-y-3 bg-white p-4 rounded-lg shadow">
+                <label className="block font-medium text-lg">{imageLabels[imageField]}</label>
+                <div className="relative">
+                  <img
+                    src={imagePreviews[imageField] || content?.[imageField]}
+                    alt={imageField}
+                    className="w-full h-48 object-cover rounded-lg border-2 border-gray-200"
+                  />
+                  <input
+                    type="file"
+                    onChange={(e) => handleImageChange(e, imageField)}
+                    accept="image/*"
+                    className="mt-2 w-full text-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-pink-50 file:text-pink-700 hover:file:bg-pink-100"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* English Content */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">English Content</h2>
-          {textContent.content_en.map((text, index) => (
-            <div key={`en-${index}`} className="flex flex-col gap-2">
-              <label>{sectionNames[index]}</label>
-              <input
-                type="text"
-                value={text}
-                onChange={(e) => handleTextChange("content_en", index, e.target.value)}
-                className="border p-2 rounded"
-              />
-            </div>
-          ))}
+        {/* Content Management */}
+        <div className="grid grid-cols-2 gap-8">
+          {/* English Content */}
+          <div className="space-y-4 bg-white p-6 rounded-lg shadow">
+            <h2 className="text-2xl font-semibold mb-4">English Content</h2>
+            {textContent.content_en.map((text, index) => (
+              <div key={`en-${index}`} className="space-y-2">
+                <label className="block font-medium text-gray-700">{sectionNames[index]}</label>
+                {text.length > 50 ? (
+                  <Textarea
+                    value={text}
+                    onChange={(e) => handleTextChange("content_en", index, e.target.value)}
+                    className="w-full min-h-[100px] p-2 border rounded-md"
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={text}
+                    onChange={(e) => handleTextChange("content_en", index, e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Thai Content */}
+          <div className="space-y-4 bg-white p-6 rounded-lg shadow">
+            <h2 className="text-2xl font-semibold mb-4">Thai Content</h2>
+            {textContent.content_th.map((text, index) => (
+              <div key={`th-${index}`} className="space-y-2">
+                <label className="block font-medium text-gray-700">{sectionNames[index]}</label>
+                {text.length > 50 ? (
+                  <Textarea
+                    value={text}
+                    onChange={(e) => handleTextChange("content_th", index, e.target.value)}
+                    className="w-full min-h-[100px] p-2 border rounded-md"
+                  />
+                ) : (
+                  <input
+                    type="text"
+                    value={text}
+                    onChange={(e) => handleTextChange("content_th", index, e.target.value)}
+                    className="w-full p-2 border rounded-md"
+                  />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Thai Content */}
-        <div className="space-y-4">
-          <h2 className="text-xl font-semibold">Thai Content</h2>
-          {textContent.content_th.map((text, index) => (
-            <div key={`th-${index}`} className="flex flex-col gap-2">
-              <label>{sectionNames[index]}</label>
-              <input
-                type="text"
-                value={text}
-                onChange={(e) => handleTextChange("content_th", index, e.target.value)}
-                className="border p-2 rounded"
-              />
-            </div>
-          ))}
-        </div>
-
-        <Button
-          onClick={handleSubmit}
-          className="w-full bg-primary text-white py-2 rounded hover:bg-primary/90"
+        <Button 
+          className="w-full py-6 text-lg font-semibold bg-pink-600 hover:bg-pink-700 text-white" 
+          onClick={handleSubmit} 
+          disabled={isLoading}
         >
-          Update Content
+          {isLoading ? "Saving Changes..." : "Save All Changes"}
         </Button>
       </div>
     </div>

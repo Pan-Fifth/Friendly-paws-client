@@ -1,4 +1,4 @@
-import { useState,useEffect, useRef } from 'react'
+import { useState,useEffect } from 'react'
 import usePetStore from '@/src/stores/PetStore'
 import useAuthStore from '@/src/stores/AuthStore'
 import { Button } from "@/components/ui/button"
@@ -216,29 +216,30 @@ const EditPetsForm = ({ petId, setOpen }) => {
         setOpen(false)
         // console.log(result)
 
-          setFormData({
-            name_en: '',
-            name_th: '',
-            age: '',
-            color: '',
-            gender: '',
-            type: '',
-            breed_en: '',
-            breed_th: '',
-            description_en: '',
-            description_th: '',
-            status: '',
-            is_vaccinated: false,
-            is_neutered: false,
-            weight: '',
-            userId: '',
-            image: ''
-        });
-        setFile(null);
+      setFormData({
+        name_en: '',
+        name_th: '',
+        age: '',
+        color: '',
+        gender: '',
+        type: '',
+        breed_en: '',
+        breed_th: '',
+        description_en: '',
+        description_th: '',
+        status: '',
+        is_vaccinated: false,
+        is_neutered: false,
+        weight: '',
+        userId: '',
+        image: ''
+      });
+      setFile(null);
 
-        } catch (error) {
-            console.log(error);
-        }}
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
 
   return (
@@ -246,7 +247,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
          <form onSubmit={hdlSubmit} className="space-y-4 w-full max-w-2xl mx-auto p-4">
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="name_en">Name (English)</Label>
+          <Label htmlFor="name_en">ชื่อภาษาอังกฤษ</Label>
           <Input 
           id="name_en" 
           name="name_en" 
@@ -257,7 +258,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="name_th">Name (Thai)</Label>
+          <Label htmlFor="name_th">ชื่อภาษาไทย</Label>
           <Input 
           id="name_th" 
           name="name_th" 
@@ -270,7 +271,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="age">Age</Label>
+          <Label htmlFor="age">วันเกิด</Label>
           <Input
            id="age" 
            name="age" 
@@ -282,7 +283,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="color">Color</Label>
+          <Label htmlFor="color">สี</Label>
           <Input 
           id="color" 
           name="color" 
@@ -291,36 +292,36 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="space-y-2">
-          <Label htmlFor="gender">Gender</Label>
-          <Select onValueChange={hdlSelectChange('gender')}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select gender" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="MALE">Male</SelectItem>
-              <SelectItem value="FEMALE">Female</SelectItem>
-            </SelectContent>
-          </Select>
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="gender">เพศ</Label>
+            <Select onValueChange={hdlSelectChange('gender')}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select gender" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="MALE">ชาย</SelectItem>
+                <SelectItem value="FEMALE">หญิง</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="type">ประเภท</Label>
+            <Select onValueChange={hdlSelectChange('type')}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="DOG">หมา</SelectItem>
+                <SelectItem value="CAT">แมว</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="type">Type</Label>
-          <Select onValueChange={hdlSelectChange('type')}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="DOG">Dog</SelectItem>
-              <SelectItem value="CAT">Cat</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="breed_en">Breed (English)</Label>
+          <Label htmlFor="breed_en">สายพันธุ์ภาษาอังกฤษ</Label>
           <Input 
           id="breed_en" 
           name="breed_en" 
@@ -331,7 +332,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
 
          <div className="space-y-2">
-          <Label htmlFor="breed_en">Breed (Thai)</Label>
+          <Label htmlFor="breed_en">สายพันธุ์ภาษาไทย</Label>
           <Input 
           id="breed_th" 
           name="breed_th" 
@@ -342,60 +343,63 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
       </div>
 
-      <div className="space-y-2">
-        <Label htmlFor="description_en">Description (English)</Label>
-        <Textarea id="description_en" name="description_en" value={formData.description_en} onChange={hdlChange} />
-      </div>
-
-      <div className="space-y-2">
-        <Label htmlFor="description_th">Description (Thai)</Label>
-        <Textarea id="description_th" name="description_th" value={formData.description_th} onChange={hdlChange} />
-      </div>
-
-
-      <div className="flex space-x-4">
-        <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="is_vaccinated" 
-            checked={formData.is_vaccinated} 
-            onCheckedChange={hdlCheckboxChange('is_vaccinated')} 
-          />
-          <Label htmlFor="is_vaccinated">Vaccinated</Label>
-        </div>
-        <div className="flex items-center space-x-2">
-          <Checkbox 
-            id="is_neutered" 
-            checked={formData.is_neutered} 
-            onCheckedChange={hdlCheckboxChange('is_neutered')} 
-          />
-          <Label htmlFor="is_neutered">Neutered</Label>
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="weight">Weight</Label>
-          <Input id="weight" name="weight" type="number" value={formData.weight} onChange={hdlChange} />
+          <Label htmlFor="description_en">คำอธิบายภาษาอังกฤษ</Label>
+          <Textarea id="description_en" name="description_en" value={formData.description_en} onChange={hdlChange} />
         </div>
+
         <div className="space-y-2">
-          <Label htmlFor="status">Status</Label>
-          <Select onValueChange={hdlSelectChange('status')}>
-            <SelectTrigger>
-              <SelectValue placeholder="Select type" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="AVAILABLE">AVAILABLE</SelectItem>
-              <SelectItem value="UNAVAILABLE">UNAVAILABLE</SelectItem>
-            </SelectContent>
-          </Select>
+          <Label htmlFor="description_th">คำอธิบายภาษาไทย</Label>
+          <Textarea id="description_th" name="description_th" value={formData.description_th} onChange={hdlChange} />
         </div>
-      </div>
+
+
+        <div className="flex space-x-4">
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="is_vaccinated"
+              checked={formData.is_vaccinated}
+              onCheckedChange={hdlCheckboxChange('is_vaccinated')}
+            />
+            <Label htmlFor="is_vaccinated">วัคซีน</Label>
+          </div>
+          <div className="flex items-center space-x-2">
+            <Checkbox
+              id="is_neutered"
+              checked={formData.is_neutered}
+              onCheckedChange={hdlCheckboxChange('is_neutered')}
+            />
+            <Label htmlFor="is_neutered">ทำหมัน</Label>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-4">
+          <div className="space-y-2">
+            <Label htmlFor="weight">น้ำหนัก</Label>
+            <Input id="weight" name="weight" type="number" value={formData.weight} onChange={hdlChange} />
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="status">สถานะ</Label>
+            <Select onValueChange={hdlSelectChange('status')}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select type" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="AVAILABLE">AVAILABLE</SelectItem>
+                <SelectItem value="PENDING">PENDING</SelectItem>
+                <SelectItem value="ADOPTED">ADOPTED</SelectItem>
+                <SelectItem value="FOSTERED">FOSTERED</SelectItem>
+                <SelectItem value="UNAVAILABLE">UNAVAILABLE</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
       <div className="space-y-2">
-        <Button onClick={handleAddClick} className='text-white'>Add Picture</Button>
+        <Button onClick={handleAddClick} className='text-white'>รูปภาพ</Button>
             {existingImages?.length > 0 && (
         <div className="space-y-2">
-        <Label>Current Images</Label>
+        <Label>รูปภาพที่มี</Label>
         <div className="flex flex-wrap gap-2">
           {existingImages.map((image, index) => (
             <div key={index} className="w-24 h-24 relative">
@@ -407,7 +411,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
       </div>
     )}
 
-        {file?.length > 0 ? <p>{file?.length} selected files</p> :<p>No file selected</p> }
+        {file?.length > 0 ? <p>{file?.length} ไฟล์ที่เลือก</p> :<p>ไม่ได้เลือกไฟล์</p> }
         <Input 
         id="image" 
         name="image" 
@@ -431,15 +435,15 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
       )}
 
-      <Button type="submit" className="w-full">Submit</Button>
-    </form>
+        <Button type="submit" className="w-full">ยืนยัน</Button>
+      </form>
 
 
     </div>
- 
 
 
- )
+
+  )
 }
 
 export default EditPetsForm

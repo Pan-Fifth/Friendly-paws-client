@@ -6,6 +6,9 @@ export const getEventData = (startDate, endDate) => {
 export const getAllEventData = () => {
     return axiosInstance.get(`/admin/report-event-all`);
 };
+export const getListUserEventData = (eventId) => {
+    return axiosInstance.get(`/admin/report-list-user-event/${eventId}`);
+};
 
 export const getAdoptData = (startDate, endDate) => {
     return axiosInstance.get(`/admin/report-adopt?startDate=${startDate}&endDate=${endDate}`);

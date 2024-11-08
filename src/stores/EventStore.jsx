@@ -1,10 +1,10 @@
 import { create } from "zustand";
-import { persist, createJSONStorage }  from "zustand/middleware";
+import { persist, createJSONStorage } from "zustand/middleware";
 import { toast } from "react-toastify";
 import { getEvents, registerEvent, deleteEvent, updateEvent } from "../apis/Event.Api";
 
-const useEventStore = create(persist((set)=>({
-    
+const useEventStore = create(persist((set) => ({
+
     events: [],
     pastEvent: [],
     regisEvent: [],
@@ -12,47 +12,45 @@ const useEventStore = create(persist((set)=>({
         try {
             const response = await getEvents();
             set({ events: response.data });
-            set({pastEvent: response.data});
-            console.log("ขอดู response",response.data)
+            set({ pastEvent: response.data });
         }
         catch (error) {
-            toast.error("Error fetching events");
+            console.log(error)
         }
     },
-    registerEvent: async (token,eventId) => {
+    registerEvent: async (token, eventId) => {
         console.log("first", token)
         try {
-            const response = await registerEvent(token,eventId);
-            toast.success("Event registered successfully");
+            const response = await registerEvent(token, eventId);
             set({ regisEvent: response.data });
         } catch (error) {
-            toast.error("ลงทะเบียนสำเร็จไปแล้วนะมิงค์");
+            console.log(error)
         }
     },
-    deleteEvent: async (token,id) => {
+    deleteEvent: async (token, id) => {
         console.log("first", token)
         try {
-            const response = await deleteEvent(token,id);
-            toast.success("Event registered successfully");
+            const response = await deleteEvent(token, id);
+            toast.success("ลบกิจกรรมสำเร็จ");
             set({ regisEvent: response.data });
         } catch (error) {
-            toast.error("ลงทะเบียนสำเร็จไปแล้วนะมิงค์");
+            console.log(error)
         }
     },
-    updateEvent: async (token,eventId, updatedData) => {
+    updateEvent: async (token, eventId, updatedData) => {
         try {
             const response = await updateEvent(token, eventId, updatedData);
-            toast.success("Event updated successfully");
+            toast.success("แก้ไขกิจกรรมสำเร็จ");
             set({ events: response.data });
         } catch (error) {
-            toast.error("Error updating event");
+            console.log(error)
         }
     }
 }),
-{
-    name: "event-storage",
-    storage: createJSONStorage(() => localStorage)
-}
+    {
+        name: "event-storage",
+        storage: createJSONStorage(() => localStorage)
+    }
 ));
 
 export default useEventStore;
