@@ -133,7 +133,7 @@ export default function ReportAdopt() {
                                     <td className="px-6 py-4">{adopt.socialContact}</td>
                                     <td className="px-6 py-4">{adopt?.approved_at}</td>
                                     <td className="px-6 py-4">{adopt?.approvedByAdmin?.firstname}</td>
-                                    <td className="px-6 py-4">{adopt.note}</td>
+                                    <td className="px-6 py-4">{adopt.why}</td>
                                     <td className="px-6 py-4">{new Date(adopt.created_at).toLocaleDateString()}</td>
 
                                 </tr>

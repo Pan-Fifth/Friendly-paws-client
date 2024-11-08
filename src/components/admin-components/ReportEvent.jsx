@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { getEventData, getAllEventData } from '@/src/apis/AdminReportApi';
 import { getExportEventExcel } from '../../apis/AdminExportExcelApi';
 import Swal from 'sweetalert2';
+import ReportListUserEvent from './ReportListUserEvent';
 
 
 export default function ReportEvent() {
@@ -9,6 +10,7 @@ export default function ReportEvent() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [events, setEvents] = useState([])
+    const [selectedEventId, setSelectedEventId] = useState(null);
 
     const handleFetchReport = async () => {
         try {
@@ -52,6 +54,10 @@ export default function ReportEvent() {
         } catch (error) {
             console.error('Error exporting to Excel:', error);
         }
+    };
+    const handleEventClick = (id) => {
+        setSelectedEventId(id);
+        console.log(id, "id event name")
     };
 
     return (
@@ -100,7 +106,7 @@ export default function ReportEvent() {
                         <table className="min-w-full bg-white">
                             <thead className="bg-gray-100">
                                 <tr>
-                                    <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">อีเวนท์ไอดี</th>
+                                    <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ไอดี</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ชื่อกิจกรรม</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">รายละเอียด</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">วันที่เริ่มงาน</th>
@@ -114,7 +120,7 @@ export default function ReportEvent() {
                                 {events.map(event => (
                                     <tr key={event.id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 whitespace-nowrap">{event.id}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap">{event.title_th}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap font-bold cursor-pointer hover:text-blue-500 hover:underline " onClick={() => handleEventClick(event.id)}>{event.title_th}</td>
                                         <td className="px-6 py-4">{event.description_th}</td>
                                         <td className="px-6 py-4">{new Date(event.date_start).toLocaleDateString()}</td>
                                         <td className="px-6 py-4">{new Date(event.date_end).toLocaleDateString()}</td>
@@ -143,6 +149,22 @@ export default function ReportEvent() {
                         </div>
                     )
             }
+            {selectedEventId && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                    <div className="bg-white w-full max-w-2xl p-5 rounded-lg relative transform translate-y-6 mx-4 shadow-lg ">
+                        <div className="flex justify-end items-center">
+                            <button
+                                onClick={() => setSelectedEventId(null)}
+                                className=" bg-gray-200 hover:bg-gray-300 text-gray-800 px-4 py-2 rounded-lg transition duration-200">
+                                Close
+                            </button>
+                        </div>
+                        <div className="mb-4">
+                            <ReportListUserEvent eventId={selectedEventId} />
+                        </div>
+                    </div>
+                </div>
+            )}
         </div >
     )
 }

@@ -114,7 +114,7 @@ const Event = () => {
                 </div>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+            <div className=" m-8 text-2xl font-bold text-center">
                 <h1>{t('eventPage.newEvents')}</h1>
             </div>
 
@@ -176,7 +176,7 @@ const Event = () => {
 
 
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto px-4 mb-8">
+            <div className=" m-8 text-2xl font-bold text-center">
                 <h1>{t('eventPage.pastEvents')}</h1>
             </div>
             {/* Event Cards กิจกรรมที่ผ่านมาแล้ว */}
