@@ -47,17 +47,17 @@ import { useTranslation } from 'react-i18next';
     }
   
     return (
-<div className="absolute top-[-240px] md:top-[-240px] lg:top-[-260px] w-full z-20 p-4 md:p-8 flex flex-col md:flex-row items-center justify-center">
+<div className="absolute top-[-450px] md:top-[-360px]  w-full z-20 p-4 md:p-8 flex flex-col md:flex-row items-center justify-center">
   <div className='flex flex-col w-full md:w-1/4 text-center md:text-left mb-8 md:mb-0'>
     <em className='hidden md:block text-[150px] md:text-[200px] lg:text-[250px] relative'>M</em>
-    <p className='hidden md:block text-[40px] md:text-[60px] lg:text-[80px] md:absolute md:left-[460px] md:top-[170px]'>eet</p>
-    <p className='hidden md:block text-[40px] md:text-[60px] lg:text-[80px] md:absolute md:left-[450px] md:top-[230px]'>Our</p>
-    <p className='hidden md:block text-[40px] md:text-[60px] lg:text-[80px] md:absolute md:left-[440px] md:top-[290px]'>Friends</p>
-    <div className="flex items-center justify-center mt-4 md:mt-8 md:bottom-[650px] md:left-[-1000px] fixed bottom-[350px] left-0 right-0 z-50">
+    <p className='hidden md:block text-[40px] md:text-[60px] lg:text-[80px] md:absolute md:left-[660px] md:top-[170px]'>eet</p>
+    <p className='hidden md:block text-[40px] md:text-[60px] lg:text-[80px] md:absolute md:left-[650px] md:top-[230px]'>Our</p>
+    <p className='hidden md:block text-[40px] md:text-[60px] lg:text-[80px] md:absolute md:left-[640px] md:top-[290px]'>Friends</p>
+    <div className="flex items-center justify-center mt-4 md:mt-8 md:bottom-[450px] md:left-[-1000px] fixed bottom-[100px] left-0 right-0 z-50 top-0">
       <motion.button
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
-        className="bg-pink-600 text-white px-12 py-3 rounded-full md:text-[20px]  text-sm font-medium hover:bg-pink-700 transition-colors"
+        className="bg-pink-600 text-white px-12 py-3 rounded-full md:text-[20px] text-sm font-medium hover:bg-pink-700 transition-colors"
         onClick={()=>navigate('/adopt')}
       >
         Adopt
@@ -69,7 +69,7 @@ import { useTranslation } from 'react-i18next';
         <div className="relative w-[1000px] h-[500px]">
           <button
             onClick={handlePrev}
-            className="absolute left-[180px] md:left-4 top-1/2 -translate-y-1/2 z-30 bg-pink-500 hover:bg-white/20 text-white rounded-full p-2 backdrop-blur-sm"
+            className="absolute left-[180px]  md:left-4 top-1/2 -translate-y-1/2 z-30 bg-pink-500 hover:bg-white/20 text-white rounded-full p-2 backdrop-blur-sm"
           >
             ←
           </button>
@@ -84,7 +84,7 @@ import { useTranslation } from 'react-i18next';
           {cards.map((card, index) => (
             <div
               key={index}
-              className="absolute w-[200px] md:w-[300px] h-[300px] md:h-[400px] transition-all duration-500 ease-out cursor-pointer"
+              className="absolute w-[200px] md:w-[400px] h-[300px] md:h-[500px] transition-all duration-500 ease-out cursor-pointer"
               style={getCardStyle(index)}
               onClick={() => setActiveIndex(index)}
             >

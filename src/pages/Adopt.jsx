@@ -142,9 +142,10 @@ const Adopt = () => {
             key={el.id}
             id={el.id}
             name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
-            image={el.image[0]?.url}
+            image={el.image?.map(img => img.url) || []}
           />
         ))}
+        
 
       </div>
 
