@@ -7,13 +7,16 @@ import { useState, useRef } from "react"
 import { toast } from "react-toastify"
 import { useTranslation } from 'react-i18next';
 import validateAdoptForm from '../../utils/AdoptFormValidate';
+import Lottie from "lottie-react";
+import AnimationDownload from '../../assets/AnimationDownload.json'
+
 
 export function DialogAdopt({ petId }) {
 
   //change lang ห้ามมลบ
   const { t } = useTranslation();
   const [formatError, setFormatError] = useState({});
-
+  const [loading, setLoading] = useState(false);
   const token = useAuthStore(state => state.token)
   const fileInput = useRef(null)
   const [files, setFiles] = useState([]);
@@ -60,7 +63,12 @@ export function DialogAdopt({ petId }) {
   }
 
   const hdlSubmit = async (e) => {
+    setLoading(true);
     try {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      })
       e.preventDefault()
 
       if (files.length > 5) {
@@ -100,28 +108,48 @@ export function DialogAdopt({ petId }) {
       setOpen(true)
       console.log(err, "err here")
       // toast.error(err.response.data.message)
+    } finally {
+      setLoading(false);
+      console.log("------22-", loading)
     }
 
   }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
+
       <DialogTrigger asChild>
         <Button variant="outline" onClick={hdlClick}>{t("adoptForm.adoptMe")}</Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto p-6">
-        <DialogHeader>
-          <DialogTitle className="text-2xl text-orange-400">{t("adoptForm.adoptionFormTitle")}</DialogTitle>
-          <DialogDescription>
-            {t("adoptForm.adoptionFormDescription")}
-          </DialogDescription>
-        </DialogHeader>
 
-        <div className="bg-white shadow-lg rounded-lg">
-          <h2 className="text-2xl font-semibold mb-4">{t("adoptForm.adoptionApplication")}</h2>
-          <p className="text-gray-700 mb-4">
-            {t("adoptForm.welcomeMessage1")} {user.firstname}{t("adoptForm.welcomeMessage2")}
-          </p>
+      {loading
+        ? <div className="modal fixed  inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">
+          <div className=" rounded-lg shadow-lg flex flex-col items-center">
+            <div className="flex flex-col items-center space-y-2">
+              <Lottie animationData={AnimationDownload} loop={true} className="w-full h-full " />
+              <Button
+                className="w-1/5 items-center  my-5 group relative overflow-hidden bg-black text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl active:scale-95">
+                <span className="relative z-10 flex items-center justify-center gap-3">
+                  <span className="text-lg">Loading...</span>
+                </span>
+                <span className="absolute inset-0 z-0 bg-black opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
+              </Button>
+            </div>
+          </div>
+        </div>
+        : <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto p-6 ">
+          <DialogHeader>
+            <DialogTitle className="text-2xl text-orange-400">{t("adoptForm.adoptionFormTitle")}</DialogTitle>
+            <DialogDescription>
+              {t("adoptForm.adoptionFormDescription")}
+            </DialogDescription>
+          </DialogHeader>
+
+          <div className="bg-white shadow-lg rounded-lg">
+            <h2 className="text-2xl font-semibold mb-4">{t("adoptForm.adoptionApplication")}</h2>
+            <p className="text-gray-700 mb-4">
+              {t("adoptForm.welcomeMessage1")} {user.firstname}{t("adoptForm.welcomeMessage2")}
+            </p>
 
           <form>
             {/* Personal Information Section */}
@@ -218,31 +246,31 @@ export function DialogAdopt({ petId }) {
 
                 </div>
 
+                </div>
               </div>
-            </div>
 
-            {/* Home Environment Section */}
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-3">{t("adoptForm.homeEnvironment")}</h3>
-              <label className="block mb-1">{t("adoptForm.homeDuringDay")}</label>
-              <div className="flex gap-4 mb-2">
-                <label className="flex items-center">
-                  <input type="radio" className="mr-2" name="familyAlwaysHome" value={true} onChange={hdlChange} />
-                  {t("adoptForm.yes")}
-                </label>
-                <label className="flex items-center">
-                  <input type="radio" className="mr-2" name="familyAlwaysHome" value={false} onChange={hdlChange} />
-                  {t("adoptForm.no")}
-                </label>
+              {/* Home Environment Section */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold mb-3">{t("adoptForm.homeEnvironment")}</h3>
+                <label className="block mb-1">{t("adoptForm.homeDuringDay")}</label>
+                <div className="flex gap-4 mb-2">
+                  <label className="flex items-center">
+                    <input type="radio" className="mr-2" name="familyAlwaysHome" value={true} onChange={hdlChange} />
+                    {t("adoptForm.yes")}
+                  </label>
+                  <label className="flex items-center">
+                    <input type="radio" className="mr-2" name="familyAlwaysHome" value={false} onChange={hdlChange} />
+                    {t("adoptForm.no")}
+                  </label>
+                </div>
+                <input
+                  type="number"
+                  placeholder={t("adoptForm.aloneHours")}
+                  className="border p-2 rounded w-full"
+                  name="aloneHours"
+                  onChange={hdlChange}
+                />
               </div>
-              <input
-                type="number"
-                placeholder={t("adoptForm.aloneHours")}
-                className="border p-2 rounded w-full"
-                name="aloneHours"
-                onChange={hdlChange}
-              />
-            </div>
 
             {/* Adoption Checklist Section */}
             <div className="mb-6">
@@ -305,83 +333,86 @@ export function DialogAdopt({ petId }) {
               </div>
             </div>
 
-            {/* Delivery Preference Section */}
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-3">{t("adoptForm.deliveryChecklist")}</h3>
-              <label className="block mb-1">{t("adoptForm.homeDuringDay")}</label>
-              <div className="flex gap-4 mb-2">
-                <label className="flex items-center">
-                  <input type="radio" className="mr-2" name="deliveryType" value={"PICK_UP"} onChange={hdlChange} />
-                  {t("adoptForm.canPickup")}
-                </label>
-                <label className="flex items-center">
-                  <input type="radio" className="mr-2" name="deliveryType" value={"REQUIRE_DELIVERY"} onChange={hdlChange} />
-                  {t("adoptForm.requestForDelivery")}
-                </label>
+              {/* Delivery Preference Section */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold mb-3">{t("adoptForm.deliveryChecklist")}</h3>
+                <label className="block mb-1">{t("adoptForm.homeDuringDay")}</label>
+                <div className="flex gap-4 mb-2">
+                  <label className="flex items-center">
+                    <input type="radio" className="mr-2" name="deliveryType" value={"PICK_UP"} onChange={hdlChange} />
+                    {t("adoptForm.canPickup")}
+                  </label>
+                  <label className="flex items-center">
+                    <input type="radio" className="mr-2" name="deliveryType" value={"REQUIRE_DELIVERY"} onChange={hdlChange} />
+                    {t("adoptForm.requestForDelivery")}
+                  </label>
+                </div>
               </div>
-            </div>
 
 
-            {/* Upload Accommodation Images Section */}
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-3">{t("adoptForm.uploadImages")} </h3>
+              {/* Upload Accommodation Images Section */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold mb-3">{t("adoptForm.uploadImages")} </h3>
 
-              <Button onClick={hdlAddClick} >{t("adoptForm.addPicture")}</Button>
-              {files.length > 0 ? <p>{files.length} {t("adoptForm.selectedFiles")}</p> : <p>{t("adoptForm.noSelectedFile")}</p>}
-              <input
-                type="file"
-                accept="image/*"
-                ref={fileInput}
-                multiple
-                className="border p-2 rounded w-full no "
-                style={{ display: "none" }}
-                onChange={hdlFileChange}
-              />
-            </div>
-
-            {files.length > 0 && (
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
-                {files.map((file, index) => (
-                  <div key={index} className="relative">
-                    <img
-                      src={URL.createObjectURL(file)}
-                      alt={`Upload ${index + 1}`}
-                      className="w-full h-48 object-cover rounded-lg"
-                    />
-                    <Button
-                      onMouseDown={(e) => hdlDeleteFile(index, e)}
-                      onClick={(e) => e.preventDefault()}
-                      type="button"
-                      className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full"
-                      size="sm"
-                    >
-                      ✕
-                    </Button>
-                  </div>
-                ))}
+                <Button onClick={hdlAddClick} >{t("adoptForm.addPicture")}</Button>
+                {files.length > 0 ? <p>{files.length} {t("adoptForm.selectedFiles")}</p> : <p>{t("adoptForm.noSelectedFile")}</p>}
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={fileInput}
+                  multiple
+                  className="border p-2 rounded w-full no "
+                  style={{ display: "none" }}
+                  onChange={hdlFileChange}
+                />
               </div>
-            )}
+
+              {files.length > 0 && (
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4">
+                  {files.map((file, index) => (
+                    <div key={index} className="relative">
+                      <img
+                        src={URL.createObjectURL(file)}
+                        alt={`Upload ${index + 1}`}
+                        className="w-full h-48 object-cover rounded-lg"
+                      />
+                      <Button
+                        onMouseDown={(e) => hdlDeleteFile(index, e)}
+                        onClick={(e) => e.preventDefault()}
+                        type="button"
+                        className="absolute top-2 right-2 bg-red-500 hover:bg-red-600 text-white rounded-full p-1"
+                        size="sm"
+                      >
+                        ✕
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              )}
 
 
 
-            {/*Explain why want to adopt Section */}
-            <div className="mb-6">
-              <h3 className="text-xl font-semibold mb-3">  {t("adoptForm.adoptionReason")}</h3>
-              <div>
-                <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="why" onChange={hdlChange} />
+              {/*Explain why want to adopt Section */}
+              <div className="mb-6">
+                <h3 className="text-xl font-semibold mb-3">  {t("adoptForm.adoptionReason")}</h3>
+                <div>
+                  <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="why" onChange={hdlChange} />
+                </div>
               </div>
-            </div>
 
 
-            {/* Submit Button */}
-            <DialogFooter>
-              <Button type="submit" className="bg-orange-400 hover:bg-orange-500 text-white py-2 px-4 rounded" onClick={hdlSubmit}>
-                {t("adoptForm.submitApplication")}
-              </Button>
-            </DialogFooter>
-          </form>
-        </div>
-      </DialogContent>
+              {/* Submit Button */}
+              <DialogFooter>
+                <Button type="submit" className="bg-orange-400 hover:bg-orange-500 text-white py-2 px-4 rounded" onClick={hdlSubmit}>
+                  {t("adoptForm.submitApplication")}
+                </Button>
+              </DialogFooter>
+            </form>
+          </div>
+        </DialogContent>
+
+
+      }
     </Dialog>
 
   )
