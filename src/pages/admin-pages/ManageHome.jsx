@@ -177,6 +177,7 @@ export const ManageHome = () => {
                 {text.length > 50 ? (
                   <Textarea
                     value={text}
+                    maxLength={120}
                     onChange={(e) => handleTextChange("content_en", index, e.target.value)}
                     className="w-full min-h-[100px] p-2 border rounded-md"
                   />
@@ -201,6 +202,7 @@ export const ManageHome = () => {
                 {text.length > 50 ? (
                   <Textarea
                     value={text}
+                    maxLength={120}
                     onChange={(e) => handleTextChange("content_th", index, e.target.value)}
                     className="w-full min-h-[100px] p-2 border rounded-md"
                   />
