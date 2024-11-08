@@ -7,6 +7,7 @@ const useAdoptStore = create(persist((set,get)=>({
     allAdoptRequest : null,
     actionGetAllAdoptRequest : async(token,page)=>{
         try {
+            console.log("actionGetAllAdoptRequest")
             const result = await getAllAdoptRequest(token,page);
             set({allAdoptRequest:result.data})
         } catch (err) {

@@ -38,3 +38,11 @@ export const getRequestScore = (token,requestId) =>{
         },
     })
 }
+
+export const editAdoptRequest = (token,data,id)=>{
+    return axiosInstance.patch(`/admin/edit-adopt-request/${id}`, data,{
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    })
+}

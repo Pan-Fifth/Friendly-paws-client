@@ -2,10 +2,21 @@ import { Button } from '@/components/ui/button'
 import React, { useEffect, useState } from 'react'
 import useAuthStore from '@/src/stores/AuthStore'
 import { getRequestScore } from '@/src/apis/AdminReportApi'
+import InfoModal from '../admin-components/AdoptRequestModal'
 
-const AdminAdoptCard = ({ img, petName, name, phone, email, requestId, page }) => {
+
+const AdminAdoptCard = ({ img, petName, name, phone, email, requestId, page, data }) => {
     const token = useAuthStore(state => state.token)
-    const [load,setLoad]=useState(false)
+    const [load, setLoad] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [modalData, setModalData] = useState(null);
+
+    const handleOpenModal = () => {
+        console.log(data)
+        setModalData(data);
+        setIsModalOpen(true);
+    };
+
     useEffect(() => {
         setDetail('')
         setScore('')
@@ -20,17 +31,17 @@ const AdminAdoptCard = ({ img, petName, name, phone, email, requestId, page }) =
             setLoad(false)
             setDetail(resp?.data?.message?.shortDetail)
             setScore(resp?.data?.message?.score)
-            
+
         } catch (err) {
             console.error('Error fetching score:', err)
         }
     }
-    const hdlClear = ()=>{
+    const hdlClear = () => {
         setDetail('')
         setScore('')
     }
     console.log('re render')
-    console.log(detail,score)
+    console.log(data)
     return (
         <div className=' flex items-center'>
             <div className="h-[200px] border border-black rounded-xl p-3 m-2 flex-1">
@@ -42,6 +53,8 @@ const AdminAdoptCard = ({ img, petName, name, phone, email, requestId, page }) =
                     />
                     <h3 className="font-bold">น้องชื่อ:</h3>
                     <p className="">{petName}</p>
+                    <h3 className="font-bold">สถานะ:</h3>
+                    <p className="">{data.status}</p>
                 </div>
                 <ul className="flex gap-2">
                     <li><strong>ชื่อผู้ขอรับเลี้ยง:  </strong>{name}</li>
@@ -50,13 +63,21 @@ const AdminAdoptCard = ({ img, petName, name, phone, email, requestId, page }) =
 
                 </ul>
                 <div className='flex gap-2 items-center'>
-                    <Button onClick={hdlScore}>Scoring by Ai</Button>
-                    {score && <Button onClick = {hdlClear}>clear</Button> } 
+                    <Button onClick={hdlScore}>ประเมินเบื้องต้นด้วย Ai</Button>
+                    <Button onClick={handleOpenModal}>ดูข้อมูล</Button>
+                    <InfoModal
+                        isOpen={isModalOpen}
+                        onClose={() => setIsModalOpen(false)}
+                        data={data}
+                        requestId ={requestId}
+                    />
+                    {score && <Button onClick={hdlClear}>clear</Button>}
                     {load && <p className=' self-center'>loading.......</p>}
+
                 </div>
-                
+
             </div>
-           
+
             {score && <div className='flex-1'>
                 <p><strong>คะแนน:</strong> {score} /100</p>
                 <div>

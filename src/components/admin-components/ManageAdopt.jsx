@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import AdminAdoptCard from '../adopt/AdminAdoptCard'
 import { Button } from '@/components/ui/button'
 import { toast } from 'react-toastify'
+
 export default function ManageAdopt() {
     const actionGetAllAdoptRequest = useAdoptStore(state => state.actionGetAllAdoptRequest)
     const allAdoptRequest = useAdoptStore(state => state.allAdoptRequest)
@@ -18,7 +19,7 @@ export default function ManageAdopt() {
     if (!token) {
         navigate("/login")
     }
-    console.log(allAdoptRequest.length)
+    console.log(allAdoptRequest?.length)
 
     const hdlPageChange = (n) => {
         try {
@@ -41,7 +42,7 @@ export default function ManageAdopt() {
     return (
         <div>
             {/* Card */}
-            {allAdoptRequest.length === 0 
+            {allAdoptRequest?.length === 0 
             ?<p>ไม่มีข้อมูลสำหรับการขอรับเลี้ยง....</p>
             :allAdoptRequest?.map((el, index) => (<AdminAdoptCard
                 key={index}
@@ -51,6 +52,7 @@ export default function ManageAdopt() {
                 email={el.user.email}
                 phone={el.user.phone}
                 petName={el.pet.name_th}
+                data={el}
                 page={page}
             />))
             }
