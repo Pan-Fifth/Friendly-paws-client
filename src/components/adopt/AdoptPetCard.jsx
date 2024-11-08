@@ -1,18 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useAuthStore from '@/src/stores/AuthStore'
-'use client'
-
 import { useState } from 'react'
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { Card, CardFooter } from "@/components/ui/card"
 
 function DesignCard({ name, image, id, onClickHandler }) {
   const token = useAuthStore(state => state.token)
   const navigate = useNavigate()
-  const [showDetails, setShowDetails] = useState(false)
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
+  
+  const images = Array.isArray(image) ? image : [image]
+
   const handleClick = () => {
     if (!token) {
       navigate('/login')
@@ -21,31 +22,45 @@ function DesignCard({ name, image, id, onClickHandler }) {
     }
   }
 
-
   return (
     <Card className="w-full max-w-sm mx-auto overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105">
       <div className="relative h-80">
-        {/* Full-width picture */}
+        <div className="relative w-full h-full">
+        {images.map((img, index) => (
+          <img
+            key={index}
+            src={img}
+            alt={name}
+            className={`absolute top-0 left-0 object-cover w-full h-full transition-opacity duration-500 ${
+              currentImageIndex === index ? 'opacity-100' : 'opacity-0'
+            }`}
+          />
+        ))}
+          
+          {images.length > 1 && (
+            <div className="absolute bottom-[50px] left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`w-5 h-5 rounded-full transition-colors ${
+                    currentImageIndex === index ? 'bg-white' : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
+        </div>
 
-        <img
-          src={image}
-          alt={name}
-          className="object-cover w-full h-full"
-        />
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-white/10 transform skew-y-6 z-0" />
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-white/5 transform -skew-y-6 z-0" />
 
-
-        {/* Geometric shapes */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-white/10 transform skew-y-6" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-white/5 transform -skew-y-6" />
-
-        {/* Curved separator */}
         <svg
           className="absolute bottom-[-20px] w-full text-white"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
           preserveAspectRatio="none"
         >
-
           <path
             fill="currentColor"
             fillOpacity="1"
@@ -53,7 +68,6 @@ function DesignCard({ name, image, id, onClickHandler }) {
           ></path>
         </svg>
       </div>
-
 
       <CardFooter className="bg-white p-4 pt-0 flex flex-col gap-5">
         <div className='text-2xl z-20'>{name}</div>
@@ -82,23 +96,21 @@ function DesignCard({ name, image, id, onClickHandler }) {
 export default function AdoptPetCard({ name, image, id }) {
   const [isAnimating, setIsAnimating] = useState(false)
   const navigate = useNavigate()
+  
   const hdlClick = () => {
     setIsAnimating(true)
     setTimeout(() => setIsAnimating(false), 300)
     navigate(`/adopt/detail/${id}`)
-    onClickHandler()
   }
+  
   return (
     <div className="container mx-auto p-4">
-
       <DesignCard
         name={name}
         image={image}
         id={id}
         onClickHandler={hdlClick}
       />
-
     </div>
-
   )
 }

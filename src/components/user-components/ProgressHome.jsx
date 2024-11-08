@@ -108,13 +108,13 @@ export default function ProgressHome() {
         ))}
       </div>
       <div className="relative w-full mx-auto flex flex-col gap-4">
-      <div className="absolute  left-[80%] md:left-[750px] top-0 bottom-0 w-0.5 bg-primary" aria-hidden="true" />
+      <div className="absolute  left-[80%] md:left-[800px] top-0 bottom-0 w-0.5 bg-primary" aria-hidden="true" />
         {features.map((feature) => (
           <div
             key={feature.number}
             className="relative  flex items-start mb-12 last:mb-0"
           >
-            <div className="absolute  left-[80%]   md:left-[750px] w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-x-[-15px]">
+            <div className="absolute  left-[80%]   md:left-[800px] w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-x-[-15px]">
             <div className="w-2 h-2 rounded-full bg-white" />
             </div>
             <div className="md:w-[70%]  md:ml-[20px] w-1/2 pr-1 ml-[80px]">

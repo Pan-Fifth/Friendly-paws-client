@@ -170,7 +170,7 @@ export default function Homepage() {
               }`}
           >
             {page.id === "mission" && (
-              <div className="absolute bottom-[-750px] w-full h-full">
+              <div className="absolute bottom-[-990px] w-full h-full">
                 <svg
                   viewBox="0 0 1440 98"
                   fill="none"
@@ -199,12 +199,12 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 0 && (
-                  <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh] md:h-auto">
+                  <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh]">
                     <div className="relative z-10 order-2 md:order-1">
                       <img
                         src="/src/assets/dogGif.gif"
                         alt=""
-                        className="hidden md:block md:absolute top-[-60px] left-[-150px] rotate-[-40deg]"
+                        className="hidden md:block md:absolute top-[0px] left-[-170px] rotate-[-40deg]"
                       />
                       <motion.div
                         variants={item}
@@ -213,9 +213,9 @@ export default function Homepage() {
                         className="space-y-2"
                       >
                         <img
-                          src={homeContent?.image1}
+                          src="/src/assets/dog.png"
                           alt="img"
-                          className="md:block h-screen w-auto object-contain"
+                          className="md:block h-screen w-auto md:h-screen md:w-auto"
                         />
                       </motion.div>
                     </div>
@@ -247,11 +247,11 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 1 && (
-                  <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 rounded-3xl min-h-700 md:h-full px-4">
-                    <div className="container mx-auto p-2 md:p-6">
+                  <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 rounded-3xl min-h-700  px-4">
+                    <div className="container mx-auto p-2 md:p-10 md:h-[700px] md:flex md:flex-col md:justify-center  h-[500px] ">
                       <div className="space-y-4 md:space-y-8">
                         <div className="flex flex-row gap-2 md:gap-6 overflow-x-scroll md:scrollbar-hide justify-start md:justify-center">
-                          <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+                          <Card className="w-[250px] md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
                             <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
                               <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
                                 <img
@@ -267,7 +267,7 @@ export default function Homepage() {
                             </CardContent>
                           </Card>
 
-                          <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+                          <Card className="w-[250px] md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
                             <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
                               <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
                                 <img
@@ -285,7 +285,7 @@ export default function Homepage() {
                             </CardContent>
                           </Card>
 
-                          <Card className="w-[250px] flex-shrink-0 flex justify-center items-center mx-auto">
+                          <Card className="w-[250px]  md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
                             <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
                               <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
                                 <img
@@ -319,7 +319,21 @@ export default function Homepage() {
                         </div>
                       </div>
                     </div>
+
+                    <div className="relative h-24 bg-opacity-100">
+                    <svg
+                      className=" hidden md:block md:absolute md:bottom-[-120px] md:left-[-400px] md:w-[2000px] md:h-24 text-[#fff3e9]"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 1440 54"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z" />
+                    </svg>
+                    </div>
+
                   </div>
+                  
                 )}
 
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
@@ -357,33 +371,33 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 3 && (
-  <section className="relative w-full h-screen py-8 md:py-12 lg:py-24 flex flex-col justify-center gap-4">
-    <CardHome className="absolute z-20" cards={randomPets} />
-    <Separator orientation="horizontal" className="shrink-0 md:left-[350px] bg-border h-[1px] w-2/3 absolute left-[100px] top-[290px]" />
-    
-    <div className="container w-full h-full z-0 px-4 md:px-6 py-[60px] md:py-[100px] lg:py-[200px] mx-auto">
-      <div className="flex flex-col mx-auto justify-center my-[250px] items-center space-y-4 md:space-y-6 text-center md:my-[30px]">
-        <div className="space-y-2 md:space-y-4">
-          <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tighter">
-            {content?.[13]}
-          </h2>
-          <p className="max-w-[900px] text-sm md:text-base lg:text-xl text-gray-500 dark:text-gray-400 px-2 md:px-4">
-            {content?.[14]}
-          </p>
-        </div>
-        <Button
-          className="bg-primary text-primary-foreground hover:bg-primary/90 w-[200px] md:w-auto"
-          size="lg"
-          onClick={() => {navigate("/donate")}}
-        >
-          {content?.[16]}
-        </Button>
-        <HeartHandshake className="h-[80px] w-[80px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] text-pink-500" />
-      </div>
-      <Separator orientation="horizontal" className="hidden md:block md:top-[800px] shrink-0 bg-border h-[1px] w-1/3 absolute left-1/2 transform -translate-x-1/2 top-[650px]" />
-    </div>
-  </section>
-)}
+              <section className="relative w-full  h-[300px] md:h-[600px] md: py-8 md:py-12 flex flex-col justify-center gap-4">
+                <CardHome className="absolute z-20" cards={randomPets} />
+                <Separator orientation="horizontal" className="shrink-0 md:left-[350px] md:top-[250px] bg-border h-[1.5px] w-2/3 absolute left-[100px] top-[290px]" />
+                
+                <div className="container w-full h-full z-0 px-4 md:px-6 py-[60px] md:py-[100px] lg:py-[200px] mx-auto">
+                  <div className="flex flex-col  gap-3 mx-auto justify-center my-[250px] items-center space-y-4 md:space-y-6 text-center md:my-[30px]">
+                    <div className="space-y-2 md:space-y-4 flex flex-col gap-4">
+                      <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tighter">
+                        {content?.[13]}
+                      </h2>
+                      <p className="max-w-[900px] text-sm md:text-base lg:text-xl text-gray-500 dark:text-gray-400 px-2 md:px-4">
+                        {content?.[14]}
+                      </p>
+                    </div>
+                    <Button
+                      className="bg-primary text-primary-foreground hover:bg-primary/90 w-[200px] md:w-auto"
+                      size="lg"
+                      onClick={() => {navigate("/donate")}}
+                    >
+                      {content?.[16]}
+                    </Button>
+                    <HeartHandshake className="h-[80px] w-[80px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] text-pink-500" />
+                  </div>
+                  <Separator orientation="horizontal" className="hidden md:block md:top-[750px] shrink-0 bg-border h-[1.5px] w-1/3 absolute left-1/2 transform -translate-x-1/2 top-[650px]" />
+                </div>
+              </section>
+            )}
 
               </motion.div>
             </AnimatePresence>

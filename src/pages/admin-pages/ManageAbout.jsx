@@ -24,6 +24,7 @@ export const ManageAbout = () => {
   const [images, setImages] = useState({ image: null });
   const [isLoading, setIsLoading] = useState(false);
   const [imagePreview, setImagePreview] = useState(null);
+  const [removeImage, setRemoveImage] = useState(false);
 
   const [contentFields, setContentFields] = useState({
     en: ['', '', '', ''],
@@ -89,8 +90,7 @@ export const ManageAbout = () => {
         return;
       }
       setImages({ image: file });
-      
-      // Create preview URL
+      setRemoveImage(false);
       const previewUrl = URL.createObjectURL(file);
       setImagePreview(previewUrl);
     }
@@ -116,21 +116,20 @@ export const ManageAbout = () => {
       setIsLoading(true);
       const formData = new FormData();
 
-      // Add all text content
       Object.keys(textContent).forEach((key) => {
         if (textContent[key]) {
           formData.append(key, textContent[key]);
         }
       });
 
-      // Add joined content fields
       formData.append('content_en', contentFields.en.join('|'));
       formData.append('content_th', contentFields.th.join('|'));
+      formData.append("remove_image", removeImage);
 
       if (images.image) {
         formData.append("image", images.image);
       }
-      // ตรวจสอบข้อมูลที่ส่งไปยัง API(ถ้ามี)
+
       const response = await axiosInstance.put(
         `/admin/about-content/${content.id}`,
         formData,
@@ -144,6 +143,7 @@ export const ManageAbout = () => {
       await fetchContent();
       toast.success("Content updated successfully");
       setImages({ image: null });
+      setImagePreview(null);
     } catch (error) {
       toast.error("Failed to update content");
       console.error("Error updating:", error);
@@ -155,6 +155,8 @@ export const ManageAbout = () => {
   const handleReset = () => {
     fetchContent();
     setImages({ image: null });
+    setImagePreview(null);
+    setRemoveImage(false);
   };
 
   return (
@@ -198,44 +200,36 @@ export const ManageAbout = () => {
           <Separator className="my-4" />
 
           <div className="space-y-2">
-  <Label htmlFor="image">Image</Label>
-  <div className="flex flex-col gap-4">
-    <div className="flex gap-4 items-center">
-      {/* Current saved image */}
-      {content?.image && (
-        <div className="relative group">
-          <img
-            src={content.image}
-            alt="Current About Image"
-            className="w-24 h-24 object-cover rounded-lg border"
-          />
-          <div className="absolute inset-0 bg-black/50 text-white text-xs flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
-            Current Image
+            <Label htmlFor="image">Image</Label>
+            <div className="flex flex-col gap-4">
+              <div className="flex gap-4 items-center">
+                {content?.image && !removeImage && (
+                  <div className="relative group">
+                    <img
+                      src={imagePreview ??content.image}
+                      alt="Current About Image"
+                      className="w-24 h-24 object-cover rounded-lg border"
+                    />
+                    <Button
+                      variant="destructive"
+                      size="sm"
+                      className="absolute -top-2 -right-2"
+                      onClick={() => setRemoveImage(true)}
+                    >
+                      ×
+                    </Button>
+                  </div>
+                )}
+                
+              </div>
+              <Input
+                id="image"
+                type="file"
+                onChange={handleImageChange}
+                accept="image/*"
+              />
+            </div>
           </div>
-        </div>
-      )}
-      {/* New image preview */}
-      {imagePreview && (
-        <div className="relative group">
-          <img
-            src={imagePreview}
-            alt="New Image Preview"
-            className="w-24 h-24 object-cover rounded-lg border"
-          />
-          <div className="absolute inset-0 bg-black/50 text-white text-xs flex items-center justify-center rounded-lg opacity-0 group-hover:opacity-100 transition-opacity">
-            New Image
-          </div>
-        </div>
-      )}
-    </div>
-    <Input
-      id="image"
-      type="file"
-      onChange={handleImageChange}
-      accept="image/*"
-    />
-  </div>
-</div>
         </CardContent>
       </Card>
 
