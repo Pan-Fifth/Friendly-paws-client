@@ -30,7 +30,7 @@ const AdoptDetail = () => {
     <div className=' grid md:grid-cols-2 m-8 md:m-32'>
       <div className='grid-cols-1'>
         <div className=' flex flex-col gap-3 items-center'>
-          <img src={currentPet.image[0].url} className='h-[800px] object-cover' />
+          <img src={currentPet.image[0].url} className='h-1/2 w-3/4 object-contain' />
           <DialogAdopt petId={id} />
           <Button variant="secondary" className="w-[100px] h-[50px] text-slate-800">{t("adoptDetail.chat")}</Button>
         </div>

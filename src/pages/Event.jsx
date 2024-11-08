@@ -108,7 +108,7 @@ const Event = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <div className="flex justify-center my-6">
+      <div className="flex justify-center m-6">
         <div className="relative w-full max-w-4xl h-70 bg-gray-200 rounded-lg overflow-hidden shadow-lg">
           <img
             src={bannerImages[currentIndex] || ""}
