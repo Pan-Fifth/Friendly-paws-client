@@ -333,7 +333,7 @@ export function DialogAdopt({ petId }) {
             <div className="mb-6">
               <h3 className="text-xl font-semibold mb-3">  {t("adoptForm.adoptionReason")}</h3>
               <div>
-                <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="notes" onChange={hdlChange} />
+                <textarea type="text" className="border p-2 rounded w-full h-[300px]" name="why" onChange={hdlChange} />
               </div>
             </div>
 
