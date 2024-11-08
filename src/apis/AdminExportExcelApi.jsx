@@ -18,6 +18,12 @@ export const getExportEventExcel = (events) => {
         { responseType: 'blob' }
     );
 };
+export const getExportListEventExcel = (events) => {
+    return axiosInstance.post('/export/events-list-report?format=excel',
+        { events },
+        { responseType: 'blob' }
+    );
+};
 
 
 export const getExportPetsExcel = (pets) => {

@@ -3,9 +3,12 @@ import { GoogleOAuthProvider, GoogleLogin } from '@react-oauth/google';
 import useAuthStore from '../../stores/AuthStore';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import { useTranslation } from "react-i18next";
+
 
 
 const LoginGoogle = () => {
+    const { t } = useTranslation();
 
     const actionLoginGoogle = useAuthStore((state) => state.actionLoginGoogle);
     const navigate = useNavigate();
@@ -43,7 +46,7 @@ const LoginGoogle = () => {
                 <GoogleLogin
                     onSuccess={handleLogin}
                     onError={() => {
-                        console.log('Login Failed');
+
                     }}
                 />
             </div>

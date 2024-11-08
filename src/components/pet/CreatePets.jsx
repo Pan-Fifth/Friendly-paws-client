@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState,useEffect, useRef } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -11,10 +11,11 @@ import { toast } from "react-toastify";
 
 
 export default function PetForm({ setOpen }) {
+  const fileInput = useRef(null)
   const actionGetAllPets = usePetStore(state => state.actionGetAllPets);
   const actionCreatePet = usePetStore(state => state.actionCreatePet);
   const token = useAuthStore(state => state.token);
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState([])
   const [formData, setFormData] = useState({
     name_en: '',
     name_th: '',
@@ -45,9 +46,36 @@ export default function PetForm({ setOpen }) {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleFileChange = (e) => {
+    const selectFile = Array.from(e.target.files)
+    console.log(selectFile)
+    setFile([...file, ...selectFile])
 
-  const handleSubmit = async (e) => {
+  };
+  const handleAddClick = (e) => {
+    e.preventDefault();
+    e.stopPropagation()
+    if(fileInput.current){
+      fileInput.current.click()
+    }
+  }
+
+  const handleDeleteFile = (index,e) => {
+    e.preventDefault()
+    e.stopPropagation()
+   const newFile = file.filter((_, i) => i !== index)
+   setFile(newFile)
+  }
+
+  
+  const handleSubmit = async(e) => {
     try {
+
+      if(file.length < 1 || file.length > 3){
+        toast.error('Please select 3 or less files')
+        return
+      }
+
       e.preventDefault();
       const body = new FormData()
       console.log(formData.is_vaccinated)
@@ -65,15 +93,17 @@ export default function PetForm({ setOpen }) {
       body.append('is_vaccinated', formData.is_vaccinated);
       body.append('is_neutered', formData.is_neutered);
       body.append('weight', formData.weight)
-      if (file) {
-        body.append('image', file)
-      }
-
-      const result = await actionCreatePet(token, body)
+      file.forEach(el => {
+        body.append('image', el)
+      })
+      // body.forEach( (value,key) => {
+      //   console.log(key , value)
+      // });
+      const result = await actionCreatePet(token,body)
       toast.success("Create Pet Successfully")
       setOpen(false)
       actionGetAllPets(token)
-      console.log(result)
+      
     } catch (err) {
       console.log(err);
     }
@@ -180,9 +210,30 @@ export default function PetForm({ setOpen }) {
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="image">รูปภาพ</Label>
-        <Input id="image" name="image" type="file" onChange={(e) => setFile(e.target.files[0])} />
+        <Button onClick={handleAddClick} className='text-white'>เพิ่มรูปภาพ</Button>
+        {file.length > 0 ? <p>{file.length} เลือกไฟล์</p> :<p>ไม่ได้เลือกไฟล์</p> }
+        <Input 
+        id="image" 
+        name="image" 
+        type="file" 
+        accept="image/*" 
+        ref={fileInput}
+        multiple={true}
+        style={{ display: 'none' }}
+        onChange={handleFileChange} />
       </div>
+      {file.length > 0 && (
+        <div className="space-y-2">
+          <div className="flex flex-wrap gap-2">
+            {file.map((file, index) => (
+              <div key={index} className="w-24 h-24 relative ">
+                <img src={URL.createObjectURL(file)} alt=""/>
+                <button onClick={(e) => handleDeleteFile(index,e)} className='bg-red-500 h-[20px] w-[20px] rounded-full absolute top-[-10px] right-[-4px] z-20 flex justify-center items-center'>x</button>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <Button type="submit" className="w-full">ยืนยัน</Button>
     </form>

@@ -6,6 +6,7 @@ import usePetStore from "../stores/PetStore";
 import { useTranslation } from 'react-i18next';
 
 
+
 const Adopt = () => {
   //change lang ห้ามมลบ
   const { t, i18n } = useTranslation();
@@ -17,6 +18,7 @@ const Adopt = () => {
   const filter = usePetStore((state) => state.filter);
   const setFilter = usePetStore((state) => state.setFilter);
   const [isClicked, setIsClicked] = useState(false)
+  
 
   useEffect(() => {
     setFilter({})
@@ -68,7 +70,7 @@ const Adopt = () => {
     <div>
       <div className="relative">
         <div className="w-4/5 rounded-3xl h-[180px] md:h-[300px] mx-auto blur-sm my-10"></div>
-       
+
       </div>
       <div className=" absolute top-20  w-full h-[250px] md:h-[500px]">
         <div className="h-full flex flex-col items-center justify-center">
@@ -116,21 +118,20 @@ const Adopt = () => {
                     animation: pulse-pink 2s infinite;
                     }
                 `}</style>
-
               </div>
             </form>
-            <div>
-              {
-                avaiPets.length === 0 && (
-                  <div className="flex items-start justify-center ">
-                    <p className="text-3xl font-bold">no pet found</p>
-                  </div>
-                )
-              }
-            </div>
           </div>
 
         </div>
+      </div>
+      <div>
+        {
+          avaiPets.length === 0 && (
+            <div className="flex items-start justify-center ">
+              <p className="text-3xl font-bold">no pet found</p>
+            </div>
+          )
+        }
       </div>
 
 
@@ -141,9 +142,10 @@ const Adopt = () => {
             key={el.id}
             id={el.id}
             name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
-            image={el.image[0]?.url}
+            image={el.image?.map(img => img.url) || []}
           />
         ))}
+        
 
       </div>
 
