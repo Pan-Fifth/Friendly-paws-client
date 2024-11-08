@@ -39,11 +39,11 @@ const ZoomToMarker = ({ position, setShowButton }) => {
   );
 };
 
-const Map = () => {
+const Map = ({defaultPosition}) => {
   const mapRef = useRef();
   const [showButton, setShowButton] = useState(false);
 
-  const defaultPosition = [13.7583265, 100.5349709];
+  // const defaultPosition = [13.7583265, 100.5349709];
   const defaultZoom = 10;
 
 
