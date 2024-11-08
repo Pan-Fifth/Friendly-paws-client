@@ -101,7 +101,7 @@ export default function Register() {
 
                                     </div>
                                     <div className='w-2/3 ml-auto text-right'>
-                                        {formatError.email && <p className='text-gray-300 text-xs'>{formatError.email}</p>}
+                                        {formatError.email && <p className='text-red-500 text-xs'>{formatError.email}</p>}
                                     </div>
 
                                     <div className="space-y-2">
@@ -114,7 +114,7 @@ export default function Register() {
                                         />
                                     </div>
                                     <div className='w-2/3 ml-auto text-right'>
-                                        {formatError.password && <p className='text-gray-300 text-xs'>{formatError.password}</p>}
+                                        {formatError.password && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                                     </div>
 
                                     <div className="space-y-2">
@@ -128,7 +128,7 @@ export default function Register() {
                                         />
                                     </div>
                                     <div className='w-2/3 ml-auto text-right'>
-                                        {formatError.confirmPassword && <p className='text-gray-300 text-xs'>{formatError.confirmPassword}</p>}
+                                        {formatError.confirmPassword && <p className='text-red-500 text-xs'>{formatError.confirmPassword}</p>}
                                     </div>
 
 
@@ -140,7 +140,7 @@ export default function Register() {
 
                                     <div className="text-center text-sm text-gray-600">
                                         {t('register.alreadyAccount')}{" "}
-                                        <Button variant="link" className="text-purple-500 p-0">
+                                        <Button variant="link" className="text-purple-500 p-0" onClick={() => navigate('/login')}>
                                             {t('register.logIn')}
                                         </Button>
                                     </div>

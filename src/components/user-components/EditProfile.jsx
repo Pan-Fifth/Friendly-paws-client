@@ -16,8 +16,8 @@ export default function EditProfile() {
     const { t } = useTranslation();
 
 
-    const [user, setUser] = useState({ firstname: "", lastname: "", phone: "", email: "" });
-    const [formatError, setFormatError] = useState({ firstname: "", lastname: "", phone: "", email: "" });
+    const [user, setUser] = useState({});
+    const [formatError, setFormatError] = useState({});
 
     const token = useAuthStore((state) => state.token);
 
