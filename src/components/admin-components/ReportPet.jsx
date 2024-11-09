@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { getAllPetData } from '@/src/apis/AdminReportApi';
 import { getExportPetsExcel } from '../../apis/AdminExportExcelApi';
+import useAuthStore from '@/src/stores/AuthStore';
 
 
 
@@ -10,10 +11,11 @@ export default function ReportPet() {
     const [filteredPets, setFilteredPets] = useState([]);
     const [selectedType, setSelectedType] = useState('');
     const [selectedStatus, setSelectedStatus] = useState('');
+    const token = useAuthStore((state) => state.token);
 
     const handleFetchAllReport = async () => {
         try {
-            const response = await getAllPetData();
+            const response = await getAllPetData(token);
             setPets(response.data);
 
         } catch (error) {
@@ -63,7 +65,7 @@ export default function ReportPet() {
         }
 
         try {
-            const response = await getExportPetsExcel(filteredPets)
+            const response = await getExportPetsExcel(token, filteredPets)
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');

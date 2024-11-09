@@ -2,16 +2,18 @@ import React, { useState } from 'react'
 import { getDonateData, getAllDonateData } from '@/src/apis/AdminReportApi';
 import { getExportDonatationExcel } from '@/src/apis/AdminExportExcelApi';
 import Swal from 'sweetalert2';
+import useAuthStore from '@/src/stores/AuthStore';
 
 export default function ReportDonation() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [donates, setDonates] = useState([])
     const [selectedStatus, setSelectedStatus] = useState('');
+    const token = useAuthStore((state) => state.token);
 
     const handleFetchReport = async () => {
         try {
-            const response = await getDonateData(startDate, endDate);
+            const response = await getDonateData(token, startDate, endDate);
             filterDonations(response.data);
         } catch (error) {
             console.error("Error fetching report data:", error);
@@ -19,7 +21,7 @@ export default function ReportDonation() {
     };
     const handleFetchAllReport = async () => {
         try {
-            const response = await getAllDonateData();
+            const response = await getAllDonateData(token);
             filterDonations(response.data);
 
         } catch (error) {
@@ -45,7 +47,7 @@ export default function ReportDonation() {
         }
 
         try {
-            const response = await getExportDonatationExcel(donates)
+            const response = await getExportDonatationExcel(token, donates)
 
             // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
             const url = window.URL.createObjectURL(new Blob([response.data]));

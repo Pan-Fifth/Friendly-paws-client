@@ -47,7 +47,7 @@ export default function AdminNavbar() {
                 <div className="hidden md:flex gap-14 text-white">
                     <Link to="/admin" >หน้าแรก</Link>
                     <div className="relative flex items-center" onClick={toggleDropdownManage}>
-                        <h1 >จัดการข้อมูล</h1>
+                        <h1 className='cursor-pointer'>จัดการข้อมูล</h1>
                         <IoMdArrowDropdown className="cursor-pointer" />
                         {isDropdownManageOpen && (
                             <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
@@ -76,7 +76,7 @@ export default function AdminNavbar() {
                         )}
                     </div>
                     <div className="relative flex items-center" onClick={toggleDropdownManagePage}>
-                        <h1 >จัดการแก้ไขหน้าเพจ</h1>
+                        <h1 className='cursor-pointer'>จัดการแก้ไขหน้าเพจ</h1>
                         <IoMdArrowDropdown className="cursor-pointer" />
                         {isDropdownManagePageOpen && (
                             <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
@@ -105,7 +105,7 @@ export default function AdminNavbar() {
                         )}
                     </div>
                     <div className="relative flex items-center" onClick={toggleDropdownReport}>
-                        <h1 >รายงาน</h1>
+                        <h1 className='cursor-pointer'>รายงาน</h1>
                         <IoMdArrowDropdown className="cursor-pointer" />
                         {isDropdownReportOpen && (
                             <div className="absolute mt-5 w-32 top-2 right-0 bg-white rounded-md shadow-lg">
@@ -135,7 +135,7 @@ export default function AdminNavbar() {
                 <div className="hidden md:flex gap-8 text-black">
                     {user ? (
                         <div className="flex items-center space-x-4">
-                            <div className='flex items-center relative'>
+                            <div className='flex items-center relative cursor-pointer' onClick={toggleDropdownUser}>
                                 <div className="w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
                                     <h1 className="text-black">
                                         {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase()))}
@@ -143,7 +143,7 @@ export default function AdminNavbar() {
 
 
                                 </div>
-                                <IoMdArrowDropdown className="cursor-pointer" onClick={toggleDropdownUser} />
+                                <IoMdArrowDropdown className="cursor-pointer" />
                                 {isDropdownUserOpen && (
                                     <div className="absolute mt-5 w-32 top-6 right-0 bg-white rounded-md shadow-lg">
                                         <ul className="py-2">

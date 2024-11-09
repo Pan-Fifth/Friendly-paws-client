@@ -49,13 +49,13 @@ export default function Navbar() {
         {/* User Actions */}
         <div className="hidden md:flex gap-8 text-black">
           {user ? (
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-2  cursor-pointer" onClick={() => setDropdownUserOpen(!isDropdownUserOpen)} >
               <div className="relative w-10 h-10 flex items-center justify-center rounded-full bg-yellow-500 text-white font-bold">
                 <span className="text-white">
                   {((user?.user?.firstname?.charAt(0).toUpperCase() || user?.user?.role?.charAt(0).toUpperCase())) || ((user?.firstname?.charAt(0).toUpperCase() || user?.role?.charAt(0).toUpperCase()))}
                 </span>
               </div>
-              <IoMdArrowDropdown className=" cursor-pointer text-black" onClick={() => setDropdownUserOpen(!isDropdownUserOpen)} />
+              <IoMdArrowDropdown className=" cursor-pointer text-black" />
               {isDropdownUserOpen && (
                 <div className="absolute top-20 bg-white rounded-md shadow-lg" onClick={() => setDropdownUserOpen(false)}>
                   <ul className="py-2">

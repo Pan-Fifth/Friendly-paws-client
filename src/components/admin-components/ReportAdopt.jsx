@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { getAdoptData, getAllAdoptData } from '../../apis/AdminReportApi';
 import { getExportAdoptExcel } from '../../apis/AdminExportExcelApi';
 import Swal from 'sweetalert2';
+import useAuthStore from '@/src/stores/AuthStore';
 
 
 export default function ReportAdopt() {
@@ -9,10 +10,11 @@ export default function ReportAdopt() {
     const [endDate, setEndDate] = useState('')
     const [adopts, setAdopts] = useState([])
     const [selectedStatus, setSelectedStatus] = useState('');
+    const token = useAuthStore((state) => state.token);
 
     const handleFetchReport = async () => {
         try {
-            const response = await getAdoptData(startDate, endDate);
+            const response = await getAdoptData(token, startDate, endDate);
             filterAdopts(response.data);
         } catch (error) {
             console.error("Error fetching report data:", error);
@@ -20,7 +22,7 @@ export default function ReportAdopt() {
     };
     const handleFetchAllReport = async () => {
         try {
-            const response = await getAllAdoptData();
+            const response = await getAllAdoptData(token);
             filterAdopts(response.data);
 
         } catch (error) {
@@ -46,7 +48,7 @@ export default function ReportAdopt() {
         }
 
         try {
-            const response = await getExportAdoptExcel(adopts)
+            const response = await getExportAdoptExcel(token, adopts)
 
             // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
             const url = window.URL.createObjectURL(new Blob([response.data]));

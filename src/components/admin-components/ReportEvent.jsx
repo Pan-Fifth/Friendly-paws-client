@@ -3,6 +3,7 @@ import { getEventData, getAllEventData } from '@/src/apis/AdminReportApi';
 import { getExportEventExcel } from '../../apis/AdminExportExcelApi';
 import Swal from 'sweetalert2';
 import ReportListUserEvent from './ReportListUserEvent';
+import useAuthStore from '../../stores/AuthStore';
 
 
 export default function ReportEvent() {
@@ -12,10 +13,11 @@ export default function ReportEvent() {
     const [events, setEvents] = useState([])
     const [selectedEventId, setSelectedEventId] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState('');
+    const token = useAuthStore((state) => state.token);
 
     const handleFetchReport = async () => {
         try {
-            const response = await getEventData(startDate, endDate);
+            const response = await getEventData(token, startDate, endDate);
             filterEvents(response.data);
         } catch (error) {
             console.error("Error fetching report data:", error);
@@ -23,7 +25,7 @@ export default function ReportEvent() {
     };
     const handleFetchAllReport = async () => {
         try {
-            const response = await getAllEventData();
+            const response = await getAllEventData(token);
             filterEvents(response.data);
 
         } catch (error) {
@@ -49,7 +51,7 @@ export default function ReportEvent() {
         }
 
         try {
-            const response = await getExportEventExcel(events)
+            const response = await getExportEventExcel(token, events)
 
             // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
             const url = window.URL.createObjectURL(new Blob([response.data]));
