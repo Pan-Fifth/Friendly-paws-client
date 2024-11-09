@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import html2canvas from "html2canvas";
@@ -38,7 +37,7 @@ export default function Dashboard() {
   });
   const navigate = useNavigate();
   const [clickCount, setClickCount] = useState(0);
-  const dashboardRef = useRef(null); 
+  const dashboardRef = useRef(null);
 
   const handleDownloadPDF = async () => {
     const element = dashboardRef.current;
@@ -99,8 +98,11 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-8 space-y-8 max-w-7xl mx-auto">
+    <div className="p-8 space-y-8 max-w-7xl mx-auto" ref={dashboardRef}>
       {/* Overview Stats */}
+      <button onClick={handleDownloadPDF} className="bg-blue-500 text-white py-2 px-4 rounded">
+        Download PDF
+      </button>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
         <div onClick={handleDonationClick}>
           <DonationDashboard
