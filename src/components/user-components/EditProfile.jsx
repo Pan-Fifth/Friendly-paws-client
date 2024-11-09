@@ -58,7 +58,7 @@ export default function EditProfile() {
             fetchProfile();
             toast.success(t('editProfile.updateSuccess'));
         } catch (err) {
-            toast.error(err.response.data.message);
+            console.log(err)
         }
     };
 
