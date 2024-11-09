@@ -22,8 +22,7 @@ const ManageDonation = () => {
       setContent(response.data);
       setDonationOptions(JSON.parse(response.data.donation_options));
     } catch (error) {
-      toast.error("Error fetching content");
-      console.error("Error fetching content:", error);
+      toast.error("ไม่สามารถดึงข้อมูลได้");
     }
   };
 
@@ -46,7 +45,7 @@ const ManageDonation = () => {
 
   const handleSubmit = async () => {
     if (isLoading) return;
-
+    if (!validateForm()) return;
     setIsLoading(true);
     try {
       const updatedContent = {
@@ -54,13 +53,9 @@ const ManageDonation = () => {
         donation_options: JSON.stringify(donationOptions),
       };
       await axiosInstance.put(`/admin/donation-content/${content.id}`, updatedContent);
-      toast.success("Content updated successfully");
+      toast.success("อัพเดทคอนเทนต์หน้าบริจาค เรียบร้อยแล้ว");
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error updating content",
-        description: error.message,
-      });
+      toast.error("ไม่สามารถอัพเดทได้");
     } finally {
       setIsLoading(false);
     }
@@ -68,73 +63,99 @@ const ManageDonation = () => {
 
   if (!content) return null;
 
+  const validateForm = () => {
+
+    const isContentValid = Object.values(content).every(
+      (value) => value && String(value).trim() !== ""
+    );
+    const isDonationOptionsValid = donationOptions.every((option) =>
+      option.amount > 0 &&
+      typeof option.benefit === 'string' &&
+      option.benefit.trim() !== "" &&
+      typeof option.icon === 'string' &&
+      option.icon.trim() !== ""
+    );
+    if (!isContentValid) {
+      toast.error("กรุณากรอกข้อมูลในคอนเทนต์ทุกฟิลด์ให้ครบ");
+      return false;
+    }
+    if (!isDonationOptionsValid) {
+      toast.error("กรุณากรอกข้อมูลในตัวเลือกบริจาคทุกฟิลด์ให้ครบ");
+      return false;
+    }
+    return true;
+  };
+
+
+
+
   return (
     <div className="container mx-auto p-6 space-y-8">
-      <h1 className="text-3xl font-bold mb-6">Manage Donation Page Content</h1>
+      <h1 className="text-3xl font-bold mb-6">จัดการแก้ไข หน้าบริจาค</h1>
 
       <div className="grid grid-cols-2 gap-6">
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="text-xl font-semibold mb-4">English Content</h2>
+            <h2 className="text-xl font-semibold mb-4">คอนเทนต์ ภาษาอังกฤษ</h2>
             <div className="space-y-4">
               <div>
-                <Label>Title</Label>
+                <Label>คอนเทนต์หลัก</Label>
                 <Input
                   value={content.title_en}
                   onChange={(e) => handleContentChange("title_en", e.target.value)}
                 />
               </div>
               <div>
-                <Label>Description</Label>
+                <Label>รายละเอียด คอนเทนต์หลัก</Label>
                 <Input
                   value={content.description_en}
                   onChange={(e) => handleContentChange("description_en", e.target.value)}
                 />
               </div>
               <div className="space-y-4">
-  <div>
-    <Label>Typing Message 1</Label>
-    <Input
-      value={content.typing_en?.split('|')[0] || ''}
-      onChange={(e) => {
-        const messages = content.typing_en?.split('|') || ['', '', ''];
-        messages[0] = e.target.value;
-        handleContentChange("typing_en", messages.join('|'));
-      }}
-    />
-  </div>
-  <div>
-    <Label>Typing Message 2</Label>
-    <Input
-      value={content.typing_en?.split('|')[1] || ''}
-      onChange={(e) => {
-        const messages = content.typing_en?.split('|') || ['', '', ''];
-        messages[1] = e.target.value;
-        handleContentChange("typing_en", messages.join('|'));
-      }}
-    />
-  </div>
-  <div>
-    <Label>Typing Message 3</Label>
-    <Input
-      value={content.typing_en?.split('|')[2] || ''}
-      onChange={(e) => {
-        const messages = content.typing_en?.split('|') || ['', '', ''];
-        messages[2] = e.target.value;
-        handleContentChange("typing_en", messages.join('|'));
-      }}
-    />
-  </div>
-</div>
+                <div>
+                  <Label>คอนเทนต์เคลื่อนไหว 1</Label>
+                  <Input
+                    value={content.typing_en?.split('|')[0] || ''}
+                    onChange={(e) => {
+                      const messages = content.typing_en?.split('|') || ['', '', ''];
+                      messages[0] = e.target.value;
+                      handleContentChange("typing_en", messages.join('|'));
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>คอนเทนต์เคลื่อนไหว 2</Label>
+                  <Input
+                    value={content.typing_en?.split('|')[1] || ''}
+                    onChange={(e) => {
+                      const messages = content.typing_en?.split('|') || ['', '', ''];
+                      messages[1] = e.target.value;
+                      handleContentChange("typing_en", messages.join('|'));
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>คอนเทนต์เคลื่อนไหว 3</Label>
+                  <Input
+                    value={content.typing_en?.split('|')[2] || ''}
+                    onChange={(e) => {
+                      const messages = content.typing_en?.split('|') || ['', '', ''];
+                      messages[2] = e.target.value;
+                      handleContentChange("typing_en", messages.join('|'));
+                    }}
+                  />
+                </div>
+              </div>
               <div>
-                <Label>Form Title</Label>
+                <Label>คอนเทนต์หัวข้อ ฟอร์มบริจาค</Label>
                 <Input
                   value={content.form_title_en}
                   onChange={(e) => handleContentChange("form_title_en", e.target.value)}
                 />
               </div>
               <div>
-                <Label>Form Description</Label>
+                <Label>รายละเอียดคอนเทนต์หัวข้อ ฟอร์มบริจาค</Label>
                 <Input
                   value={content.form_desc_en}
                   onChange={(e) => handleContentChange("form_desc_en", e.target.value)}
@@ -146,66 +167,66 @@ const ManageDonation = () => {
 
         <Card>
           <CardContent className="p-6 space-y-4">
-            <h2 className="text-xl font-semibold mb-4">Thai Content</h2>
+            <h2 className="text-xl font-semibold mb-4">คอนเทนต์ ภาษาไทย</h2>
             <div className="space-y-4">
               <div>
-                <Label>Title</Label>
+                <Label>คอนเทนต์หลัก</Label>
                 <Input
                   value={content.title_th}
                   onChange={(e) => handleContentChange("title_th", e.target.value)}
                 />
               </div>
               <div>
-                <Label>Description</Label>
+                <Label>รายละเอียด คอนเทนต์หลัก</Label>
                 <Input
                   value={content.description_th}
                   onChange={(e) => handleContentChange("description_th", e.target.value)}
                 />
               </div>
               <div className="space-y-4">
-  <div>
-    <Label>Typing Message 1</Label>
-    <Input
-      value={content.typing_th?.split('|')[0] || ''}
-      onChange={(e) => {
-        const messages = content.typing_th?.split('|') || ['', '', ''];
-        messages[0] = e.target.value;
-        handleContentChange("typing_th", messages.join('|'));
-      }}
-    />
-  </div>
-  <div>
-    <Label>Typing Message 2</Label>
-    <Input
-      value={content.typing_th?.split('|')[1] || ''}
-      onChange={(e) => {
-        const messages = content.typing_th?.split('|') || ['', '', ''];
-        messages[1] = e.target.value;
-        handleContentChange("typing_th", messages.join('|'));
-      }}
-    />
-  </div>
-  <div>
-    <Label>Typing Message 3</Label>
-    <Input
-      value={content.typing_th?.split('|')[2] || ''}
-      onChange={(e) => {
-        const messages = content.typing_th?.split('|') || ['', '', ''];
-        messages[2] = e.target.value;
-        handleContentChange("typing_th", messages.join('|'));
-      }}
-    />
-  </div>
-</div>
+                <div>
+                  <Label>คอนเทนต์เคลื่อนไหว 1</Label>
+                  <Input
+                    value={content.typing_th?.split('|')[0] || ''}
+                    onChange={(e) => {
+                      const messages = content.typing_th?.split('|') || ['', '', ''];
+                      messages[0] = e.target.value;
+                      handleContentChange("typing_th", messages.join('|'));
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>คอนเทนต์เคลื่อนไหว 2</Label>
+                  <Input
+                    value={content.typing_th?.split('|')[1] || ''}
+                    onChange={(e) => {
+                      const messages = content.typing_th?.split('|') || ['', '', ''];
+                      messages[1] = e.target.value;
+                      handleContentChange("typing_th", messages.join('|'));
+                    }}
+                  />
+                </div>
+                <div>
+                  <Label>คอนเทนต์เคลื่อนไหว 3</Label>
+                  <Input
+                    value={content.typing_th?.split('|')[2] || ''}
+                    onChange={(e) => {
+                      const messages = content.typing_th?.split('|') || ['', '', ''];
+                      messages[2] = e.target.value;
+                      handleContentChange("typing_th", messages.join('|'));
+                    }}
+                  />
+                </div>
+              </div>
               <div>
-                <Label>Form Title</Label>
+                <Label>คอนเทนต์หัวข้อ ฟอร์มบริจาค</Label>
                 <Input
                   value={content.form_title_th}
                   onChange={(e) => handleContentChange("form_title_th", e.target.value)}
                 />
               </div>
               <div>
-                <Label>Form Description</Label>
+                <Label>รายละเอียดคอนเทนต์หัวข้อ ฟอร์มบริจาค</Label>
                 <Input
                   value={content.form_desc_th}
                   onChange={(e) => handleContentChange("form_desc_th", e.target.value)}
@@ -218,12 +239,12 @@ const ManageDonation = () => {
 
       <Card className="mt-8">
         <CardContent className="p-6">
-          <h2 className="text-xl font-semibold mb-4">Donation Options</h2>
+          <h2 className="text-xl font-semibold mb-4">ตัวเลือกบริจาค</h2>
           <div className="space-y-6">
             {donationOptions.map((option, index) => (
               <div key={index} className="grid grid-cols-3 gap-4 p-4 border rounded">
                 <div>
-                  <Label>Amount</Label>
+                  <Label>กำหนด จำนวนเงิน</Label>
                   <Input
                     type="number"
                     value={option.amount}
@@ -231,14 +252,14 @@ const ManageDonation = () => {
                   />
                 </div>
                 <div>
-                  <Label>Benefit Description</Label>
+                  <Label>รายละเอียด สิทธิประโยชน์</Label>
                   <Input
                     value={option.benefit}
                     onChange={(e) => handleOptionChange(index, "benefit", e.target.value)}
                   />
                 </div>
                 <div>
-                  <Label>Icon (emoji)</Label>
+                  <Label>ไอคอน (รูปอิโมจิ)</Label>
                   <Input
                     value={option.icon}
                     onChange={(e) => handleOptionChange(index, "icon", e.target.value)}
@@ -251,7 +272,7 @@ const ManageDonation = () => {
       </Card>
 
       <Button className="w-full mt-6" onClick={handleSubmit} disabled={isLoading}>
-        {isLoading ? "Saving..." : "Save Changes"}
+        {isLoading ? "กำลังบันทึก..." : "บันทึกการเปลี่ยนแปลงทั้งหมด"}
       </Button>
     </div>
   );

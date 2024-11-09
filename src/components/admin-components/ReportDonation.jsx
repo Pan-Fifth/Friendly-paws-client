@@ -7,12 +7,12 @@ export default function ReportDonation() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [donates, setDonates] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState('');
 
     const handleFetchReport = async () => {
         try {
             const response = await getDonateData(startDate, endDate);
-            setDonates(response.data);
-            console.log("Report data:", response.data);
+            filterDonations(response.data);
         } catch (error) {
             console.error("Error fetching report data:", error);
         }
@@ -20,13 +20,18 @@ export default function ReportDonation() {
     const handleFetchAllReport = async () => {
         try {
             const response = await getAllDonateData();
-            setDonates(response.data);
+            filterDonations(response.data);
 
         } catch (error) {
             console.error("Error fetching report data:", error);
         }
     };
-    console.log(donates, "donates")
+    const filterDonations = (data) => {
+        const filteredData = selectedStatus
+            ? data.filter(donation => donation.status === selectedStatus)
+            : data;
+        setDonates(filteredData);
+    };
 
     const handleExportExcel = async () => {
         if (donates.length === 0) {
@@ -54,9 +59,15 @@ export default function ReportDonation() {
         }
     };
 
+    const handleStatusChange = (e) => {
+        setSelectedStatus(e.target.value);
+        filterDonations(donates);
+    };
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold mb-8 text-center">รายงานการบริจาค</h1>
+
             <div className="flex justify-between gap-4 mb-6">
                 <div className='flex gap-6 '>
                     <p className='flex justify-center items-center'>วันที่สร้างข้อมูล : </p>
@@ -72,11 +83,21 @@ export default function ReportDonation() {
                         onChange={e => setEndDate(e.target.value)}
                         className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
+                    <select
+                        value={selectedStatus}
+                        onChange={handleStatusChange}
+                        className="border px-4 py-2 rounded-lg"
+                    >
+                        <option value="">ทั้งหมด</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="CANCEL">CANCEL</option>
+                        <option value="DONE">DONE</option>
+                    </select>
                     <button
                         onClick={handleFetchReport}
                         className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
                     >
-                        รายงาน
+                        ดูข้อมูล
                     </button>
                 </div>
                 <div className=' flex gap-6 justify-center item-center'>
@@ -104,8 +125,6 @@ export default function ReportDonation() {
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ไอดี</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ชื่อผู้ระดมทุน</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ยอดระดมทุน</th>
-                                    <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">ขั้นตอนการชำระ</th>
-                                    <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">รหัสการทำธุรกรรม</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">บิล</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">สถานะ</th>
                                     <th className="px-6 py-3 border-b text-left text-xs font-semibold text-gray-600 uppercase">วันที่ส่งข้อมูล</th>
@@ -117,8 +136,6 @@ export default function ReportDonation() {
                                         <td className="px-6 py-4 whitespace-nowrap">{donate.id}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">{donate.user.firstname}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">{donate.total}</td>
-                                        <td className="px-6 py-4">{donate.payment_method}</td>
-                                        <td className="px-6 py-4">{donate?.transaction_id}</td>
                                         <td className="px-6 py-4">{donate?.receipt_url}</td>
                                         <td className={`px-6 py-4 ${donate.status === 'PENDING'
                                             ? 'text-yellow-500'

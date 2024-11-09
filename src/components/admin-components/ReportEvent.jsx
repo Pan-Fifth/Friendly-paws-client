@@ -11,12 +11,12 @@ export default function ReportEvent() {
     const [endDate, setEndDate] = useState('')
     const [events, setEvents] = useState([])
     const [selectedEventId, setSelectedEventId] = useState(null);
+    const [selectedStatus, setSelectedStatus] = useState('');
 
     const handleFetchReport = async () => {
         try {
             const response = await getEventData(startDate, endDate);
-            setEvents(response.data);
-            console.log("Report data:", response.data);
+            filterEvents(response.data);
         } catch (error) {
             console.error("Error fetching report data:", error);
         }
@@ -24,11 +24,18 @@ export default function ReportEvent() {
     const handleFetchAllReport = async () => {
         try {
             const response = await getAllEventData();
-            setEvents(response.data);
+            filterEvents(response.data);
 
         } catch (error) {
             console.error("Error fetching report data:", error);
         }
+    };
+
+    const filterEvents = (data) => {
+        const filteredData = selectedStatus
+            ? data.filter(event => event.status === selectedStatus)
+            : data;
+        setEvents(filteredData);
     };
     const handleExportExcel = async () => {
         if (events.length === 0) {
@@ -57,11 +64,14 @@ export default function ReportEvent() {
     };
     const handleEventClick = (id) => {
         setSelectedEventId(id);
-        console.log(id, "id event name")
     };
-
+    const handleStatusChange = (e) => {
+        setSelectedStatus(e.target.value);
+        filterEvents(events);
+    };
     return (
         <div className="container mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold mb-8 text-center">รายงานกิจกรรม</h1>
             <div className="flex justify-between gap-4 mb-6">
                 <div className='flex gap-6'>
                     <p className='flex justify-center items-center'>วันที่เริ่มกิจกรรม : </p>
@@ -77,11 +87,23 @@ export default function ReportEvent() {
                         onChange={e => setEndDate(e.target.value)}
                         className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
+                    <select
+                        value={selectedStatus}
+                        onChange={handleStatusChange}
+                        className="border px-4 py-2 rounded-lg"
+                    >
+                        <option value="">ทั้งหมด</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="COMPLETED">COMPLETED</option>
+                        <option value="CANCELLED">CANCELLED</option>
+                        <option value="POSTPONED">POSTPONED</option>
+                    </select>
                     <button
                         onClick={handleFetchReport}
                         className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
                     >
-                        รายงาน
+                        ดูข้อมูล
                     </button>
                 </div>
                 <div className=' flex gap-6'>

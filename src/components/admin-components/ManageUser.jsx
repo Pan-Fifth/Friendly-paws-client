@@ -78,6 +78,7 @@ const ManageUser = () => {
                     }
                 });
                 setUsers(users.filter(user => user.id !== userId));
+                toast.success('ลบข้อมูลผู้ใช้งานสำเร็จ');
             } catch (error) {
                 console.error('Error deleting user:', error);
             }

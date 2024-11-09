@@ -6,9 +6,11 @@ import { getExportPetsExcel } from '../../apis/AdminExportExcelApi';
 
 export default function ReportPet() {
 
-    const [pets, setPets] = useState([])
+    const [pets, setPets] = useState([]);
+    const [filteredPets, setFilteredPets] = useState([]);
+    const [selectedType, setSelectedType] = useState('');
+    const [selectedStatus, setSelectedStatus] = useState('');
 
-    console.log(pets, "Pet tetet")
     const handleFetchAllReport = async () => {
         try {
             const response = await getAllPetData();
@@ -21,6 +23,19 @@ export default function ReportPet() {
     useEffect(() => {
         handleFetchAllReport();
     }, [])
+
+    useEffect(() => {
+        let filtered = pets;
+
+        if (selectedType) {
+            filtered = filtered.filter(pet => pet.type === selectedType);
+        }
+
+        if (selectedStatus) {
+            filtered = filtered.filter(pet => pet.status === selectedStatus);
+        }
+        setFilteredPets(filtered);
+    }, [pets, selectedType, selectedStatus]);
     const calculateAge = (birthDate) => {
         const today = new Date();
         const birth = new Date(birthDate);
@@ -37,7 +52,7 @@ export default function ReportPet() {
 
 
     const handleExportExcel = async () => {
-        if (pets.length === 0) {
+        if (filteredPets.length === 0) {
             Swal.fire({
                 icon: 'warning',
                 title: 'กรุณาเลือกข้อมูล',
@@ -48,7 +63,7 @@ export default function ReportPet() {
         }
 
         try {
-            const response = await getExportPetsExcel(pets)
+            const response = await getExportPetsExcel(filteredPets)
 
             const url = window.URL.createObjectURL(new Blob([response.data]));
             const link = document.createElement('a');
@@ -63,8 +78,30 @@ export default function ReportPet() {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            <div className="flex gap-4 mb-6">
+            <h1 className="text-3xl font-bold mb-8 text-center">รายงาน สัตว์เลี้ยง</h1>
 
+            <div className="flex gap-4 mb-6">
+                <select
+                    value={selectedType}
+                    onChange={(e) => setSelectedType(e.target.value)}
+                    className="border p-2 rounded"
+                >
+                    <option value="">เลือกประเภท</option>
+                    <option value="DOG">หมา</option>
+                    <option value="CAT">แมว</option>
+                </select>
+                <select
+                    value={selectedStatus}
+                    onChange={(e) => setSelectedStatus(e.target.value)}
+                    className="border p-2 rounded"
+                >
+                    <option value="">เลือกสถานะ</option>
+                    <option value="PENDING">PENDING</option>
+                    <option value="FOSTERED">FOSTERED</option>
+                    <option value="UNAVAILABLE">UNAVAILABLE</option>
+                    <option value="ADOPTED">ADOPTED</option>
+                    <option value="AVAILABLE">AVAILABLE</option>
+                </select>
                 <button
                     onClick={handleExportExcel}
                     className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
@@ -73,7 +110,7 @@ export default function ReportPet() {
                 </button>
             </div>
 
-            {pets && pets.length > 0 ? (
+            {filteredPets && filteredPets.length > 0 ? (
                 <div className="overflow-x-auto shadow-lg rounded-lg">
                     <table className="min-w-full bg-white">
                         <thead className="bg-gray-100">
@@ -95,7 +132,7 @@ export default function ReportPet() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-gray-200">
-                            {pets.map(pet => (
+                            {filteredPets.map(pet => (
                                 <tr key={pet.id} className="hover:bg-gray-50">
                                     <td className="px-6 py-4 whitespace-nowrap">{pet.id}</td>
                                     <td className="px-6 py-4 whitespace-nowrap">{pet.name_th}</td>

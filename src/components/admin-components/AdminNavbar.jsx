@@ -118,7 +118,7 @@ export default function AdminNavbar() {
                                             กิจกรรม
                                         </Link>
                                         <Link to="/admin/report-donation" onClick={() => setDropdownManagePageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            ระดมทุน
+                                            การบริจาค
                                         </Link>
                                         <Link to="/admin/report-adopt" onClick={() => setDropdownManagePageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             รับเลี้ยงสัตว์

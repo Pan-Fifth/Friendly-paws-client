@@ -42,38 +42,43 @@ export default function ManageAdopt() {
     return (
         <div>
             {/* Card */}
-            {allAdoptRequest?.length === 0 
-            ?<p>ไม่มีข้อมูลสำหรับการขอรับเลี้ยง....</p>
-            :allAdoptRequest?.map((el, index) => (<AdminAdoptCard
-                key={index}
-                requestId={el.id}
-                img={el.pet.image[0].url}
-                name={el.user.firstname}
-                email={el.user.email}
-                phone={el.user.phone}
-                petName={el.pet.name_th}
-                data={el}
-                page={page}
-            />))
+            {allAdoptRequest?.length === 0
+                ? <p>ไม่มีข้อมูลสำหรับการขอรับเลี้ยง....</p>
+                : allAdoptRequest?.map((el, index) => (<AdminAdoptCard
+                    key={index}
+                    requestId={el.id}
+                    img={el.pet.image[0].url}
+                    name={el.user.firstname}
+                    email={el.user.email}
+                    phone={el.user.phone}
+                    petName={el.pet.name_th}
+                    data={el}
+                    page={page}
+                />))
             }
-            
+
 
             {/* button */}
             <div className="mt-10">
                 <div className="flex justify-center items-center gap-2">
-                    <Button
-                        onClick={() => hdlPageChange(-1)}
-                        className="border text-xl"
-                    >
-                        previous
-                    </Button>
-                    <p className="text-2xl">Page {page}</p>
-                    <Button
-                        onClick={() => hdlPageChange(+1)}
-                        className="border text-xl"
-                    >
-                        next
-                    </Button>
+                    {page > 1 &&
+                        <Button
+                            onClick={() => hdlPageChange(-1)}
+                            className="border text-xl"
+                        >
+                            ก่อนหน้า
+                        </Button>
+                    }
+                    <p className="text-2xl">หน้า {page}</p>
+                    {
+                        allAdoptRequest?.length === 6 &&
+                        <Button
+                            onClick={() => hdlPageChange(+1)}
+                            className="border text-xl"
+                        >
+                            ถัดไป
+                        </Button>
+                    }
                 </div>
             </div>
         </div>

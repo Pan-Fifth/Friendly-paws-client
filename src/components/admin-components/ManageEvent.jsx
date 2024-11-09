@@ -32,7 +32,8 @@ export default function ManageEvent() {
         description_th: '',
         date_start: '',
         date_end: '',
-        location: ''
+        location: '',
+        status: ''
     });
 
     useEffect(() => {
@@ -72,7 +73,8 @@ export default function ManageEvent() {
             description_th: event.description_th,
             date_start: event.date_start ? event.date_start.split('T')[0] : '',
             date_end: event.date_end ? event.date_end.split('T')[0] : '',
-            location: event.location
+            location: event.location,
+            status: event.status
         });
         setIsEditModalOpen(true);
     };
@@ -96,7 +98,8 @@ export default function ManageEvent() {
             closeEditModal();
         }
     };
-
+    console.log(formData.status, "dfjifsjdkljl")
+    console.log(selectedEvent, "selectedEvent")
     return (
         <div>
             <div className='items-center flex justify-center'>
@@ -146,6 +149,21 @@ export default function ManageEvent() {
                         <h2 className="text-xl font-semibold mb-4">แก้ไขข้อมูลกิจกรรม</h2>
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
+                            <div className="col-span-2">
+                                <label className="block text-sm font-medium text-gray-700">สถานะ</label>
+                                <select
+                                    className="mt-1 block w-full border border-gray-300 rounded-md p-2"
+                                    name="status"
+                                    value={formData.status}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="ACTIVE">ACTIVE</option>
+                                    <option value="PENDING">PENDING</option>
+                                    <option value="COMPLETED">COMPLETED</option>
+                                    <option value="CANCELLED">CANCELLED</option>
+                                    <option value="POSTPONED">POSTPONED</option>
+                                </select>
+                            </div>
                             <div className="col-span-2">
                                 <label className="block text-sm font-medium text-gray-700">ชื่อกิจกรรม (ภาษาไทย)</label>
                                 <input
