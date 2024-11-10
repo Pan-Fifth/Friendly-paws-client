@@ -63,6 +63,15 @@ export default function Navbar() {
                       <Link to="/profile" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                         {t('navbar.editProfile')}
                       </Link>
+                      <Link to="/adopt-history" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        {t('navbar.adoptHistory')}
+                      </Link>
+                      <Link to="/donate-history" className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
+                        {t('navbar.donateHistory')}
+                      </Link>
+                      <Link to="/event-history" className="block px-4 py-2 text-gray-700 hover:bg-gray-100 ">
+                        {t('navbar.eventHistory')}
+                      </Link>
 
                     </li>
                     <li>
@@ -78,14 +87,7 @@ export default function Navbar() {
                   </ul>
                 </div>
               )}
-              {/* <Link
-                onClick={hdlClickLogout}
-                to="/login"
-                className="block px-4 py-2 text-gray-700 hover:bg-gray-100 text-sm md:text-base"
-                style={{ fontSize: 'inherit' }}
-              >
-                {t('navbar.logout')}
-              </Link> */}
+
             </div>
           ) : (
             <div className="flex gap-10 text-black">
@@ -147,6 +149,15 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link to="/profile" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.editProfile')}</Link>
+                <Link to="/adopt-history" className="font-head text-sm md:text-base">
+                  {t('navbar.adoptHistory')}
+                </Link>
+                <Link to="/donate-history" className="font-head text-sm md:text-base ">
+                  {t('navbar.donateHistory')}
+                </Link>
+                <Link to="/event-history" className="font-head text-sm md:text-base ">
+                  {t('navbar.eventHistory')}
+                </Link>
                 <Link to="/login" className="font-head  text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.logout')}</Link>
               </>
             ) : (

@@ -80,7 +80,7 @@ const Event = () => {
     fetchBannerImages();
   }, []);
 
-  console.log(bannerImages, "============")
+
   if (events.length === 0) {
     return <div>Loading...</div>;
   }
