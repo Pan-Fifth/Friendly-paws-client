@@ -26,8 +26,9 @@ export const getAllPetData = () => {
     return axiosInstance.get(`/admin/report-pet-all`);
 };
 
-export const getAllAdoptRequest = (token,page)=>{
-    return axiosInstance.get(`/admin/all-adopts/6/${page}`, {
+export const getAllAdoptRequest = (token,page,filter)=>{
+    console.log("before",filter)
+    return axiosInstance.get(`/admin/all-adopts/6/${filter}/${page}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
