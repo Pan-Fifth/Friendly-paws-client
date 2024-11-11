@@ -249,7 +249,7 @@
     "sendFailed": "ไม่สามารถส่งอีเมลได้",
     
       "title": "ส่งอีเมล",
-      "recipientPlaceholder": "กรอกอีเมลผู้รับ",
+      "recipientPlaceholder": "กรอกอีเมล",
       "subjectPlaceholder": "กรอกหัวข้ออีเมล",
       "messagePlaceholder": "กรอกข้อความ",
       "sendButton": "ส่ง"

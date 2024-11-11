@@ -9,15 +9,15 @@ const registerAuthen = Joi.object({
         .required()
         .messages({
             "string.empty": "please enter your 'Email'",
-            "string.email": "Email should contain '@'"
+            "string.email": "Email should contain '@.example.com'"
         }),
 
     password: Joi.string()
-        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-{}[\]:;"'<>,.?/\\|`~]).{6,}$/)
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
         .required()
         .messages({
             "string.empty": "please enter your 'Password'",
-            "string.pattern.base": "Password must contain a-z A-Z 0-9 !@#$%^&* and at least 6 characters"
+            "string.pattern.base": "Password must contain a-z A-Z 0-9 and at least 6 characters"
         }),
     confirmPassword: Joi.string()
         .required()

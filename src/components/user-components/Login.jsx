@@ -50,19 +50,17 @@ export default function Login() {
 
     e.preventDefault();
 
-    const error = validateLogin(form, t)
+    try {
+      const role = await actionLogin(form)
+      toast.success(t('login.toastLogin'));
+      if (role) {
 
-    if (error) {
-
-      return setFormatError(error)
+        roleRedirect(role)
+      }
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
-    const role = await actionLogin(form)
-    toast.success(t('login.toastLogin'));
 
-    if (role) {
-
-      roleRedirect(role)
-    }
   }
 
   const roleRedirect = (role) => {

@@ -66,7 +66,7 @@ export default function Register() {
 
         } catch (err) {
 
-            console.error("Registration failed:", err);
+            toast.error(err.response.data.message);
         }
     }
     const getPlaceholder = (name) => {

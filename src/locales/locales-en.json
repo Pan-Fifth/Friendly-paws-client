@@ -248,7 +248,7 @@
     "adminRestriction": "Admins cannot send emails",
     "sendFailed": "Failed to send email",    
       "title": "Send Email",
-      "recipientPlaceholder": "Enter recipient's email",
+      "recipientPlaceholder": "Your email",
       "subjectPlaceholder": "Enter email subject",
       "messagePlaceholder": "Enter message",
       "sendButton": "Send"
