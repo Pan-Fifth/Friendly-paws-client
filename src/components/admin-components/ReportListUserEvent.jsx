@@ -1,15 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import { getListUserEventData } from '@/src/apis/AdminReportApi';
 import { getExportListEventExcel } from '../../apis/AdminExportExcelApi';
+import useAuthStore from '@/src/stores/AuthStore';
 
 
 export default function ReportListUserEvent({ eventId }) {
 
     const [events, setEvents] = useState([])
+    const token = useAuthStore((state) => state.token);
 
     const handleListUser = async () => {
         try {
-            const response = await getListUserEventData(eventId);
+            const response = await getListUserEventData(token, eventId);
             setEvents(response.data);
 
         } catch (error) {
@@ -23,7 +25,7 @@ export default function ReportListUserEvent({ eventId }) {
     const handleExportExcel = async () => {
 
         try {
-            const response = await getExportListEventExcel(events)
+            const response = await getExportListEventExcel(token, events)
 
             // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
             const url = window.URL.createObjectURL(new Blob([response.data]));
