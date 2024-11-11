@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import useAuthStore from '@/src/stores/AuthStore';
+import axiosInstance from '@/src/utils/axiosInstance';
 
 const ManageUser = () => {
     const [users, setUsers] = useState([]);
@@ -18,7 +19,7 @@ const ManageUser = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/admin/users');
+            const response = await axiosInstance.get('/admin/users');
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -48,7 +49,7 @@ const ManageUser = () => {
     const handleUpdateUser = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:3000/admin/users/${editingUser.id}`, formData, {
+            const response = await axiosInstance.put(`/admin/users/${editingUser.id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
