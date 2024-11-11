@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import useAuthStore from '@/src/stores/AuthStore';
 
 const ManageUser = () => {
     const [users, setUsers] = useState([]);
     const [editingUser, setEditingUser] = useState(null);
+    const token = useAuthStore((state) => state.token);
     const [formData, setFormData] = useState({
         email: '',
         firstname: '',
@@ -48,8 +50,8 @@ const ManageUser = () => {
         try {
             const response = await axios.put(`http://localhost:3000/admin/users/${editingUser.id}`, formData, {
                 headers: {
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                }
+                    Authorization: `Bearer ${token}`,
+                },
             });
             setUsers(users.map(user => (user.id === editingUser.id ? response.data : user)));
             setEditingUser(null);
@@ -60,29 +62,30 @@ const ManageUser = () => {
         }
     };
 
-    const handleDeleteUser = async (userId) => {
-        const result = await Swal.fire({
-            title: "ยืนยันที่จะลบข้อมูลใช่หรือไม่?",
-            icon: "warning",
-            showCancelButton: true,
-            confirmButtonColor: "#3085d6",
-            cancelButtonColor: "#d33",
-            confirmButtonText: "ใช่ ,ฉันจะลบ!",
-            cancelButtonText: "ไม่ ,ฉันจะยกเลิก!"
-        });
-        if (result.isConfirmed) {
-            try {
-                await axios.delete(`http://localhost:3000/admin/users/${userId}`, {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
-                });
-                setUsers(users.filter(user => user.id !== userId));
-            } catch (error) {
-                console.error('Error deleting user:', error);
-            }
-        }
-    };
+    // const handleDeleteUser = async (userId) => {
+    //     const result = await Swal.fire({
+    //         title: "ยืนยันที่จะลบข้อมูลใช่หรือไม่?",
+    //         icon: "warning",
+    //         showCancelButton: true,
+    //         confirmButtonColor: "#3085d6",
+    //         cancelButtonColor: "#d33",
+    //         confirmButtonText: "ใช่ ,ฉันจะลบ!",
+    //         cancelButtonText: "ไม่ ,ฉันจะยกเลิก!"
+    //     });
+    //     if (result.isConfirmed) {
+    //         try {
+    //             await axios.delete(`http://localhost:3000/admin/users/${userId}`, {
+    //                 headers: {
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //             setUsers(users.filter(user => user.id !== userId));
+    //             toast.success('ลบข้อมูลผู้ใช้งานสำเร็จ');
+    //         } catch (error) {
+    //             console.error('Error deleting user:', error);
+    //         }
+    //     }
+    // };
     const closeEditModal = () => {
         setEditingUser(false);
 
@@ -118,12 +121,12 @@ const ManageUser = () => {
                                 >
                                     แก้ไข
                                 </button>
-                                <button
+                                {/* <button
                                     onClick={() => handleDeleteUser(user.id)}
                                     className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
                                 >
                                     ลบ
-                                </button>
+                                </button> */}
                             </td>
                         </tr>
                     ))}
@@ -182,7 +185,7 @@ const ManageUser = () => {
                                     <option value="">เลือกบทบาท</option>
                                     <option value="ADMIN">Admin</option>
                                     <option value="USER">User</option>
-                                    <option value="GUEST">VOLUNTEER</option>
+                                    <option value="VOLUNTEER">VOLUNTEER</option>
                                 </select>
                             </div>
                             <button type="submit" className="mt-4 bg-green-500 text-white px-4 py-2 me-6 rounded hover:bg-green-600 transition">

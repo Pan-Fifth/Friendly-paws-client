@@ -29,11 +29,7 @@ const ManageEventPage = () => {
         image3: response.data.image3
       })
     } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error fetching banner",
-        description: error.message
-      })
+      toast.error("ไม่สามารถดึงข้อมูลได้");
     }
   }
 
@@ -44,14 +40,14 @@ const ManageEventPage = () => {
   const handleFileChange = (e, imageKey) => {
     const file = e.target.files[0]
     if (file) {
-      setFiles(prev => ({...prev, [imageKey]: file}))
-      setPreviews(prev => ({...prev, [imageKey]: URL.createObjectURL(file)}))
+      setFiles(prev => ({ ...prev, [imageKey]: file }))
+      setPreviews(prev => ({ ...prev, [imageKey]: URL.createObjectURL(file) }))
     }
   }
 
   const handleSubmit = async () => {
     if (isLoading) return
-    
+
     setIsLoading(true)
     try {
       const formData = new FormData()
@@ -67,10 +63,10 @@ const ManageEventPage = () => {
         headers: { 'Content-Type': 'multipart/form-data' }
       })
 
-      toast.success("Banner updated successfully")
+      toast.success("อัพเดทแบนเนอร์หน้ากิจกรรม เรียบร้อยแล้ว")
       fetchBanner()
     } catch (error) {
-      toast.error("Failed to update banner")
+      toast.error("ไม่สามารถอัพเดทได้")
     } finally {
       setIsLoading(false)
     }
@@ -78,18 +74,18 @@ const ManageEventPage = () => {
 
   return (
     <div className="container mx-auto p-6 space-y-8">
-      <h1 className="text-3xl font-bold mb-6">Manage Event Banner Images</h1>
+      <h1 className="text-3xl font-bold mb-6">จัดการแก้ไขแบนเนอร์ หน้ากิจกรรม</h1>
 
       <Card>
         <CardContent className="p-6 space-y-6">
           {[1, 2, 3].map(num => (
             <div key={num} className="space-y-4">
-              <h2 className="text-xl font-semibold">Banner Image {num}</h2>
+              <h2 className="text-xl font-semibold">รูปภาพแบนเนอร์  {num}</h2>
               <div className="flex items-center gap-4">
                 {previews[`image${num}`] && (
-                  <img 
-                    src={previews[`image${num}`]} 
-                    alt={`Banner ${num}`} 
+                  <img
+                    src={previews[`image${num}`]}
+                    alt={`Banner ${num}`}
                     className="w-40 h-40 object-cover rounded"
                   />
                 )}
@@ -102,12 +98,12 @@ const ManageEventPage = () => {
               </div>
             </div>
           ))}
-          <Button 
-            className="w-full mt-4" 
+          <Button
+            className="w-full mt-4"
             onClick={handleSubmit}
             disabled={isLoading}
           >
-            {isLoading ? "Saving Changes..." : "Save Changes"}
+            {isLoading ? "กำลังบันทึก..." : "บันทึกการเปลี่ยนแปลงทั้งหมด"}
           </Button>
         </CardContent>
       </Card>

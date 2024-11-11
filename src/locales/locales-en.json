@@ -11,7 +11,10 @@
       "editProfile": "Edit Profile",
       "logout": "Logout",
       "sendEmail" : "Send Email",
-      "send" : "Send "
+      "send" : "Send ",
+      "adoptHistory": "Adopt History",
+      "eventHistory": "Event History",
+      "donateHistory": "Donate History"
     },
     
       "donatePage": {
@@ -297,7 +300,24 @@
     "deliveryTypeInvalid": "Invalid delivery type selected",
     "why": "Please explain why you want to adopt"
 
-
-    }
+    },
+   "history": {
+    "adoptionHistory": "Adoption History",
+    "startDate": "Start Date:",
+    "endDate": "End Date:",
+    "description": "Description:",
+    "location": "Location:",
+    "status": "Status:",
+    "donationDate": "Donation Date:",
+    "donationAmount": "Donation Amount:",
+    "receipt": "Receipt:",
+    "adoptDate": "Adoption Date:",
+    "petType": "Pet Type:",
+    "breed": "Breed:",
+    "gender": "Gender:",
+    "color": "Color:",
+    "birthDate": "Birth Date:",
+    "noEventHistory": "No history."
+  }
 }
   
