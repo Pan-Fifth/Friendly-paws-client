@@ -24,7 +24,7 @@ const LiveChat = forwardRef((props, ref) => {
     useEffect(() => {
       if (messages.length === 0) {
         const welcomeMessage = {
-          text: "Hello! I'm your Friendly Paws assistant. How can I help you with pet adoption, donations, events, or volunteering today?",
+          text: "Hello! I'm your Friendly Paws assistant. How can I help you with pet adoption, donations, or events?",
           sender: 'bot'
         };
         setMessages([welcomeMessage]);
@@ -49,11 +49,10 @@ const LiveChat = forwardRef((props, ref) => {
   - We have dogs and cats available for adoption
   - Each pet has details in English and Thai (name, breed, description)
   - Pets can be: AVAILABLE, PENDING, ADOPTED, FOSTERED, or UNAVAILABLE
-  - We track medical history, vaccination status, and neutering status
 
   2. User System:
-  - Users can be: regular USERS, ADMIN, or VOLUNTEERS
-  - Users can adopt pets, donate, attend events, and volunteer
+  - Users can be: regular USERS
+  - Users can adopt pet, donate, attend event
   - We verify housing conditions before adoption
 
   3. Adoption Process:
@@ -67,14 +66,10 @@ const LiveChat = forwardRef((props, ref) => {
   - Users can donate via credit card or promptpay
   - Events can be: PENDING, ACTIVE, COMPLETED, CANCELLED, or POSTPONED
 
-  5. Volunteer Program:
-  - Volunteers can register with specific skills
-  - They can set their availability
-  - Volunteers can provide descriptions in English and Thai
 
   When responding:
   1. Keep responses concise and friendly
-  2. Always suggest relevant page links using [text](/path) format
+  2. Always suggest relevant page links using [text](/path) format, paths are in singular form (donate, adopt, event)
   3. Focus on guiding users to the right sections of the website`;
 
   const generateResponse = async (userInput) => {
@@ -136,9 +131,9 @@ const LiveChat = forwardRef((props, ref) => {
         </div>
       );
     }
-
+  
     const parts = message.text.split(/(\[[^\]]+\]\([^)]+\))/g);
-
+  
     return (
       <div className="bg-muted rounded-lg px-4 py-2 max-w-[80%] break-words whitespace-pre-wrap">
         {parts.map((part, index) => {
@@ -161,9 +156,10 @@ const LiveChat = forwardRef((props, ref) => {
       </div>
     );
   };
+  
 
   return (
-    <div className="fixed inset-0 pointer-events-none">
+    <div className="fixed inset-0 pointer-events-none z-50">
       <div className="relative w-full h-full">
         <Draggable
           nodeRef={nodeRef}

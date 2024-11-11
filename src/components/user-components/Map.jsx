@@ -39,12 +39,11 @@ const ZoomToMarker = ({ position, setShowButton }) => {
   );
 };
 
-const Map = ({defaultPosition}) => {
+const Map = ({ defaultPosition = [13.7583128, 100.4525691] }) => {  // ใช้ตำแหน่งที่ปรับเป็น 13.7583128, 100.4525691
   const mapRef = useRef();
   const [showButton, setShowButton] = useState(false);
 
-  // const defaultPosition = [13.7583265, 100.5349709];
-  const defaultZoom = 10;
+  const defaultZoom = 18;  // ตั้งค่า Zoom เป็น 18 เพื่อให้ชัดเจนขึ้น
 
 
   const backToMarker = () => {
@@ -59,7 +58,7 @@ const Map = ({defaultPosition}) => {
       <MapContainer
         ref={mapRef}
         style={{ height: '100%', width: '100%' }}
-        center={defaultPosition}
+        center={defaultPosition}  // ตั้งค่า default location
         zoom={defaultZoom}
         className='relative z-[1]'
       >
