@@ -127,9 +127,7 @@ const Donation = () => {
     <div className="relative min-h-screen">
       <AnimatedBackground />
       <div className="container mx-auto p-6 min-h-screen bg-gradient-to-b from-background/50 to-muted/50">
-        <ChatPortal>
-          <LiveChat ref={React.createRef()} className="fixed top-0 right-0" />
-        </ChatPortal>
+
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <motion.div
