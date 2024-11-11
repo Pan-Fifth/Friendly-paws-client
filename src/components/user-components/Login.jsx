@@ -30,8 +30,6 @@ export default function Login() {
 
   const [formatError, setFormatError] = useState({})
 
-  const token = useAuthStore((state) => state.token)
-  const user = useAuthStore((state) => state.user)
 
   const isOpen = useAuthStore((state) => state.isOpen);
   const setIsOpen = useAuthStore((state) => state.setIsOpen);
@@ -49,6 +47,13 @@ export default function Login() {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+
+    const error = validateLogin(form, t)
+
+    if (error) {
+
+      return setFormatError(error)
+    }
 
     try {
       const role = await actionLogin(form)

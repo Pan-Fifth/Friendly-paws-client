@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import useAuthStore from '../../stores/AuthStore';
 import { useNavigate, useParams } from 'react-router-dom';
 import { resetPassword } from '../../apis/AuthApi';
 import { useTranslation } from 'react-i18next';
