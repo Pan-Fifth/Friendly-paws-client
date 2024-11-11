@@ -27,7 +27,7 @@
   "titleForm": "บริจาค",
   "descriptionForm": "สนับสนุนเพื่อนขนฟูของเราที่ต้องการความช่วยเหลือ",
   "customAmountLabel": "จำนวนเงินที่กำหนดเอง (บาท)",
-  "impactLabel": "ผลกระทบของคุณ:",
+  "impactLabel": "สิ่งที่น้องจะได้รับจากการบริจาคครั้งนี้:",
   "donateButton": "บริจาค ",
   "closeButton": "ปิด ",
   "placeHolder": "กรอกจำนวนเงินที่ต้องการ",
@@ -42,7 +42,7 @@
 "donationGoals": {
   "title": "เป้าหมายการบริจาค ",
   "totalDonations": "ยอดบริจาครวม",
-  "impactSummary": "สรุปผลกระทบ",
+  "impactSummary": "สรุปยอดบริจาค",
   "petsHelped": "สัตว์ที่ได้รับการช่วยเหลือ",
   "targetPets": "เป้าหมายการช่วยเหลือสัตว์ปี "
 },
@@ -178,7 +178,7 @@
     "contactInformation": "ข้อมูลการติดต่อ",
     "dateOfBirth": "วันเกิด*",
     "phoneNo": "เบอร์โทร*",
-    "lineContact": "ไลน์*",
+    "lineContact": "ช่องทางการติดต่ออื่นๆ*",
     "email": "อีเมล",
     "livingSituation": "สถานภาพการอยู่อาศัย",
     "address": "ที่อยู่*",
@@ -299,7 +299,7 @@
       "housingTypeRequired": "กรุณาเลือกประเภทที่พักอาศัย",
       "housingTypeInvalid": "ประเภทที่พักอาศัยที่เลือกไม่ถูกต้อง",
     
-      "deliveryTypeRequired": "กรุณาเลือกวิธีการส่งมอบ",
+      "deliveryTypeRequired": "กรุณาเลือกวิธีรับน้องไปเลี้ยง",
       "deliveryTypeInvalid": "วิธีการส่งมอบที่เลือกไม่ถูกต้อง",
       "why": "กรุณาอธิบายเหตุผลที่ต้องการรับเลี้ยง"
 
