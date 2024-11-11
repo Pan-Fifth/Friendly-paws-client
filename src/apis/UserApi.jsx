@@ -29,7 +29,7 @@ export const getProfile = (token) => {
 
 
 export const editProfile = (id, token, user) => {
-    return axios.patch(`http://localhost:3000/user/edit-profile/${id}`, user, {
+    return axiosInstance.patch(`/user/edit-profile/${id}`, user, {
         headers: {
             Authorization: `Bearer ${token}`,
         },

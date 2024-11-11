@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState, useRef } from "react";
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
 
@@ -46,6 +47,20 @@ export default function Dashboard() {
   });
   const navigate = useNavigate();
   const [clickCount, setClickCount] = useState(0);
+  const dashboardRef = useRef(null);
+
+  const handleDownloadPDF = async () => {
+    const element = dashboardRef.current;
+    const canvas = await html2canvas(element, { scale: 2 });
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF("p", "mm", "a4");
+
+    const pdfWidth = pdf.internal.pageSize.getWidth();
+    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+    pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
+    pdf.save("dashboard-report.pdf");
+  };
+
 
   const handleDonationClick = () => {
     setTimeout(() => {
@@ -93,8 +108,11 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-8 space-y-8 max-w-7xl mx-auto">
+    <div className="p-8 space-y-8 max-w-7xl mx-auto" ref={dashboardRef}>
       {/* Overview Stats */}
+      <button onClick={handleDownloadPDF} className="bg-blue-500 text-white py-2 px-4 rounded">
+        Download PDF
+      </button>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
         <div onClick={handleDonationClick}>
           <DonationDashboard
@@ -104,29 +122,35 @@ export default function Dashboard() {
         </div>
         <Card className="shadow-md hover:shadow-lg transition-shadow flex flex-col">
           <CardHeader>
-            <CardTitle className="text-xl">ภาพรวมระบบ</CardTitle>
-            <CardDescription>ข้อมูลสำคัญและกิจกรรมล่าสุด</CardDescription>
+            <CardTitle className="text-xl"> ภาพรวมแพลตฟอร์ม</CardTitle>
+            <CardDescription>ตัวชี้วัดสำคัญและกิจกรรมล่าสุด</CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col flex-1">
             {/* Stats Section */}
-            <div className="text-center">
-              <p className="text-sm text-gray-500">จำนวนผู้ใช้ทั้งหมด</p>
-              <p className="text-3xl font-bold text-primary">{dashboardData.overview.totalUsers}</p>
-            </div>
-            <div className="text-center border-x">
-              <p className="text-sm text-gray-500">จำนวนสัตว์เลี้ยงทั้งหมด</p>
-              <p className="text-3xl font-bold text-primary">{dashboardData.overview.totalPets}</p>
-            </div>
-            <div className="text-center">
-              <p className="text-sm text-gray-500">จำนวนการรับเลี้ยงทั้งหมด</p>
-              <p className="text-3xl font-bold text-primary">
-                {dashboardData.overview.totalAdoptions}
-              </p>
+            <div className="grid grid-cols-3 gap-4 pb-6 border-b">
+              <div className="text-center">
+                <p className="text-sm text-gray-500">ยอดผู้ใช้งานทั้งหมด</p>
+                <p className="text-3xl font-bold text-primary">
+                  {dashboardData.overview.totalUsers}
+                </p>
+              </div>
+              <div className="text-center border-x">
+                <p className="text-sm text-gray-500">ยอดสัตว์เลี้ยงทั้งหมด</p>
+                <p className="text-3xl font-bold text-primary">
+                  {dashboardData.overview.totalPets}
+                </p>
+              </div>
+              <div className="text-center">
+                <p className="text-sm text-gray-500">ยอดการรับเลี้ยงทั้งหมด</p>
+                <p className="text-3xl font-bold text-primary">
+                  {dashboardData.overview.totalAdoptions}
+                </p>
+              </div>
             </div>
 
             {/* Recent Activities Section */}
             <div className="flex-1 overflow-hidden">
-              <h3 className="text-lg font-semibold my-4">กิจกรรมล่าสุด</h3>
+              <h3 className="text-lg font-semibold my-4"> ผู้ขอรับเลี้ยงสัตว์ล่าสุด</h3>
               <div className="space-y-4 overflow-y-auto h-[220px] pr-2">
                 {dashboardData.recentActivities.adoptions.map((adoption, index) => (
                   <div
@@ -153,11 +177,11 @@ export default function Dashboard() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <ChartCard
-          title="สถิติการรับเลี้ยงรายเดือน"
+          title="ยอดรับเลี้ยงสัตว์ รายเดือน"
           chart={<AdoptionsChart data={dashboardData.monthlyStats.adoptions} />}
         />
         <ChartCard
-          title="สัดส่วนสถานะสัตว์เลี้ยง"
+          title="ภาพรวมสถานะของสัตว์เลี้ยง"
           chart={<PetStatusChart data={dashboardData.petsStatusDistribution} />}
         />
       </div>
@@ -235,4 +259,7 @@ const ActivityItem = ({ adoption }) => (
       {new Date(adoption.created_at).toLocaleDateString('th-TH')}
     </span>
   </div>
-)
+);
+
+
+

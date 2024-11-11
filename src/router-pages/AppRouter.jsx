@@ -45,6 +45,9 @@ import ManageDonation from "../pages/admin-pages/ManageDonation";
 import ManageAbout from "../pages/admin-pages/ManageAbout";
 import ManageContact from "../pages/admin-pages/ManageContact";
 import ManageEventPage from "../pages/admin-pages/ManageEventPage";
+import AdoptHistory from "../components/user-components/AdoptHistory";
+import DonateHistory from "../components/user-components/DonateHistory";
+import EventHistory from "../components/user-components/EventHistory";
 
 const pageRouter = createBrowserRouter([
   {
@@ -70,9 +73,6 @@ const pageRouter = createBrowserRouter([
       { path: "report-adopt", element: <ReportAdopt /> },
       { path: "report-event", element: <ReportEvent /> },
 
-      // { path: 'report/total-unit-sold', element: <ShowAllMenuCount /> },
-      // { path: 'report/total-sales', element: <ShowAllSaleReport /> },
-      // { path: 'setting/edit-users', element: <EditUser /> },
     ],
   },
   {
@@ -103,6 +103,10 @@ const pageRouter = createBrowserRouter([
       { path: "terms", element: <TermsOfService /> },
       { path: "payment", element: <PaymentDonate /> },
       { path: "completion", element: <Completion /> },
+      { path: "adopt-history", element: <AdoptHistory /> },
+      { path: "donate-history", element: <DonateHistory /> },
+      { path: "event-history", element: <EventHistory /> },
+
     ],
   },
 
