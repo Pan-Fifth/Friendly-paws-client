@@ -46,7 +46,7 @@ export default function Register() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const error = validateRegister(form)
+        const error = validateRegister(form, t)
 
         if (error) {
 

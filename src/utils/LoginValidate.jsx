@@ -18,7 +18,7 @@ const loginAuthen = (t) => Joi.object({
         .messages({
             "string.empty": t('validation.psRequired'),
             "string.base": t('validation.psRequired'),
-            "string.pattern.base": t('validation.psPattern')
+            "string.pattern.base": t('validation.psPattern2')
         }),
 
 

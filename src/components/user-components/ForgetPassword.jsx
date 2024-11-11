@@ -46,7 +46,7 @@ export default function ForgetPassword() {
 
                 <button
                     onClick={handleForgetPassword}
-                    className="bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold p-3 w-full rounded-lg transition-all duration-200 ease-in-out"
+                    className="bg-gradient-to-br from-purple-400 via-pink-300 to-orange-200 text-white font-semibold p-3 w-full rounded-lg transition-all duration-200 ease-in-out"
                 >
                     {loading ? "Sending..." : t("navbar.send")}
                 </button>
