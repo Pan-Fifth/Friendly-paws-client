@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
+
 import {
   LineChart,
   Line,
@@ -26,7 +28,16 @@ const STATUS_COLORS = {
   UNAVAILABLE: "#ef4444",
 };
 
+const STATUS_TRANSLATIONS = {
+  AVAILABLE: "พร้อมหาบ้าน",
+  PENDING: "กำลังดำเนินการ",
+  ADOPTED: "ถูกรับเลี้ยงแล้ว",
+  FOSTERED: "อยู่ระหว่างการเลี้ยงดู",
+  UNAVAILABLE: "ไม่พร้อมหาบ้าน"
+};
+
 export default function Dashboard() {
+  const { t, i18n } = useTranslation();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [goals, setGoals] = useState({
@@ -54,7 +65,7 @@ export default function Dashboard() {
   const handleDonationClick = () => {
     setTimeout(() => {
       setClickCount((prev) => {
-        console.log(prev)
+        console.log(prev);
         if (prev + 1 === 7) {
           navigate("/admin/manage-goal");
           return 0;
@@ -64,9 +75,9 @@ export default function Dashboard() {
     }, 3000);
   };
 
-
   useEffect(() => {
     const fetchDashboardData = async () => {
+      i18n.changeLanguage("th");
       try {
         const response = await axiosInstance.get("/admin/dashboard");
         setDashboardData(response.data);
@@ -216,7 +227,10 @@ const PetStatusChart = ({ data }) => (
   <ResponsiveContainer width="100%" height="100%">
     <PieChart>
       <Pie
-        data={data}
+        data={data.map(item => ({
+          ...item,
+          status: STATUS_TRANSLATIONS[item.status] || item.status
+        }))}
         dataKey="_count"
         nameKey="status"
         cx="50%"
@@ -225,13 +239,14 @@ const PetStatusChart = ({ data }) => (
         label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
       >
         {data.map((entry) => (
+          // Use the original English status to get the color
           <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
         ))}
       </Pie>
-      <Tooltip formatter={(value, name) => [`${value} pets`, name]} />
+      <Tooltip formatter={(value, name) => [`${value} ตัว`, name]} />
     </PieChart>
   </ResponsiveContainer>
-);
+)
 
 // Component for Activity Items
 const ActivityItem = ({ adoption }) => (
@@ -240,10 +255,10 @@ const ActivityItem = ({ adoption }) => (
       <p className="font-medium text-gray-900">
         {adoption.user.firstname} {adoption.user.lastname}
       </p>
-      <p className="text-sm text-gray-600">adopted {adoption.pet.name_en}</p>
+      <p className="text-sm text-gray-600">รับเลี้ยง {adoption.pet.name_th}</p>
     </div>
     <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-      {new Date(adoption.created_at).toLocaleDateString()}
+      {new Date(adoption.created_at).toLocaleDateString('th-TH')}
     </span>
   </div>
 );

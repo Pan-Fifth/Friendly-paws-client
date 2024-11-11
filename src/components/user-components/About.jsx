@@ -160,9 +160,8 @@ export default function About() {
     splitContent = content.split("|");
   }
 
-  console.log("aboutContent", aboutContent.video_url
-  );
 
+  console.log(aboutContent, "=============================")
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
