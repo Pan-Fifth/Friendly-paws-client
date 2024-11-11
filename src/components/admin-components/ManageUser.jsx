@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
+import axiosInstance from '@/src/utils/axiosInstance';
 
 const ManageUser = () => {
     const [users, setUsers] = useState([]);
@@ -16,7 +17,7 @@ const ManageUser = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/admin/users');
+            const response = await axiosInstance.get('/admin/users');
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -46,7 +47,7 @@ const ManageUser = () => {
     const handleUpdateUser = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:3000/admin/users/${editingUser.id}`, formData, {
+            const response = await axiosInstance.put(`/admin/users/${editingUser.id}`, formData, {
                 headers: {
                     'Authorization': `Bearer ${localStorage.getItem('token')}`
                 }
@@ -72,7 +73,7 @@ const ManageUser = () => {
         });
         if (result.isConfirmed) {
             try {
-                await axios.delete(`http://localhost:3000/admin/users/${userId}`, {
+                await axiosInstance.delete(`/admin/users/${userId}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
