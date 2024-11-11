@@ -12,6 +12,7 @@ function DesignCard({ name, image, id, onClickHandler }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [isAnimating, setIsAnimating] = useState(false)
   
+  
   const images = Array.isArray(image) ? image : [image]
 
   const handleClick = () => {

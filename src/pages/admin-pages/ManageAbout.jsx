@@ -43,7 +43,7 @@ export const ManageAbout = () => {
   });
 
   const contentLabels = {
-    en: ['Mission Statement', 'Vision', 'Values', 'Our Impact'],
+    en: ['พันธกิจ', 'วิสัยทัศน์', 'ค่านิยม', 'ผลกระทบของเรา'],
     th: ['พันธกิจ', 'วิสัยทัศน์', 'ค่านิยม', 'ผลกระทบของเรา']
   };
 
@@ -59,7 +59,7 @@ export const ManageAbout = () => {
 
       const contentEn = data.content_en ? data.content_en.split('|') : ['', '', '', ''];
       const contentTh = data.content_th ? data.content_th.split('|') : ['', '', '', ''];
-      
+
       setContentFields({
         en: contentEn,
         th: contentTh
@@ -77,8 +77,8 @@ export const ManageAbout = () => {
         help_content_th: data.help_content_th || "",
       });
     } catch (error) {
-      toast.error("Failed to fetch content");
-      console.error("Error fetching content:", error);
+      toast.error("ไม่สามารถดึงข้อมูลได้");
+
     }
   };
 
@@ -86,7 +86,7 @@ export const ManageAbout = () => {
     const file = e.target.files[0];
     if (file) {
       if (file.size > 5 * 1024 * 1024) {
-        toast.error("Image must be less than 5MB");
+        toast.error("รูปภาพควรมีขนาดน้อยกว่า 5MB");
         return;
       }
       setImages({ image: file });
@@ -105,13 +105,15 @@ export const ManageAbout = () => {
 
   const handleContentFieldChange = (lang, index, value) => {
     setContentFields(prev => {
-      const newFields = {...prev};
+      const newFields = { ...prev };
       newFields[lang][index] = value;
       return newFields;
     });
   };
 
   const handleSubmit = async () => {
+    if (isLoading) return;
+    if (!validateForm()) return;
     try {
       setIsLoading(true);
       const formData = new FormData();
@@ -141,12 +143,11 @@ export const ManageAbout = () => {
       );
 
       await fetchContent();
-      toast.success("Content updated successfully");
+      toast.success("อัพเดทคอนเทนต์หน้าเกี่ยวกับเรา เรียบร้อยแล้ว");
       setImages({ image: null });
       setImagePreview(null);
     } catch (error) {
-      toast.error("Failed to update content");
-      console.error("Error updating:", error);
+      toast.error("ไม่สามารถอัพเดทได้");
     } finally {
       setIsLoading(false);
     }
@@ -159,24 +160,45 @@ export const ManageAbout = () => {
     setRemoveImage(false);
   };
 
+  const validateForm = () => {
+
+    const isTextContentValid = Object.values(textContent).every((value) => value.trim() !== "");
+
+    const isContentFieldsValid = Object.values(contentFields).every((fields) =>
+      fields.every((value) => value.trim() !== "")
+    );
+
+    if (!isTextContentValid) {
+      toast.error("กรุณากรอกข้อมูลทุกช่องในคอนเทนต์หลักและคอนเทนต์หัวข้อสนับสนุน");
+      return false;
+    }
+
+    if (!isContentFieldsValid) {
+      toast.error("กรุณากรอกข้อมูลทุกช่องในคอนเทนต์เพิ่มเติม");
+      return false;
+    }
+
+    return true;
+  };
+
   return (
     <div className="p-6 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">Manage About Page Content</h1>
+        <h1 className="text-3xl font-bold">จัดการแก้ไข หน้าเกี่ยวกับเรา</h1>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="outline">Reset Changes</Button>
+            <Button variant="outline">ล้างข้อมูล การแก้ไขทั้งหมด</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
-              <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+              <AlertDialogTitle>คุณแน่ใจ ที่จะดำเนิกการต่อ หรือไม่? </AlertDialogTitle>
               <AlertDialogDescription>
-                This will reset all changes to the last saved state.
+                การดำเนินการนี้จะรีเซ็ตการเปลี่ยนแปลงทั้งหมดกลับไปสู่สถานะที่บันทึกล่าสุด
               </AlertDialogDescription>
             </AlertDialogHeader>
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              <AlertDialogAction onClick={handleReset}>Reset</AlertDialogAction>
+              <AlertDialogCancel>ยกเลิก</AlertDialogCancel>
+              <AlertDialogAction onClick={handleReset}>ตกลง</AlertDialogAction>
             </AlertDialogFooter>
           </AlertDialogContent>
         </AlertDialog>
@@ -184,11 +206,11 @@ export const ManageAbout = () => {
 
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>Common Content</CardTitle>
+          <CardTitle>คอนเทนต์หลัก</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="video_url">Video URL</Label>
+            <Label htmlFor="video_url">URL วิดีโอ </Label>
             <Input
               id="video_url"
               value={textContent.video_url}
@@ -206,7 +228,7 @@ export const ManageAbout = () => {
                 {content?.image && !removeImage && (
                   <div className="relative group">
                     <img
-                      src={imagePreview ??content.image}
+                      src={imagePreview ?? content.image}
                       alt="Current About Image"
                       className="w-24 h-24 object-cover rounded-lg border"
                     />
@@ -220,7 +242,7 @@ export const ManageAbout = () => {
                     </Button>
                   </div>
                 )}
-                
+
               </div>
               <Input
                 id="image"
@@ -237,11 +259,11 @@ export const ManageAbout = () => {
         {/* English Column */}
         <Card>
           <CardHeader>
-            <CardTitle>English Content</CardTitle>
+            <CardTitle>คอนเทนต์ ภาษาอังกฤษ</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="header_en">Header</Label>
+              <Label htmlFor="header_en">คอนเทนต์หลัก</Label>
               <Textarea
                 id="header_en"
                 value={textContent.header_en}
@@ -250,7 +272,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description_en">Description</Label>
+              <Label htmlFor="description_en">รายละเอียดคอนเทนต์หลัก</Label>
               <Textarea
                 id="description_en"
                 value={textContent.description_en}
@@ -259,7 +281,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_title_en">Help Title</Label>
+              <Label htmlFor="help_title_en">คอนเทนต์หัวข้อ สนับสนุน</Label>
               <Input
                 id="help_title_en"
                 value={textContent.help_title_en}
@@ -267,7 +289,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_content_en">Help Content</Label>
+              <Label htmlFor="help_content_en">รายละเอียดคอนเทนต์หัวข้อ สนับสนุน</Label>
               <Textarea
                 id="help_content_en"
                 value={textContent.help_content_en}
@@ -277,7 +299,7 @@ export const ManageAbout = () => {
             </div>
             <Separator />
             <div className="space-y-4">
-              <Label>Additional Content Fields</Label>
+              <Label>คอนเทนต์เพิ่มเติมที่อยู่ในคอนเทนต์หลัก</Label>
               {contentLabels.en.map((label, index) => (
                 <div key={`en-${index}`} className="space-y-2">
                   <Label htmlFor={`content-en-${index}`}>{label}</Label>
@@ -296,11 +318,11 @@ export const ManageAbout = () => {
         {/* Thai Column */}
         <Card>
           <CardHeader>
-            <CardTitle>Thai Content</CardTitle>
+            <CardTitle>คอนเทนต์ ภาษาไทย</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="header_th">Header</Label>
+              <Label htmlFor="header_th">คอนเทนต์หลัก</Label>
               <Textarea
                 id="header_th"
                 value={textContent.header_th}
@@ -309,7 +331,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description_th">Description</Label>
+              <Label htmlFor="description_th">รายละเอียดคอนเทนต์หลัก</Label>
               <Textarea
                 id="description_th"
                 value={textContent.description_th}
@@ -318,7 +340,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_title_th">Help Title</Label>
+              <Label htmlFor="help_title_th">คอนเทนต์หัวข้อ สนับสนุน</Label>
               <Input
                 id="help_title_th"
                 value={textContent.help_title_th}
@@ -326,7 +348,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_content_th">Help Content</Label>
+              <Label htmlFor="help_content_th">ายละเอียดคอนเทนต์หัวข้อ สนับสนุน</Label>
               <Textarea
                 id="help_content_th"
                 value={textContent.help_content_th}
@@ -336,7 +358,7 @@ export const ManageAbout = () => {
             </div>
             <Separator />
             <div className="space-y-4">
-              <Label>Additional Content Fields</Label>
+              <Label>คอนเทนต์เพิ่มเติมที่อยู่ในคอนเทนต์หลัก</Label>
               {contentLabels.th.map((label, index) => (
                 <div key={`th-${index}`} className="space-y-2">
                   <Label htmlFor={`content-th-${index}`}>{label}</Label>
@@ -359,7 +381,7 @@ export const ManageAbout = () => {
         size="lg"
         disabled={isLoading}
       >
-        {isLoading ? "Updating..." : "Update Content"}
+        {isLoading ? "กำลังบันทึก..." : "บันทึกการเปลี่ยนแปลงทั้งหมด"}
       </Button>
     </div>
   );

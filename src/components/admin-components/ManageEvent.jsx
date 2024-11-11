@@ -33,7 +33,7 @@ export default function ManageEvent() {
         date_start: '',
         date_end: '',
         location: '',
-        status: 'PENDING',
+        status: ''
     });
 
     useEffect(() => {
@@ -98,7 +98,8 @@ export default function ManageEvent() {
             closeEditModal();
         }
     };
-
+    console.log(formData.status, "dfjifsjdkljl")
+    console.log(selectedEvent, "selectedEvent")
     return (
         <div>
             <div className='items-center flex justify-center'>
@@ -148,8 +149,7 @@ export default function ManageEvent() {
                         <h2 className="text-xl font-semibold mb-4">แก้ไขข้อมูลกิจกรรม</h2>
 
                         <div className="grid grid-cols-2 gap-4 mb-4">
-                    
-                        <div className="col-span-2">
+                            <div className="col-span-2">
                                 <label className="block text-sm font-medium text-gray-700">สถานะ</label>
                                 <select
                                     className="mt-1 block w-full border border-gray-300 rounded-md p-2"
@@ -157,15 +157,13 @@ export default function ManageEvent() {
                                     value={formData.status}
                                     onChange={handleInputChange}
                                 >
-                                    <option value="PENDING">PENDING</option>
                                     <option value="ACTIVE">ACTIVE</option>
+                                    <option value="PENDING">PENDING</option>
                                     <option value="COMPLETED">COMPLETED</option>
                                     <option value="CANCELLED">CANCELLED</option>
                                     <option value="POSTPONED">POSTPONED</option>
                                 </select>
                             </div>
-
-
                             <div className="col-span-2">
                                 <label className="block text-sm font-medium text-gray-700">ชื่อกิจกรรม (ภาษาไทย)</label>
                                 <input

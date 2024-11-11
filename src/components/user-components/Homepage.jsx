@@ -40,6 +40,7 @@ const buttonVariants = {
   },
 };
 
+
 const Bubble = ({ size, left, top, delay }) => (
   <motion.div
     className="absolute rounded-full bg-white/20 backdrop-blur-sm"
@@ -82,6 +83,13 @@ export default function Homepage() {
     restDelta: 0.001,
   });
   const containerRef = useRef(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const backgroundImages = [
+  'https://cdn.pixabay.com/photo/2022/06/29/14/39/dogs-7291913_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2022/02/11/14/41/animal-7007448_960_720.jpg',
+  'https://cdn.pixabay.com/photo/2023/01/13/13/20/dog-7716035_960_720.jpg',
+  
+  ]
 
   const getHome = () => {
     axiosInstance
@@ -113,12 +121,18 @@ export default function Homepage() {
         setCurrentPage(Math.min(newPage, pages.length - 1));
       }
     };
+    const intervalId = setInterval(() => {
+      setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length)
+    }, 3000)
     getHome()
     getRandomPets();
 
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
+      clearInterval(intervalId);
+    }
   }, []);
 
   const handleCircleClick = (index) => {
@@ -170,6 +184,20 @@ export default function Homepage() {
               }`}
           >
             {page.id === "mission" && (
+              <>
+                {backgroundImages.map((image, index) => (
+                <div
+                  key={index}
+                  className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
+                  style={{
+                    backgroundImage: `url(${image})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: index === currentImageIndex ? 1 : 0,
+                  }}
+                />
+              ))}
+
               <div className="absolute bottom-[-990px] w-full h-full">
                 <svg
                   viewBox="0 0 1440 98"
@@ -184,6 +212,7 @@ export default function Homepage() {
                   />
                 </svg>
               </div>
+              </>
             )}
 
             <AnimatePresence mode="wait">
@@ -247,7 +276,10 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 1 && (
+                  
                   <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 rounded-3xl min-h-700  px-4">
+                   
+                   
                     <div className="container mx-auto p-2 md:p-10 md:h-[700px] md:flex md:flex-col md:justify-center  h-[500px] ">
                       <div className="space-y-4 md:space-y-8">
                         <div className="flex flex-row gap-2 md:gap-6 overflow-x-scroll md:scrollbar-hide justify-start md:justify-center">
