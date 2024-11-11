@@ -48,6 +48,8 @@ import ManageEventPage from "../pages/admin-pages/ManageEventPage";
 import AdoptHistory from "../components/user-components/AdoptHistory";
 import DonateHistory from "../components/user-components/DonateHistory";
 import EventHistory from "../components/user-components/EventHistory";
+import ChatPortal from "../components/user-components/ChatPortal";
+import LiveChat from "../components/user-components/LiveChat";
 
 const pageRouter = createBrowserRouter([
   {
@@ -81,6 +83,9 @@ const pageRouter = createBrowserRouter([
       <div className="pt-24">
         <Navbar />
         <Outlet />
+        <ChatPortal  >
+          <LiveChat ref={React.createRef()} className="fixed top-0 right-0 z-50" />
+        </ChatPortal>
         <Footer />
         <ScrollToTop />
       </div>

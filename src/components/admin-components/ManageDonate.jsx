@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { ChevronLeft, ChevronRight } from "lucide-react"
+import axiosInstance from '@/src/utils/axiosInstance'
 
 export default function ManageDonate() {
     const [donations, setDonations] = useState([])
@@ -42,7 +43,7 @@ export default function ManageDonate() {
                 page: filters.page,
                 limit: filters.limit
             })
-            const response = await axios.get(`http://localhost:3000/admin/manage-donation?${params}`)
+            const response = await axiosInstance.get(`/admin/manage-donation?${params}`)
             setDonations(response.data.donations)
             setPagination(response.data.pagination)
         } catch (error) {
@@ -74,7 +75,7 @@ export default function ManageDonate() {
 
     const handleStatusChange = async (donationId, newStatus) => {
         try {
-            await axios.put(`http://localhost:3000/admin/manage-donation/${donationId}`, {
+            await axiosInstance.put(`/admin/manage-donation/${donationId}`, {
                 status: newStatus
             })
             fetchDonations()

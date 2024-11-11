@@ -4,6 +4,10 @@ const axiosInstance = axios.create({
     baseURL: 'http://localhost:3000',
     withCredentials: true,
 });
+// const axiosInstance = axios.create({
+//     baseURL: 'https://man-diverse-anchovy.ngrok-free.app/',
+//     withCredentials: true,
+// });
 
 axiosInstance.interceptors.request.use(config => {
     const language = localStorage.getItem('language') || 'en';
