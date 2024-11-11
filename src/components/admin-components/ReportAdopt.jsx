@@ -2,32 +2,40 @@ import React, { useState } from 'react'
 import { getAdoptData, getAllAdoptData } from '../../apis/AdminReportApi';
 import { getExportAdoptExcel } from '../../apis/AdminExportExcelApi';
 import Swal from 'sweetalert2';
+import useAuthStore from '@/src/stores/AuthStore';
 
 
 export default function ReportAdopt() {
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [adopts, setAdopts] = useState([])
+    const [selectedStatus, setSelectedStatus] = useState('');
+    const token = useAuthStore((state) => state.token);
 
     const handleFetchReport = async () => {
         try {
-            const response = await getAdoptData(startDate, endDate);
-            setAdopts(response.data);
-            console.log("Report data:", response.data);
+            const response = await getAdoptData(token, startDate, endDate);
+            filterAdopts(response.data);
         } catch (error) {
             console.error("Error fetching report data:", error);
         }
     };
     const handleFetchAllReport = async () => {
         try {
-            const response = await getAllAdoptData();
-            setAdopts(response.data);
+            const response = await getAllAdoptData(token);
+            filterAdopts(response.data);
 
         } catch (error) {
             console.error("Error fetching report data:", error);
         }
     };
-    console.log(adopts, "adopttt")
+
+    const filterAdopts = (data) => {
+        const filteredData = selectedStatus
+            ? data.filter(adopt => adopt.status === selectedStatus)
+            : data;
+        setAdopts(filteredData);
+    };
     const handleExportExcel = async () => {
         if (adopts.length === 0) {
             Swal.fire({
@@ -40,7 +48,7 @@ export default function ReportAdopt() {
         }
 
         try {
-            const response = await getExportAdoptExcel(adopts)
+            const response = await getExportAdoptExcel(token, adopts)
 
             // สร้างลิงก์สำหรับดาวน์โหลดไฟล์ Excel
             const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -53,10 +61,14 @@ export default function ReportAdopt() {
             console.error('Error exporting to Excel:', error);
         }
     };
-
+    const handleStatusChange = (e) => {
+        setSelectedStatus(e.target.value);
+        filterAdopts(adopts);
+    };
 
     return (
         <div className="container mx-auto px-4 py-8">
+            <h1 className="text-3xl font-bold mb-8 text-center">รายงานการรับเลี้ยงสัตว์</h1>
             <div className="flex justify-between gap-4 mb-6">
                 <div className='flex gap-6'>
                     <p className='flex justify-center items-center'>วันที่สร้างข้อมูล : </p>
@@ -73,11 +85,25 @@ export default function ReportAdopt() {
                         onChange={e => setEndDate(e.target.value)}
                         className="px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
                     />
+                    <select
+                        value={selectedStatus}
+                        onChange={handleStatusChange}
+                        className="border px-4 py-2 rounded-lg"
+                    >
+                        <option value="">ทั้งหมด</option>
+                        <option value="PENDING">PENDING</option>
+                        <option value="REJECT">REJECT</option>
+                        <option value="AVAILABLE">AVAILABLE</option>
+                        <option value="UNAVAILABLE">UNAVAILABLE</option>
+                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="ADOPTED">ADOPTED</option>
+                        <option value="FOSTERED">FOSTERED</option>
+                    </select>
                     <button
                         onClick={handleFetchReport}
                         className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-200"
                     >
-                        รายงาน
+                        ดูข้อมูล
                     </button>
                 </div>
                 <div className='flex gap-6'>
