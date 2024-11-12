@@ -65,10 +65,10 @@ console.log(aboutContent)
 console.log(i18n.language)
 
   return (
-    <div className=" about-page min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
+    <div className=" about-page min-h-screen bg-white py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12 md:space-y-16">
         {/* About Us Header */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">About Us</h1>
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12 text-black">About Us</h1>
 
         {/* Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 sm:mb-12">
@@ -110,27 +110,27 @@ console.log(i18n.language)
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 text-center">
           <Card className="bg-orange-50 border-[#db2777] border-2 p-4 shadow-md">
             <div className="text-xl sm:text-2xl font-bold text-[#db2777]">2018</div>
-            <div className="text-xs sm:text-sm text-orange-700">Founded</div>
+            <div className="text-xs sm:text-sm text-black">Founded</div>
           </Card>
           <Card className="bg-orange-50 border-[#db2777] border-2 p-4 shadow-md">
             <div className="text-xl sm:text-2xl font-bold text-[#db2777]">120+</div>
-            <div className="text-xs sm:text-sm text-orange-700">Employees</div>
+            <div className="text-xs sm:text-sm text-black">Employees</div>
           </Card>
           <Card className="bg-orange-50 border-[#db2777] border-2 p-4 shadow-md">
             <div className="text-xl sm:text-2xl font-bold text-[#db2777]">400K</div>
-            <div className="text-xs sm:text-sm text-orange-700">Users</div>
+            <div className="text-xs sm:text-sm text-black">Users</div>
           </Card>
           <Card className="bg-orange-50 border-[#db2777] border-2 p-4 shadow-md">
             <div className="text-xl sm:text-2xl font-bold text-[#db2777]">120+</div>
-            <div className="text-xs sm:text-sm text-orange-700">Partner Shelters</div>
+            <div className="text-xs sm:text-sm text-black">Partner Shelters</div>
           </Card>
           <Card className="bg-orange-50 border-[#db2777] border-2 p-4 shadow-md">
             <div className="text-xl sm:text-2xl font-bold text-[#db2777]">720K</div>
-            <div className="text-xs sm:text-sm text-orange-700">Adoptions</div>
+            <div className="text-xs sm:text-sm text-black">Adoptions</div>
           </Card>
           <Card className="bg-orange-50 border-[#db2777] border-2 p-4 shadow-md">
             <div className="text-xl sm:text-2xl font-bold text-[#db2777]">$6B+</div>
-            <div className="text-xs sm:text-sm text-orange-700">Donations</div>
+            <div className="text-xs sm:text-sm text-black">Donations</div>
           </Card>
         </div>
 
