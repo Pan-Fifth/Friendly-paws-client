@@ -66,7 +66,7 @@ export default function EditProfile() {
         { label: `${t('editProfile.firstname')}`, name: "firstname", type: 'text', placeholder: `${t('editProfile.firstname')}` },
         { label: `${t('editProfile.lastname')}`, name: "lastname", type: 'text', placeholder: `${t('editProfile.lastname')}` },
         { label: `${t('editProfile.phone')}`, name: "phone", type: 'text', placeholder: `${t('editProfile.phone')}` },
-        { label: `${t('editProfile.email')}`, name: "email", type: 'email', placeholder: `${t('editProfile.email')}` },
+        // { label: `${t('editProfile.email')}`, name: "email", type: 'email', placeholder: `${t('editProfile.email')}` },
     ];
 
     return (

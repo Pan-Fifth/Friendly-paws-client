@@ -7,18 +7,18 @@ const loginAuthen = (t) => Joi.object({
         .email({ tlds: false })
         .required()
         .messages({
-            "string.empty": t('validation.emRequired'),
-            "string.base": t('validation.emRequired'),
+            // "string.empty": t('validation.emRequired'),
+            // "string.base": t('validation.emRequired'),
             "string.email": t('validation.emFormat')
         }),
 
     password: Joi.string()
-        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-{}[\]:;"'<>,.?/\\|`~]).{6,}$/)
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
         .required()
         .messages({
             "string.empty": t('validation.psRequired'),
             "string.base": t('validation.psRequired'),
-            "string.pattern.base": t('validation.psPattern')
+            "string.pattern.base": t('validation.psPattern2')
         }),
 
 

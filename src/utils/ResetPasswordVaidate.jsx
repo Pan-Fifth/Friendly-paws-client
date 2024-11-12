@@ -1,17 +1,8 @@
 import Joi from "joi"
 
 
-const registerAuthen = (t) => Joi.object({
+const resetAuthen = (t) => Joi.object({
 
-
-    email: Joi.string()
-        .email({ tlds: false })
-        .required()
-        .messages({
-            "string.empty": t('validation.emRequired'),
-            "string.base": t('validation.emRequired'),
-            "string.email": t('validation.emFormat')
-        }),
 
     password: Joi.string()
         .pattern(/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
@@ -22,20 +13,21 @@ const registerAuthen = (t) => Joi.object({
             "string.pattern.base": t('validation.psPattern')
         }),
     confirmPassword: Joi.string()
+        .valid(Joi.ref('password'))
         .required()
-        .valid(Joi.ref("password"))
         .messages({
             'any.only': t('validation.psRequired2'),
             "string.empty": t('validation.psRequired'),
             "string.base": t('validation.psRequired'),
-        }),
+        })
+
 
 
 })
 
-const validateRegister = (input, t) => {
+const validateResetPassword = (input, t) => {
 
-    const { error } = registerAuthen(t).validate(input, {
+    const { error } = resetAuthen(t).validate(input, {
         abortEarly: false
     })
 
@@ -52,4 +44,4 @@ const validateRegister = (input, t) => {
     }
 }
 
-export default validateRegister
+export default validateResetPassword

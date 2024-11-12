@@ -140,15 +140,7 @@ const ManageUser = () => {
                         <h2 className="text-xl font-bold mb-4">แก้ไขข้อมูลผู้ใช้งาน</h2>
                         <form onSubmit={handleUpdateUser}>
                             <div className="grid grid-cols-2 gap-4">
-                                <input
-                                    type="text"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    placeholder="Email"
-                                    className="border rounded px-2 py-1"
-                                    required
-                                />
+
                                 <input
                                     type="text"
                                     name="firstname"
@@ -186,7 +178,6 @@ const ManageUser = () => {
                                     <option value="">เลือกบทบาท</option>
                                     <option value="ADMIN">Admin</option>
                                     <option value="USER">User</option>
-                                    <option value="VOLUNTEER">VOLUNTEER</option>
                                 </select>
                             </div>
                             <button type="submit" className="mt-4 bg-green-500 text-white px-4 py-2 me-6 rounded hover:bg-green-600 transition">
