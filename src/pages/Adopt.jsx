@@ -20,6 +20,8 @@ const Adopt = () => {
   const setFilter = usePetStore((state) => state.setFilter);
   const [isClicked, setIsClicked] = useState(false);
 
+console.log(avaiPets)
+
   useEffect(() => {
     setLoading(true); // ตั้งค่าค่า loading เป็น true ขณะเริ่มต้นโหลดข้อมูล
     setFilter({});
@@ -80,35 +82,35 @@ const Adopt = () => {
   return (
     <div>
       <div className="relative">
-        <div className="rounded-3xl h-[180px] md:h-[300px] mx-auto w-full my-10 ">
-        <img src="/src/assets/AdoptBg.png" className="absolute md:top-[-450px]" alt="" />
+        <div className="rounded-3xl h-[180px] md:h-[300px] mx-auto w-full">
+        <img src="/src/assets/AdoptBg3.png" className="absolute md:top-[-550px]" alt="" />
         </div>
       </div>
       <div className="absolute top-20 w-full h-[250px] md:h-[500px]">
         <div className="h-full flex flex-col items-center justify-center">
-          <p className="w-full h-[150px] z-20 text-3xl md:text-[70px] absolute md:top-5 md:left-[-200px]  font-bold flex items-center justify-center text-center">
+          <p className="w-full h-[150px] bottom-20 z-20 text-2xl md:text-[70px] absolute md:top-5 font-bold flex items-center justify-center text-center bg-gradient-to-r from-black via-pink-500 to-black text-transparent bg-clip-text">
             {t("adoptPageMain.maincontent")}
           </p>
-          <div className=" relative flex flex-col gap-12 md:gap-24 z-20 justify-center">
-            <form onSubmit={hdlSubmit} className="w-full flex flex-col md:flex-row gap-3 items-center absolute md:top-[-90px] md:left-[-10px] justify-center">
+          <div className=" relative flex flex-col gap-12 md:gap-24 z-20 justify-center ">
+            <form onSubmit={hdlSubmit} className="w-full flex flex-col md:flex-row gap-3 items-center absolute top-5 md:top-[-70px] md:left-[-10px] justify-center">
               <div className="flex gap-3">
                 <DropdownWithArrow
                   name="gender"
                   array={["Male", "Female"]}
-                  className="w-full md:w-[300px] text-lg md:text-xl"
+                  className="w-full md:w-[300px] text-sm md:text-xl"
                   onChange={hdlChangeFilter}
                   value={filter.gender}
                 />
                 <DropdownWithArrow
                   name="age"
                   array={["Kid", "Junior", "Senior", "Adult"]}
-                  className="w-full md:w-[300px] text-lg md:text-xl"
+                  className="w-full md:w-[300px]  text-sm md:text-xl"
                   onChange={hdlChangeFilter}
                   value={filter.age}
                 />
                 <Button
                   className={`
-                    bg-pink-400 w-1/4 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-full
+                    bg-[#db2777] w-1/4 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-full
                     transform transition-all duration-300 ease-in-out
                     ${isClicked ? 'scale-95' : 'animate-pulse-pink'}
                   `}
@@ -155,6 +157,7 @@ const Adopt = () => {
             name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
             image={el.image?.map(img => img.url) || []}
             gender={el.gender}
+            breed={language === 'th' ? (el.breed_th || el.breed_en) : el.breed_en || el.breed_th}
           />
         </Card>
       ))}

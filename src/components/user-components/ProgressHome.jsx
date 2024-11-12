@@ -10,28 +10,28 @@ export default function ProgressHome() {
   
   const features = [
     {
-      icon: <PawPrint className="w-6 h-6 text-primary" />,
+      icon: <PawPrint className="w-6 h-6 text-white" />,
       number: "01",
       title: "Select your destiny friends",
       description:
         "The first step that you have to do is sign in to join our community, then you can access through all our website",
     },
     {
-      icon: <ReceiptText className="w-6 h-6 text-primary" />,
+      icon: <ReceiptText className="w-6 h-6 text-white" />,
       number: "02",
       title: "Put your detail in the form",
       description:
         "Unlike low-cost carriers (Spirit, Frontier, etc.), which have already discounted their service down to a wholesale level, normal legacy carriers have markups that shoot their prices up. We bypass them.",
     },
     {
-      icon: <BadgeCheck className="w-6 h-6 text-primary" />,
+      icon: <BadgeCheck className="w-6 h-6 text-white" />,
       number: "03",
       title: "Wait for the confirmation",
       description:
         "Denver has tons of flights and tons of empty seats. Aspen, not so much. Major cities mean major savings. Plus, they typically have large airports which also have larger flights.",
     },
     {
-      icon: <CalendarFold className="w-6 h-6 text-primary" />,
+      icon: <CalendarFold className="w-6 h-6 text-white" />,
       number: "04",
       title: "Get an interview date!",
       description:
@@ -81,7 +81,7 @@ export default function ProgressHome() {
   }, [])
 
   return (
-    <div className="container w-full md:w-2/3 mx-auto py-7">
+    <div className="container w-full md:w-2/3 mx-auto py-7 ">
       <div>
         {animalPositions.map((position, index) => (
           position.type === 'dog' ? (
@@ -107,38 +107,38 @@ export default function ProgressHome() {
           )
         ))}
       </div>
-      <div className="relative w-full mx-auto flex flex-col gap-4">
+      <div className="relative w-full mx-auto flex flex-col gap-4  ">
       <div className="absolute  left-[80%] md:left-[800px] top-0 bottom-0 w-0.5 bg-primary" aria-hidden="true" />
         {features.map((feature) => (
           <div
             key={feature.number}
-            className="relative  flex items-start mb-12 last:mb-0"
+            className="relative  flex items-start mb-12 last:mb-0 "
           >
-            <div className="absolute  left-[80%]   md:left-[800px] w-8 h-8 rounded-full bg-primary flex items-center justify-center translate-x-[-15px]">
+            <div className="absolute left-[80%] bg-white border-[#db2777] border-4 md:left-[800px] w-8 h-8 rounded-full flex items-center justify-center translate-x-[-15px]">
             <div className="w-2 h-2 rounded-full bg-white" />
             </div>
-            <div className="md:w-[70%]  md:ml-[20px] w-1/2 pr-1 ml-[80px]">
-              <div className="flex items-center space-x-2 md:my-[-9px]  md:mx-[600px] mb-2">
-                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-pink-200  flex items-center justify-center">
+            <div className="md:w-[70%]  md:ml-[20px] w-1/2 pr-1 ml-[80px]  ">
+              <div className="flex items-center space-x-2 md:my-[-9px]  md:mx-[600px] mb-2 ">
+                <div className="flex-shrink-0 w-10 h-10 rounded-full bg-[#db2777]  flex items-center justify-center">
                   {feature.icon}
                 </div>
                 <em className="text-[30px] text-pink-500">{feature.number}</em>
               </div>
-              <Accordion type="single" collapsible className="w-full md:ml-[220px]  text-[12px] ">
-  <AccordionItem value={feature.number}>
-    <AccordionTrigger
-      className={`md:text-[30px]   lg:text-[30px] w-full font-semibold ${
-        openItem === feature.number ? "text-[#db2777]" : ""
-      }`}
-      onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}
-    >
-      {feature.title}
-    </AccordionTrigger>
-    <AccordionContent className="text-muted-foreground text-[18px]">
-      {feature.description}
-    </AccordionContent>
-  </AccordionItem>
-</Accordion>
+              <Accordion type="single" collapsible className="w-full md:ml-[220px] text-[12px] ">
+          <AccordionItem value={feature.number}>
+            <AccordionTrigger
+              className={`md:text-[30px]   lg:text-[30px] w-full font-semibold ${
+                openItem === feature.number ? "text-[#db2777]" : ""
+              }`}
+              onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}
+            >
+            {feature.title}
+          </AccordionTrigger>
+          <AccordionContent className="text-muted-foreground text-[18px]">
+            {feature.description}
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
             </div>
           </div>
         ))}

@@ -9,7 +9,7 @@ import { Heart } from 'lucide-react'
 
 // Update the AdoptPetCard component:
 
-function DesignCard({ name, image, id, gender, onClickHandler }) {
+function DesignCard({ name, image, id, gender, breed, onClickHandler }) {
   const token = useAuthStore(state => state.token)
   const navigate = useNavigate()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
@@ -33,26 +33,36 @@ function DesignCard({ name, image, id, gender, onClickHandler }) {
         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
       />
       
-      {images.length > 1 && (
-        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-          {images.map((_, index) => (
-            <div
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
-                currentImageIndex === index ? 'bg-white' : 'bg-white/50'
-              }`}
-            />
-          ))}
+          {images.length > 1 && (
+            <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+              {images.map((_, index) => (
+                <div
+                  key={index}
+                  onClick={() => setCurrentImageIndex(index)}
+                  className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
+                    currentImageIndex === index ? 'bg-white' : 'bg-white/50'
+                  }`}
+                />
+              ))}
+            </div>
+          )}
         </div>
-      )}
-    </div>
-      <CardHeader className="relative p-3">
-        <span className="text-xs font-medium text-primary">{gender}</span>
+          <CardHeader className="relative">
+        <span className={`text-xs font-medium px-3 py-1 rounded-full text-center ${
+          gender === "MALE" 
+            ? "bg-blue-100 text-blue-600 w-20" 
+            : "bg-pink-100 text-pink-600 w-20"
+        }`}>
+          {gender}
+        </span>
       </CardHeader>
 
-      <CardContent className="flex-grow p-3">
-        <h3 className="text-sm md:text-base lg:text-lg font-bold mb-2 line-clamp-2">{name}</h3>
+      <CardContent className="md:flex-grow md:h-[50px] h-[20px]">
+        <h3 className="text-sm md:text-base lg:text-lg  mb-2 line-clamp-2">{breed}</h3>
+      </CardContent>
+
+      <CardContent className="md:flex-grow md:h-[50px] h-[20px]">
+        <h3 className="text-sm md:text-[20px] font-bold mb-2 line-clamp-2">{name}</h3>
       </CardContent>
 
       <CardFooter className="p-3">
@@ -68,7 +78,7 @@ function DesignCard({ name, image, id, gender, onClickHandler }) {
             ease: "linear"
           }
         }}
-        className="px-4 py-2 text-sm font-bold text-white rounded-full shadow-md bg-[#db2778c4] hover:bg-[#be185d] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#db2777] focus:ring-opacity-50 flex items-center space-x-1"
+        className="px-4 py-2 text-sm font-bold text-white rounded-full shadow-md bg-[#db2777] hover:bg-[#be185d] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#db2777] focus:ring-opacity-50 flex items-center space-x-1"
       >
         <span>Adopt Me!</span>
         <Heart className="w-4 h-4" />
@@ -79,7 +89,7 @@ function DesignCard({ name, image, id, gender, onClickHandler }) {
   )
 }
 
-export default function AdoptPetCard({ name, image, id, gender }) {
+export default function AdoptPetCard({ name, image, id, gender,breed }) {
   const navigate = useNavigate()
   
   const hdlClick = () => {
@@ -92,6 +102,7 @@ export default function AdoptPetCard({ name, image, id, gender }) {
       image={image}
       id={id}
       gender={gender}
+      breed={breed}
       onClickHandler={hdlClick}
     
     />

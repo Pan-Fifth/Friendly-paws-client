@@ -290,26 +290,26 @@ export default function Homepage() {
                 {index === 1 && (
                   
                   <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 mx-auto my-4 md:m-10 rounded-3xl px-2 md:px-3">
- <div className="container mx-auto p-2 md:p-10 min-h-[500px] md:h-[700px] flex flex-col justify-center">
-  <div className="space-y-4 md:space-y-8">
-    {/* Cards Container - Horizontal Layout with mobile scroll */}
-    <div className="flex flex-row gap-2 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory w-full px-2 md:px-20 no-scrollbar">
-        {/* Card 1 */}
-        <Card className="w-[65%] md:w-1/3 flex-shrink-0 snap-center opacity-90">
-        <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
-          <div className="aspect-square relative overflow-hidden rounded-lg h-[200px] md:h-auto ">
-            <img
-              src={homeContent?.image2}
-              alt="Care Advice"
-              className="object-cover w-full h-full"
-            />
-          </div>
+          <div className="container mx-auto p-2 md:p-10 min-h-[500px] md:h-[700px] flex flex-col justify-center">
+            <div className="space-y-4 md:space-y-8">
+              {/* Cards Container - Horizontal Layout with mobile scroll */}
+              <div className="flex flex-row gap-2 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory w-full px-2 md:px-20 no-scrollbar">
+                  {/* Card 1 */}
+                  <Card className="w-[65%] md:w-1/3 flex-shrink-0 snap-center opacity-90">
+                  <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+                    <div className="aspect-square relative overflow-hidden rounded-lg h-[200px] md:h-auto ">
+                      <img
+                    src={homeContent?.image2}
+                    alt="Care Advice"
+                    className="object-cover w-full h-full"
+                  />
+            </div>
           <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[5]}</p>
           <p className="text-[8px] md:text-sm text-muted-foreground">
             {content?.[6]}
           </p>
         </CardContent>
-      </Card>
+       </Card>
 
         {/* Card 2 */}
         <Card className="w-[65%] md:w-1/3 flex-shrink-0 snap-center opacity-90">
@@ -360,19 +360,17 @@ export default function Homepage() {
         >
           ABOUT US
         </Button>
+         </div>
+        </div>
       </div>
-    </div>
-  </div>
-</div>
-
-                  
+     </div>                  
                 )}
 
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 2 && (
                   <div className="relative text-center my-10 w-full min-h-screen flex flex-col gap-4">
-                    <h1 className="text-3xl md:text-5xl lg:text-[70px]">{content?.[11]}</h1>
+                    <h1 className="text-3xl md:text-5xl lg:text-[70px] z-20">{content?.[11]}</h1>
                     <div className="flex w-full justify-center">
                       <div className="w-full md:w-1/2">
                         <ProgressHome />
