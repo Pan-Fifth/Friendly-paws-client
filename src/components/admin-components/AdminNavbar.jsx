@@ -13,38 +13,51 @@ export default function AdminNavbar() {
     const [isDropdownManagePageOpen, setDropdownManagePageOpen] = useState(false);
     const [isDropdownReportOpen, setDropdownReportOpen] = useState(false);
 
-
+    const toggleDropdownUser = () => {
+        setDropdownUserOpen(!isDropdownUserOpen);
+        setDropdownManageOpen(false);
+        setDropdownManagePageOpen(false);
+        setDropdownReportOpen(false);
+    };
+    
+    const toggleDropdownManage = () => {
+        setDropdownManageOpen(!isDropdownManageOpen);
+        setDropdownUserOpen(false);
+        setDropdownManagePageOpen(false);
+        setDropdownReportOpen(false);
+    };
+    
+    const toggleDropdownManagePage = () => {
+        setDropdownManagePageOpen(!isDropdownManagePageOpen);
+        setDropdownUserOpen(false);
+        setDropdownManageOpen(false);
+        setDropdownReportOpen(false);
+    };
+    
+    const toggleDropdownReport = () => {
+        setDropdownReportOpen(!isDropdownReportOpen);
+        setDropdownUserOpen(false);
+        setDropdownManageOpen(false);
+        setDropdownManagePageOpen(false);
+    };
 
 
     const hdlClickLogout = () => {
         actionLogout();
     };
 
-    const toggleDropdownUser = () => {
-        setDropdownUserOpen(!isDropdownUserOpen);
-    };
-    const toggleDropdownManage = () => {
-        setDropdownManageOpen(!isDropdownManageOpen);
-    };
-    const toggleDropdownManagePage = () => {
-        setDropdownManagePageOpen(!isDropdownManagePageOpen);
-    };
-    const toggleDropdownReport = () => {
-        setDropdownReportOpen(!isDropdownReportOpen);
-    };
-
 
 
     return (
         <div>
-            <nav className="top-0 left-0 w-full flex justify-between px-4 md:px-8 h-24 items-center bg-red-500 fixed z-20">
+            <nav className="top-0 left-0 w-full flex justify-between px-4 md:px-8 h-24 items-center bg-orange-200 fixed z-20">
 
                 <div className="w-32 h-20 md:flex gap-8 flex items-center ">
                     <h1 className='text-3xl'>LOGO</h1>
                 </div>
 
 
-                <div className="hidden md:flex gap-14 text-white">
+                <div className="hidden md:flex gap-14 text-black">
                     <Link to="/admin" >หน้าแรก</Link>
                     <div className="relative flex items-center" onClick={toggleDropdownManage}>
                         <h1 className='cursor-pointer'>จัดการข้อมูล</h1>

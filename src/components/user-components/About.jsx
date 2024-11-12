@@ -160,11 +160,11 @@ if (content && typeof content === "string") {
   splitContent = content.split("|");
 }
 
-
+console.log(aboutContent)
 
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
+    <div className=" about-page min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12 md:space-y-16">
         {/* About Us Header */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">About Us</h1>
@@ -200,7 +200,7 @@ if (content && typeof content === "string") {
         {/* Mission Statement */}
         <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#db2777]">
-            We Are Building A Compassionate Pet Adoption Network
+           {aboutContent[`content_${i18n.language}`]}
           </h2>
           <p className="text-base sm:text-lg text-orange-700">
             At PetFinder, we're passionate about connecting loving homes with pets in need. 
@@ -247,13 +247,11 @@ if (content && typeof content === "string") {
         <div className="video-container max-w-5xl mx-auto flex justify-center">
           {/* Aspect Ratio Wrapper */}
           <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-            <iframe
-              src="https://www.youtube.com/embed/ehAD2GUJef4?autoplay=1&loop=1&playlist=ehAD2GUJef4"
-              title="YouTube video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen
-              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-            ></iframe>
+          <iframe width="560" height="315" 
+          src="https://www.youtube.com/embed/uA52ibHBTew?si=fEz_RuC-W25JXMQq" 
+          title="YouTube video player" 
+          frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+           referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
           </div>
         </div>
       
@@ -262,8 +260,8 @@ if (content && typeof content === "string") {
           {/* Journey Description */}
           <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
             <h3 className="text-2xl sm:text-3xl font-bold text-[#db2777]">
-{aboutContent[`header_${i18n.language}`]} {/* แสดงผลตามภาษา */}
-</h3>
+              {aboutContent[`header_${i18n.language}`]} {/* แสดงผลตามภาษา */}
+            </h3>
             <p className="text-base sm:text-lg text-orange-700">
             {aboutContent[`description_${i18n.language}`]} {/* แสดงผลตามภาษา */}
             </p>
@@ -273,7 +271,7 @@ if (content && typeof content === "string") {
         {/* How You Can Help Section */}
         <div className="space-y-8 bg-gradient-to-br from-orange-100 to-pink-100 p-4 sm:p-8 rounded-xl shadow-lg">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#db2777]">
-{aboutContent[`help_title_${i18n.language}`]} {/* แสดงผลตามภาษา */}
+        {aboutContent[`help_title_${i18n.language}`]} {/* แสดงผลตามภาษา */}
 </h2>
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <p className="text-base sm:text-lg text-orange-700">

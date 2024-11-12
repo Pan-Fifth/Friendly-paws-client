@@ -6,81 +6,73 @@ import { Button } from '@/components/ui/button'
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+export default function CardHome({cards}) {
+  const { t, i18n } = useTranslation()
+  const [activeIndex, setActiveIndex] = useState(2)
+  const totalCards = cards.length
+  const navigate = useNavigate()
 
+  const getCardStyle = (index) => {
+    const position = index - activeIndex
+    const translateX = position * 100
+    const scale = 1 - Math.abs(position) * 0.1
+    const zIndex = 5 - Math.abs(position)
+    let opacity = 1 - Math.abs(position) * 0.2
 
+    return {
+      transform: `translateX(${translateX}px) scale(${scale})`,
+      zIndex,
+      opacity,
+    }
+  }
 
+  const handleNext = () => {
+    setActiveIndex((prev) => (prev + 1) % totalCards)
+  }
 
-  export default function CardHome({cards}) {
-    const { t, i18n } = useTranslation()
-    const [activeIndex, setActiveIndex] = useState(2)
-    const totalCards = cards.length
-    const navigate = useNavigate()
-  
-    const getCardStyle = (index) => {
-      const position = index - activeIndex
-      const translateX = position * 100
-      const scale = 1 - Math.abs(position) * 0.1
-      const zIndex = 5 - Math.abs(position)
-      let opacity = 1 - Math.abs(position) * 0.2
-  
-      return {
-        transform: `translateX(${translateX}px) scale(${scale})`,
-        zIndex,
-        opacity,
-      }
-    }
-  
-    const handleNext = () => {
-      setActiveIndex((prev) => (prev + 1) % totalCards)
-    }
-  
-    const handlePrev = () => {
-      setActiveIndex((prev) => (prev - 1 + totalCards) % totalCards)
-    }
+  const handlePrev = () => {
+    setActiveIndex((prev) => (prev - 1 + totalCards) % totalCards)
+  }
 
-    const getName = (card) => {
-      return i18n.language === 'th' ? card.name_th : card.name_en
-    }
-  
-    const getBreed = (card) => {
-      return i18n.language === 'th' ? card.breed_th : card.breed_en
-    }
-  
-    return (
-<div className="absolute top-[-450px] md:top-[-360px]  w-full z-20 p-4 md:p-8 flex flex-col md:flex-row items-center justify-center">
-  <div className='flex flex-col w-full md:w-1/4 text-center md:text-left mb-8 md:mb-0 '>
-    <em className='hidden md:block text-[150px] md:text-[200px] lg:text-[250px] relative'>M</em>
-    <p className='hidden md:block text-[40px] md:text-[80px] md:absolute md:left-[460px] md:top-[170px]'>eet</p>
-    <p className='hidden md:block text-[40px] md:text-[80px] md:absolute md:left-[450px] md:top-[230px]'>Our</p>
-    <p className='hidden md:block text-[40px] md:text-[80px] md:absolute md:left-[440px] md:top-[290px]'>Friends</p>
-    <div className="flex items-center justify-center mt-4 md:mt-8 md:bottom-[450px] md:left-[-1000px] fixed bottom-[100px] left-0 right-0 z-50 top-0">
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="bg-pink-600 text-white px-12 py-3 rounded-full md:text-[20px] text-sm font-medium hover:bg-pink-700 transition-colors"
-        onClick={()=>navigate('/adopt')}
-      >
-        Adopt
-      </motion.button>
-    </div>
-               
+  const getName = (card) => {
+    return i18n.language === 'th' ? card.name_th : card.name_en
+  }
+
+  const getBreed = (card) => {
+    return i18n.language === 'th' ? card.breed_th : card.breed_en
+  }
+
+  return (
+    <div className="absolute top-[-370px] md:top-[-260px] w-full z-20 p-4 md:p-8 flex flex-col md:flex-row items-center justify-center">
+      <div className='flex flex-col w-full md:w-1/4 text-center md:text-left md:mb-8'>
+        <img src="/src/assets/Meet.png" alt="" className='hidden md:block' />
+        <div className="hidden md:flex items-center justify-center mt-4 md:mt-8 md:bottom-[350px] md:left-[-1000px] bottom-[100px] left-0 right-0 z-50">
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-pink-600 text-white px-12 py-3 rounded-full md:text-[20px] text-sm font-medium hover:bg-pink-700 transition-colors"
+            onClick={()=>navigate('/adopt')}
+          >
+            Adopt
+          </motion.button>
         </div>
-        
-        <div className="relative w-[1000px] h-[500px]">
-          <button
-            onClick={handlePrev}
-            className="absolute left-[180px]  md:left-4 top-1/2 -translate-y-1/2 z-30 bg-pink-500 hover:bg-white/20 text-white rounded-full p-2 backdrop-blur-sm"
-          >
-            ←
-          </button>
-          <button
-            onClick={handleNext}
-            className="absolute right-[180px] md:right-4 top-1/2 -translate-y-1/2 z-30 bg-pink-500 hover:bg-white/20 text-white rounded-full p-2 backdrop-blur-sm"
-          >
-            →
-          </button>
-  
-          <div className="relative h-full flex items-center justify-center">
+      </div>
+      
+      <div className="relative w-[1000px] h-[500px]">
+        <button
+          onClick={handlePrev}
+          className="absolute left-[180px] md:left-20 top-1/2 -translate-y-1/2 z-30 bg-pink-500 hover:bg-orange-200 text-white rounded-full p-2 backdrop-blur-sm"
+        >
+          ←
+        </button>
+        <button
+          onClick={handleNext}
+          className="absolute right-[180px] md:right-20 top-1/2 -translate-y-1/2 z-30 bg-pink-500 hover:bg-orange-200 text-white rounded-full p-2 backdrop-blur-sm"
+        >
+          →
+        </button>
+
+        <div className="relative h-full flex items-center justify-center">
           {cards.map((card, index) => (
             <div
               key={index}
@@ -110,6 +102,17 @@ import { useTranslation } from 'react-i18next';
           ))}
         </div>
       </div>
+
+      <div className="md:hidden flex items-center justify-center mt-[-50px] w-full">
+  <motion.button
+    whileHover={{ scale: 1.05 }}
+    whileTap={{ scale: 0.95 }}
+    className="bg-pink-600 text-white px-12 py-3 rounded-full md:text-[20px] text-sm font-medium hover:bg-pink-700 transition-colors"
+    onClick={()=>navigate('/adopt')}
+  >
+    Adopt
+  </motion.button>
+</div>
     </div>
   )
 }
