@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { IoMdArrowDropdown } from "react-icons/io";
-
 import useAuthStore from '../../stores/AuthStore';
+import Logo from '../../assets/Logo-navbar2.png'
 
 export default function AdminNavbar() {
 
@@ -52,9 +52,9 @@ export default function AdminNavbar() {
         <div>
             <nav className="top-0 left-0 w-full flex justify-between px-4 md:px-8 h-24 items-center bg-orange-200 fixed z-20">
 
-                <div className="w-32 h-20 md:flex gap-8 flex items-center ">
-                    <h1 className='text-3xl'>LOGO</h1>
-                </div>
+                <Link to="/" className="flex items-center">
+                    <img src={Logo} alt="Logo" className="h-12 w-25 object-cover" />
+                </Link>
 
 
                 <div className="hidden md:flex gap-14 text-black">

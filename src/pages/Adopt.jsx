@@ -6,7 +6,7 @@ import usePetStore from "../stores/PetStore";
 import { useTranslation } from "react-i18next";
 import { Card, CardFooter } from "@/components/ui/card";
 import Lottie from "lottie-react"; // นำเข้า Lottie
-import AnimationDownload from "../assets/AnimationDownload.json"; // นำเข้าไฟล์ Lottie
+import AnimationDownload from "../assets/AnimationDownlpad-2.json"; // นำเข้าไฟล์ Lottie
 
 const Adopt = () => {
   const { t, i18n } = useTranslation();
