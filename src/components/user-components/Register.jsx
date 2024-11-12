@@ -104,19 +104,6 @@ export default function Register() {
                                         {formatError.email && <p className='text-red-500 text-xs'>{formatError.email}</p>}
                                     </div>
 
-                                    {/* <div className="space-y-2">
-                                        <label className="text-sm text-gray-600">{t('register.passwordLabel')} :</label>
-                                        <Input type="password"
-                                            name="password"
-                                            value={form.password || ''}
-                                            placeholder={t('register.passwordLabel')}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className='w-2/3 ml-auto text-right'>
-                                        {formatError.password && <p className='text-red-500 text-xs'>{formatError.password}</p>}
-                                    </div> */}
-
                                     <div className="relative">
                                         <Input type={showPassword ? "text" : "password"}
                                             name="password"
@@ -173,27 +160,11 @@ export default function Register() {
                                         </button>
                                         {formatError.confirmPassword && <p className='text-red-500 text-xs'>{formatError.confirmPassword}</p>}
                                     </div>
-
-
-                                    {/* <div className="space-y-2">
-                                        <label className="text-sm text-gray-600">{t('register.confirmPasswordLabel')} :</label>
-                                        <Input
-                                            type="password"
-                                            name="confirmPassword"
-                                            value={form.confirmPassword || ''}
-                                            placeholder={t('register.confirmPasswordLabel')}
-                                            onChange={handleChange}
-                                        />
-                                    </div>
-                                    <div className='w-2/3 ml-auto text-right'>
-                                        {formatError.confirmPassword && <p className='text-red-500 text-xs'>{formatError.confirmPassword}</p>}
-                                    </div> */}
-
-
+                                    
+                                    
                                     <Button className="w-full bg-gradient-to-r from-purple-500 to-yellow-500 hover:from-purple-600 hover:to-pink-600">
                                         {t('register.signUpButton')}
                                     </Button>
-
 
 
                                     <div className="text-center text-sm text-gray-600">

@@ -14,6 +14,7 @@ import { Play } from "lucide-react"
 
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import FacebookLogin from './LoginFacebook';
 
 
 
@@ -144,7 +145,8 @@ export default function Login() {
                       <div className="px-2 bg-white text-gray-500">{t("login.connectWith")}</div>
                     </div>
                   </div>
-
+                  
+                  <FacebookLogin/>
                   <div className="grid grid-cols-2 gap-4">
 
 
