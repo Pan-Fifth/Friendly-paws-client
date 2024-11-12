@@ -6,6 +6,7 @@ import useAuthStore from './../../stores/AuthStore';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage } from '../../i18n.js';
 import useLanguageStore from '@/src/stores/LanguageStore';
+import Logo from '../../assets/Logo-navbar2.png'
 
 
 
@@ -32,7 +33,7 @@ export default function Navbar() {
       <div className="w-full flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center">
-          <MountainIcon className="h-8 w-8" />
+          <img src={Logo} alt="Logo" className="h-12 w-25 object-cover" />
         </Link>
 
 

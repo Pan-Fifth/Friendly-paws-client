@@ -231,13 +231,13 @@ export default function Homepage() {
 
                 {index === 0 && (
                   <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh]">
-                     {/* <video 
-                    src="/src/assets/bubble2.mp4" 
+                     <video 
+                    src="/src/assets/bubble3.mp4" 
                     autoPlay 
                     loop 
                     muted 
                     className="absolute inset-0 w-full h-full object-cover z-0"
-                  /> */}
+                  />
                     <div className="relative z-10 order-2 md:order-1">
                       <img
                         src="/src/assets/dogGif.gif"
@@ -255,7 +255,7 @@ export default function Homepage() {
                         <img
                           src="/src/assets/dog.png"
                           alt="img"
-                          className="md:block h-screen w-full object-contain md:h-screen md:w-[700px] md:aspect-auto"
+                          className="md:block  w-full object-contain md:h-screen md:aspect-auto"
                         />
                         {/* <PawPrint className="absolute top-[100px] left-[-100px] md:top-[-200px] md:left-[40px] z-10 md:h-[300px] md:w-[300px]" /> */}
                       </motion.div>
@@ -266,7 +266,7 @@ export default function Homepage() {
                       <h1 className="text-lg md:text-xl mb-2 md:mb-4">
                         {content?.[0]} <span className="text-pink-600">{content?.[1]}</span>
                       </h1>
-                      <h2 className="text-[80px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-8">
+                      <h2 className="text-[50px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-8">
                         {content?.[2]}
                       </h2>
                       <motion.button

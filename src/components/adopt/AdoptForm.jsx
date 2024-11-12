@@ -155,7 +155,7 @@ export function DialogAdopt({ petId }) {
               {/* Personal Information Section */}
               <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-3">{t("adoptForm.personalInformation")}</h3>
-                <div className="flex gap-4">
+                <div className="flex flex-col md:flex-row gap-4">
                   <div>
                     <label className="mb-1 flex-1">{t("adoptForm.firstName")}</label>
                     <input type="text" placeholder={user.firstname || `${t("adoptForm.firstName")}`} className="border p-2 rounded w-full" name="firstname" onChange={hdlChange} />
@@ -321,7 +321,7 @@ export function DialogAdopt({ petId }) {
               {/* Owner Pet Preference Section */}
               <div className="mb-6">
                 <h3 className="text-xl font-semibold mb-3">{t("adoptForm.petInformation")}</h3>
-                <div className="flex gap-2">
+                <div className="flex flex-col md:flex-row gap-2">
                   <div>
                     <label className="block mb-1">{t("adoptForm.currentPetCount")}</label>
                     <input type="number" placeholder={t("adoptForm.numberOfPets")} className="border p-2 rounded w-full" name="currentPetCount" onChange={hdlChange} />

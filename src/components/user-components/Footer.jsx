@@ -1,6 +1,7 @@
 import { PawPrint } from 'lucide-react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import Logo from '../../assets/Logo-navbar2.png'
 
 
 
@@ -39,10 +40,10 @@ export default function Footer() {
         </div>
 
         {/* Footer Links */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-6 text-sm">
-          <div>
-          LOGO
-          </div>
+        <div className="grid grid-cols-3 md:grid-cols-4 gap-6 mb-6 text-sm">
+        <Link to="/" className="md:flex md:justify-center hidden">
+          <img src={Logo} alt="Logo" className="h-40 w-50 object-cover" />
+        </Link>
           
           
           <div>
