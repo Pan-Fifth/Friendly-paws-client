@@ -98,10 +98,7 @@ export default function ReportPet() {
                     className="border p-2 rounded"
                 >
                     <option value="">เลือกสถานะ</option>
-                    <option value="PENDING">PENDING</option>
-                    <option value="FOSTERED">FOSTERED</option>
                     <option value="UNAVAILABLE">UNAVAILABLE</option>
-                    <option value="ADOPTED">ADOPTED</option>
                     <option value="AVAILABLE">AVAILABLE</option>
                 </select>
                 <button
@@ -142,17 +139,11 @@ export default function ReportPet() {
                                     <td className="px-6 py-4">{pet.color}</td>
                                     <td className="px-6 py-4">{pet.gender}</td>
                                     <td className="px-6 py-4">{pet.type}</td>
-                                    <td className={`px-6 py-4 ${pet.status === 'PENDING'
-                                        ? 'text-yellow-500'
-                                        : pet.status === 'FOSTERED'
+                                    <td className={`px-6 py-4 ${pet.status === 'AVAILABLE'
+                                        ? 'text-green-500'
+                                        : pet.status === 'UNAVAILABLE'
                                             ? 'text-red-500'
-                                            : pet.status === 'UNAVAILABLE'
-                                                ? 'text-red-500'
-                                                : pet.status === 'ADOPTED'
-                                                    ? 'text-green-500'
-                                                    : pet.status === 'AVAILABLE'
-                                                        ? 'text-blue-500'
-                                                        : ''
+                                            : ""
                                         }`}>{pet.status}</td>
                                     <td className="px-6 py-4">{pet.breed_th}</td>
                                     <td className="px-6 py-4">{pet.description_th}</td>

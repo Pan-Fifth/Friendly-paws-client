@@ -58,7 +58,11 @@ export default function EditProfile() {
             fetchProfile();
             toast.success(t('editProfile.updateSuccess'));
         } catch (err) {
-            console.log(err)
+            if (err.response && err.response.data.message === "Phone number already exists") {
+                toast.error(t('editProfile.phoneDuplicate'));
+            } else {
+                toast.error(err.response?.data?.message || t('editProfile.updateError'));
+            }
         }
     };
 

@@ -272,7 +272,6 @@ export function DialogAdopt({ petId }) {
                   name="aloneHours"
                   onChange={hdlChange}
                 />
-                {formatError.aloneHours && <p className="text-red-500 text-sm">{formatError.aloneHours}</p>}
 
               </div>
 

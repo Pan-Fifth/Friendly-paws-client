@@ -142,7 +142,9 @@
     "email": "Email",
     "confirmButton": "Confirm",
      "errorFetchingProfile": "Error fetching profile",
-    "updateSuccess": "Updated successfully!"
+    "updateSuccess": "Updated successfully!",
+    "updateError": "Error updating profile",
+    "phoneDuplicate": "Phone number already exists"
   },
   "adoptPageMain": 
   {

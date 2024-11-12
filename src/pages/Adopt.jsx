@@ -81,7 +81,7 @@ const Adopt = () => {
     <div>
       <div className="relative">
         <div className="rounded-3xl h-[180px] md:h-[300px] mx-auto w-full my-10 ">
-        <img src="/src/assets/AdoptBg.png" className="absolute md:top-[-450px]" alt="" />
+          <img src="/src/assets/AdoptBg.png" className="absolute md:top-[-450px]" alt="" />
         </div>
       </div>
       <div className="absolute top-20 w-full h-[250px] md:h-[500px]">
@@ -134,7 +134,7 @@ const Adopt = () => {
         </div>
       </div>
       <div>
-        {avaiPets.length === 0 && (
+        {avaiPets?.length === 0 && (
           <div className="flex items-start justify-center">
             <p className="text-3xl font-bold">no pet found</p>
           </div>
@@ -143,24 +143,24 @@ const Adopt = () => {
 
 
       <div className="container mx-auto p-4">
-  <div className="w-full lg:w-2/3 mx-auto">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {avaiPets?.map((el, index) => (
-        <Card 
-          key={el.id} 
-          className={`overflow-hidden group ${index === 0 || index === avaiPets.length - 1 ? 'col-span-2' : ''}`}
-        >
-          <AdoptPetCard
-            id={el.id}
-            name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
-            image={el.image?.map(img => img.url) || []}
-            gender={el.gender}
-          />
-        </Card>
-      ))}
-    </div>
-  </div>
-</div>
+        <div className="w-full lg:w-2/3 mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {avaiPets?.map((el, index) => (
+              <Card
+                key={el.id}
+                className={`overflow-hidden group ${index === 0 || index === avaiPets.length - 1 ? 'col-span-2' : ''}`}
+              >
+                <AdoptPetCard
+                  id={el.id}
+                  name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
+                  image={el.image?.map(img => img.url) || []}
+                  gender={el.gender}
+                />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="mt-10">
         <div className="flex justify-center items-center gap-2">
