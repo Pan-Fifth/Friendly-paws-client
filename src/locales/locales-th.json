@@ -141,7 +141,9 @@
     "email": "อีเมล",
     "confirmButton": "ยืนยัน",
      "errorFetchingProfile": "เกิดข้อผิดพลาดในการดึงข้อมูลโปรไฟล์",
-    "updateSuccess": "อัปเดตเรียบร้อย!"
+    "updateSuccess": "อัปเดตเรียบร้อย!",
+     "updateError": "ไม่สามารถอัปเดตโปรไฟล์ได้",
+    "phoneDuplicate": "หมายเลขโทรศัพท์นี้มีในระบบอยู่แล้ว"
   },
   "adoptPageMain": 
   {
