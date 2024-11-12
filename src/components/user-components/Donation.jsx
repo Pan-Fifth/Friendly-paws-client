@@ -127,8 +127,6 @@ const Donation = () => {
     <div className="relative min-h-screen">
       <AnimatedBackground />
       <div className="container mx-auto p-6 min-h-screen bg-gradient-to-b from-background/50 to-muted/50">
-
-
         <div className="grid md:grid-cols-2 gap-8 mb-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
@@ -221,7 +219,13 @@ const Donation = () => {
                     className="bg-gradient-to-r from-[#fcd9d8]/30 to-pink-100/30 p-4 rounded-lg border border-pink-200 shadow-inner"
                   >
                     <p className="font-semibold">{content.impactMessage}</p>
-                    {donationOptions.find((opt) => opt.amount === donation.total)?.benefit}
+                    {
+                      donationOptions
+                        .filter((opt) => opt.amount <= donation.total)
+                        .sort((a, b) => b.amount - a.amount)[0]?.[
+                        currentLanguage === "en" ? "benefit_en" : "benefit_th"
+                      ]
+                    }
                   </motion.div>
                 )}
               </CardContent>
