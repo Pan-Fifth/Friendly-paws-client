@@ -121,51 +121,17 @@ export function AdoptFormContent({
         formData.append(key, value);
       }
     });
-    // Personal Information
-    formData.append("firstname", data.firstname);
-    formData.append("lastname", data.lastname);
-    formData.append("phone", data.phone);
-
-    // Core Adoption Details
-    formData.append("address", data.address);
-    formData.append("career", data.career);
-    formData.append("workTime", data.workTime);
-    formData.append("workPlace", data.workPlace);
-    formData.append("dayOff", data.dayOff);
-    formData.append("salary", parseInt(data.salary));
-    formData.append("dateOfBirth", data.dateOfBirth);
-    formData.append("socialContact", data.socialContact);
-
-    // Pet & Family Information
-    formData.append("currentPetCount", parseInt(data.currentPetCount));
-    formData.append("currentPetDetails", data.currentPetDetails);
-    formData.append("familyMemberCount", parseInt(data.familyMemberCount));
-    formData.append("familyAlwaysHome", data.familyAlwaysHome === "true");
-    formData.append("aloneHours", parseInt(data.aloneHours));
-
-    // Housing Details - Matching schema mapping
-    formData.append("housing_type", data.housingType);
-    formData.append("has_garden", data.houseCheck.hasGarden);
-    formData.append("has_fence", data.houseCheck.hasFence);
-    formData.append("can_walk_dog", data.houseCheck.canWalkDog);
-
-    // Delivery and Additional Info
-    formData.append("deliveryType", data.deliveryType);
-    formData.append("why", data.why);
-
-    // Files handling
-    if (files && files.length > 0) {
-      files.forEach((file) => {
-        formData.append("files", file);
-      });
-    }
+    // // Housing Details - Matching schema mapping
+    formData.append("hasGarden", Boolean(data.houseCheck.hasGarden));
+    formData.append("hasFence", Boolean(data.houseCheck.hasFence));
+    formData.append("canWalkDog", Boolean(data.houseCheck.canWalkDog));
 
     handleFormSubmit(formData);
   };
 
   const inputClass =
     "w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent";
-
+  console.log(files)
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
       <FormSection

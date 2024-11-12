@@ -97,9 +97,12 @@ export function DialogAdopt({ petId }) {
         formData.append("files", file);
       });
 
+      for(let i of formData){
+        console.log(i)
+      }
       const submit = await actionCreateAdoptRequest(formData, token);
       toast.success(t("adoptFormtoast.successMessage"));
-      usePetStore.getState().clearAdoptFormData();
+      // usePetStore.getState().clearAdoptFormData();
       setOpen(false);
     } catch (err) {
       setOpen(true);
