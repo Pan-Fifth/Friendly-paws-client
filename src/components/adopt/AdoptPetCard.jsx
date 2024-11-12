@@ -73,7 +73,7 @@ function DesignCard({ name, image, id, onClickHandler }) {
       <CardFooter className="bg-white p-4 pt-0 flex flex-col gap-5">
         <div className='text-2xl z-20'>{name}</div>
         <div>
-          <div className="flex items-center justify-center bg-gray-100">
+          <div className="flex items-center justify-center">
             <motion.div
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
