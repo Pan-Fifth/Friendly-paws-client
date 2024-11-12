@@ -103,7 +103,7 @@ export default function CardHome({cards}) {
         </div>
       </div>
 
-      <div className="md:hidden flex items-center justify-center mt-[-50px] w-full">
+      <div className="md:hidden flex items-center justify-center mt-[-50px] w-full z-20">
   <motion.button
     whileHover={{ scale: 1.05 }}
     whileTap={{ scale: 0.95 }}

@@ -4,9 +4,9 @@ import { useRef, useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const images = [
-  "https://i.pinimg.com/564x/6c/3f/79/6c3f793a11a7c8f807ff0d0bf2a006e9.jpg",
-  "https://i.pinimg.com/564x/24/86/4f/24864fa604c48845ee9e64ebc6441c3c.jpg",
-  "https://i.pinimg.com/564x/e5/e6/17/e5e617f23c4a1e8f768ee78307b9b330.jpg",
+  "https://i.pinimg.com/originals/27/ee/71/27ee71b104a1d7d0fcc49383408911c7.gif",
+  "https://i.pinimg.com/originals/a3/98/59/a39859d44ad68f19326456c71900eaf6.gif",
+  "https://i.pinimg.com/564x/15/bc/34/15bc34cd2543972650206c872532947a.jpg",
 ]
 
 export default function ImageHome() {
@@ -50,14 +50,16 @@ export default function ImageHome() {
   }
 
   const outlineVariants = {
-    initial: { pathLength: 0, opacity: 0 },
+    initial: { pathLength: 0, opacity: 1 },
     animate: { 
+      rotate: 360,
       pathLength: 1, 
       opacity: 1,
       transition: { 
-        duration: 10,
+        duration: 20,
         ease: "linear",
         repeat: Infinity,
+        repeatDelay: 0
       }
     }
   }
@@ -98,7 +100,7 @@ export default function ImageHome() {
                     cy="50"
                     r="49"
                     stroke="#e25594"
-                    strokeWidth="0.5"
+                    strokeWidth="2"
                     variants={outlineVariants}
                     initial="initial"
                     animate="animate"
