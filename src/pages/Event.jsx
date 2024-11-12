@@ -109,23 +109,24 @@ const Event = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="flex justify-center m-6">
-        <div className="relative w-full max-w-4xl h-70 bg-gray-200 rounded-lg overflow-hidden shadow-lg">
+        <div className="relative w-3/4 h-1/2 rounded-lg overflow-hidden ">
           <img
             src={bannerImages[currentIndex] || ""}
             alt="Event Banner"
-            className="object-cover w-full h-full transition-opacity duration-500"
+            className="object-contain  w-full h-full transition-opacity duration-500"
           />
           <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
             {bannerImages.map((_, index) => (
               <span
                 key={index}
-                className={`block w-2 h-2 rounded-full ${index === currentIndex ? "bg-gray-800" : "bg-gray-400"
-                  }`}
+                className={`block w-2 h-2 rounded-full ${index === currentIndex ? "bg-gray-800" : "bg-gray-400"}`}
               />
             ))}
           </div>
         </div>
       </div>
+
+
 
       <div className=" m-8 text-2xl font-bold text-center">
         <h1>{t('eventPage.newEvents')}</h1>
@@ -242,9 +243,9 @@ const Event = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <h2 className="text-2xl font-semibold mb-4">{language === 'th' ? (expireEvent.title_th || expireEvent.title_en) : expireEvent.title_en || expireEvent.title_th}</h2>
+            <h2 className="text-2xl font-semibold my-4">{language === 'th' ? (expireEvent.title_th || expireEvent.title_en) : expireEvent.title_en || expireEvent.title_th}</h2>
             <p>
-              <strong>{t("eventPage.date")}</strong> {expireEvent.date_start}
+              <strong>{t("eventPage.date")}</strong> {new Date(expireEvent.date_start).toLocaleDateString()}
             </p>
             <p>
               <strong>{t("eventPage.location")}</strong> {expireEvent.location}

@@ -126,7 +126,7 @@ export function DialogAdopt({ petId }) {
         ? <div className="modal fixed  inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50 ">
           <div className=" rounded-lg shadow-lg flex flex-col items-center">
             <div className="flex flex-col items-center space-y-2">
-              <Lottie animationData={AnimationDownload} loop={true} className="w-full h-full " />
+              <Lottie animationData={AnimationDownload} loop={true} className="w-1/2 h-1/2 " />
               <Button
                 className="w-1/5 items-center  my-5 group relative overflow-hidden bg-black text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl active:scale-95">
                 <span className="relative z-10 flex items-center justify-center gap-3">

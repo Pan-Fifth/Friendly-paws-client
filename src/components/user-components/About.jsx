@@ -121,9 +121,12 @@ import { useTranslation } from "react-i18next";
 import axiosInstance from "@/src/utils/axiosInstance";
 import { Link } from "react-router-dom";
 
+
+
 export default function About() {
 const { t, i18n } = useTranslation();
 const containerRef = useRef(null);
+
 const [aboutContent, setAboutContent] = useState(null);
 const [imagesLoaded, setImagesLoaded] = useState(false)
 
@@ -288,5 +291,6 @@ if (content && typeof content === "string") {
         </div>
       </div>
     </div>
+
   )
 }
