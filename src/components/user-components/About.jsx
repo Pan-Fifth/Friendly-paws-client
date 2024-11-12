@@ -12,6 +12,7 @@ export default function About() {
   const containerRef = useRef(null);
   const [aboutContent, setAboutContent] = useState(null);
   const [imagesLoaded, setImagesLoaded] = useState(false)
+  const language = i18n.language
 
   // ฟังก์ชันเพื่อดึงข้อมูลจาก API
   const getAbout = () => {
@@ -46,8 +47,6 @@ export default function About() {
     splitContent = content.split("|");
   }
 
-
-
 function convertToEmbedURL(youtubeUrl) {
   // Regular expression to extract the video ID from YouTube URLs
   const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
@@ -63,6 +62,7 @@ function convertToEmbedURL(youtubeUrl) {
 }
 
 console.log(aboutContent)
+console.log(i18n.language)
 
   return (
     <div className=" about-page min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
@@ -99,12 +99,10 @@ console.log(aboutContent)
         {/* Mission Statement */}
         <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#db2777]">
-           {aboutContent[`content_${i18n.language}`]}
+           {aboutContent[`header_${i18n.language}`]}
           </h2>
           <p className="text-base sm:text-lg text-orange-700">
-            At PetFinder, we're passionate about connecting loving homes with pets in need.
-            Our network brings together shelters, veterinarians, and pet lovers to ensure
-            every animal finds their forever family through a transparent and caring adoption process.
+          {aboutContent[`description_${i18n.language}`]}
           </p>
         </div>
 
@@ -161,10 +159,10 @@ console.log(aboutContent)
           {/* Journey Description */}
           <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
             <h3 className="text-2xl sm:text-3xl font-bold text-[#db2777]">
-              {aboutContent[`header_${i18n.language}`]} {/* แสดงผลตามภาษา */}
+             {aboutContent[`help_title_${i18n.language}`]} {/* แสดงผลตามภาษา */}
             </h3>
             <p className="text-base sm:text-lg text-orange-700">
-              {aboutContent[`description_${i18n.language}`]} {/* แสดงผลตามภาษา */}
+              {aboutContent[`help_content_${i18n.language}`]} {/* แสดงผลตามภาษา */}
             </p>
           </div>
         </div>
@@ -172,11 +170,11 @@ console.log(aboutContent)
         {/* How You Can Help Section */}
         <div className="space-y-8 bg-gradient-to-br from-orange-100 to-pink-100 p-4 sm:p-8 rounded-xl shadow-lg">
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-[#db2777]">
-            {aboutContent[`help_title_${i18n.language}`]} {/* แสดงผลตามภาษา */}
+            {aboutContent[`content_${i18n.language}`]} {/* แสดงผลตามภาษา */}
           </h2>
           <div className="text-center space-y-4 max-w-3xl mx-auto">
             <p className="text-base sm:text-lg text-orange-700">
-              {aboutContent[`help_content_${i18n.language}`]} {/* แสดงผลตามภาษา */}
+              {aboutContent[`content_detail_${i18n.language}`]} {/* แสดงผลตามภาษา */}
             </p>
             <Button className="bg-[#db2777] hover:bg-[#be185d] text-white font-bold py-2 sm:py-3 px-4 sm:px-6 rounded-full text-base sm:text-lg shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#db2777]">
               <Link to="/donate" className="block w-full h-full">
