@@ -2,6 +2,8 @@ import React, { useEffect, useState, useRef } from "react";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "react-i18next";
+
 import {
   LineChart,
   Line,
@@ -26,7 +28,16 @@ const STATUS_COLORS = {
   UNAVAILABLE: "#ef4444",
 };
 
+const STATUS_TRANSLATIONS = {
+  AVAILABLE: "พร้อมหาบ้าน",
+  PENDING: "กำลังดำเนินการ",
+  ADOPTED: "ถูกรับเลี้ยงแล้ว",
+  FOSTERED: "อยู่ระหว่างการเลี้ยงดู",
+  UNAVAILABLE: "ไม่พร้อมหาบ้าน"
+};
+
 export default function Dashboard() {
+  const { t, i18n } = useTranslation();
   const [dashboardData, setDashboardData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [goals, setGoals] = useState({
@@ -54,7 +65,7 @@ export default function Dashboard() {
   const handleDonationClick = () => {
     setTimeout(() => {
       setClickCount((prev) => {
-        console.log(prev)
+        console.log(prev);
         if (prev + 1 === 7) {
           navigate("/admin/manage-goal");
           return 0;
@@ -64,9 +75,9 @@ export default function Dashboard() {
     }, 3000);
   };
 
-
   useEffect(() => {
     const fetchDashboardData = async () => {
+      i18n.changeLanguage("th");
       try {
         const response = await axiosInstance.get("/admin/dashboard");
         setDashboardData(response.data);
@@ -97,82 +108,84 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="p-8 space-y-8 max-w-7xl mx-auto" ref={dashboardRef}>
+    <div className="p-8 space-y-8 max-w-7xl mx-auto" >
       {/* Overview Stats */}
       <button onClick={handleDownloadPDF} className="bg-blue-500 text-white py-2 px-4 rounded">
         Download PDF
       </button>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
-        <div onClick={handleDonationClick}>
-          <DonationDashboard
-            totalDonationAmount={dashboardData?.overview.ytdDonationsAmount}
-            goals={goals}
+      <div ref={dashboardRef}>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 ">
+          <div onClick={handleDonationClick}>
+            <DonationDashboard
+              totalDonationAmount={dashboardData?.overview.ytdDonationsAmount}
+              goals={goals}
+            />
+          </div>
+          <Card className="shadow-md hover:shadow-lg transition-shadow flex flex-col">
+            <CardHeader>
+              <CardTitle className="text-xl"> ภาพรวมแพลตฟอร์ม</CardTitle>
+              <CardDescription>ตัวชี้วัดสำคัญและกิจกรรมล่าสุด</CardDescription>
+            </CardHeader>
+            <CardContent className="flex flex-col flex-1">
+              {/* Stats Section */}
+              <div className="grid grid-cols-3 gap-4 pb-6 border-b">
+                <div className="text-center">
+                  <p className="text-sm text-gray-500">ยอดผู้ใช้งานทั้งหมด</p>
+                  <p className="text-3xl font-bold text-primary">
+                    {dashboardData.overview.totalUsers}
+                  </p>
+                </div>
+                <div className="text-center border-x">
+                  <p className="text-sm text-gray-500">ยอดสัตว์เลี้ยงทั้งหมด</p>
+                  <p className="text-3xl font-bold text-primary">
+                    {dashboardData.overview.totalPets}
+                  </p>
+                </div>
+                <div className="text-center">
+                  <p className="text-sm text-gray-500">ยอดการรับเลี้ยงทั้งหมด</p>
+                  <p className="text-3xl font-bold text-primary">
+                    {dashboardData.overview.totalAdoptions}
+                  </p>
+                </div>
+              </div>
+
+              {/* Recent Activities Section */}
+              <div className="flex-1 overflow-hidden">
+                <h3 className="text-lg font-semibold my-4"> ผู้ขอรับเลี้ยงสัตว์ล่าสุด</h3>
+                <div className="space-y-4 overflow-y-auto h-[220px] pr-2">
+                  {dashboardData.recentActivities.adoptions.map((adoption, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between hover:bg-gray-50 p-2 rounded-lg transition-colors"
+                    >
+                      <div>
+                        <p className="font-medium text-gray-900">
+                          {adoption.user.firstname} {adoption.user.lastname}
+                        </p>
+                        <p className="text-sm text-gray-600">adopted {adoption.pet.name_en}</p>
+                      </div>
+                      <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
+                        {new Date(adoption.created_at).toLocaleDateString()}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Charts Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <ChartCard
+            title="ยอดรับเลี้ยงสัตว์ รายเดือน"
+            chart={<AdoptionsChart data={dashboardData.monthlyStats.adoptions} />}
+          />
+          <ChartCard
+            title="ภาพรวมสถานะของสัตว์เลี้ยง"
+            chart={<PetStatusChart data={dashboardData.petsStatusDistribution} />}
           />
         </div>
-        <Card className="shadow-md hover:shadow-lg transition-shadow flex flex-col">
-          <CardHeader>
-            <CardTitle className="text-xl"> ภาพรวมแพลตฟอร์ม</CardTitle>
-            <CardDescription>ตัวชี้วัดสำคัญและกิจกรรมล่าสุด</CardDescription>
-          </CardHeader>
-          <CardContent className="flex flex-col flex-1">
-            {/* Stats Section */}
-            <div className="grid grid-cols-3 gap-4 pb-6 border-b">
-              <div className="text-center">
-                <p className="text-sm text-gray-500">ยอดผู้ใช้งานทั้งหมด</p>
-                <p className="text-3xl font-bold text-primary">
-                  {dashboardData.overview.totalUsers}
-                </p>
-              </div>
-              <div className="text-center border-x">
-                <p className="text-sm text-gray-500">ยอดสัตว์เลี้ยงทั้งหมด</p>
-                <p className="text-3xl font-bold text-primary">
-                  {dashboardData.overview.totalPets}
-                </p>
-              </div>
-              <div className="text-center">
-                <p className="text-sm text-gray-500">ยอดการรับเลี้ยงทั้งหมด</p>
-                <p className="text-3xl font-bold text-primary">
-                  {dashboardData.overview.totalAdoptions}
-                </p>
-              </div>
-            </div>
-
-            {/* Recent Activities Section */}
-            <div className="flex-1 overflow-hidden">
-              <h3 className="text-lg font-semibold my-4"> ผู้ขอรับเลี้ยงสัตว์ล่าสุด</h3>
-              <div className="space-y-4 overflow-y-auto h-[220px] pr-2">
-                {dashboardData.recentActivities.adoptions.map((adoption, index) => (
-                  <div
-                    key={index}
-                    className="flex items-center justify-between hover:bg-gray-50 p-2 rounded-lg transition-colors"
-                  >
-                    <div>
-                      <p className="font-medium text-gray-900">
-                        {adoption.user.firstname} {adoption.user.lastname}
-                      </p>
-                      <p className="text-sm text-gray-600">adopted {adoption.pet.name_en}</p>
-                    </div>
-                    <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-                      {new Date(adoption.created_at).toLocaleDateString()}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Charts Section */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        <ChartCard
-          title="ยอดรับเลี้ยงสัตว์ รายเดือน"
-          chart={<AdoptionsChart data={dashboardData.monthlyStats.adoptions} />}
-        />
-        <ChartCard
-          title="ภาพรวมสถานะของสัตว์เลี้ยง"
-          chart={<PetStatusChart data={dashboardData.petsStatusDistribution} />}
-        />
       </div>
     </div>
   );
@@ -214,7 +227,10 @@ const PetStatusChart = ({ data }) => (
   <ResponsiveContainer width="100%" height="100%">
     <PieChart>
       <Pie
-        data={data}
+        data={data.map(item => ({
+          ...item,
+          status: STATUS_TRANSLATIONS[item.status] || item.status
+        }))}
         dataKey="_count"
         nameKey="status"
         cx="50%"
@@ -223,13 +239,14 @@ const PetStatusChart = ({ data }) => (
         label={({ name, percent }) => `${name} (${(percent * 100).toFixed(0)}%)`}
       >
         {data.map((entry) => (
+          // Use the original English status to get the color
           <Cell key={entry.status} fill={STATUS_COLORS[entry.status]} />
         ))}
       </Pie>
-      <Tooltip formatter={(value, name) => [`${value} pets`, name]} />
+      <Tooltip formatter={(value, name) => [`${value} ตัว`, name]} />
     </PieChart>
   </ResponsiveContainer>
-);
+)
 
 // Component for Activity Items
 const ActivityItem = ({ adoption }) => (
@@ -238,10 +255,10 @@ const ActivityItem = ({ adoption }) => (
       <p className="font-medium text-gray-900">
         {adoption.user.firstname} {adoption.user.lastname}
       </p>
-      <p className="text-sm text-gray-600">adopted {adoption.pet.name_en}</p>
+      <p className="text-sm text-gray-600">รับเลี้ยง {adoption.pet.name_th}</p>
     </div>
     <span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded-full">
-      {new Date(adoption.created_at).toLocaleDateString()}
+      {new Date(adoption.created_at).toLocaleDateString('th-TH')}
     </span>
   </div>
 );

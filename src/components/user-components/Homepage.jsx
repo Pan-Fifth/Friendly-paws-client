@@ -43,7 +43,7 @@ const buttonVariants = {
 
 const Bubble = ({ size, left, top, delay }) => (
   <motion.div
-    className="absolute rounded-full bg-white/20 backdrop-blur-sm"
+    className="absolute rounded-full bg-white/20 backdrop-blur-sm z-0"
     style={{
       width: size,
       height: size,

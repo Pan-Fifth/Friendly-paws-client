@@ -3,6 +3,7 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 import useAuthStore from '@/src/stores/AuthStore';
+import axiosInstance from '@/src/utils/axiosInstance';
 
 const ManageUser = () => {
     const [users, setUsers] = useState([]);
@@ -18,7 +19,7 @@ const ManageUser = () => {
 
     const fetchUsers = async () => {
         try {
-            const response = await axios.get('http://localhost:3000/admin/users');
+            const response = await axiosInstance.get('/admin/users');
             setUsers(response.data);
         } catch (error) {
             console.error('Error fetching users:', error);
@@ -48,7 +49,7 @@ const ManageUser = () => {
     const handleUpdateUser = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.put(`http://localhost:3000/admin/users/${editingUser.id}`, formData, {
+            const response = await axiosInstance.put(`/admin/users/${editingUser.id}`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
@@ -139,15 +140,7 @@ const ManageUser = () => {
                         <h2 className="text-xl font-bold mb-4">แก้ไขข้อมูลผู้ใช้งาน</h2>
                         <form onSubmit={handleUpdateUser}>
                             <div className="grid grid-cols-2 gap-4">
-                                <input
-                                    type="text"
-                                    name="email"
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    placeholder="Email"
-                                    className="border rounded px-2 py-1"
-                                    required
-                                />
+
                                 <input
                                     type="text"
                                     name="firstname"
@@ -185,7 +178,6 @@ const ManageUser = () => {
                                     <option value="">เลือกบทบาท</option>
                                     <option value="ADMIN">Admin</option>
                                     <option value="USER">User</option>
-                                    <option value="VOLUNTEER">VOLUNTEER</option>
                                 </select>
                             </div>
                             <button type="submit" className="mt-4 bg-green-500 text-white px-4 py-2 me-6 rounded hover:bg-green-600 transition">
