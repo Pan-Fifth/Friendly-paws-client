@@ -2,11 +2,13 @@ import React, { useRef, useState } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, useMap, useMapEvents } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import * as L from 'leaflet';
-const logo = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ffinalfantasy.fandom.com%2Fwiki%2FNamazu&psig=AOvVaw1Cyb9-1xMCKrgy8SuvgVbn&ust=1730359790541000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCPCG9dbKtYkDFQAAAAAdAAAAABAJ'
+import Logo from '../../assets/Logo-navbar2.png'
+
+const logo = Logo
 
 const logoIcon = new L.Icon({
   iconUrl: logo,
-  iconSize: [60, 60],
+  iconSize: [80, 60],
 });
 
 
@@ -33,8 +35,8 @@ const ZoomToMarker = ({ position, setShowButton }) => {
 
   return (
     <Marker position={position} icon={logoIcon} eventHandlers={{ click: handleZoom }}>
-      <Popup>FRIEND&POW</Popup>
-      <Tooltip>FRIEND&POW</Tooltip>
+      <Popup>FRIENDLY PAWS</Popup>
+      <Tooltip>FRIENDLY PAWS</Tooltip>
     </Marker>
   );
 };
@@ -71,7 +73,7 @@ const Map = ({ defaultPosition = [13.7583128, 100.4525691] }) => {  // ใช้
 
       {showButton && (
         <button className="absolute top-4 right-4 bg-yellow-500 text-white px-4 py-2 rounded-lg shadow-lg z-10 hover:bg-yellow-600"
-          onClick={backToMarker}>  FRIEND&POW </button>
+          onClick={backToMarker}>  FRIENDLY PAWS </button>
       )}
     </div>
   );

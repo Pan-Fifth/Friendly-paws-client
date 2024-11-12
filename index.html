@@ -9,5 +9,37 @@
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script>
+
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{1787124912086080}', // Replace with your app ID
+      cookie     : true,
+      xfbml      : true,
+      version    : 'v13.0' // Specify a valid API version, e.g., 'v13.0'
+    });
+
+    // Now you can call FB.login within fbAsyncInit or set up an event listener
+    document.getElementById('fb-login-button').addEventListener('click', function() {
+      FB.login(function(response) {
+        // Handle the response
+        console.log(response);
+      }, {scope: 'public_profile,email'});
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+    </script>
+    
   </body>
 </html>

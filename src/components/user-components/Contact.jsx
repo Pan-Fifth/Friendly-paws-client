@@ -56,14 +56,7 @@ const Contact = () => {
         }}
       ></div>
 
-    {/* <header className="bg-[#db2777] text-white p-6 text-center rounded-b-lg shadow-lg">
-      <h1 className="text-4xl font-bold">
-        Contact Us{" "}
-        <span role="img" aria-label="dog-and-cat" className="animate-shake">
-          🐶🐱
-        </span>
-      </h1>
-    </header> */}
+
       <section className="mx-auto py-10 px-4 lg:px-20 w-full max-w-7xl">
         <h2 className="text-4xl font-bold mb-6 text-[#db2777]">
           {getLocalizedContent("header")}
@@ -71,38 +64,38 @@ const Contact = () => {
 
         {/* Contact Info Section */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-  <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
-    <Phone className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
-    <div>
-      <div className="font-semibold text-slate-800 text-base">Phone</div>
-      <div className="text-slate-600 text-sm">{aboutInfo.phone}</div>
-    </div>
-  </div>
+          <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
+            <Phone className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
+            <div>
+              <div className="font-semibold text-slate-800 text-base">{t("contactPage.Phone")}</div>
+              <div className="text-slate-600 text-sm">{aboutInfo.phone}</div>
+            </div>
+          </div>
 
-  <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
-    <Email className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
-    <div>
-      <div className="font-semibold text-slate-800 text-base">Email</div>
-      <div className="text-slate-600 text-sm">{aboutInfo.email}</div>
-    </div>
-  </div>
+          <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
+            <Email className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
+            <div>
+              <div className="font-semibold text-slate-800 text-base">{t("contactPage.Email")}</div>
+              <div className="text-slate-600 text-sm">{aboutInfo.email}</div>
+            </div>
+          </div>
 
-  <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
-    <Opening className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
-    <div>
-      <div className="font-semibold text-slate-800 text-base">Opening Times</div>
-      <div className="text-slate-600 text-sm">{getLocalizedContent("openingTimes")}</div>
-    </div>
-  </div>
+          <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
+            <Opening className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
+            <div>
+              <div className="font-semibold text-slate-800 text-base">{t("contactPage.Open")}</div>
+              <div className="text-slate-600 text-sm">{getLocalizedContent("openingTimes")}</div>
+            </div>
+          </div>
 
-  <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
-    <Adress className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
-    <div>
-      <div className="font-semibold text-slate-800 text-base">Location</div>
-      <div className="text-slate-600 text-sm">{getLocalizedContent("address")}</div>
-    </div>
-  </div>
-</div>
+          <div className="bg-white rounded-lg p-6 flex items-center gap-4 transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-pink-500 hover:border-2">
+            <Adress className="w-6 h-6 text-blue-600 flex-shrink-0 transition-transform duration-300 hover:rotate-12" />
+            <div>
+              <div className="font-semibold text-slate-800 text-base">{t("contactPage.Location")}</div>
+              <div className="text-slate-600 text-sm">{getLocalizedContent("address")}</div>
+            </div>
+          </div>
+        </div>
 
         {/* Map Section */}
         <div className="mt-8 relative">
