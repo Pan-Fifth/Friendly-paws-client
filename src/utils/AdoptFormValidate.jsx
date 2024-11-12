@@ -48,10 +48,11 @@ const adoptFormAuthen = (t) => Joi.object({
 
         }),
     socialContact: Joi.string()
-        .optional()
+        .required()
         .messages({
             "string.empty": t('validation.socialContact'),
-            "string.base": t('validation.socialContact')
+            "string.base": t('validation.socialContact'),
+            "any.required": t('validation.socialContact'),
         }),
     address: Joi.string()
         .required()
@@ -125,15 +126,19 @@ const adoptFormAuthen = (t) => Joi.object({
         .required()
         .messages({
             "boolean.base": t('validation.familyAlwaysHomeRequired'),
-            "boolean.empty": t('validation.familyAlwaysHomeRequired')
+            "boolean.empty": t('validation.familyAlwaysHomeRequired'),
+            "any.required": t('validation.familyAlwaysHomeRequired'),
+
         }),
     aloneHours: Joi.number()
         .integer()
         .min(0)
-        .optional()
+        .required()
         .messages({
             "number.base": t('validation.aloneHours'),
-            "number.min": t('validation.aloneHoursMin')
+            "number.min": t('validation.aloneHoursMin'),
+            "any.required": t('validation.aloneHours'),
+
         }),
     housingType: Joi.string()
         .valid("OWN_HOUSE", "RENTAL_HOUSE", "CONDO", "APARTMENT")
@@ -144,20 +149,37 @@ const adoptFormAuthen = (t) => Joi.object({
             "any.required": t('validation.housingTypeRequired'),
             "any.only": t('validation.housingTypeInvalid')
         }),
-
+    hasGarden: Joi.boolean()
+        .optional()
+        .messages({
+            "boolean.base": t('validation.hasGarden'),
+        }),
+    hasFence: Joi.boolean()
+        .optional()
+        .messages({
+            "boolean.base": t('validation.hasFence'),
+        }),
+    canWalkDog: Joi.boolean()
+        .optional()
+        .messages({
+            "boolean.base": t('validation.canWalkDog'),
+        }),
     deliveryType: Joi.string()
         .valid("PICK_UP", "REQUIRE_DELIVERY")
         .required()
         .messages({
             "string.base": t('validation.deliveryTypeRequired'),
             "string.empty": t('validation.deliveryTypeRequired'),
-            "any.only": t('validation.deliveryTypeInvalid')
+            "any.only": t('validation.deliveryTypeInvalid'),
+            "any.required": t('validation.deliveryTypeRequired'),
+
         }),
     why: Joi.string()
         .required()
         .messages({
             "string.base": t('validation.why'),
-            "string.empty": t('validation.why')
+            "string.empty": t('validation.why'),
+            "any.required": t('validation.why'),
         }),
 
 
