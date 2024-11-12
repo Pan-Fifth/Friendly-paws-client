@@ -156,23 +156,36 @@ const Adopt = () => {
             image={el.image?.map(img => img.url) || []}
             gender={el.gender}
           />
-        </Card>
-      ))}
+        ))}
+        
+
+      </div>
+
+      <div className="mt-16 mb-12">
+  {avaiPets.length > 0 && (
+    <div className="flex justify-center items-center gap-6 mb-24">
+      <Button
+        onClick={() => hdlPageChange(-1)}
+        className="bg-white border-2 border-pink-400 text-pink-500 hover:bg-pink-50 rounded-lg px-8 py-3 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={page === 1}
+      >
+        {t("adoptPageMain.previous")}
+      </Button>
+      <div className="flex items-center justify-center bg-pink-50 rounded-lg px-6 py-3 min-w-[120px]">
+        <p className="text-xl font-semibold text-pink-600">{t("adoptPageMain.page")} {page}</p>
+      </div>
+      <Button
+        onClick={() => hdlPageChange(+1)}
+        className="bg-white border-2 border-pink-400 text-pink-500 hover:bg-pink-50 rounded-lg px-8 py-3 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+        disabled={avaiPets.length < 6}
+      >
+        {t("adoptPageMain.next")}
+      </Button>
     </div>
-  </div>
+  )}
 </div>
 
-      <div className="mt-10">
-        <div className="flex justify-center items-center gap-2">
-          <Button onClick={() => hdlPageChange(-1)} className="border text-xl">
-            {t("adoptPageMain.previous")}
-          </Button>
-          <p className="text-2xl">{t("adoptPageMain.page")} {page}</p>
-          <Button onClick={() => hdlPageChange(+1)} className="border text-xl">
-            {t("adoptPageMain.next")}
-          </Button>
-        </div>
-      </div>
+
     </div>
   );
 };
