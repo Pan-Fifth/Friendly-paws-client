@@ -21,13 +21,12 @@ function FacebookLoginButton() {
     return (
         <div>
             <FacebookLogin
-                appId="1787124912086080"
+                appId="1357505362348323"
                 autoLoad={false}
-                fields="name,email,picture"
+                fields="name,email"
                 callback={handleFacebookLogin}
                 icon="fa-facebook"
                 textButton="Login with Facebook"
-
             />
         </div>
     );
