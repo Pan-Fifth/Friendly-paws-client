@@ -47,7 +47,22 @@ export default function About() {
   }
 
 
-  console.log(aboutContent, "=============================")
+
+function convertToEmbedURL(youtubeUrl) {
+  // Regular expression to extract the video ID from YouTube URLs
+  const regex = /(?:https?:\/\/(?:www\.)?youtube\.com\/(?:[^\/\n\s]+\/\S+\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})/;
+  const match = youtubeUrl.match(regex);
+
+  if (match && match[1]) {
+      const videoId = match[1];
+      // Return the embed URL format
+      return `https://www.youtube.com/embed/${videoId}`;
+  } else {
+      return null;  // Invalid URL
+  }
+}
+
+console.log(aboutContent)
 
   return (
     <div className=" about-page min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
@@ -58,10 +73,10 @@ export default function About() {
         {/* Image Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 sm:mb-12">
           {[
-            { src: "https://cdn.pixabay.com/photo/2021/01/30/15/15/dog-5964181_1280.jpg", alt: "Team members working with pets" },
-            { src: "https://cdn.pixabay.com/photo/2024/07/31/06/12/stray-8933778_1280.png", alt: "Volunteers caring for animals" },
-            { src: "https://cdn.pixabay.com/photo/2023/03/14/14/57/cat-box-7852492_1280.jpg" },
-            { src: "https://cdn.pixabay.com/photo/2020/11/17/18/20/dog-5753302_1280.jpg" },
+            { src: aboutContent.image1 , alt: "Team members working with pets" },
+            { src: aboutContent.image2, alt: "Volunteers caring for animals" },
+            { src:  aboutContent.image3},
+            { src: aboutContent.image4 },
           ].map((image, index) => (
             <div
               key={index}
@@ -127,20 +142,20 @@ export default function About() {
 
           {/* Video Player */}
           <div className="relative mx-auto max-w-4xl rounded-xl overflow-hidden shadow-xl">
-
-            <div className="video-container max-w-5xl mx-auto flex justify-center">
-              {/* Aspect Ratio Wrapper */}
-              <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
-                <iframe
-                  src={aboutContent.video_url}
-                  title="YouTube video"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
-                  className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
-                ></iframe>
-              </div>
-            </div>
-
+             
+        <div className="video-container max-w-5xl mx-auto flex justify-center">
+          {/* Aspect Ratio Wrapper */}
+          <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+            <iframe
+              src={convertToEmbedURL(aboutContent.video_url)}
+              title="YouTube video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute top-0 left-0 w-full h-full rounded-lg shadow-lg"
+            ></iframe>
+          </div>
+        </div>
+      
           </div>
 
           {/* Journey Description */}

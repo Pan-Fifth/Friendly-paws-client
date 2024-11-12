@@ -4,7 +4,7 @@ import useAuthStore from '@/src/stores/AuthStore'
 import { useNavigate } from 'react-router-dom'
 import AdminAdoptCard from '../adopt/AdminAdoptCard'
 import { Button } from '@/components/ui/button'
-import { toast } from 'react-toastify'
+
 
 export default function ManageAdopt() {
     const actionGetAllAdoptRequest = useAdoptStore(state => state.actionGetAllAdoptRequest)
@@ -12,9 +12,10 @@ export default function ManageAdopt() {
     const token = useAuthStore(state => state.token)
     const navigate = useNavigate()
     const [page, setPage] = useState(1);
+    const [filter,setFilter] =useState("ALL")
     useEffect(() => {
-        actionGetAllAdoptRequest(token, page)
-    }, [])
+        actionGetAllAdoptRequest(token, page,filter)
+    }, [filter])
     console.log(allAdoptRequest)
     if (!token) {
         navigate("/login")
@@ -29,7 +30,7 @@ export default function ManageAdopt() {
             if (n > 0 && allAdoptRequest.length < 6) {
                 return;
             }
-            actionGetAllAdoptRequest(token, page + n);
+            actionGetAllAdoptRequest(token, page + n,filter);
             setPage((prev) => prev + n);
             window.scrollTo({
                 top: 0,
@@ -39,8 +40,23 @@ export default function ManageAdopt() {
             return;
         }
     };
+
+    const hdlChange = (e)=>{
+        setFilter(e.target.value)
+    }
     return (
         <div>
+        <div className='flex gap-3 w-[600px]'>
+        <label className="text-lg font-semibold p-auto flex-1 self-center text-center">เลือกสถานะ</label>
+        <select className="p-2 rounded w-full border border-black flex-1"  name="filter" required defaultValue={""} onChange={hdlChange}>
+                <option disabled value={""}>เลือก</option>
+                <option value={"ALL"}>ทั้งหมด</option>
+                <option value={"REJECT"}>ปฏิเสธ</option>
+                <option value={"INTERVIEW"}>นัดสัมภาษณ์</option>
+                <option value={"ADOPTED"}>รับรองการเลี้ยงดู</option>
+        </select>
+        </div>
+        
             {/* Card */}
             {allAdoptRequest?.length === 0
                 ? <p>ไม่มีข้อมูลสำหรับการขอรับเลี้ยง....</p>

@@ -17,7 +17,7 @@ import { toast } from 'react-toastify';
 export default function Register() {
     //change lang ห้ามมลบ
     const { t } = useTranslation();
-
+    const [showPassword, setShowPassword] = useState(false);
     const intitialState = {
         email: '',
         password: '',
@@ -104,38 +104,67 @@ export default function Register() {
                                         {formatError.email && <p className='text-red-500 text-xs'>{formatError.email}</p>}
                                     </div>
 
-                                    <div className="space-y-2">
-                                        <label className="text-sm text-gray-600">{t('register.passwordLabel')} :</label>
-                                        <Input type="password"
+                                    <div className="relative">
+                                        <Input type={showPassword ? "text" : "password"}
                                             name="password"
                                             value={form.password || ''}
                                             placeholder={t('register.passwordLabel')}
                                             onChange={handleChange}
                                         />
-                                    </div>
-                                    <div className='w-2/3 ml-auto text-right'>
+
+                                        <button
+                                            type="button"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                                    <line x1="1" y1="1" x2="23" y2="23" />
+                                                </svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                            )}
+
+                                        </button>
                                         {formatError.password && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                                     </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-sm text-gray-600">{t('register.confirmPasswordLabel')} :</label>
-                                        <Input
-                                            type="password"
-                                            name="confirmPassword"
-                                            value={form.confirmPassword || ''}
+                                    <div className="relative">
+                                        <Input type={showPassword ? "text" : "password"}
+                                           name="confirmPassword"
+                                           value={form.confirmPassword || ''}
                                             placeholder={t('register.confirmPasswordLabel')}
                                             onChange={handleChange}
                                         />
-                                    </div>
-                                    <div className='w-2/3 ml-auto text-right'>
+
+                                        <button
+                                            type="button"
+                                            className="absolute right-3 top-1/2 -translate-y-1/2"
+                                            onClick={() => setShowPassword(!showPassword)}
+                                        >
+                                            {showPassword ? (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
+                                                    <line x1="1" y1="1" x2="23" y2="23" />
+                                                </svg>
+                                            ) : (
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                                                    <circle cx="12" cy="12" r="3" />
+                                                </svg>
+                                            )}
+
+                                        </button>
                                         {formatError.confirmPassword && <p className='text-red-500 text-xs'>{formatError.confirmPassword}</p>}
                                     </div>
-
-
+                                    
+                                    
                                     <Button className="w-full bg-gradient-to-r from-purple-500 to-yellow-500 hover:from-purple-600 hover:to-pink-600">
                                         {t('register.signUpButton')}
                                     </Button>
-
 
 
                                     <div className="text-center text-sm text-gray-600">

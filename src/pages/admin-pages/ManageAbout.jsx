@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axiosInstance from "@/src/utils/axiosInstance";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -20,12 +20,14 @@ import {
 } from "@/components/ui/alert-dialog";
 
 export const ManageAbout = () => {
+  const inputImg1 = useRef()
+  const inputImg2 = useRef()
+  const inputImg3 = useRef()
+  const inputImg4 = useRef()
   const [content, setContent] = useState(null);
-  const [images, setImages] = useState({ image: null });
-  const [isLoading, setIsLoading] = useState(false);
-  const [imagePreview, setImagePreview] = useState(null);
-  const [removeImage, setRemoveImage] = useState(false);
-
+  const [images, setImages] = useState([]);
+  const [isLoading, setIsLoading] = useState(false); ``
+  const [imagePreview, setImagePreview] = useState([]);
   const [contentFields, setContentFields] = useState({
     en: ['', '', '', ''],
     th: ['', '', '', '']
@@ -41,6 +43,8 @@ export const ManageAbout = () => {
     help_content_en: "",
     help_content_th: "",
   });
+
+
 
   const contentLabels = {
     en: ['พันธกิจ', 'วิสัยทัศน์', 'ค่านิยม', 'ผลกระทบของเรา'],
@@ -89,10 +93,9 @@ export const ManageAbout = () => {
         toast.error("รูปภาพควรมีขนาดน้อยกว่า 5MB");
         return;
       }
-      setImages({ image: file });
-      setRemoveImage(false);
+      setImages(prev => ({ ...prev, [e.target.name]: e.target.files[0] }));
       const previewUrl = URL.createObjectURL(file);
-      setImagePreview(previewUrl);
+      setImagePreview(prev => ({ ...prev, [e.target.name]: previewUrl }));
     }
   };
 
@@ -126,10 +129,18 @@ export const ManageAbout = () => {
 
       formData.append('content_en', contentFields.en.join('|'));
       formData.append('content_th', contentFields.th.join('|'));
-      formData.append("remove_image", removeImage);
 
-      if (images.image) {
-        formData.append("image", images.image);
+      if(images.image1){
+        formData.append("image1", images.image1)
+      }
+      if(images.image2){
+        formData.append("image2", images.image2)
+      }
+      if(images.image3){
+        formData.append("image3", images.image3)
+      }
+      if(images.image4){
+        formData.append("image4", images.image4)
       }
 
       const response = await axiosInstance.put(
@@ -141,13 +152,13 @@ export const ManageAbout = () => {
           },
         }
       );
-
+      const formDataObj = Object.fromEntries(formData.entries());
+      console.log(formDataObj);
       await fetchContent();
       toast.success("อัพเดทคอนเทนต์หน้าเกี่ยวกับเรา เรียบร้อยแล้ว");
-      setImages({ image: null });
-      setImagePreview(null);
     } catch (error) {
-      toast.error("ไม่สามารถอัพเดทได้");
+      console.log(error)
+      toast.error(error);
     } finally {
       setIsLoading(false);
     }
@@ -157,7 +168,7 @@ export const ManageAbout = () => {
     fetchContent();
     setImages({ image: null });
     setImagePreview(null);
-    setRemoveImage(false);
+
   };
 
   const validateForm = () => {
@@ -181,13 +192,18 @@ export const ManageAbout = () => {
     return true;
   };
 
+  if (!content) {
+    return <p>Loading...</p>
+  }
+
+  console.log(content)
   return (
     <div className="p-6 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-center mb-6">
         <h1 className="text-3xl font-bold">จัดการแก้ไข หน้าเกี่ยวกับเรา</h1>
         <AlertDialog>
           <AlertDialogTrigger asChild>
-            <Button variant="outline">ล้างข้อมูล การแก้ไขทั้งหมด</Button>
+            <Button variant="outline">ล้างข้อมูล</Button>
           </AlertDialogTrigger>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -222,36 +238,63 @@ export const ManageAbout = () => {
           <Separator className="my-4" />
 
           <div className="space-y-2">
-            <Label htmlFor="image">Image</Label>
+            <Label htmlFor="image">รูปภาพ คลิกที่รูปเพื่อเปลี่ยน</Label>
             <div className="flex flex-col gap-4">
               <div className="flex gap-4 items-center">
-                {content?.image && !removeImage && (
-                  <div className="relative group">
-                    <img
-                      src={imagePreview ?? content.image}
-                      alt="Current About Image"
-                      className="w-24 h-24 object-cover rounded-lg border"
-                    />
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      className="absolute -top-2 -right-2"
-                      onClick={() => setRemoveImage(true)}
-                    >
-                      ×
-                    </Button>
-                  </div>
-                )}
+                <img
+                  src={imagePreview?.image1 || content?.image1}
+                  onClick={() => inputImg1.current.click()}
+                  className=" cursor-pointer"
+                  style={{
+                    width: '300px',
+                    height: '300px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  }}
+                />
+                <img
+                  src={imagePreview?.image2 || content?.image2}
+                  onClick={() => inputImg2.current.click()}
+                  className=" cursor-pointer"
+                  style={{
+                    width: '300px',
+                    height: '300px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  }}
+                />
+                <img
+                  src={imagePreview?.image3 || content?.image3}
+                  onClick={() => inputImg3.current.click()}
+                  className=" cursor-pointer"
+                  style={{
+                    width: '300px',
+                    height: '300px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  }}
+                />
+                <img
+                  src={imagePreview?.image4 || content?.image4}
+                  onClick={() => inputImg4.current.click()}
+                  className=" cursor-pointer"
+                  style={{
+                    width: '300px',
+                    height: '300px',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+                  }}
+                />
+                <input name="image1" type="file" accept="image/*" className="hidden" ref={inputImg1} onChange={handleImageChange} />
+                <input name="image2" type="file" accept="image/*" className="hidden" ref={inputImg2} onChange={handleImageChange} />
+                <input name="image3" type="file" accept="image/*" className="hidden" ref={inputImg3} onChange={handleImageChange} />
+                <input name="image4" type="file" accept="image/*" className="hidden" ref={inputImg4} onChange={handleImageChange} />
+
 
               </div>
-              <Input
-                id="image"
-                type="file"
-                onChange={handleImageChange}
-                accept="image/*"
-              />
             </div>
           </div>
+
         </CardContent>
       </Card>
 
