@@ -255,7 +255,7 @@ export default function Homepage() {
                         <img
                           src="/src/assets/dog.png"
                           alt="img"
-                          className="md:block h-screen w-full object-contain md:h-screen md:w-[700px] md:aspect-auto"
+                          className="md:block h-screen w-full object-contain md:h-screen md:aspect-auto"
                         />
                         {/* <PawPrint className="absolute top-[100px] left-[-100px] md:top-[-200px] md:left-[40px] z-10 md:h-[300px] md:w-[300px]" /> */}
                       </motion.div>
@@ -290,60 +290,59 @@ export default function Homepage() {
                 {index === 1 && (
                   
                   <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 mx-auto my-4 md:m-10 rounded-3xl px-2 md:px-3">
-  <div className="container mx-auto p-2 md:p-10 min-h-[500px] md:h-[700px] flex flex-col justify-center">
-    <div className="space-y-4 md:space-y-8">
-      {/* Cards Container - Horizontal Layout */}
-      <div className="flex flex-row gap-2 md:gap-8 justify-between items-stretch w-full px-2 md:px-20">
+ <div className="container mx-auto p-2 md:p-10 min-h-[500px] md:h-[700px] flex flex-col justify-center">
+  <div className="space-y-4 md:space-y-8">
+    {/* Cards Container - Horizontal Layout with mobile scroll */}
+    <div className="flex flex-row gap-2 md:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory w-full px-2 md:px-20 no-scrollbar">
         {/* Card 1 */}
-        <Card className="w-1/3 flex flex-col opacity-90">
-          <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
-            <div className="aspect-square relative overflow-hidden rounded-lg h-[100px] md:h-auto">
-              <img
-                src={homeContent?.image2}
-                alt="Care Advice"
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[5]}</p>
-            <p className="text-[8px] md:text-sm text-muted-foreground">
-              {content?.[6]}
-            </p>
-          </CardContent>
-        </Card>
+        <Card className="w-[65%] md:w-1/3 flex-shrink-0 snap-center opacity-90">
+        <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+          <div className="aspect-square relative overflow-hidden rounded-lg h-[200px] md:h-auto ">
+            <img
+              src={homeContent?.image2}
+              alt="Care Advice"
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[5]}</p>
+          <p className="text-[8px] md:text-sm text-muted-foreground">
+            {content?.[6]}
+          </p>
+        </CardContent>
+      </Card>
 
         {/* Card 2 */}
-        <Card className="w-1/3 flex flex-col opacity-90">
-          <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
-            <div className="aspect-square relative overflow-hidden rounded-lg h-[100px] md:h-auto">
-              <img
-                src={homeContent?.image3}
-                alt="Veterinary Help"
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[7]}</p>
-            <p className="text-[8px] md:text-sm text-muted-foreground">
-              {content?.[8]}
-            </p>
-          </CardContent>
-        </Card>
-
+        <Card className="w-[65%] md:w-1/3 flex-shrink-0 snap-center opacity-90">
+        <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+          <div className="aspect-square relative overflow-hidden rounded-lg h-[200px] md:h-auto">
+            <img
+              src={homeContent?.image3}
+              alt="Care Advice"
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[7]}</p>
+          <p className="text-[8px] md:text-sm text-muted-foreground">
+            {content?.[8]}
+          </p>
+        </CardContent>
+      </Card>
         {/* Card 3 */}
-        <Card className="w-1/3 flex flex-col opacity-90">
-          <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
-            <div className="aspect-square relative overflow-hidden rounded-lg h-[100px] md:h-auto">
-              <img
-                src={homeContent?.image4}
-                alt="Our Tips"
-                className="object-cover w-full h-full"
-              />
-            </div>
-            <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[9]}</p>
-            <p className="text-[8px] md:text-sm text-muted-foreground">
-              {content?.[10]}
-            </p>
-          </CardContent>
-        </Card>
+        <Card className="w-[65%] md:w-1/3 flex-shrink-0 snap-center opacity-90">
+        <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+          <div className="aspect-square relative overflow-hidden rounded-lg h-[200px] md:h-auto">
+            <img
+              src={homeContent?.image4}
+              alt="Care Advice"
+              className="object-cover w-full h-full"
+            />
+          </div>
+          <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[9]}</p>
+          <p className="text-[8px] md:text-sm text-muted-foreground">
+            {content?.[10]}
+          </p>
+        </CardContent>
+      </Card>
       </div>
 
       {/* Text Content */}
