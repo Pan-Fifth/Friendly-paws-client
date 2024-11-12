@@ -1,38 +1,41 @@
 import Joi from "joi"
 
 
-const registerAuthen = Joi.object({
+const registerAuthen = (t) => Joi.object({
 
 
     email: Joi.string()
         .email({ tlds: false })
         .required()
         .messages({
-            "string.empty": "please enter your 'Email'",
-            "string.email": "Email should contain '@'"
+            "string.empty": t('validation.emRequired'),
+            "string.base": t('validation.emRequired'),
+            "string.email": t('validation.emFormat')
         }),
 
     password: Joi.string()
-        .pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+=\-{}[\]:;"'<>,.?/\\|`~]).{6,}$/)
+        .pattern(/^(?=.*[a-z])(?=.*[A-Z]).{6,}$/)
         .required()
         .messages({
-            "string.empty": "please enter your 'Password'",
-            "string.pattern.base": "Password must contain a-z A-Z 0-9 !@#$%^&* and at least 6 characters"
+            "string.empty": t('validation.psRequired'),
+            "string.base": t('validation.psRequired'),
+            "string.pattern.base": t('validation.psPattern')
         }),
     confirmPassword: Joi.string()
         .required()
         .valid(Joi.ref("password"))
         .messages({
-            "string.empty": "please enter your 'Password'",
-            "any.only": "Password does not match",
+            'any.only': t('validation.psRequired2'),
+            "string.empty": t('validation.psRequired'),
+            "string.base": t('validation.psRequired'),
         }),
 
 
 })
 
-const validateRegister = (input) => {
+const validateRegister = (input, t) => {
 
-    const { error } = registerAuthen.validate(input, {
+    const { error } = registerAuthen(t).validate(input, {
         abortEarly: false
     })
 

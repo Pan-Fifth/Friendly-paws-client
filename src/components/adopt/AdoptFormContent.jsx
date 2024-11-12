@@ -2,11 +2,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { motion } from "framer-motion";
-const [formatError, setFormatError] = useState({});
-const [input, setInput] = useState(usePetStore((state) => state.adoptFormData));
-const [houseCheck, setHouseCheck] = useState(
-  usePetStore((state) => state.adoptFormData.houseCheck)
-);
 import {
   Users,
   Phone,
@@ -22,7 +17,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import usePetStore from "@/src/stores/PetStore";
-import { useEffect } from "react";
+import { useEffect,useState } from "react";
+const [input, setInput] = useState(usePetStore((state) => state.adoptFormData));
+const [houseCheck, setHouseCheck] = useState(
+  usePetStore((state) => state.adoptFormData.houseCheck)
+);
 
 
 const formSchema = z.object({
