@@ -75,6 +75,10 @@ const ManageEventPage = () => {
   return (
     <div className="container mx-auto p-6 space-y-8">
       <h1 className="text-3xl font-bold mb-6">จัดการแก้ไขแบนเนอร์ หน้ากิจกรรม</h1>
+      <div className=' my-2'>
+      <pre className='text-red-500 text-sm'>หมายเหตุ: ควรมีขนาดรูปภาพแนวนอน 2048x853 px</pre>
+      <a target='blank' href='https://bigimage.11zon.com/th/image-resize/' className='text-red-500 text-sm'>เพื่อปรับขนาดรูป กดที่นี่</a>
+      </div>
 
       <Card>
         <CardContent className="p-6 space-y-6">
