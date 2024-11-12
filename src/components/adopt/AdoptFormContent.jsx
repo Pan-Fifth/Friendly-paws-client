@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import usePetStore from "@/src/stores/PetStore";
 import { useEffect, useState } from "react";
+import validateAdoptForm from "@/src/utils/AdoptFormValidate";
 
 const formSchema = z.object({
   firstname: z.string().min(1, "Required"),
@@ -70,6 +71,7 @@ export function AdoptFormContent({
   hdlDeleteFile,
   handleFormSubmit,
 }) {
+  const [formatError, setFormatError] = useState({});
   const [input, setInput] = useState(usePetStore((state) => state.adoptFormData));
   const [houseCheck, setHouseCheck] = useState(
     usePetStore((state) => state.adoptFormData.houseCheck)
@@ -125,13 +127,15 @@ export function AdoptFormContent({
     formData.append("hasGarden", Boolean(data.houseCheck.hasGarden));
     formData.append("hasFence", Boolean(data.houseCheck.hasFence));
     formData.append("canWalkDog", Boolean(data.houseCheck.canWalkDog));
-
+    setFormatError({})
+    const error = validateAdoptForm(input, t)
+    
     handleFormSubmit(formData);
   };
 
   const inputClass =
     "w-full px-4 py-2 rounded-lg border border-gray-300 focus:ring-2 focus:ring-pink-500 focus:border-transparent";
-  console.log(files)
+  // console.log(files)
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
       <FormSection
@@ -183,6 +187,7 @@ export function AdoptFormContent({
             }}
             type="date"
             className={inputClass}
+            
           />
           <input
             {...register("phone")}

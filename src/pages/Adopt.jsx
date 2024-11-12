@@ -3,8 +3,8 @@ import { DropdownWithArrow } from "@/components/ui/dropdown-with-arrow";
 import { Button } from "@/components/ui/button";
 import AdoptPetCard from "../components/adopt/AdoptPetCard";
 import usePetStore from "../stores/PetStore";
-import { useTranslation } from 'react-i18next';
-import { Card, CardFooter } from "@/components/ui/card"
+import { useTranslation } from "react-i18next";
+import { Card, CardFooter } from "@/components/ui/card";
 import Lottie from "lottie-react"; // นำเข้า Lottie
 import AnimationDownload from "../assets/AnimationDownload.json"; // นำเข้าไฟล์ Lottie
 
@@ -23,18 +23,16 @@ const Adopt = () => {
   useEffect(() => {
     setLoading(true); // ตั้งค่าค่า loading เป็น true ขณะเริ่มต้นโหลดข้อมูล
     setFilter({});
-    actionGetAvaiPet(6, page)
-      .finally(() => setLoading(false)); // เมื่อโหลดเสร็จให้ตั้งค่า loading เป็น false
+    actionGetAvaiPet(6, page).finally(() => setLoading(false)); // เมื่อโหลดเสร็จให้ตั้งค่า loading เป็น false
   }, [page]);
 
   const hdlPageChange = (n) => {
     try {
       if (page + n < 1) return;
       if (n > 0 && avaiPets.length < 6) return;
-      setPage(prev => prev + n);
+      setPage((prev) => prev + n);
       setLoading(true); // เมื่อเปลี่ยนหน้าให้แสดงสถานะโหลด
-      actionGetAvaiPet(6, page + n)
-        .finally(() => setLoading(false)); // เมื่อข้อมูลโหลดเสร็จให้ตั้งค่า loading เป็น false
+      actionGetAvaiPet(6, page + n).finally(() => setLoading(false)); // เมื่อข้อมูลโหลดเสร็จให้ตั้งค่า loading เป็น false
       window.scrollTo({
         top: 0,
         behavior: "smooth",
@@ -54,8 +52,7 @@ const Adopt = () => {
   const hdlSubmit = (e) => {
     e.preventDefault();
     setLoading(true); // เมื่อส่งฟอร์มให้แสดงสถานะโหลด
-    actionGetAvaiPet(12, page, filter)
-      .finally(() => setLoading(false)); // เมื่อข้อมูลโหลดเสร็จให้ตั้งค่า loading เป็น false
+    actionGetAvaiPet(12, page, filter).finally(() => setLoading(false)); // เมื่อข้อมูลโหลดเสร็จให้ตั้งค่า loading เป็น false
     console.log(filter);
   };
 
@@ -81,7 +78,7 @@ const Adopt = () => {
     <div>
       <div className="relative">
         <div className="rounded-3xl h-[180px] md:h-[300px] mx-auto w-full my-10 ">
-        <img src="/src/assets/AdoptBg.png" className="absolute md:top-[-450px]" alt="" />
+          <img src="/src/assets/AdoptBg.png" className="absolute md:top-[-450px]" alt="" />
         </div>
       </div>
       <div className="absolute top-20 w-full h-[250px] md:h-[500px]">
@@ -90,7 +87,10 @@ const Adopt = () => {
             {t("adoptPageMain.maincontent")}
           </p>
           <div className=" relative flex flex-col gap-12 md:gap-24 z-20 justify-center">
-            <form onSubmit={hdlSubmit} className="w-full flex flex-col md:flex-row gap-3 items-center absolute md:top-[-90px] md:left-[-10px] justify-center">
+            <form
+              onSubmit={hdlSubmit}
+              className="w-full flex flex-col md:flex-row gap-3 items-center absolute md:top-[-90px] md:left-[-10px] justify-center"
+            >
               <div className="flex gap-3">
                 <DropdownWithArrow
                   name="gender"
@@ -110,18 +110,19 @@ const Adopt = () => {
                   className={`
                     bg-pink-400 w-1/4 hover:bg-pink-500 text-white font-bold py-2 px-4 rounded-full
                     transform transition-all duration-300 ease-in-out
-                    ${isClicked ? 'scale-95' : 'animate-pulse-pink'}
+                    ${isClicked ? "scale-95" : "animate-pulse-pink"}
                   `}
                 >
                   {t("adoptPageMain.search")}
                 </Button>
                 <style jsx global>{`
                   @keyframes pulse-pink {
-                    0%, 100% {
-                        box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
+                    0%,
+                    100% {
+                      box-shadow: 0 0 0 0 rgba(236, 72, 153, 0.7);
                     }
                     50% {
-                        box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
+                      box-shadow: 0 0 0 10px rgba(236, 72, 153, 0);
                     }
                   }
                   .animate-pulse-pink {
@@ -141,37 +142,52 @@ const Adopt = () => {
         )}
       </div>
 
-
       <div className="container mx-auto p-4">
-  <div className="w-full lg:w-2/3 mx-auto">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {avaiPets?.map((el, index) => (
-        <Card 
-          key={el.id} 
-          className={`overflow-hidden group ${index === 0 || index === avaiPets.length - 1 ? 'col-span-2' : ''}`}
-        >
-          <AdoptPetCard
-            id={el.id}
-            name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
-            image={el.image?.map(img => img.url) || []}
-            gender={el.gender}
-          />
-        </Card>
-      ))}
-    </div>
-  </div>
-</div>
-
-      <div className="mt-10">
-        <div className="flex justify-center items-center gap-2">
-          <Button onClick={() => hdlPageChange(-1)} className="border text-xl">
-            {t("adoptPageMain.previous")}
-          </Button>
-          <p className="text-2xl">{t("adoptPageMain.page")} {page}</p>
-          <Button onClick={() => hdlPageChange(+1)} className="border text-xl">
-            {t("adoptPageMain.next")}
-          </Button>
+        <div className="w-full lg:w-2/3 mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {avaiPets?.map((el, index) => (
+              <Card
+                key={el.id}
+                className={`overflow-hidden group ${
+                  index === 0 || index === avaiPets.length - 1 ? "col-span-2" : ""
+                }`}
+              >
+                <AdoptPetCard
+                  id={el.id}
+                  name={language === "th" ? el.name_th || el.name_en : el.name_en || el.name_th}
+                  image={el.image?.map((img) => img.url) || []}
+                  gender={el.gender}
+                />
+              </Card>
+            ))}
+          </div>
         </div>
+      </div>
+
+      <div className="mt-16 mb-12">
+        {avaiPets.length > 0 && (
+          <div className="flex justify-center items-center gap-6 mb-24">
+            <Button
+              onClick={() => hdlPageChange(-1)}
+              className="bg-white border-2 border-pink-400 text-pink-500 hover:bg-pink-50 rounded-lg px-8 py-3 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={page === 1}
+            >
+              {t("adoptPageMain.previous")}
+            </Button>
+            <div className="flex items-center justify-center bg-pink-50 rounded-lg px-6 py-3 min-w-[120px]">
+              <p className="text-xl font-semibold text-pink-600">
+                {t("adoptPageMain.page")} {page}
+              </p>
+            </div>
+            <Button
+              onClick={() => hdlPageChange(+1)}
+              className="bg-white border-2 border-pink-400 text-pink-500 hover:bg-pink-50 rounded-lg px-8 py-3 font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={avaiPets.length < 6}
+            >
+              {t("adoptPageMain.next")}
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
