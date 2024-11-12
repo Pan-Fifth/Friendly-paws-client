@@ -4,17 +4,18 @@ import { useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import useAuthStore from '@/src/stores/AuthStore'
 import { useState } from 'react'
-import { Card, CardFooter } from "@/components/ui/card"
+import {  Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import { Heart } from 'lucide-react'
 
-function DesignCard({ name, image, id, onClickHandler }) {
+// Update the AdoptPetCard component:
+
+function DesignCard({ name, image, id, gender, onClickHandler }) {
   const token = useAuthStore(state => state.token)
   const navigate = useNavigate()
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [isAnimating, setIsAnimating] = useState(false)
-  
   
   const images = Array.isArray(image) ? image : [image]
-
+  
   const handleClick = () => {
     if (!token) {
       navigate('/login')
@@ -24,94 +25,75 @@ function DesignCard({ name, image, id, onClickHandler }) {
   }
 
   return (
-    <Card className="w-full max-w-sm mx-auto overflow-hidden transition-transform duration-300 ease-in-out transform hover:scale-105">
-      <div className="relative h-80">
-        <div className="relative w-full h-full">
-        {images.map((img, index) => (
-          <img
-            key={index}
-            src={img}
-            alt={name}
-            className={`absolute top-0 left-0 object-cover w-full h-full transition-opacity duration-500 ${
-              currentImageIndex === index ? 'opacity-100' : 'opacity-0'
-            }`}
-          />
-        ))}
-          
-          {images.length > 1 && (
-            <div className="absolute bottom-[50px] left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
-              {images.map((_, index) => (
-                <div
-                  key={index}
-                  onClick={() => setCurrentImageIndex(index)}
-                  className={`w-5 h-5 rounded-full transition-colors ${
-                    currentImageIndex === index ? 'bg-white' : 'bg-white/50'
-                  }`}
-                />
-              ))}
-            </div>
-          )}
+    <div className="flex flex-col h-full">
+    <div className="relative h-40 md:h-48 lg:h-56 overflow-hidden">
+      <img
+        src={images[currentImageIndex]}
+        alt={name}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      
+      {images.length > 1 && (
+        <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-2 z-20">
+          {images.map((_, index) => (
+            <div
+              key={index}
+              onClick={() => setCurrentImageIndex(index)}
+              className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${
+                currentImageIndex === index ? 'bg-white' : 'bg-white/50'
+              }`}
+            />
+          ))}
         </div>
+      )}
+    </div>
+      <CardHeader className="relative p-3">
+        <span className="text-xs font-medium text-primary">{gender}</span>
+      </CardHeader>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-white/10 transform skew-y-6 z-0" />
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-white/5 transform -skew-y-6 z-0" />
+      <CardContent className="flex-grow p-3">
+        <h3 className="text-sm md:text-base lg:text-lg font-bold mb-2 line-clamp-2">{name}</h3>
+      </CardContent>
 
-        <svg
-          className="absolute bottom-[-20px] w-full text-white"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="currentColor"
-            fillOpacity="1"
-            d="M0,64L60,80C120,96,240,128,360,128C480,128,600,96,720,90.7C840,85,960,107,1080,112C1200,117,1320,107,1380,101.3L1440,96L1440,320L1380,320C1320,320,1200,320,1080,320C960,320,840,320,720,320C600,320,480,320,360,320C240,320,120,320,60,320L0,320Z"
-          ></path>
-        </svg>
-      </div>
-
-      <CardFooter className="bg-white p-4 pt-0 flex flex-col gap-5">
-        <div className='text-2xl z-20'>{name}</div>
-        <div>
-          <div className="flex items-center justify-center bg-gray-100">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              animate={isAnimating ? { rotate: [0, 10, -10, 0] } : {}}
-              transition={{ duration: 0.3 }}
-            >
-              <Button
-                onClick={handleClick}
-                className="px-6 py-3 text-lg font-semibold bg-gradient-to-r from-pink-300 to-orange-300 hover:from-pink-500 hover:to-orange-400 text-white rounded-full shadow-lg"
-              >
-                Adopt me!
-              </Button>
-            </motion.div>
-          </div>
-        </div>
+      <CardFooter className="p-3">
+      <div className="flex items-center justify-center mx-auto">
+      <motion.button
+      onClick={handleClick}
+        whileHover={{ rotate: [-1, 1, -1, 1, 0] }}
+        transition={{
+          rotate: {
+            duration: 0.3,
+            repeat: Infinity,
+            repeatType: "loop",
+            ease: "linear"
+          }
+        }}
+        className="px-4 py-2 text-sm font-bold text-white rounded-full shadow-md bg-[#db2778c4] hover:bg-[#be185d] transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-[#db2777] focus:ring-opacity-50 flex items-center space-x-1"
+      >
+        <span>Adopt Me!</span>
+        <Heart className="w-4 h-4" />
+      </motion.button>
+    </div>
       </CardFooter>
-    </Card>
+    </div>
   )
 }
 
-export default function AdoptPetCard({ name, image, id }) {
-  const [isAnimating, setIsAnimating] = useState(false)
+export default function AdoptPetCard({ name, image, id, gender }) {
   const navigate = useNavigate()
   
   const hdlClick = () => {
-    setIsAnimating(true)
-    setTimeout(() => setIsAnimating(false), 300)
     navigate(`/adopt/detail/${id}`)
   }
   
   return (
-    <div className="container mx-auto p-4">
-      <DesignCard
-        name={name}
-        image={image}
-        id={id}
-        onClickHandler={hdlClick}
-      />
-    </div>
+    <DesignCard
+      name={name}
+      image={image}
+      id={id}
+      gender={gender}
+      onClickHandler={hdlClick}
+    
+    />
   )
 }

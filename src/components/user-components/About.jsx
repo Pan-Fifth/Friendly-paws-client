@@ -50,7 +50,7 @@ export default function About() {
   console.log(aboutContent, "=============================")
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
+    <div className=" about-page min-h-screen bg-gradient-to-b from-orange-100 via-orange-50 to-white text-orange-900 py-8 sm:py-12 md:py-16 px-4">
       <div className="max-w-6xl mx-auto space-y-8 sm:space-y-12 md:space-y-16">
         {/* About Us Header */}
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-8 sm:mb-12">About Us</h1>
@@ -84,7 +84,7 @@ export default function About() {
         {/* Mission Statement */}
         <div className="text-center space-y-4 max-w-3xl mx-auto px-4">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-[#db2777]">
-            We Are Building A Compassionate Pet Adoption Network
+           {aboutContent[`content_${i18n.language}`]}
           </h2>
           <p className="text-base sm:text-lg text-orange-700">
             At PetFinder, we're passionate about connecting loving homes with pets in need.

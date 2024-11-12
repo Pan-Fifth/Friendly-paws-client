@@ -8,9 +8,11 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import usePetStore from '@/src/stores/PetStore'
 import useAuthStore from '@/src/stores/AuthStore'
 import { toast } from "react-toastify";
+import { ImagePlus } from 'lucide-react'
 
 
 export default function PetForm({ setOpen }) {
+  const [errors, setErrors] = useState({})
   const fileInput = useRef(null)
   const actionGetAllPets = usePetStore(state => state.actionGetAllPets);
   const actionCreatePet = usePetStore(state => state.actionCreatePet);
@@ -34,6 +36,8 @@ export default function PetForm({ setOpen }) {
     image: ''
   })
 
+
+
   const handleInputChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -48,10 +52,12 @@ export default function PetForm({ setOpen }) {
 
   const handleFileChange = (e) => {
     const selectFile = Array.from(e.target.files)
-    console.log(selectFile)
-    setFile([...file, ...selectFile])
-
-  };
+  if (file.length + selectFile.length > 6) {
+    toast.error('Maximum 6 images allowed')
+    return
+  }
+  setFile([...file, ...selectFile])
+};
   const handleAddClick = (e) => {
     e.preventDefault();
     e.stopPropagation()
@@ -67,16 +73,81 @@ export default function PetForm({ setOpen }) {
    setFile(newFile)
   }
 
+  const validateForm = () => {
+    let isValid = true;
+    const newErrors = {};
+  
+    if (!formData.name_en.trim()) {
+      newErrors.name_en = 'English name is required';
+      isValid = false;
+    }
+  
+    if (!formData.name_th.trim()) {
+      newErrors.name_th = 'Thai name is required';
+      isValid = false;
+    }
+  
+    if (!formData.age || formData.age <= 0) {
+      newErrors.age = 'Age must be greater than 0';
+      isValid = false;
+    }
+  
+    if (!formData.color.trim()) {
+      newErrors.color = 'Color is required';
+      isValid = false;
+    }
+  
+    if (!formData.breed_en.trim()) {
+      newErrors.breed_en = 'English breed is required';
+      isValid = false;
+    }
+  
+    if (!formData.breed_th.trim()) {
+      newErrors.breed_th = 'Thai breed is required';
+      isValid = false;
+    }
+  
+    if (!formData.weight || formData.weight <= 0) {
+      newErrors.weight = 'Weight must be greater than 0';
+      isValid = false;
+    }
+  
+    if (!formData.description_en.trim()) {
+      newErrors.description_en = 'English description is required';
+      isValid = false;
+    }
+  
+    if (!formData.description_th.trim()) {
+      newErrors.description_th = 'Thai description is required';
+      isValid = false;
+    }
+    if (!formData.gender) {
+      newErrors.gender = 'Gender is required';
+      isValid = false;
+    }
+    if (!formData.type) {
+      newErrors.type = 'Type is required';
+      isValid = false;
+    }
+  
+    setErrors(newErrors);
+    return isValid;
+  };
+  
+
   
   const handleSubmit = async(e) => {
+    e.preventDefault();
     try {
 
-      if(file.length < 1 || file.length > 3){
-        toast.error('Please select 3 or less files')
+      if(file.length < 1 || file.length > 6){ // Changed from 3 to 6
+        toast.error('Please select between 1-6 images')
         return
       }
+      if (!validateForm()) {
+        return;
+      }
 
-      e.preventDefault();
       const body = new FormData()
       console.log(formData.is_vaccinated)
       console.log(typeof formData.is_vaccinated)
@@ -115,18 +186,30 @@ export default function PetForm({ setOpen }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="name_en">ชื่อภาษาอังกฤษ</Label>
-          <Input id="name_en" name="name_en" value={formData.name_en} onChange={handleInputChange} />
+          <Input 
+          id="name_en" 
+          name="name_en" 
+          value={formData.name_en} 
+          onChange={handleInputChange} 
+          className={errors.name_en ? 'border-red-500' : ''} />
+          {errors.name_en && <p className="text-red-500 text-sm">{errors.name_en}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="name_th">ชื่อภาษาไทย</Label>
-          <Input id="name_th" name="name_th" value={formData.name_th} onChange={handleInputChange} />
+          <Input id="name_th" name="name_th" value={formData.name_th} onChange={handleInputChange} 
+          className={errors.name_en ? 'border-red-500' : ''} />
+          {errors.name_th && <p className="text-red-500 text-sm">{errors.name_th}</p>}
         </div>
       </div>
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="age">วันเกิด</Label>
-          <Input id="age" name="age" type="date" value={formData.age} onChange={handleInputChange} />
+          <Input id="age" name="age" type="date" 
+          value={formData.age} 
+          onChange={handleInputChange}
+          className={errors.age ? 'border-red-500' : ''} />
+          {errors.age && <p className="text-red-500 text-sm">{errors.age}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="color">สี</Label>
@@ -138,7 +221,7 @@ export default function PetForm({ setOpen }) {
         <div className="space-y-2">
           <Label htmlFor="gender">เพศ</Label>
           <Select onValueChange={handleSelectChange('gender')}>
-            <SelectTrigger>
+            <SelectTrigger className={errors.gender ? 'border-red-500' : ''}>
               <SelectValue placeholder="Select gender" />
             </SelectTrigger>
             <SelectContent>
@@ -146,11 +229,12 @@ export default function PetForm({ setOpen }) {
               <SelectItem value="FEMALE">หญิง</SelectItem>
             </SelectContent>
           </Select>
+          {errors.gender && <p className="text-red-500 text-sm">{errors.gender}</p>}
         </div>
         <div className="space-y-2">
           <Label htmlFor="type">ประเภท</Label>
           <Select onValueChange={handleSelectChange('type')}>
-            <SelectTrigger>
+            <SelectTrigger className={errors.type ? 'border-red-500' : ''}>
               <SelectValue placeholder="Select type" />
             </SelectTrigger>
             <SelectContent>
@@ -158,6 +242,7 @@ export default function PetForm({ setOpen }) {
               <SelectItem value="CAT">แมว</SelectItem>
             </SelectContent>
           </Select>
+          {errors.type && <p className="text-red-500 text-sm">{errors.type}</p>}
         </div>
       </div>
 
@@ -205,13 +290,17 @@ export default function PetForm({ setOpen }) {
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
           <Label htmlFor="weight">น้ำหนัก</Label>
-          <Input id="weight" name="weight" type="number" value={formData.weight} onChange={handleInputChange} />
+          <Input id="weight" name="weight" type="number" value={formData.weight} 
+          onChange={handleInputChange}
+          className={errors.weight ? 'border-red-500' : ''} />
+           {errors.weight && <p className="text-red-500 text-sm">{errors.weight}</p>}
+
         </div>
       </div>
 
       <div className="space-y-2">
-        <Button onClick={handleAddClick} className='text-white'>เพิ่มรูปภาพ</Button>
-        {file.length > 0 ? <p>{file.length} เลือกไฟล์</p> :<p>ไม่ได้เลือกไฟล์</p> }
+        <Button onClick={handleAddClick} className='text-white bg-[#db2778e3]'><ImagePlus /> +เพิ่มรูปภาพ</Button>
+        {file.length > 0 ? <p>{file.length} จาก /6 รูป</p> :<p>ไม่ได้เลือกไฟล์</p> }
         <Input 
         id="image" 
         name="image" 

@@ -21,8 +21,7 @@ import Swal from 'sweetalert2';
 
 // Table header columns definition
 const TABLE_COLUMNS = [
-  'ลำดับ', 'รูปภาพ', 'ชื่อภาษาไทย', 'ชื่อภาษาอังกฤษ', 'สายพันธุ์ภาษาไทย', 'สายพันธุ์ภาษาอังกฤษ', 'คำอธิบายภาษาไทย',
-  'คำอธิบายภาษาอังกฤษ', 'สี', 'วันเกิด', 'เพศ', 'สถานะ', 'น้ำหนัก',
+  'ลำดับ', 'รูปภาพ', 'ชื่อภาษาไทย', 'สายพันธุ์ภาษาไทย', 'คำอธิบายภาษาไทย', 'สี', 'วันเกิด', 'เพศ', 'สถานะ', 'น้ำหนัก',
   'ทำหมัน', 'วัคซีน', 'แก้ไข', 'ลบ'
 ];
 
@@ -77,7 +76,7 @@ const AddPetDialog = () => {
 
 // Pet Table Row Component
 const PetTableRow = ({ pet, index, hdlDeletePet }) => (
-  <div className="grid grid-cols-[70px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_80px_80px_50px_50px] gap-4 border-t p-4 text-sm hover:bg-gray-50 transition-colors duration-150">
+  <div className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1.5fr_0.7fr_0.7fr_0.7fr_0.7fr_0.7fr_0.7fr_0.7fr_0.4fr_0.4fr] gap-4 p-4 text-sm font-medium text-gray-500 sticky top-0 bg-white z-10 border-b">
     <div className="flex items-center gap-2">
       <div className="text-gray-500">{index + 1}</div>
     </div>
@@ -95,11 +94,11 @@ const PetTableRow = ({ pet, index, hdlDeletePet }) => (
       />
     </div>
     <div>{pet.name_th}</div>
-    <div>{pet.name_en}</div>
+   
     <div>{pet.breed_th}</div>
-    <div>{pet.breed_en}</div>
+   
     <div>{pet.description_th}</div>
-    <div>{pet.description_en}</div>
+   
     <div>{pet.color}</div>
     <div>{pet.age ? new Date(pet.age).toISOString().split('T')[0].replace(/-/g, '/') : 'N/A'}</div>
     <div>{pet.gender}</div>
@@ -163,7 +162,7 @@ export default function ManagePet() {
       <main className="flex-1 space-y-4 p-8 pt-6">
         <div className="rounded-lg border bg-white shadow-md">
           {/* Table Header */}
-          <div className="grid grid-cols-[70px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_100px_80px_80px_50px_50px] gap-4 p-4 text-sm font-medium text-gray-500">
+          <div className="grid grid-cols-[0.5fr_1fr_1fr_1fr_1.5fr_0.7fr_0.7fr_0.7fr_0.7fr_0.7fr_0.7fr_0.7fr_0.4fr_0.4fr] gap-4 p-4 text-sm font-medium text-gray-500 sticky top-0 bg-white z-10 border-b">
             {TABLE_COLUMNS.map((column, index) => (
               <div key={index}>{column}</div>
             ))}
