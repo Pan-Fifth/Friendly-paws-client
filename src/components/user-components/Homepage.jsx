@@ -230,7 +230,7 @@ export default function Homepage() {
                 {index === 0 && (
                   <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh]">
                      <video 
-                    src="/src/assets/bubble3.mp4" 
+                    src="/src/assets/bubble2.mp4" 
                     autoPlay 
                     loop 
                     muted 
