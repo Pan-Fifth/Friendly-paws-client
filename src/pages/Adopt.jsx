@@ -134,7 +134,7 @@ const Adopt = () => {
         </div>
       </div>
       <div>
-        {avaiPets.length === 0 && (
+        {avaiPets?.length === 0 && (
           <div className="flex items-start justify-center">
             <p className="text-3xl font-bold">no pet found</p>
           </div>

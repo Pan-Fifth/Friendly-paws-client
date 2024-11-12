@@ -25,6 +25,7 @@ export function DialogAdopt({ petId }) {
     hasFence: false,
     canWalkDog: false,
   });
+  const dialogRef = useRef(null);
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState({})
   const navigate = useNavigate()
@@ -65,23 +66,38 @@ export function DialogAdopt({ petId }) {
   const hdlSubmit = async (e) => {
     setLoading(true);
     try {
+      
       window.scrollTo({
         top: 0,
         behavior: 'smooth'
       })
+      
       e.preventDefault()
 
       if (files.length > 5) {
+        dialogRef.current?.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
         toast.error(t("adoptFormtoast.maxFiles"))
         return
       }
       if (files.length < 3) {
+        dialogRef.current?.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
         toast.error(t("adoptFormtoast.minFiles"))
         return
       }
       setFormatError({});
       const error = validateAdoptForm(input, t);
+      console.log("submit" ,error)
       if (error) {
+        dialogRef.current?.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
         return setFormatError(error);
       }
       const formData = new FormData()
@@ -97,6 +113,7 @@ export function DialogAdopt({ petId }) {
       files.forEach((file) => {
         formData.append('files', file);
       });
+      console.log("log form data")
       formData.forEach((value, key) => {
         console.log(key, value)
       })
@@ -114,7 +131,7 @@ export function DialogAdopt({ petId }) {
     }
 
   }
-
+  console.log(input)
   return (
     <Dialog open={open} onOpenChange={setOpen}>
 
@@ -137,7 +154,7 @@ export function DialogAdopt({ petId }) {
             </div>
           </div>
         </div>
-        : <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto p-6 ">
+        : <DialogContent className="sm:max-w-[800px] max-h-[90vh] overflow-y-auto p-6 " ref={dialogRef}>
           <DialogHeader>
             <DialogTitle className="text-2xl text-orange-400">{t("adoptForm.adoptionFormTitle")}</DialogTitle>
             <DialogDescription>
