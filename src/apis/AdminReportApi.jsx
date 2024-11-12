@@ -60,8 +60,8 @@ export const getAllPetData = (token) => {
 
 
 
-export const getAllAdoptRequest = (token, page) => {
-    return axiosInstance.get(`/admin/all-adopts/6/${page}`, {
+export const getAllAdoptRequest = (token, page, filter) => {
+    return axiosInstance.get(`/admin/all-adopts/6/${filter}/${page}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
