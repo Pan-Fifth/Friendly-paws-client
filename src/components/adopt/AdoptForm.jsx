@@ -1,141 +1,121 @@
-import { Button } from "@/components/ui/button"
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
-import useAuthStore from "@/src/stores/AuthStore"
-import usePetStore from "@/src/stores/PetStore"
-import { useNavigate } from "react-router-dom"
-import { useState, useRef } from "react"
-import { toast } from "react-toastify"
-import { useTranslation } from 'react-i18next'
-import validateAdoptForm from '../../utils/AdoptFormValidate'
-import Lottie from "lottie-react"
-import AnimationDownload from '../../assets/AnimationDownload.json'
-import { motion, AnimatePresence } from "framer-motion"
-import { Upload, X, Check, Home, Briefcase, Users, Camera, Heart, Phone, Building2, ClipboardCheck,PawPrint, Truck,MessageCircle  } from 'lucide-react'
-import { AdoptFormContent } from "./AdoptFormContent"
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import useAuthStore from "@/src/stores/AuthStore";
+import usePetStore from "@/src/stores/PetStore";
+import { useNavigate } from "react-router-dom";
+import { useState, useRef } from "react";
+import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
+import validateAdoptForm from "../../utils/AdoptFormValidate";
+import Lottie from "lottie-react";
+import AnimationDownload from "../../assets/AnimationDownload.json";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Heart
+} from "lucide-react";
+import { AdoptFormContent } from "./AdoptFormContent";
 
 export function DialogAdopt({ petId }) {
-  
-  const { t } = useTranslation()
-  const [formatError, setFormatError] = useState({})
-  const [loading, setLoading] = useState(false)
-  const token = useAuthStore(state => state.token)
-  const fileInput = useRef(null)
-  const [files, setFiles] = useState([])
-  const [input, setInput] = useState(usePetStore(state => state.adoptFormData))
-  const [houseCheck, setHouseCheck] = useState(usePetStore(state => state.adoptFormData.houseCheck))
-  const [open, setOpen] = useState(false)
-  const navigate = useNavigate()
-  const user = useAuthStore(state => state.user.user)
-  const actionCreateAdoptRequest = usePetStore(state => state.actionCreateAdoptRequest)
-  const {updateAdoptFormData} = usePetStore()
+  const { t } = useTranslation();
+  const [formatError, setFormatError] = useState({});
+  const [loading, setLoading] = useState(false);
+  const token = useAuthStore((state) => state.token);
+  const fileInput = useRef(null);
+  const [files, setFiles] = useState([]);
+  const [input, setInput] = useState(usePetStore((state) => state.adoptFormData));
+  const [houseCheck, setHouseCheck] = useState(
+    usePetStore((state) => state.adoptFormData.houseCheck)
+  );
+  const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const user = useAuthStore((state) => state.user.user);
+  const actionCreateAdoptRequest = usePetStore((state) => state.actionCreateAdoptRequest);
+  const { updateAdoptFormData } = usePetStore();
   const hdlChange = (e) => {
-    const { name, value } = e.target
-    updateAdoptFormData({ [name]: value })
-    setInput({ ...input, [e.target.name]: e.target.value })
-  }
+    const { name, value } = e.target;
+    updateAdoptFormData({ [name]: value });
+    setInput({ ...input, [e.target.name]: e.target.value });
+  };
   const hdlClick = (e) => {
     if (!user) {
-      e.preventDefault()
-      navigate("/login")
+      e.preventDefault();
+      navigate("/login");
     }
-  }
+  };
   const hdlAddClick = (e) => {
-    e.preventDefault()
-    e.stopPropagation()
+    e.preventDefault();
+    e.stopPropagation();
     if (fileInput.current) {
       fileInput.current.click(); // Programmatically click the hidden input
     }
-  }
+  };
 
   const hdlFileChange = (e) => {
-    console.log("e files", e.target.files)
-    const selectedFiles = Array.from(e.target.files)
-    setFiles([...files, ...selectedFiles])
-
-  }
+    console.log("e files", e.target.files);
+    const selectedFiles = Array.from(e.target.files);
+    setFiles([...files, ...selectedFiles]);
+  };
 
   //Delete file
   const hdlDeleteFile = (indexToDelete, e) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const newFiles = files.filter((_, index) => index !== indexToDelete)
-    setFiles(newFiles)
-  }
+    e.preventDefault();
+    e.stopPropagation();
+    const newFiles = files.filter((_, index) => index !== indexToDelete);
+    setFiles(newFiles);
+  };
 
-  const hdlSubmit = async (e) => {
+  // In AdoptForm.jsx
+  const handleFormSubmit = async (formData) => {
+    console.log(input)
     setLoading(true);
     try {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      })
-      e.preventDefault()
+      window.scrollTo({ top: 0, behavior: "smooth" });
 
       if (files.length > 5) {
-        toast.error(t("adoptFormtoast.maxFiles"))
-        return
+        toast.error(t("adoptFormtoast.maxFiles"));
+        return;
       }
       if (files.length < 3) {
-        toast.error(t("adoptFormtoast.minFiles"))
-        return
+        toast.error(t("adoptFormtoast.minFiles"));
+        return;
       }
-      setFormatError({});
-      const error = validateAdoptForm(input, t);
-      if (error) {
-        return setFormatError(error);
-      }
-      const formData = new FormData()
-      for (const key in input) {
-        formData.append(key, input[key])
-      }
-      for (const key in houseCheck) {
-        formData.append(key, houseCheck[key])
-      }
-      formData.append("userId", user.id)
-      formData.append("petId", petId)
-      formData.append("files", files)
-      files.forEach((file) => {
-        formData.append('files', file);
-      });
-      formData.forEach((value, key) => {
-        console.log(key, value)
-      })
-      const submit = await actionCreateAdoptRequest(formData, token)
-      toast.success(t("adoptFormtoast.successMessage"))
-      usePetStore.getState().clearAdoptFormData()
-      setOpen(false)
 
+      // Add user and pet IDs
+      formData.append("userId", user.id);
+      formData.append("petId", petId);
+
+      // Add files
+      files.forEach((file) => {
+        formData.append("files", file);
+      });
+
+      const submit = await actionCreateAdoptRequest(formData, token);
+      toast.success(t("adoptFormtoast.successMessage"));
+      usePetStore.getState().clearAdoptFormData();
+      setOpen(false);
     } catch (err) {
-      setOpen(true)
-      console.log(err, "err here")
-      // toast.error(err.response.data.message)
+      setOpen(true);
+      console.log(err, "err here");
     } finally {
       setLoading(false);
-      console.log("------22-", loading)
     }
+  };
 
-  }
-
-    const FormInput = ({ label, name, type = "text", placeholder, error, ...props }) => (
-    <div className="space-y-1">
-      <label className="text-sm font-medium text-gray-700">{label}</label>
-      <input
-        type={type}
-        name={name}
-        placeholder={placeholder}
-        onChange={hdlChange}
-        className="w-full px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-transparent transition-all duration-200"
-        {...props}
-      />
-      {error && <p className="text-red-500 text-xs">{error}</p>}
-    </div>
-  )
+ 
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button 
-          variant="outline" 
+        <Button
+          variant="outline"
           onClick={hdlClick}
           className="group relative overflow-hidden bg-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-all duration-300 ease-out hover:scale-105 hover:shadow-xl active:scale-95"
         >
@@ -146,7 +126,7 @@ export function DialogAdopt({ petId }) {
           <span className="absolute inset-0 z-0 bg-gradient-to-r from-pink-600 to-pink-500 opacity-0 transition-opacity duration-300 ease-out group-hover:opacity-100" />
         </Button>
       </DialogTrigger>
-  
+
       {loading ? (
         <div className="modal fixed inset-0 bg-gray-800 bg-opacity-50 flex justify-center items-center z-50">
           <div className="bg-white rounded-lg shadow-lg p-8 flex flex-col items-center">
@@ -165,8 +145,8 @@ export function DialogAdopt({ petId }) {
               {t("adoptForm.adoptionFormDescription")}
             </DialogDescription>
           </DialogHeader>
-  
-          <AdoptFormContent 
+
+          <AdoptFormContent
             t={t}
             user={user}
             hdlChange={hdlChange}
@@ -178,11 +158,10 @@ export function DialogAdopt({ petId }) {
             hdlAddClick={hdlAddClick}
             hdlFileChange={hdlFileChange}
             hdlDeleteFile={hdlDeleteFile}
-            hdlSubmit={hdlSubmit}
+            handleFormSubmit={handleFormSubmit}
           />
-      </DialogContent>
-    )}
-  </Dialog>
-)
+        </DialogContent>
+      )}
+    </Dialog>
+  );
 }
-  
