@@ -10,6 +10,12 @@ export default {
 	],
 	theme: {
 	  extend: {
+		fontFamily: {
+			sans: ['Fredoka', 'sans-serif'],
+		  },
+		  fontWeight: {
+			bold: '500', // You can set this to any value between 300-700 for Fredoka
+		  },
 		borderRadius: {
 		  lg: 'var(--radius)',
 		  md: 'calc(var(--radius) - 2px)',

@@ -149,13 +149,13 @@ export default function Navbar() {
             {user ? (
               <>
                 <Link to="/profile" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.editProfile')}</Link>
-                <Link to="/adopt-history" className="font-head text-sm md:text-base">
+                <Link to="/adopt-history" className="font-head text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>
                   {t('navbar.adoptHistory')}
                 </Link>
-                <Link to="/donate-history" className="font-head text-sm md:text-base ">
+                <Link to="/donate-history" className="font-head text-sm md:text-base " onClick={() => setMobileMenuOpen(false)}>
                   {t('navbar.donateHistory')}
                 </Link>
-                <Link to="/event-history" className="font-head text-sm md:text-base ">
+                <Link to="/event-history" className="font-head text-sm md:text-base " onClick={() => setMobileMenuOpen(false)}>
                   {t('navbar.eventHistory')}
                 </Link>
                 <Link to="/login" className="font-head  text-sm md:text-base" onClick={() => setMobileMenuOpen(false)}>{t('navbar.logout')}</Link>

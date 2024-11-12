@@ -171,31 +171,33 @@ export default function Homepage() {
 
       <main>
         {pages.map((page, index) => (
-          <section
-            key={page.id}
-            id={page.id}
-            className={` min-h-screen w-full flex items-center justify-center relative 
-              ${
-                page.id === "stories"
-                  ? "bg-white"
-                  : page.id !== "home" && page.id !== "mission"
-                  ? "bg-[#FFF3E9]"
-                  : ""
-              }`}
-          >
+         <section
+         key={page.id}
+         id={page.id}
+         className={`min-h-[90vh] w-full flex items-center justify-center relative 
+           ${
+             page.id === "stories"
+               ? "bg-white"
+               : page.id !== "home" && page.id !== "mission"
+               ? "bg-[#FFF3E9]"
+               : ""
+           }`}
+       >
             {page.id === "mission" && (
               <>
                 {backgroundImages.map((image, index) => (
-                <div
-                  key={index}
-                  className="absolute inset-0 transition-opacity duration-1000 ease-in-out"
-                  style={{
-                    backgroundImage: `url(${image})`,
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    opacity: index === currentImageIndex ? 1 : 0,
-                  }}
-                />
+                  <div>
+                  <div
+                    key={index}
+                    className="absolute inset-0 transition-opacity duration-1000 ease-in-out mix-blend-darken opacity-60" // Added opacity-75
+                    style={{
+                      backgroundImage: `url(${image})`,
+                      backgroundSize: 'cover',
+                      backgroundPosition: 'center',
+                      opacity: index === currentImageIndex ? 0.60 : 0, // Changed from 1 to 0.75
+                    }}
+                  />
+                </div>
               ))}
 
               <div className="absolute bottom-[-990px] w-full h-full">
@@ -229,32 +231,42 @@ export default function Homepage() {
 
                 {index === 0 && (
                   <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh]">
+                     {/* <video 
+                    src="/src/assets/bubble2.mp4" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    className="absolute inset-0 w-full h-full object-cover z-0"
+                  /> */}
                     <div className="relative z-10 order-2 md:order-1">
                       <img
                         src="/src/assets/dogGif.gif"
                         alt=""
                         className="hidden md:block md:absolute top-[0px] left-[-170px] rotate-[-40deg]"
                       />
+                     
                       <motion.div
                         variants={item}
                         initial="hidden"
                         animate="show"
                         className="space-y-2"
                       >
+        
                         <img
                           src="/src/assets/dog.png"
                           alt="img"
-                          className="md:block h-screen w-auto md:h-screen md:w-auto"
+                          className="md:block h-screen w-full object-contain md:h-screen md:w-[700px] md:aspect-auto"
                         />
+                        {/* <PawPrint className="absolute top-[100px] left-[-100px] md:top-[-200px] md:left-[40px] z-10 md:h-[300px] md:w-[300px]" /> */}
                       </motion.div>
                     </div>
-                    <div className="hidden md:block absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" />
+                    {/* <div className="hidden md:block absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" /> */}
                     <div className="absolute w-full left-0 right-0 top-0 bottom-0 z-0" />
                     <div className="max-w-xl z-10 order-1 md:order-2 text-center md:text-left px-4 md:px-0">
                       <h1 className="text-lg md:text-xl mb-2 md:mb-4">
                         {content?.[0]} <span className="text-pink-600">{content?.[1]}</span>
                       </h1>
-                      <h2 className="text-[80px] md:text-[150px] font-bold leading-tight mb-4 md:mb-8">
+                      <h2 className="text-[80px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-8">
                         {content?.[2]}
                       </h2>
                       <motion.button
@@ -277,94 +289,83 @@ export default function Homepage() {
 
                 {index === 1 && (
                   
-                  <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 rounded-3xl min-h-700  px-4">
-                   
-                   
-                    <div className="container mx-auto p-2 md:p-10 md:h-[700px] md:flex md:flex-col md:justify-center  h-[500px] ">
-                      <div className="space-y-4 md:space-y-8">
-                        <div className="flex flex-row gap-2 md:gap-6 overflow-x-scroll md:scrollbar-hide justify-start md:justify-center">
-                          <Card className="w-[250px] md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
-                            <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
-                              <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
-                                <img
-                                  src={homeContent?.image2}
-                                  alt="Care Advice"
-                                  className="object-cover w-full h-full"
-                                />
-                              </div>
-                              <p className="font-semibold text-center md:text-lg">{content?.[5]}</p>
-                              <p className="text-xs md:text-sm text-muted-foreground">
-                                {content?.[6]}
-                              </p>
-                            </CardContent>
-                          </Card>
+                  <div className="relative backdrop-blur-md bg-white/30 border-white/50 shadow-lg w-full md:w-2/3 mx-auto my-4 md:m-10 rounded-3xl px-2 md:px-3">
+  <div className="container mx-auto p-2 md:p-10 min-h-[500px] md:h-[700px] flex flex-col justify-center">
+    <div className="space-y-4 md:space-y-8">
+      {/* Cards Container - Horizontal Layout */}
+      <div className="flex flex-row gap-2 md:gap-8 justify-between items-stretch w-full px-2 md:px-20">
+        {/* Card 1 */}
+        <Card className="w-1/3 flex flex-col opacity-90">
+          <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+            <div className="aspect-square relative overflow-hidden rounded-lg h-[100px] md:h-auto">
+              <img
+                src={homeContent?.image2}
+                alt="Care Advice"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[5]}</p>
+            <p className="text-[8px] md:text-sm text-muted-foreground">
+              {content?.[6]}
+            </p>
+          </CardContent>
+        </Card>
 
-                          <Card className="w-[250px] md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
-                            <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
-                              <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
-                                <img
-                                  src={homeContent?.image3}
-                                  alt="Veterinary Help"
-                                  className="object-cover w-full h-full"
-                                />
-                              </div>
-                              <p className="font-semibold text-center-base md:text-lg">
-                                {content?.[7]}
-                              </p>
-                              <p className="text-xs md:text-sm text-muted-foreground">
-                                {content?.[8]}
-                              </p>
-                            </CardContent>
-                          </Card>
+        {/* Card 2 */}
+        <Card className="w-1/3 flex flex-col opacity-90">
+          <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+            <div className="aspect-square relative overflow-hidden rounded-lg h-[100px] md:h-auto">
+              <img
+                src={homeContent?.image3}
+                alt="Veterinary Help"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[7]}</p>
+            <p className="text-[8px] md:text-sm text-muted-foreground">
+              {content?.[8]}
+            </p>
+          </CardContent>
+        </Card>
 
-                          <Card className="w-[250px]  md:w-[300px] flex-shrink-0 flex justify-center items-center mx-auto">
-                            <CardContent className="p-2 md:p-4 space-y-2 flex flex-col justify-center items-center">
-                              <div className="aspect-square relative overflow-hidden rounded-lg h-[150px] md:h-auto">
-                                <img
-                                  src={homeContent?.image4}
-                                  alt="Our Tips"
-                                  className="object-cover w-full h-full"
-                                />
-                              </div>
-                              <p className="font-semibold text-center md:text-lg">{content?.[9]}</p>
-                              <p className="text-xs md:text-sm text-muted-foreground">
-                                {content?.[10]}
-                              </p>
-                            </CardContent>
-                          </Card>
-                        </div>
+        {/* Card 3 */}
+        <Card className="w-1/3 flex flex-col opacity-90">
+          <CardContent className="p-2 md:p-6 h-full flex flex-col justify-between gap-2 md:gap-3">
+            <div className="aspect-square relative overflow-hidden rounded-lg h-[100px] md:h-auto">
+              <img
+                src={homeContent?.image4}
+                alt="Our Tips"
+                className="object-cover w-full h-full"
+              />
+            </div>
+            <p className="font-semibold text-center text-[10px] md:text-lg">{content?.[9]}</p>
+            <p className="text-[8px] md:text-sm text-muted-foreground">
+              {content?.[10]}
+            </p>
+          </CardContent>
+        </Card>
+      </div>
 
-                        <div className="text-center space-y-2 md:space-y-4">
-                          <h1 className="text-2xl md:text-4xl font-bold tracking-tighter">
-                            {content?.[3]}
-                          </h1>
-                          <p className="mx-auto max-w-[600px] text-sm md:text-base text-muted-foreground">
-                            {content?.[4]}
-                          </p>
-                          <Button
-                            size="lg"
-                            className="bg-pink-500 hover:bg-pink-600"
-                            onClick={() => navigate("/about")}
-                          >
-                            ABOUT US
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+      {/* Text Content */}
+      <div className="text-center space-y-2 md:space-y-4 px-2 md:px-0">
+        <h1 className="text-xl md:text-4xl font-bold tracking-tighter">
+          {content?.[3]}
+        </h1>
+        <p className="mx-auto max-w-[600px] text-xs md:text-lg">
+          {content?.[4]}
+        </p>
+        <Button
+          size="lg"
+          className="bg-pink-500 hover:bg-pink-600 text-sm md:text-base px-4 md:px-6 py-2 md:py-3"
+          onClick={() => navigate("/about")}
+        >
+          ABOUT US
+        </Button>
+      </div>
+    </div>
+  </div>
+</div>
 
-                    <div className="relative h-24 bg-opacity-100">
-                    <svg
-                      className=" hidden md:block md:absolute md:bottom-[-120px] md:left-[-400px] md:w-[2000px] md:h-24 text-[#fff3e9]"
-                      preserveAspectRatio="none"
-                      viewBox="0 0 1440 54"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M0 22L120 16.7C240 11 480 1.00001 720 0.700012C960 1.00001 1200 11 1320 16.7L1440 22V54H1320C1200 54 960 54 720 54C480 54 240 54 120 54H0V22Z" />
-                    </svg>
-                    </div>
-
-                  </div>
                   
                 )}
 
@@ -403,32 +404,30 @@ export default function Homepage() {
                 {/* /////////////////////////////////////////////////////////////////////////////////////// */}
 
                 {index === 3 && (
-              <section className="relative w-full  h-[300px] md:h-[600px] md: py-8 md:py-12 flex flex-col justify-center gap-4">
+              <section className="relative w-full  h-[300px] md:h-[600px] py-8 md:py-12 flex flex-col justify-center gap-4 ">
                 <CardHome className="absolute z-20" cards={randomPets} />
-                <Separator orientation="horizontal" className="shrink-0 md:left-[350px] md:top-[250px] bg-border h-[1.5px] w-2/3 absolute left-[100px] top-[290px]" />
-                
-                <div className="container w-full h-full z-0 px-4 md:px-6 py-[60px] md:py-[100px] lg:py-[200px] mx-auto">
-                  <div className="flex flex-col  gap-3 mx-auto justify-center my-[250px] items-center space-y-4 md:space-y-6 text-center md:my-[30px]">
-                    <div className="space-y-2 md:space-y-4 flex flex-col gap-4">
-                      <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tighter">
-                        {content?.[13]}
-                      </h2>
-                      <p className="max-w-[900px] text-sm md:text-base lg:text-xl text-gray-500 dark:text-gray-400 px-2 md:px-4">
-                        {content?.[14]}
-                      </p>
-                    </div>
-                    <Button
-                      className="bg-primary text-primary-foreground hover:bg-primary/90 w-[200px] md:w-auto"
-                      size="lg"
-                      onClick={() => {navigate("/donate")}}
-                    >
-                      {content?.[16]}
-                    </Button>
-                    <HeartHandshake className="h-[80px] w-[80px] md:h-[150px] md:w-[150px] lg:h-[200px] lg:w-[200px] text-pink-500" />
+                <Separator orientation="horizontal" className="shrink-0 absolute left-1/2 transform -translate-x-1/2 bg-border h-[1.5px] w-[80%] sm:w-2/3 md:w-1/2 lg:w-2/3 top-[200px] md:top-[290px]" />
+                <div className="container absolute md:top-[300px] md:left-0 md:right-0 md:w-screen lg:top-[320px] mx-auto px-4 md:px-6 top-[170px]">
+                <div className="flex flex-col items-center justify-center gap-6 text-center max-w-4xl mx-auto">
+                  <div className="space-y-4">
+                    <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold tracking-tighter">
+                      {content?.[13]}
+                    </h2>
+                    <p className="text-sm md:text-base lg:text-xl text-gray-500 dark:text-gray-400">
+                      {content?.[14]}
+                    </p>
                   </div>
-                  <Separator orientation="horizontal" className="hidden md:block md:top-[750px] shrink-0 bg-border h-[1.5px] w-1/3 absolute left-1/2 transform -translate-x-1/2 top-[650px]" />
+                  <Button
+                    className="bg-primary text-primary-foreground hover:bg-primary/90 w-[200px] md:w-auto"
+                    size="lg"
+                    onClick={() => {navigate("/donate")}}
+                  >
+                    {content?.[16]}
+                  </Button>
+                  <HeartHandshake className="h-[70px] w-[70px] md:h-[70px] md:w-[70px]  text-pink-500" />
                 </div>
-              </section>
+              </div>
+            </section>
             )}
 
               </motion.div>

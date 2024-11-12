@@ -15,7 +15,7 @@ export default function AdoptHistory() {
     const [adoptHistory, setAdoptHistory] = useState([]);
     const userId = user.user.id;
 
-
+    console.log(adoptHistory, "adoptHistory")
     useEffect(() => {
         fetchDonateHistory();
     }, [user, token]);
@@ -34,23 +34,59 @@ export default function AdoptHistory() {
                 {adoptHistory.length > 0 ? (
                     <ul className="space-y-4 max-h-96 overflow-y-auto">
                         {adoptHistory.map((adopt, index) => (
-                            <li key={index} className="border border-gray-200 rounded-lg p-4 flex flex-col md:flex-row ">
-                                <div className="w-full mb-4 md:mb-0">
-                                    <h2 className="text-lg font-semibold text-gray-700">{language === 'th' ? (adopt.pet.name_th || adopt.pet.name_en) : adopt.pet.name_en || adopt.pet.name_th}</h2>
-                                    <p className="text-gray-500 text-sm">{t("history.adoptDate")} {new Date(adopt.created_at).toLocaleDateString()}</p>
-                                    <p className="text-gray-500 text-sm">{t("history.status")}{adopt.status}</p>
-                                    <p className="text-gray-500 text-sm">{t("history.petType")} {adopt.pet.type}</p>
-                                    <p className="text-gray-500 text-sm">{t("history.breed")} {language === 'th' ? (adopt.pet.breed_th || adopt.pet.breed_en) : adopt.pet.breed_en || adopt.pet.breed_th}</p>
-                                    <p className="text-gray-500 text-sm">{t("history.gender")} {adopt.pet.gender}</p>
-                                    <p className="text-gray-500 text-sm">{t("history.color")} {adopt.pet.color}</p>
-                                    <p className="text-gray-500 text-sm">{t("history.birthDate")} {format(new Date(adopt.pet.age), 'dd/MM/yyyy ')}</p>
+                            <div
+                                key={index}
+                                className="border border-gray-200 rounded-lg p-4 flex  md:flex-row"
+                            >
+
+                                <div className="w-full md:w-3/4 mb-4 md:mb-0">
+                                    <h2 className="text-lg font-semibold text-gray-700">
+                                        {language === 'th'
+                                            ? adopt.pet.name_th || adopt.pet.name_en
+                                            : adopt.pet.name_en || adopt.pet.name_th}
+                                    </h2>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.adoptDate")}{' '}
+                                        {new Date(adopt.created_at).toLocaleDateString()}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.status")}{adopt.status}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.petType")} {adopt.pet.type}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.breed")}{' '}
+                                        {language === 'th' ? adopt.pet.breed_th || adopt.pet.breed_en : adopt.pet.breed_en || adopt.pet.breed_th}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.gender")} {adopt.pet.gender}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.color")} {adopt.pet.color}
+                                    </p>
+                                    <p className="text-gray-500 text-sm">
+                                        {t("history.birthDate")}{' '}
+                                        {format(new Date(adopt.pet.age), 'dd/MM/yyyy')}
+                                    </p>
                                 </div>
-                            </li>
+
+                                <div className="w-full md:w-1/4 flex items-center justify-center">
+                                    <div className="aspect-w-3 aspect-h-4 w-24 h-32 ">
+                                        <img
+                                            src={adopt.pet.image[0].url}
+                                            alt={`${adopt.pet.name_en}`}
+                                            className="object-cover rounded-lg"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
                         ))}
                     </ul>
                 ) : (
                     <p className="text-center text-gray-500">{t("history.noEventHistory")}</p>
                 )}
+
             </div>
         </div>
     )

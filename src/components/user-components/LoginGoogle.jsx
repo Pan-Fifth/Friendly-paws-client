@@ -17,6 +17,7 @@ const LoginGoogle = () => {
 
         console.log('credentialResponse:', credentialResponse);
         const token = credentialResponse.credential;
+        console.log('credentialResponse.credential:', credentialResponse);
 
         try {
             const response = await actionLoginGoogle(token);

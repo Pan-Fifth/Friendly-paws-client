@@ -30,8 +30,6 @@ export default function Login() {
 
   const [formatError, setFormatError] = useState({})
 
-  const token = useAuthStore((state) => state.token)
-  const user = useAuthStore((state) => state.user)
 
   const isOpen = useAuthStore((state) => state.isOpen);
   const setIsOpen = useAuthStore((state) => state.setIsOpen);
@@ -56,13 +54,18 @@ export default function Login() {
 
       return setFormatError(error)
     }
-    const role = await actionLogin(form)
-    toast.success(t('login.toastLogin'));
 
-    if (role) {
+    try {
+      const role = await actionLogin(form)
+      toast.success(t('login.toastLogin'));
+      if (role) {
 
-      roleRedirect(role)
+        roleRedirect(role)
+      }
+    } catch (err) {
+      toast.error(err.response.data.message);
     }
+
   }
 
   const roleRedirect = (role) => {

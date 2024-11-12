@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from "react-toastify";
+import { ImagePlus } from 'lucide-react'
 
 
 const EditPetsForm = ({ petId, setOpen }) => {
@@ -142,6 +143,10 @@ const EditPetsForm = ({ petId, setOpen }) => {
       const handleFileChange = (e) => {
         const selectFile = Array.from(e.target.files)
         console.log(selectFile)
+        if (existingImages.length + file.length + selectFile.length > 6) {
+          toast.error('สามารถเพิ่มรูปได้สูงสุด 6 รูปเท่านั้น');
+          return;
+        }
         setFile([...file, ...selectFile])
     
       };
@@ -214,7 +219,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
           toast.success("Edit Pet Successfully")
         actionGetAllPets(token)
         setOpen(false)
-        // console.log(result)
+        console.log(result)
 
       setFormData({
         name_en: '',
@@ -234,7 +239,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
         userId: '',
         image: ''
       });
-      setFile(null);
+      setFile([]);
 
     } catch (error) {
       console.log(error);
@@ -275,7 +280,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
           <Input
            id="age" 
            name="age" 
-           type="number" 
+           type="date" 
            value={formData.age} 
            onChange={hdlChange}
            className={errors.age ? 'border-red-500' : ''} />
@@ -376,7 +381,15 @@ const EditPetsForm = ({ petId, setOpen }) => {
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="weight">น้ำหนัก</Label>
-            <Input id="weight" name="weight" type="number" value={formData.weight} onChange={hdlChange} />
+            <Input 
+            id="weight" 
+            name="weight" 
+            type="number" 
+            value={formData.weight} 
+            onChange={hdlChange}
+            className={errors.weight ? 'border-red-500' : ''} />
+          {errors.weight && <p className="text-red-500 text-sm">{errors.weight}</p>}
+            
           </div>
           <div className="space-y-2">
             <Label htmlFor="status">สถานะ</Label>
@@ -386,9 +399,6 @@ const EditPetsForm = ({ petId, setOpen }) => {
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="AVAILABLE">AVAILABLE</SelectItem>
-                <SelectItem value="PENDING">PENDING</SelectItem>
-                <SelectItem value="ADOPTED">ADOPTED</SelectItem>
-                <SelectItem value="FOSTERED">FOSTERED</SelectItem>
                 <SelectItem value="UNAVAILABLE">UNAVAILABLE</SelectItem>
               </SelectContent>
             </Select>
@@ -396,10 +406,14 @@ const EditPetsForm = ({ petId, setOpen }) => {
         </div>
 
       <div className="space-y-2">
-        <Button onClick={handleAddClick} className='text-white'>รูปภาพ</Button>
+        <Button 
+        onClick={handleAddClick} 
+        className='text-white bg-[#db2778e3]'
+        disabled={existingImages.length + file.length >= 6}
+        ><ImagePlus /> +เพิ่มรูปภาพ </Button>
             {existingImages?.length > 0 && (
         <div className="space-y-2">
-        <Label>รูปภาพที่มี</Label>
+        <Label>รูปภาพที่มี ({existingImages.length}/6)</Label>
         <div className="flex flex-wrap gap-2">
           {existingImages.map((image, index) => (
             <div key={index} className="w-24 h-24 relative">
@@ -411,7 +425,7 @@ const EditPetsForm = ({ petId, setOpen }) => {
       </div>
     )}
 
-        {file?.length > 0 ? <p>{file?.length} ไฟล์ที่เลือก</p> :<p>ไม่ได้เลือกไฟล์</p> }
+        {file?.length > 0 ? <p>{file?.length} ไฟล์ที่เลือก</p> :<p>(เหลือที่เพิ่มได้อีก {6 - existingImages.length} รูป)</p> }
         <Input 
         id="image" 
         name="image" 

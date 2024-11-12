@@ -133,7 +133,16 @@ export default function ManageEvent() {
                                 {format(new Date(item.date_start), 'dd/MM/yyyy HH:mm')}
                             </TableCell>
                             <TableCell>{item.title_th}</TableCell>
-                            <TableCell>{item.status}</TableCell>
+                            <TableCell className={`px-6 py-4 ${item.status === 'PENDING'
+                                ? 'text-yellow-500'
+                                : item.status === 'CANCELLED'
+                                    ? 'text-red-500'
+                                    : item.status === 'ACTIVE'
+                                        ? 'text-green-500'
+                                        : item.status === 'COMPLETED'
+                                            ? 'text-blue-500'
+                                            : ''
+                                }`}>{item.status}</TableCell>
                             <TableCell className="text-right gap-1 flex justify-end items-end w-2/3 ">
                                 <Button onClick={() => openEditModal(item)}>แก้ไข</Button>
                                 <Button variant="destructive" onClick={() => handleDelete(item.id)}>ลบ</Button>
