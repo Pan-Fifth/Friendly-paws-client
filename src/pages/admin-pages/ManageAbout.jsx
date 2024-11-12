@@ -42,6 +42,11 @@ export const ManageAbout = () => {
     help_title_th: "",
     help_content_en: "",
     help_content_th: "",
+    content_en:"",
+    content_th:"",
+    content_detail_en:"",
+    content_detail_th:"",
+
   });
 
 
@@ -59,6 +64,7 @@ export const ManageAbout = () => {
     try {
       const response = await axiosInstance.get("/admin/about-content");
       const data = response.data[0];
+      console.log(data)
       setContent(data);
 
       const contentEn = data.content_en ? data.content_en.split('|') : ['', '', '', ''];
@@ -68,7 +74,7 @@ export const ManageAbout = () => {
         en: contentEn,
         th: contentTh
       });
-
+      //////เพิ่ม content_detail_th
       setTextContent({
         video_url: data.video_url || "",
         header_en: data.header_en || "",
@@ -79,6 +85,10 @@ export const ManageAbout = () => {
         help_title_th: data.help_title_th || "",
         help_content_en: data.help_content_en || "",
         help_content_th: data.help_content_th || "",
+        content_en: data.content_en || "",
+        content_th: data.content_th || "",
+        content_detail_en: data.content_detail_en || "",
+        content_detail_th: data.content_detail_th || "",
       });
     } catch (error) {
       toast.error("ไม่สามารถดึงข้อมูลได้");
@@ -127,19 +137,19 @@ export const ManageAbout = () => {
         }
       });
 
-      formData.append('content_en', contentFields.en.join('|'));
-      formData.append('content_th', contentFields.th.join('|'));
+      // formData.append('content_en', contentFields.en.join('|'));
+      // formData.append('content_th', contentFields.th.join('|'));
 
-      if(images.image1){
+      if (images.image1) {
         formData.append("image1", images.image1)
       }
-      if(images.image2){
+      if (images.image2) {
         formData.append("image2", images.image2)
       }
-      if(images.image3){
+      if (images.image3) {
         formData.append("image3", images.image3)
       }
-      if(images.image4){
+      if (images.image4) {
         formData.append("image4", images.image4)
       }
 
@@ -196,7 +206,7 @@ export const ManageAbout = () => {
     return <p>Loading...</p>
   }
 
-  console.log(content)
+  console.log("textcontent", textContent)
   return (
     <div className="p-6 max-w-[1400px] mx-auto">
       <div className="flex justify-between items-center mb-6">
@@ -324,7 +334,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_title_en">คอนเทนต์หัวข้อ สนับสนุน</Label>
+              <Label htmlFor="help_title_en">คอนเทนต์ที่ 2</Label>
               <Input
                 id="help_title_en"
                 value={textContent.help_title_en}
@@ -332,7 +342,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_content_en">รายละเอียดคอนเทนต์หัวข้อ สนับสนุน</Label>
+              <Label htmlFor="help_content_en">รายละเอียดคอนเทนต์ที่ 2</Label>
               <Textarea
                 id="help_content_en"
                 value={textContent.help_content_en}
@@ -342,18 +352,24 @@ export const ManageAbout = () => {
             </div>
             <Separator />
             <div className="space-y-4">
-              <Label>คอนเทนต์เพิ่มเติมที่อยู่ในคอนเทนต์หลัก</Label>
-              {contentLabels.en.map((label, index) => (
-                <div key={`en-${index}`} className="space-y-2">
-                  <Label htmlFor={`content-en-${index}`}>{label}</Label>
-                  <Input
-                    id={`content-en-${index}`}
-                    value={contentFields.en[index]}
-                    onChange={(e) => handleContentFieldChange('en', index, e.target.value)}
-                    placeholder={`Enter ${label}`}
-                  />
-                </div>
-              ))}
+              <div className="space-y-2">
+                <Label htmlFor="content-en">คอนเทนต์ที่ 3</Label>
+                <Input
+                  id="content_en"
+                  value={textContent.content_en}
+                  onChange={(e) => handleTextChange("content_en", e.target.value)}
+                  className="min-h-[100px] resize-y"
+                />
+              </div>
+            </div>
+              <div className="space-y-2">
+                <Label htmlFor="content_detail_en">รายละเอียดคอนเทนต์ที่ 3</Label>
+                <Input
+                  id="content_detail_en"
+                  value={textContent.help_content_en}
+                  onChange={(e) => handleTextChange("content_detail_en", e.target.value)}
+                  className="min-h-[100px] resize-y"
+                />
             </div>
           </CardContent>
         </Card>
@@ -383,7 +399,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_title_th">คอนเทนต์หัวข้อ สนับสนุน</Label>
+              <Label htmlFor="help_title_th">คอนเทนต์ที่ 2</Label>
               <Input
                 id="help_title_th"
                 value={textContent.help_title_th}
@@ -391,7 +407,7 @@ export const ManageAbout = () => {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="help_content_th">ายละเอียดคอนเทนต์หัวข้อ สนับสนุน</Label>
+              <Label htmlFor="help_content_th">รายละเอียดคอนเทนต์คอนเทนต์ที่ 2</Label>
               <Textarea
                 id="help_content_th"
                 value={textContent.help_content_th}
@@ -401,18 +417,25 @@ export const ManageAbout = () => {
             </div>
             <Separator />
             <div className="space-y-4">
-              <Label>คอนเทนต์เพิ่มเติมที่อยู่ในคอนเทนต์หลัก</Label>
-              {contentLabels.th.map((label, index) => (
-                <div key={`th-${index}`} className="space-y-2">
-                  <Label htmlFor={`content-th-${index}`}>{label}</Label>
-                  <Input
-                    id={`content-th-${index}`}
-                    value={contentFields.th[index]}
-                    onChange={(e) => handleContentFieldChange('th', index, e.target.value)}
-                    placeholder={`Enter ${label}`}
-                  />
-                </div>
-              ))}
+              <Label >คอนเทนต์เพิ่มเติมที่อยู่ในคอนเทนต์หลัก</Label>
+              <div className="space-y-2">
+                <Label htmlFor="content-th">คอนเทนต์ที่ 3</Label>
+                <Input
+                  id="content_th"
+                  value={textContent.content_th}
+                  onChange={(e) => handleTextChange("content_th", e.target.value)}
+                  className="min-h-[100px] resize-y"
+                />
+              </div>
+            </div>
+              <div className="space-y-2">
+                <Label htmlFor="content_detail_th">รายละเอียดคอนเทนต์ที่ 3</Label>
+                <Input
+                  id="content_detail_th"
+                  value={textContent.help_content_en}
+                  onChange={(e) => handleTextChange("content_detail_th", e.target.value)}
+                  className="min-h-[100px] resize-y"
+                />
             </div>
           </CardContent>
         </Card>

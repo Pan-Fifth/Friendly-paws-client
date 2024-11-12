@@ -83,7 +83,72 @@ const usePetStore = create(persist((set, get) => ({
         } catch (err) {
             throw err;
         }
-    }
+    },adoptFormData: {
+        firstname: '',
+        lastname: '',
+        dateOfBirth: '',
+        phone: '',
+        socialContact: '',
+        address: '',
+        career: '',
+        workPlace: '',
+        workTime: '',
+        dayOff: '',
+        salary: '',
+        familyMemberCount: '',
+        familyAlwaysHome: '',
+        aloneHours: '',
+        housingType: '',
+        houseCheck: {
+            hasGarden: false,
+            hasFence: false,
+            canWalkDog: false
+        },
+        currentPetCount: '',
+        currentPetDetails: '',
+        deliveryType: '',
+        why: '',
+        files: []
+    },
+
+    // Add new actions
+    updateAdoptFormData: (data) => set((state) => ({
+        adoptFormData: {
+            ...state.adoptFormData,
+            ...data
+        }
+    })),
+
+    clearAdoptFormData: () => set({
+        adoptFormData: {
+            firstname: '',
+            lastname: '',
+            dateOfBirth: '',
+            phone: '',
+            socialContact: '',
+            address: '',
+            career: '',
+            workPlace: '',
+            workTime: '',
+            dayOff: '',
+            salary: '',
+            familyMemberCount: '',
+            familyAlwaysHome: '',
+            aloneHours: '',
+            housingType: '',
+            houseCheck: {
+                hasGarden: false,
+                hasFence: false,
+                canWalkDog: false
+            },
+            currentPetCount: '',
+            currentPetDetails: '',
+            deliveryType: '',
+            why: '',
+            files: []
+        }
+    }),
+
 
 
 }), {

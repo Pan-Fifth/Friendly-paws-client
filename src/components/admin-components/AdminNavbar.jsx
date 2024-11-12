@@ -73,7 +73,7 @@ export default function AdminNavbar() {
                                             สัตว์เลี้ยง
                                         </Link>
                                         <Link to="/admin/manage-event" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            อีเวนท์
+                                            กิจกรรม
                                         </Link>
                                         <Link to="/admin/manage-donation" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             ระดมทุน
