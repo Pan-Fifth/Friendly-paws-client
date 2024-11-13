@@ -149,20 +149,12 @@ const adoptFormAuthen = (t) => Joi.object({
             "any.required": t('validation.housingTypeRequired'),
             "any.only": t('validation.housingTypeInvalid')
         }),
-    hasGarden: Joi.boolean()
-        .optional()
+    houseCheck: Joi.object()
+        .required()
         .messages({
-            "boolean.base": t('validation.hasGarden'),
-        }),
-    hasFence: Joi.boolean()
-        .optional()
-        .messages({
-            "boolean.base": t('validation.hasFence'),
-        }),
-    canWalkDog: Joi.boolean()
-        .optional()
-        .messages({
-            "boolean.base": t('validation.canWalkDog'),
+            "string.base": t('validation.houseCheck'),
+            "string.empty": t('validation.houseCheck'),
+            "any.required": t('validation.houseCheck'),
         }),
     deliveryType: Joi.string()
         .valid("PICK_UP", "REQUIRE_DELIVERY")
@@ -181,6 +173,7 @@ const adoptFormAuthen = (t) => Joi.object({
             "string.empty": t('validation.why'),
             "any.required": t('validation.why'),
         }),
+    files: Joi.array().optional()
 
 
 
@@ -192,7 +185,7 @@ const validateAdoptForm = (input, t) => {
     const { error } = adoptFormAuthen(t).validate(input, {
         abortEarly: false
     });
-
+    console.log(error, "==============joi")
 
     if (error?.details) {
         const formatError = error.details.reduce((prev, cur) => {
@@ -206,5 +199,5 @@ const validateAdoptForm = (input, t) => {
     return null;
 }
 
-export default validateAdoptForm;
+export default adoptFormAuthen;
 

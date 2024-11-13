@@ -34,6 +34,8 @@ export function DialogAdopt({ petId }) {
   const [houseCheck, setHouseCheck] = useState(
     usePetStore((state) => state.adoptFormData.houseCheck)
   );
+
+  console.log(files, "EIEI")
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const user = useAuthStore((state) => state.user.user);
@@ -50,19 +52,9 @@ export function DialogAdopt({ petId }) {
       navigate("/login");
     }
   };
-  const hdlAddClick = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (fileInput.current) {
-      fileInput.current.click(); // Programmatically click the hidden input
-    }
-  };
 
-  const hdlFileChange = (e) => {
-    console.log("e files", e.target.files);
-    const selectedFiles = Array.from(e.target.files);
-    setFiles([...files, ...selectedFiles]);
-  };
+
+
 
   //Delete file
   const hdlDeleteFile = (indexToDelete, e) => {
@@ -74,16 +66,19 @@ export function DialogAdopt({ petId }) {
 
   // In AdoptForm.jsx
   const handleFormSubmit = async (formData) => {
-    console.log(input)
+    console.log("input")
     setLoading(true);
     try {
       window.scrollTo({ top: 0, behavior: "smooth" });
 
+
       if (files.length > 5) {
+        console.log("5")
         toast.error(t("adoptFormtoast.maxFiles"));
         return;
       }
       if (files.length < 3) {
+        console.log("3")
         toast.error(t("adoptFormtoast.minFiles"));
         return;
       }
@@ -102,7 +97,7 @@ export function DialogAdopt({ petId }) {
       }
       const submit = await actionCreateAdoptRequest(formData, token);
       toast.success(t("adoptFormtoast.successMessage"));
-      // usePetStore.getState().clearAdoptFormData();
+      usePetStore.getState().clearAdoptFormData();
       setOpen(false);
     } catch (err) {
       setOpen(true);
@@ -158,10 +153,12 @@ export function DialogAdopt({ petId }) {
             setHouseCheck={setHouseCheck}
             files={files}
             fileInput={fileInput}
-            hdlAddClick={hdlAddClick}
-            hdlFileChange={hdlFileChange}
+            setFiles={setFiles}
+            // hdlAddClick={hdlAddClick}
+            // hdlFileChange={hdlFileChange}
             hdlDeleteFile={hdlDeleteFile}
             handleFormSubmit={handleFormSubmit}
+
           />
         </DialogContent>
       )}
