@@ -79,40 +79,37 @@
   },
   "aboutPage": {
     
-    "headerTitle": "... is a charitable organization ... 🐶",
-    "headerDescription": "Since its founding in 2008, Big Dog Ranch Rescue has saved over 70,000 dogs! Our mission is to save 10,000 dogs per year, rehabilitate and find them warm homes, and educate people about proper dog care and the importance of spaying and neutering.",
-    "helpSectionTitle": "How You Can Help:",
-    "helpSectionDescription": "We rely on donations and support to help sick, abandoned, and abused dogs in our care. Every dog we rescue receives treatment, vaccinations, and spaying. We also rehabilitate, socialize, and work to find new homes for our dogs. But we can't do it alone.",
-    "supportButton": "Support Our Mission ❤️",
-    "adoptionChecklistTitle": "Adoption Requirements:",
-    "checklist": [
-      {
-        "title": "Age",
-        "description": "The adopter must be over 22 years old and employed. If under 22, parental permission is required.",
-        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
-      },
-      {
-        "title": "Exercise",
-        "description": "Dogs need exercise, and the adopter must walk the dog at least twice a day.",
-        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
-      },
-      {
-        "title": "Home",
-        "description": "We prefer homes with fenced yards, but will consider homes away from busy roads in friendly neighborhoods.",
-        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
-      },
-      {
-        "title": "Updates",
-        "description": "We require all adopters to follow our update schedule so we can monitor your progress with your new dog.",
-        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
-      },
-      {
-        "title": "Community",
-        "description": "To qualify, you must live in a pet-friendly neighborhood, village, or community where keeping a dog is allowed.",
-        "image": "https://www.thaipedigree.com/static/articles/e1897f9e541c2cbd531886fc07931d8b2d31932b85c991f268955bd5acc7c305.jpeg"
-      }
-    ]
+   
+  
+    "Founded": "Founded",
+    "Employees": "Employees",
+    "Users": "Users",
+    "Partner": "Partner Shelters",
+    "Adoptions": "Adoptions",
+    "Donations": "Donations",
+    "About": "About Us",
+    "Our": "Our Story"
+  
   },
+  "steps": {
+    "01": {
+      "title": "Select your destiny friends",
+      "description": "The first step that you have to do is sign in to join our community, then you can access through all our website"
+    },
+    "02": {
+      "title": "Put your detail in the form",
+      "description": "Unlike low-cost carriers (Spirit, Frontier, etc.), which have already discounted their service down to a wholesale level, normal legacy carriers have markups that shoot their prices up. We bypass them."
+    },
+    "03": {
+      "title": "Wait for the confirmation",
+      "description": "Denver has tons of flights and tons of empty seats. Aspen, not so much. Major cities mean major savings. Plus, they typically have large airports which also have larger flights."
+    },
+    "04": {
+      "title": "Get an interview date!",
+      "description": "Unlike low-cost carriers (Spirit, Frontier, etc.), which have already discounted their service down to a wholesale level, normal legacy carriers have markups that shoot their prices up. We bypass them."
+    }
+  },
+
   "register": {
     "title": "Sign Up On Friendly Pow",
     "emailLabel": "Email Address",
@@ -322,6 +319,16 @@
     "color": "Color:",
     "birthDate": "Birth Date:",
     "noEventHistory": "No history."
+  },
+  "contactPage" : {
+    "Phone": "Phone",
+  "Email": "Email",
+  "Open": "Opening Times",
+  "Location": "Location"
+  },
+ "footer": {
+    "how":"How can we help ?",
+    "conatct" : " Contact us anytime."
   }
 }
   

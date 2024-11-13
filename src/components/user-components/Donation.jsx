@@ -187,11 +187,10 @@ const Donation = () => {
                       <Button
                         variant={donation.total === option.amount ? "default" : "outline"}
                         className={`h-24 w-full flex flex-col items-center justify-center text-center p-2 transition-all
-    ${
-      donation.total === option.amount
-        ? "bg-gradient-to-r from-[#fcd9d8] to-pink-200 text-pink-900 border-pink-300 shadow-lg"
-        : "hover:bg-[#fcd9d8]/20 border-[#fcd9d8]"
-    }`}
+    ${donation.total === option.amount
+                            ? "bg-gradient-to-r from-[#fcd9d8] to-pink-200 text-pink-900 border-pink-300 shadow-lg"
+                            : "hover:bg-[#fcd9d8]/20 border-[#fcd9d8]"
+                          }`}
                         onClick={() => handleAmountSelect(option.amount)}
                       >
                         <div className="text-2xl mb-1">{option.icon}</div>
@@ -223,7 +222,7 @@ const Donation = () => {
                       donationOptions
                         .filter((opt) => opt.amount <= donation.total)
                         .sort((a, b) => b.amount - a.amount)[0]?.[
-                        currentLanguage === "en" ? "benefit_en" : "benefit_th"
+                      currentLanguage === "en" ? "benefit_en" : "benefit_th"
                       ]
                     }
                   </motion.div>

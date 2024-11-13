@@ -14,6 +14,7 @@ import { Play } from "lucide-react"
 
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import FacebookLoginButton from './FacebookLogin';
 
 
 
@@ -102,11 +103,11 @@ export default function Login() {
                   </div>
 
                   <div className="relative">
-                     <Input 
-                     type={showPassword ? "text" : "password"}
-                     placeholder={t("register.passwordLabel")} 
-                     name="password" onChange={handleChange} 
-                     value={form.password} />
+                    <Input
+                      type={showPassword ? "text" : "password"}
+                      placeholder={t("register.passwordLabel")}
+                      name="password" onChange={handleChange}
+                      value={form.password} />
                     <button
                       type="button"
                       className="absolute right-3 top-1/2 -translate-y-1/2"
@@ -123,11 +124,11 @@ export default function Login() {
                           <circle cx="12" cy="12" r="3" />
                         </svg>
                       )}
-                      
+
                     </button>
 
-                    {formatError && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                   </div>
+                  {formatError && <p className='text-red-500 text-xs'>{formatError.password}</p>}
 
                   <div className="flex items-center justify-between">
 
@@ -147,12 +148,21 @@ export default function Login() {
                       <div className="px-2 bg-white text-gray-500">{t("login.connectWith")}</div>
                     </div>
                   </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
+
+                  <div>
+                    <div className="md:mx-auto my-4">
 
 
-                    <LoginGoogle />
+                      <LoginGoogle />
 
+                    </div>
+
+                    <div className="flex justify-center">
+
+
+                      <FacebookLoginButton />
+
+                    </div>
                   </div>
 
                   <div className="text-center text-sm text-gray-600">

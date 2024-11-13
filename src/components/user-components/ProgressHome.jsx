@@ -3,39 +3,42 @@
 import { useState, useEffect } from "react"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { BadgeCheck, Cat, Dog, PawPrint, ReceiptText, CalendarFold } from "lucide-react"
+import { useTranslation } from 'react-i18next';
 
 export default function ProgressHome() {
+  const { t } = useTranslation()
+
   const [openItem, setOpenItem] = useState(null)
   const [animalPositions, setAnimalPositions] = useState([])
-  
+
   const features = [
     {
       icon: <PawPrint className="w-6 h-6 text-white" />,
       number: "01",
-      title: "Select your destiny friends",
+      title: t("steps.01.title"),
       description:
-        "The first step that you have to do is sign in to join our community, then you can access through all our website",
+        t("steps.01.description"),
     },
     {
       icon: <ReceiptText className="w-6 h-6 text-white" />,
       number: "02",
-      title: "Put your detail in the form",
+      title: t("steps.02.title"),
       description:
-        "Unlike low-cost carriers (Spirit, Frontier, etc.), which have already discounted their service down to a wholesale level, normal legacy carriers have markups that shoot their prices up. We bypass them.",
+        t("steps.02.description"),
     },
     {
       icon: <BadgeCheck className="w-6 h-6 text-white" />,
       number: "03",
-      title: "Wait for the confirmation",
+      title: t("steps.03.title"),
       description:
-        "Denver has tons of flights and tons of empty seats. Aspen, not so much. Major cities mean major savings. Plus, they typically have large airports which also have larger flights.",
+        t("steps.03.description"),
     },
     {
       icon: <CalendarFold className="w-6 h-6 text-white" />,
       number: "04",
-      title: "Get an interview date!",
+      title: t("steps.04.title"),
       description:
-        "Unlike low-cost carriers (Spirit, Frontier, etc.), which have already discounted their service down to a wholesale level, normal legacy carriers have markups that shoot their prices up. We bypass them.",
+        t("steps.04.description"),
     },
   ]
 
@@ -43,11 +46,11 @@ export default function ProgressHome() {
     const generateRandomPositions = () => {
       const positions = []
       const minDistance = 150
-      
+
       const isValidPosition = (newPos, existingPositions) => {
         return existingPositions.every(pos => {
           const distance = Math.sqrt(
-            Math.pow(newPos.top - pos.top, 2) + 
+            Math.pow(newPos.top - pos.top, 2) +
             Math.pow(newPos.left - pos.left, 2)
           )
           return distance >= minDistance
@@ -73,10 +76,10 @@ export default function ProgressHome() {
           positions.push(newPosition)
         }
       }
-      
+
       setAnimalPositions(positions)
     }
-    
+
     generateRandomPositions()
   }, [])
 
@@ -85,7 +88,7 @@ export default function ProgressHome() {
       <div>
         {animalPositions.map((position, index) => (
           position.type === 'dog' ? (
-            <Dog 
+            <Dog
               key={`animal-${index}`}
               className="absolute w-[100px] h-[100px] text-orange-100"
               style={{
@@ -95,7 +98,7 @@ export default function ProgressHome() {
               }}
             />
           ) : (
-            <Cat 
+            <Cat
               key={`animal-${index}`}
               className="absolute w-[100px] h-[100px] text-orange-100"
               style={{
@@ -108,14 +111,14 @@ export default function ProgressHome() {
         ))}
       </div>
       <div className="relative w-full mx-auto flex flex-col gap-4  ">
-      <div className="absolute  left-[80%] md:left-[800px] top-0 bottom-0 w-0.5 bg-primary" aria-hidden="true" />
+        <div className="absolute  left-[80%] md:left-[800px] top-0 bottom-0 w-0.5 bg-primary" aria-hidden="true" />
         {features.map((feature) => (
           <div
             key={feature.number}
             className="relative  flex items-start mb-12 last:mb-0 "
           >
             <div className="absolute left-[80%] bg-white border-[#db2777] border-4 md:left-[800px] w-8 h-8 rounded-full flex items-center justify-center translate-x-[-15px]">
-            <div className="w-2 h-2 rounded-full bg-white" />
+              <div className="w-2 h-2 rounded-full bg-white" />
             </div>
             <div className="md:w-[70%]  md:ml-[20px] w-1/2 pr-1 ml-[80px]  ">
               <div className="flex items-center space-x-2 md:my-[-9px]  md:mx-[600px] mb-2 ">
@@ -125,20 +128,19 @@ export default function ProgressHome() {
                 <em className="text-[30px] text-pink-500">{feature.number}</em>
               </div>
               <Accordion type="single" collapsible className="w-full md:ml-[220px] text-[12px] ">
-          <AccordionItem value={feature.number}>
-            <AccordionTrigger
-              className={`md:text-[30px]   lg:text-[30px] w-full font-semibold ${
-                openItem === feature.number ? "text-[#db2777]" : ""
-              }`}
-              onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}
-            >
-            {feature.title}
-          </AccordionTrigger>
-          <AccordionContent className="text-muted-foreground text-[18px]">
-            {feature.description}
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+                <AccordionItem value={feature.number}>
+                  <AccordionTrigger
+                    className={`md:text-[30px]   lg:text-[30px] w-full font-semibold ${openItem === feature.number ? "text-[#db2777]" : ""
+                      }`}
+                    onClick={() => setOpenItem(openItem === feature.number ? null : feature.number)}
+                  >
+                    {feature.title}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground text-[18px]">
+                    {feature.description}
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </div>
           </div>
         ))}

@@ -5,7 +5,7 @@ import AppRouter from './router-pages/AppRouter';
 
 function App() {
 
-
+  console.log(import.meta.env.VITE_FACEBOOK_APP_ID)
   return (
     <>
       <ToastContainer

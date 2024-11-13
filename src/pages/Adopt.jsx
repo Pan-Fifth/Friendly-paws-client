@@ -163,7 +163,7 @@ const Adopt = () => {
       </div>
 
       <div className="mt-16 mb-12">
-        {avaiPets.length > 0 && (
+        {avaiPets?.length > 0 && (
           <div className="flex justify-center items-center gap-6 mb-24">
             <Button
               onClick={() => hdlPageChange(-1)}
