@@ -127,8 +127,8 @@ export default function Login() {
 
                     </button>
 
-                    {formatError && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                   </div>
+                  {formatError && <p className='text-red-500 text-xs'>{formatError.password}</p>}
 
                   <div className="flex items-center justify-between">
 
@@ -149,18 +149,20 @@ export default function Login() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <div className="md:mx-auto my-4">
 
 
-                    <LoginGoogle />
+                      <LoginGoogle />
 
-                  </div>
+                    </div>
 
-                  <div className="grid grid-cols-2  ">
+                    <div className="flex justify-center">
 
 
-                    <FacebookLoginButton />
+                      <FacebookLoginButton />
 
+                    </div>
                   </div>
 
                   <div className="text-center text-sm text-gray-600">

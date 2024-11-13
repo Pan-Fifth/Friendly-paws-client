@@ -43,12 +43,18 @@ function FacebookLoginButton() {
     return (
         <div>
             <FacebookLogin
-                appId="1357505362348323"
+                appId={import.meta.env.VITE_FACEBOOK_APP_ID}
                 autoLoad={false}
                 fields="name,email"
                 callback={handleFacebookLogin}
                 icon="fa-facebook"
                 textButton="Login with Facebook"
+                buttonStyle={{
+                    backgroundColor: '#4267B2',
+                    padding: '10px 20px',
+                    borderRadius: '6px',
+                    color: 'white'
+                }}
             />
         </div>
     );

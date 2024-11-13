@@ -100,9 +100,9 @@ export default function Register() {
                                         />
 
                                     </div>
-                                    <div className='w-2/3 ml-auto text-right'>
-                                        {formatError.email && <p className='text-red-500 text-xs'>{formatError.email}</p>}
-                                    </div>
+
+                                    {formatError.email && <p className='text-red-500 text-xs'>{formatError.email}</p>}
+
 
                                     <div className="relative">
                                         <Input type={showPassword ? "text" : "password"}
@@ -130,12 +130,12 @@ export default function Register() {
                                             )}
 
                                         </button>
-                                        {formatError.password && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                                     </div>
+                                    {formatError.password && <p className='text-red-500 text-xs'>{formatError.password}</p>}
                                     <div className="relative">
                                         <Input type={showPassword ? "text" : "password"}
-                                           name="confirmPassword"
-                                           value={form.confirmPassword || ''}
+                                            name="confirmPassword"
+                                            value={form.confirmPassword || ''}
                                             placeholder={t('register.confirmPasswordLabel')}
                                             onChange={handleChange}
                                         />
@@ -158,10 +158,10 @@ export default function Register() {
                                             )}
 
                                         </button>
-                                        {formatError.confirmPassword && <p className='text-red-500 text-xs'>{formatError.confirmPassword}</p>}
                                     </div>
-                                    
-                                    
+                                    {formatError.confirmPassword && <p className='text-red-500 text-xs'>{formatError.confirmPassword}</p>}
+
+
                                     <Button className="w-full bg-gradient-to-r from-purple-500 to-yellow-500 hover:from-purple-600 hover:to-pink-600">
                                         {t('register.signUpButton')}
                                     </Button>

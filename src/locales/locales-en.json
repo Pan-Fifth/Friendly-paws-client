@@ -325,6 +325,10 @@
   "Email": "Email",
   "Open": "Opening Times",
   "Location": "Location"
+  },
+ "footer": {
+    "how":"How can we help ?",
+    "conatct" : " Contact us anytime."
   }
 }
   

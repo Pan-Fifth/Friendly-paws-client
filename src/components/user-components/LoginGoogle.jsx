@@ -42,7 +42,7 @@ const LoginGoogle = () => {
 
 
     return (
-        <GoogleOAuthProvider clientId="278532474715-q84vm9n60ji2qi94j9cronfu4p0fpuuj.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_CLIENT_ID}>
             <div className="m-auto w-[19rem] border rounded-lg">
                 <GoogleLogin
                     onSuccess={handleLogin}
