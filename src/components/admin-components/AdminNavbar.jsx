@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { IoMdArrowDropdown } from "react-icons/io";
-
 import useAuthStore from '../../stores/AuthStore';
+import Logo from '../../assets/Logo-navbar2.png'
 
 export default function AdminNavbar() {
 
@@ -19,21 +19,21 @@ export default function AdminNavbar() {
         setDropdownManagePageOpen(false);
         setDropdownReportOpen(false);
     };
-    
+
     const toggleDropdownManage = () => {
         setDropdownManageOpen(!isDropdownManageOpen);
         setDropdownUserOpen(false);
         setDropdownManagePageOpen(false);
         setDropdownReportOpen(false);
     };
-    
+
     const toggleDropdownManagePage = () => {
         setDropdownManagePageOpen(!isDropdownManagePageOpen);
         setDropdownUserOpen(false);
         setDropdownManageOpen(false);
         setDropdownReportOpen(false);
     };
-    
+
     const toggleDropdownReport = () => {
         setDropdownReportOpen(!isDropdownReportOpen);
         setDropdownUserOpen(false);
@@ -52,9 +52,9 @@ export default function AdminNavbar() {
         <div>
             <nav className="top-0 left-0 w-full flex justify-between px-4 md:px-8 h-24 items-center bg-orange-200 fixed z-20">
 
-                <div className="w-32 h-20 md:flex gap-8 flex items-center ">
-                    <h1 className='text-3xl'>LOGO</h1>
-                </div>
+                <Link to="/" className="flex items-center">
+                    <img src={Logo} alt="Logo" className="h-12 w-25 object-cover" />
+                </Link>
 
 
                 <div className="hidden md:flex gap-14 text-black">
@@ -73,7 +73,7 @@ export default function AdminNavbar() {
                                             สัตว์เลี้ยง
                                         </Link>
                                         <Link to="/admin/manage-event" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
-                                            อีเวนท์
+                                            กิจกรรม
                                         </Link>
                                         <Link to="/admin/manage-donation" onClick={() => setDropdownManageOpen(false)} className="block px-4 py-2 text-gray-700 hover:bg-gray-100">
                                             ระดมทุน

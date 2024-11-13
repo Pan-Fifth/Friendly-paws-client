@@ -95,9 +95,8 @@ export default function ReportAdopt() {
                         <option value="REJECT">REJECT</option>
                         <option value="AVAILABLE">AVAILABLE</option>
                         <option value="UNAVAILABLE">UNAVAILABLE</option>
-                        <option value="ACTIVE">ACTIVE</option>
+                        <option value="ACTIVE">INTERVIEW</option>
                         <option value="ADOPTED">ADOPTED</option>
-                        <option value="FOSTERED">FOSTERED</option>
                     </select>
                     <button
                         onClick={handleFetchReport}
@@ -147,13 +146,17 @@ export default function ReportAdopt() {
                                     <td className="px-6 py-4 whitespace-nowrap">{adopt.pet?.name_th}</td>
                                     <td className={`px-6 py-4 ${adopt.status === 'PENDING'
                                         ? 'text-yellow-500'
-                                        : adopt.status === 'FOSTERED'
+                                        : adopt.status === 'REJECT'
                                             ? 'text-red-500'
-                                            : adopt.status === 'ACTIVE'
+                                            : adopt.status === 'INTERVIEW'
                                                 ? 'text-green-500'
                                                 : adopt.status === 'ADOPTED'
                                                     ? 'text-blue-500'
-                                                    : ''
+                                                    : adopt.status === 'AVAILABLE'
+                                                        ? 'text-green-500'
+                                                        : adopt.status === 'UNAVAILABLE'
+                                                            ? 'text-red-500'
+                                                            : ''
                                         }`}>{adopt.status}</td>
                                     <td className="px-6 py-4">{adopt.user?.phone}</td>
                                     <td className="px-6 py-4">{adopt.socialContact}</td>

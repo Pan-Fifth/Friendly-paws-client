@@ -97,7 +97,7 @@ export function DialogAdopt({ petId }) {
         formData.append("files", file);
       });
 
-      for(let i of formData){
+      for (let i of formData) {
         console.log(i)
       }
       const submit = await actionCreateAdoptRequest(formData, token);
@@ -112,7 +112,7 @@ export function DialogAdopt({ petId }) {
     }
   };
 
- 
+
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

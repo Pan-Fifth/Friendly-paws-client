@@ -7,8 +7,8 @@ const loginAuthen = (t) => Joi.object({
         .email({ tlds: false })
         .required()
         .messages({
-            // "string.empty": t('validation.emRequired'),
-            // "string.base": t('validation.emRequired'),
+            "string.empty": t('validation.emRequired'),
+            "string.base": t('validation.emRequired'),
             "string.email": t('validation.emFormat')
         }),
 

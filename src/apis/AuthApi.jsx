@@ -18,6 +18,14 @@ export const loginGoogle = (token) => {
         }
     });
 };
+export const loginFacebook = (accessToken, userID) => {
+    return axiosInstance.post("/auth/login-facebook", { tokenFacebook: accessToken, facebookId: userID }, {
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+};
+
 
 export const forgetPassword = (email) => {
 

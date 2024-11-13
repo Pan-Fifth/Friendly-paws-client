@@ -1,6 +1,6 @@
 
 import { create } from "zustand";
-import { register, login, loginGoogle } from "../apis/AuthApi";
+import { register, login, loginGoogle, loginFacebook } from "../apis/AuthApi";
 import { persist, createJSONStorage } from "zustand/middleware";
 
 
@@ -66,6 +66,18 @@ const useAuthStore = create(persist((set, get) => ({
 
         }
     },
+    actionLoginFacebook: async (token, user) => {
+        try {
+            set({
+                user: user,
+                token: token
+            })
+        } catch (err) {
+            console.error("Error during Facebook login:", err);
+        }
+
+    },
+
 
 }), {
 

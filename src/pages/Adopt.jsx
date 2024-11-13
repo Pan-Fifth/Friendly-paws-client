@@ -6,7 +6,7 @@ import usePetStore from "../stores/PetStore";
 import { useTranslation } from "react-i18next";
 import { Card, CardFooter } from "@/components/ui/card";
 import Lottie from "lottie-react"; // นำเข้า Lottie
-import AnimationDownload from "../assets/AnimationDownload.json"; // นำเข้าไฟล์ Lottie
+import AnimationDownload from "../assets/AnimationDownlpad-2.json"; // นำเข้าไฟล์ Lottie
 
 const Adopt = () => {
   const { t, i18n } = useTranslation();
@@ -20,7 +20,7 @@ const Adopt = () => {
   const setFilter = usePetStore((state) => state.setFilter);
   const [isClicked, setIsClicked] = useState(false);
 
-console.log(avaiPets)
+  console.log(avaiPets)
 
   useEffect(() => {
     setLoading(true); // ตั้งค่าค่า loading เป็น true ขณะเริ่มต้นโหลดข้อมูล
@@ -80,7 +80,7 @@ console.log(avaiPets)
     <div>
       <div className="relative">
         <div className="rounded-3xl h-[180px] md:h-[300px] mx-auto w-full">
-        <img src="/src/assets/AdoptBg3.png" className="absolute md:top-[-550px]" alt="" />
+          <img src="/src/assets/AdoptBg3.png" className="absolute md:top-[-550px]" alt="" />
         </div>
       </div>
       <div className="absolute top-20 w-full h-[250px] md:h-[500px]">
@@ -142,28 +142,28 @@ console.log(avaiPets)
       </div>
 
       <div className="container mx-auto p-4">
-  <div className="w-full lg:w-2/3 mx-auto">
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-      {avaiPets?.map((el, index) => (
-        <Card 
-          key={el.id} 
-          className={`overflow-hidden group ${index === 0 || index === avaiPets.length - 1 ? 'col-span-2' : ''}`}
-        >
-          <AdoptPetCard
-            id={el.id}
-            name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
-            image={el.image?.map(img => img.url) || []}
-            gender={el.gender}
-            breed={language === 'th' ? (el.breed_th || el.breed_en) : el.breed_en || el.breed_th}
-          />
-        </Card>
-      ))}
-    </div>
-  </div>
-</div>
+        <div className="w-full lg:w-2/3 mx-auto">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            {avaiPets?.map((el, index) => (
+              <Card
+                key={el.id}
+                className={`overflow-hidden group ${index === 0 || index === avaiPets.length - 1 ? 'col-span-2' : ''}`}
+              >
+                <AdoptPetCard
+                  id={el.id}
+                  name={language === 'th' ? (el.name_th || el.name_en) : el.name_en || el.name_th}
+                  image={el.image?.map(img => img.url) || []}
+                  gender={el.gender}
+                  breed={language === 'th' ? (el.breed_th || el.breed_en) : el.breed_en || el.breed_th}
+                />
+              </Card>
+            ))}
+          </div>
+        </div>
+      </div>
 
       <div className="mt-16 mb-12">
-        {avaiPets.length > 0 && (
+        {avaiPets?.length > 0 && (
           <div className="flex justify-center items-center gap-6 mb-24">
             <Button
               onClick={() => hdlPageChange(-1)}

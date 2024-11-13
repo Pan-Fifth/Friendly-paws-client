@@ -115,7 +115,7 @@ const Event = () => {
   return (
     <div className="min-h-screen bg-white">
       <div className="flex justify-center m-6">
-        <div className="relative w-3/4 h-1/2 rounded-lg overflow-hidden ">
+        <div className="relative md:w-3/4 h-1/2 rounded-lg overflow-hidden  ">
           <img
             src={bannerImages[currentIndex] || ""}
             alt="Event Banner"
