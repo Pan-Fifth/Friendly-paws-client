@@ -232,13 +232,8 @@ export default function Homepage() {
 
                 {index === 0 && (
                   <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh]">
-<<<<<<< HEAD
                       <video 
-                    src="/src/assets/bubble2.mp4" 
-=======
-                     <video 
                     src="/src/assets/bubble3.mp4" 
->>>>>>> dev
                     autoPlay 
                     loop 
                     muted 
@@ -261,11 +256,7 @@ export default function Homepage() {
                         <img
                           src="/src/assets/dog.png"
                           alt="img"
-<<<<<<< HEAD
                           className="md:block h-screen w-full object-contain md:h-screen md:aspect-auto min-w-[500px] md:mx-[-40px]"
-=======
-                          className="md:block  w-full object-contain md:h-screen md:aspect-auto"
->>>>>>> dev
                         />
                       </motion.div>
                     </div>
@@ -275,11 +266,7 @@ export default function Homepage() {
                       <h1 className="text-lg md:text-xl mb-2 md:mb-4">
                         {content?.[0]} <span className="text-pink-600">{content?.[1]}</span>
                       </h1>
-<<<<<<< HEAD
                       <h2 className="text-[80px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-4 md:mx-[-40px]">
-=======
-                      <h2 className="text-[50px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-8">
->>>>>>> dev
                         {content?.[2]}
                       </h2>
                       <motion.button
