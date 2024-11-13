@@ -135,8 +135,8 @@ console.log(avaiPets)
       </div>
       <div>
         {avaiPets?.length === 0 && (
-          <div className="flex items-start justify-center">
-            <p className="text-3xl font-bold">no pet found</p>
+          <div className="flex items-start justify-center z-20">
+            <p className="text-3xl font-bold z-20">no pet found</p>
           </div>
         )}
       </div>

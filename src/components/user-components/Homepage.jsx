@@ -12,6 +12,7 @@ import { Heart, HeartHandshake, PawPrint } from "lucide-react";
 import { Image } from "@radix-ui/react-avatar";
 import ImageHome from "./ImageHome";
 import TextHome from "./TextHome";
+import { TypeAnimation } from "react-type-animation";
 
 ("use client");
 
@@ -231,13 +232,13 @@ export default function Homepage() {
 
                 {index === 0 && (
                   <div className="flex flex-col md:flex-row items-center justify-between relative w-full bg-white px-4 md:px-[300px] min-h-[100vh]">
-                     {/* <video 
+                      <video 
                     src="/src/assets/bubble2.mp4" 
                     autoPlay 
                     loop 
                     muted 
                     className="absolute inset-0 w-full h-full object-cover z-0"
-                  /> */}
+                  />
                     <div className="relative z-10 order-2 md:order-1">
                       <img
                         src="/src/assets/dogGif.gif"
@@ -255,9 +256,8 @@ export default function Homepage() {
                         <img
                           src="/src/assets/dog.png"
                           alt="img"
-                          className="md:block h-screen w-full object-contain md:h-screen md:aspect-auto"
+                          className="md:block h-screen w-full object-contain md:h-screen md:aspect-auto min-w-[500px] md:mx-[-40px]"
                         />
-                        {/* <PawPrint className="absolute top-[100px] left-[-100px] md:top-[-200px] md:left-[40px] z-10 md:h-[300px] md:w-[300px]" /> */}
                       </motion.div>
                     </div>
                     {/* <div className="hidden md:block absolute left-[250px] top-1/2 -translate-y-1/2 w-2/3 h-3/5 bg-orange-100 transform -skew-x-12 z-0" /> */}
@@ -266,7 +266,7 @@ export default function Homepage() {
                       <h1 className="text-lg md:text-xl mb-2 md:mb-4">
                         {content?.[0]} <span className="text-pink-600">{content?.[1]}</span>
                       </h1>
-                      <h2 className="text-[80px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-8">
+                      <h2 className="text-[80px] md:text-[150px] font-sans font-bold leading-tight mb-4 md:mb-4 md:mx-[-40px]">
                         {content?.[2]}
                       </h2>
                       <motion.button
