@@ -299,7 +299,11 @@
     "housingTypeInvalid": "Invalid housing type selected",
        "deliveryTypeRequired": "Please choose a delivery type",
     "deliveryTypeInvalid": "Invalid delivery type selected",
-    "why": "Please explain why you want to adopt"
+    "why": "Please explain why you want to adopt",
+    "fileTypeInvalid": "Invalid file type. Only JPEG, PNG, or GIF are allowed.",
+    "fileRequired": "Please upload at least one file.",
+    "fileSizeExceeded": "File size should not exceed 2 MB.",
+    "fileMinCount": "Please upload at least one file."
 
     },
    "history": {

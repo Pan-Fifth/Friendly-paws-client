@@ -51,6 +51,7 @@ const useAuthStore = create(persist((set, get) => ({
     actionLoginGoogle: async (token) => {
         try {
             const result = await loginGoogle(token);
+            console.log(result.data.user);
             if (result.data && result.data.token) {
                 set({
                     user: result.data.user,
@@ -68,8 +69,9 @@ const useAuthStore = create(persist((set, get) => ({
     },
     actionLoginFacebook: async (token, user) => {
         try {
+            console.log('user :>> ', user);
             set({
-                user: user,
+                user: { user: user },
                 token: token
             })
         } catch (err) {
