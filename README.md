@@ -1,5 +1,6 @@
 ## Friendly-Paws
 
+Friendly Paws is a comprehensive digital platform dedicated to supporting animal adoption, facilitating donations, and promoting events for a compassionate foundation. Our goal is to simplify the adoption process and enhance the foundation’s operations by providing an easy-to-use, mobile-friendly web platform
 ---
 ###### 
 
