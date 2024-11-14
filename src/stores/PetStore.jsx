@@ -46,9 +46,9 @@ const usePetStore = create(persist((set, get) => ({
             throw err;
         }
     },
-    actionGetAllPets: async (token) => {
+    actionGetAllPets: async (token,page) => {
         try {
-            const result = await getAllPet(token)
+            const result = await getAllPet(token,page)
             // console.log(result.data)
             set({ allPets: result.data })
             return result.data

@@ -129,9 +129,10 @@ export default function ManagePet() {
   const allPets = usePetStore(state => state.allPets);
   const token = useAuthStore(state => state.token);
   const [open, setOpen] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
-    actionGetAllPets(token)
+    actionGetAllPets(token,page)
   }, []);
 
   const hdlDeletePet = async (petId) => {
@@ -155,6 +156,25 @@ export default function ManagePet() {
     }
   }
 
+  const hdlPageChange = (n) => {
+    try {
+        if (page + n < 1) {
+            return;
+        }
+        if (n > 0 && allPets.length < 6) {
+            return;
+        }
+        actionGetAllPets(token, page);
+        setPage((prev) => prev + n);
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth",
+        });
+    } catch (err) {
+        return;
+    }
+};
+
   return (
     <div className="flex flex-col min-h-screen w-full">
       <AddPetDialog />
@@ -173,7 +193,31 @@ export default function ManagePet() {
             <PetTableRow key={pet.id} pet={pet} index={index} hdlDeletePet={hdlDeletePet} />
           ))}
         </div>
+        {/* button */}
+      <div className="mt-10">
+                <div className="flex justify-center items-center gap-2">
+                    {page > 1 &&
+                        <Button
+                            onClick={() => hdlPageChange(-1)}
+                            className="border text-xl"
+                        >
+                            ก่อนหน้า
+                        </Button>
+                    }
+                    <p className="text-2xl">หน้า {page}</p>
+                    {
+                      allPets?.length === 10 &&
+                        <Button
+                            onClick={() => hdlPageChange(+1)}
+                            className="border text-xl"
+                        >
+                            ถัดไป
+                        </Button>
+                    }
+                </div>
+            </div>
       </main>
+      
     </div>
   );
 }

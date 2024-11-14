@@ -9,9 +9,9 @@ export const getCurrentPet = (id) => {
     return axiosInstance.get(`/pet/${id}`)
 }
 
-export const getAllPet = (token) => {
+export const getAllPet = (token,page) => {
 
-    return axiosInstance.get(`/pet`, {
+    return axiosInstance.get(`/pet/page/${page}`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
