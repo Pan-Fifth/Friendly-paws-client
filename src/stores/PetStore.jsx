@@ -57,6 +57,7 @@ const usePetStore = create(persist((set, get) => ({
             throw err;
         }
     },
+
     actionCreatePet: async (token, formData) => {
         try {
             const result = await createPet(token, formData)
@@ -83,7 +84,7 @@ const usePetStore = create(persist((set, get) => ({
         } catch (err) {
             throw err;
         }
-    },adoptFormData: {
+    }, adoptFormData: {
         firstname: '',
         lastname: '',
         dateOfBirth: '',

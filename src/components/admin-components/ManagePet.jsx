@@ -94,11 +94,11 @@ const PetTableRow = ({ pet, index, hdlDeletePet }) => (
       />
     </div>
     <div>{pet.name_th}</div>
-   
+
     <div>{pet.breed_th}</div>
-   
+
     <div>{pet.description_th}</div>
-   
+
     <div>{pet.color}</div>
     <div>{pet.age ? new Date(pet.age).toISOString().split('T')[0].replace(/-/g, '/') : 'N/A'}</div>
     <div>{pet.gender}</div>
@@ -154,6 +154,7 @@ export default function ManagePet() {
       }
     }
   }
+  console.log('allPets :>> ', allPets);
 
   return (
     <div className="flex flex-col min-h-screen w-full">
@@ -177,4 +178,3 @@ export default function ManagePet() {
     </div>
   );
 }
-
