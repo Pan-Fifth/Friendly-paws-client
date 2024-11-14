@@ -333,6 +333,10 @@
  "footer": {
     "how":"How can we help ?",
     "conatct" : " Contact us anytime."
+  },
+  "loginWith" : {
+    "facebook": "Login with Facebook",
+    "google": "Login with Google"
   }
 }
   
