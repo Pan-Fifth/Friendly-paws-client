@@ -178,7 +178,7 @@ export default function Login() {
               <div className="relative hidden md:block">
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-500 to-pink-500 rounded-l-[8rem]">
                   <div className="p-8 text-white space-y-6 mt-20">
-                    <h2 className="text-4xl font-bold">Friendly Pow</h2>
+                    <h2 className="text-4xl font-bold">Friendly Paws</h2>
                     <p className="text-sm opacity-90">
                       {t("login.rightContentText")}
                     </p>
