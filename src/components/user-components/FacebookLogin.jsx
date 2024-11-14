@@ -3,9 +3,14 @@ import FacebookLogin from 'react-facebook-login';
 import { loginFacebook } from "../../apis/AuthApi";
 import { useNavigate } from 'react-router-dom';
 import useAuthStore from '@/src/stores/AuthStore';
+import { Button } from "@/components/ui/button"
+import { Facebook } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 
 function FacebookLoginButton() {
+    const { t } = useTranslation();
+
     const navigate = useNavigate();
     const actionLoginFacebook = useAuthStore((state) => state.actionLoginFacebook);
 
@@ -48,14 +53,18 @@ function FacebookLoginButton() {
                 fields="name,email"
                 callback={handleFacebookLogin}
                 icon="fa-facebook"
-                textButton="Login with Facebook"
+                textButton={t("loginWith.facebook")}
                 buttonStyle={{
-                    backgroundColor: '#4267B2',
+                    backgroundColor: '#1877F2',
                     padding: '10px 20px',
-                    borderRadius: '6px',
-                    color: 'white'
+                    borderRadius: '10px',
+                    color: 'white',
+                    width: '300px',
+                    fontSize: '14px'
                 }}
             />
+
+
         </div>
     );
 }
