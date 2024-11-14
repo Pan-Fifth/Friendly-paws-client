@@ -49,9 +49,9 @@ const AdoptDetail = () => {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1 }
   }
-
+console.log(currentPet)
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#ffeed8] via-white to-pink-100">
+    <div className=" bg-gradient-to-br from-[#ffeed8] via-white to-pink-100">
       <motion.div 
         initial="hidden"
         animate="visible"
@@ -141,10 +141,16 @@ const AdoptDetail = () => {
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl">
             <motion.h1 
               variants={itemVariants}
-              className="text-4xl font-bold text-gray-800 mb-8 flex items-center gap-2"
+              className="text-4xl font-bold text-gray-800 mb-8 flex flex-col items-center gap-2"
             >
+            <div className='flex gap-2'>
               <Sparkles className="text-pink-600" />
+              {language === 'th' ? (currentPet.name_th || currentPet.name_en) : currentPet.name_en || currentPet.name_th}
+            </div>
+              <hr/>
+              <div className=' self-start text-[25px]'>
               {language === 'th' ? (currentPet.description_th || currentPet.description_en) : currentPet.description_en || currentPet.description_th}
+              </div>
             </motion.h1>
 
             <div className="grid grid-cols-2 gap-6">

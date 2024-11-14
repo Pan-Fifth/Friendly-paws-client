@@ -39,7 +39,7 @@ function DesignCard({ name, image, id, gender, breed, onClickHandler }) {
               <div
                 key={index}
                 onClick={() => setCurrentImageIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${currentImageIndex === index ? 'bg-white' : 'bg-white/50'
+                className={`w-2 h-2 rounded-full transition-colors cursor-pointer ${currentImageIndex === index ? 'bg-white' : 'bg-white/50 '
                   }`}
               />
             ))}

@@ -15,7 +15,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { DialogFooter } from "@/components/ui/dialog";
 import usePetStore from "@/src/stores/PetStore";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { joiResolver } from './../../../node_modules/@hookform/resolvers/joi/src/joi';
 import adoptFormAuthen from "../../utils/AdoptFormValidate";
@@ -47,7 +47,7 @@ export function AdoptFormContent({
   formatError,
 }) {
 
-  console.log(formatError, "this is formatError")
+  const submitButton = useRef(null)
 
   const [input, setInput] = useState(usePetStore((state) => state.adoptFormData));
   const [houseCheck, setHouseCheck] = useState(
@@ -527,7 +527,7 @@ export function AdoptFormContent({
           )}
         </FormSection>
         <DialogFooter>
-          <Button type="submit" className="bg-pink-600 text-white hover:bg-pink-700">
+          <Button type="submit" className="bg-pink-600 text-white hover:bg-pink-700 hidden" ref={submitButton}>
             <Heart className="w-5 h-5 mr-2" />
             {t("adoptForm.submitApplication")}
           </Button>
@@ -539,7 +539,7 @@ export function AdoptFormContent({
         title={t("adoptForm.uploadImages")}
       >
         <div className="space-y-4">
-          <Button onClick={hdlAddClick} type="button" className="bg-pink-600 text-white">
+          <Button onClick={hdlAddClick} type="button" className="bg-pink-600 text-white mr-5">
             <Camera className="w-5 h-5 mr-2" />
             {t("adoptForm.addPicture")}
           </Button>
@@ -571,6 +571,12 @@ export function AdoptFormContent({
               ))}
             </div>
           )}
+
+          <Button onClick={() => submitButton.current.click()}  className="bg-pink-600 text-white hover:bg-pink-700 " >
+            <Heart className="w-5 h-5 mr-2" />
+            {t("adoptForm.submitApplication")}
+          </Button>
+      
           {/* {errors.files && (
          <span className="text-red-500 text-sm">{errors.files.message}</span>
        )} */}
