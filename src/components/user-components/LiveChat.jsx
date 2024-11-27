@@ -8,7 +8,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { useNavigate } from 'react-router-dom';
 import Draggable from 'react-draggable';
 
-console.log("Check")
+
 const genAI = new GoogleGenerativeAI(import.meta.env.VITE_GOOGLE_AI_API);
 
 const LiveChat = forwardRef((props, ref) => {
@@ -134,7 +134,7 @@ const LiveChat = forwardRef((props, ref) => {
     }
   
     const parts = message.text.split(/(\[[^\]]+\]\([^)]+\))/g);
-  
+    console.log("Check")
     return (
       <div className="bg-muted rounded-lg px-4 py-2 max-w-[80%] break-words whitespace-pre-wrap">
         {parts.map((part, index) => {
